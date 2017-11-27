@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+.jumbotron {
+  background-image: url("./assets/mainbg.png");
+  background-size: cover;
+}
+
+select:required:invalid {
+  color: gray;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: black;
+}
+
+.search-card {
+  /* background-color: rgba(92, 184, 92, 0.4) !important;  */
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
