@@ -1,3 +1,4 @@
+require('dotenv').config();
 // Get dependencies
 // Get dependencies
 import * as express from 'express';
