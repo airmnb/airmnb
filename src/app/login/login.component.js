@@ -46,16 +46,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("../api.service");
+var session_service_1 = require("../session.service");
+var router_1 = require("@angular/router");
 var LoginComponent = (function () {
-    function LoginComponent(loginService) {
+    function LoginComponent(loginService, sessionService, router) {
         this.loginService = loginService;
+        this.sessionService = sessionService;
+        this.router = router;
         this.model = { name: null, password: null };
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var account, e_1;
+            var account, routeUrl, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -66,11 +70,16 @@ var LoginComponent = (function () {
                         return [4 /*yield*/, this.loginService.login(this.model)];
                     case 2:
                         account = _a.sent();
-                        this.submitted = false;
+                        this.sessionService.account = account;
+                        routeUrl = account.type === 'provider' ? 'provider' :
+                            account.type === 'consumer' ? 'consumer' :
+                                '';
+                        this.router.navigateByUrl(routeUrl);
                         return [3 /*break*/, 4];
                     case 3:
                         e_1 = _a.sent();
                         console.log(e_1);
+                        this.submitted = false;
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
@@ -79,11 +88,11 @@ var LoginComponent = (function () {
     };
     LoginComponent = __decorate([
         core_1.Component({
-            selector: 'app-login',
+            selector: 'amb-login',
             templateUrl: './login.component.html',
             styleUrls: ['./login.component.css']
         }),
-        __metadata("design:paramtypes", [api_service_1.LoginService])
+        __metadata("design:paramtypes", [api_service_1.LoginService, session_service_1.SessionService, router_1.Router])
     ], LoginComponent);
     return LoginComponent;
 }());

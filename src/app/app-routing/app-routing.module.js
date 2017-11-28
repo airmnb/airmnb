@@ -12,6 +12,8 @@ var router_1 = require("@angular/router");
 var home_component_1 = require("../home/home.component");
 var login_component_1 = require("../login/login.component");
 var signup_component_1 = require("../signup/signup.component");
+var provider_dashboard_component_1 = require("../provider-dashboard/provider-dashboard.component");
+var consumer_dashboard_component_1 = require("../consumer-dashboard/consumer-dashboard.component");
 var routes = [
     {
         path: '',
@@ -24,7 +26,15 @@ var routes = [
     {
         path: 'signup',
         component: signup_component_1.SignupComponent
-    }
+    },
+    {
+        path: 'provider',
+        component: provider_dashboard_component_1.ProviderDashboardComponent
+    },
+    {
+        path: 'consumer',
+        component: consumer_dashboard_component_1.ConsumerDashboardComponent
+    },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

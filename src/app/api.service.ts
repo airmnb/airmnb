@@ -14,8 +14,34 @@ export class ApiService {
     this.apiUrl = API_URL_BASE + '/data/' + name;
    }
 
-  public async add(item): Promise<Response> {
-    return await this.http.post(this.apiUrl, item).toPromise();
+  public async add(item): Promise<string> {
+    const resp = await this.http.post(this.apiUrl, item).toPromise();
+    const body = resp.json();
+    if (resp.status === 201) {
+      return body;
+    } else {
+      throw new Error(body);
+    }
+  }
+
+  public async getOne(id: string): Promise<any> {
+    const resp = await this.http.get(this.apiUrl + '/' + id).toPromise();
+    const body = resp.json();
+    if (resp.status === 200) {
+      return body;
+    } else {
+      throw new Error(body);
+    }
+  }
+
+  public async get(query: any): Promise<any> {
+    const resp = await this.http.get(this.apiUrl, {params: query}).toPromise();
+    const body = resp.json();
+    if (resp.status === 200) {
+      return body;
+    } else {
+      throw new Error(body);
+    }
   }
 }
 

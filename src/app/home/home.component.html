@@ -8,31 +8,33 @@
     <div class="row">
       <div class="card transparent-card col-md-6">
         <div class="card-block">
-          <form class="container">
+          <form class="container" (ngSubmit)="onSubmit">
+              <fieldset [disabled]="submitted">
             <div class="row form-group">
-              <input class="form-control col-md-12" type="text" placeholder="Location">
+              <input class="form-control col-md-12" type="text" placeholder="Location" required [(ngModel)]="model.location" name="location">
             </div>
             <div class="row form-group">
-              <select class="custom-select col-md-7">
+              <select class="custom-select col-md-7" [(ngModel)]="model.age" name="age">
                 <option value="-1" disabled selected>Select age range</option>
                 <option value="0">0-1</option>
                 <option value="1">1-2</option>
                 <option value="2">2-3</option>
                 <option value="3">3-4</option>
-                <option value="3">4-5</option>
-                <option value="3">5-6</option>
-                <option value="3">&gt; 6</option>
+                <option value="4">4-5</option>
+                <option value="5">5-6</option>
+                <option value="6">&gt; 6</option>
               </select>
               <div class="col-md-1"></div>
-              <select class="custom-select col-md-4">
-                <option value="0" disabled selected>Select gender</option>
-                <option value="1">Boy</option>
-                <option value="2">Girl</option>
+              <select class="custom-select col-md-4" [(ngModel)]="model.gender" name="gender">
+                <option value="-1" disabled selected>Select gender</option>
+                <option value="0">Boy</option>
+                <option value="1">Girl</option>
               </select>
             </div>
             <div class="row form-group">
               <button class="btn btn-success col-md-12 btn-block" type="submit">Search</button>
             </div>
+            </fieldset>
           </form>
         </div>
       </div>

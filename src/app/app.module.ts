@@ -10,6 +10,9 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ApiService, ApiServiceFactory, LoginService} from "./api.service";
 import { SessionService } from './session.service';
+import { ProviderDashboardComponent } from './provider-dashboard/provider-dashboard.component';
+import { ConsumerDashboardComponent } from './consumer-dashboard/consumer-dashboard.component';
+import { MapServiceService } from './map-service.service';
 
 
 @NgModule({
@@ -17,7 +20,9 @@ import { SessionService } from './session.service';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ProviderDashboardComponent,
+    ConsumerDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,7 @@ import { SessionService } from './session.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ApiService, ApiServiceFactory, LoginService, SessionService],
+  providers: [ApiService, ApiServiceFactory, LoginService, SessionService, MapServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

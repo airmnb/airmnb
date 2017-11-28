@@ -10,20 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var HomeComponent = (function () {
-    function HomeComponent() {
+var ProviderDashboardComponent = (function () {
+    function ProviderDashboardComponent() {
     }
-    HomeComponent.prototype.ngOnInit = function () {
+    ProviderDashboardComponent.prototype.ngOnInit = function () {
     };
-    HomeComponent = __decorate([
+    ProviderDashboardComponent = __decorate([
         core_1.Component({
-            selector: 'amb-home',
-            templateUrl: './home.component.html',
-            styleUrls: ['./home.component.css']
+            selector: 'app-provider-dashboard',
+            templateUrl: './provider-dashboard.component.html',
+            styleUrls: ['./provider-dashboard.component.css']
         }),
         __metadata("design:paramtypes", [])
-    ], HomeComponent);
-    return HomeComponent;
+    ], ProviderDashboardComponent);
+    return ProviderDashboardComponent;
 }());
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.ProviderDashboardComponent = ProviderDashboardComponent;
+//# sourceMappingURL=provider-dashboard.component.js.map

@@ -16,6 +16,9 @@ var home_component_1 = require("./home/home.component");
 var login_component_1 = require("./login/login.component");
 var signup_component_1 = require("./signup/signup.component");
 var api_service_1 = require("./api.service");
+var session_service_1 = require("./session.service");
+var provider_dashboard_component_1 = require("./provider-dashboard/provider-dashboard.component");
+var consumer_dashboard_component_1 = require("./consumer-dashboard/consumer-dashboard.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,7 +28,9 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 home_component_1.HomeComponent,
                 login_component_1.LoginComponent,
-                signup_component_1.SignupComponent
+                signup_component_1.SignupComponent,
+                provider_dashboard_component_1.ProviderDashboardComponent,
+                consumer_dashboard_component_1.ConsumerDashboardComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -33,7 +38,7 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 app_routing_module_1.AppRoutingModule
             ],
-            providers: [api_service_1.ApiService, api_service_1.ApiServiceFactory, api_service_1.LoginService],
+            providers: [api_service_1.ApiService, api_service_1.ApiServiceFactory, api_service_1.LoginService, session_service_1.SessionService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

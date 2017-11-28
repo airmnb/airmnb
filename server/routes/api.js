@@ -15,22 +15,18 @@ exports.router.post('/data/:typeName', function (req, res) {
     var typeName = req.params.typeName;
     var item = req.body;
     if (!typeName) {
-        res.status(400);
-        res.end('No typeName detected from routing URL.');
+        res.status(400).end('No typeName detected from routing URL.');
     }
     if (!item) {
-        res.status(400);
-        res.end('No body detected from the request.');
+        res.status(400).end('No body detected from the request.');
     }
     var gateway = gateway_1.dataGatewayFactory.produce(typeName);
     gateway.create(item)
         .then(function (id) {
-        res.status(201);
-        res.json(id);
+        res.status(201).json(id);
     })
         .catch(function (e) {
-        res.status(500);
-        res.json(e);
+        res.status(500).json(e);
     });
 });
 /**
@@ -42,12 +38,10 @@ exports.router.get('/data/:typeName', function (req, res) {
     var gateway = gateway_1.dataGatewayFactory.produce(typeName);
     gateway.queryOne(query)
         .then(function (x) {
-        res.status(200);
         res.json(x);
     })
         .catch(function (e) {
-        res.status(500);
-        res.json(e);
+        res.status(500).json(e);
     });
 });
 /**
@@ -59,12 +53,10 @@ exports.router.get('/data/:typeName/list', function (req, res) {
     var gateway = gateway_1.dataGatewayFactory.produce(typeName);
     gateway.query(query)
         .then(function (list) {
-        res.status(200);
         res.json(list);
     })
         .catch(function (e) {
-        res.status(500);
-        res.json(e);
+        res.status(500).json(e);
     });
 });
 /**
@@ -76,12 +68,10 @@ exports.router.get('/data/:typeName/:id', function (req, res) {
     var gateway = gateway_1.dataGatewayFactory.produce(typeName);
     gateway.queryOne(query)
         .then(function (x) {
-        res.status(200);
         res.json(x);
     })
         .catch(function (e) {
-        res.status(500);
-        res.json(e);
+        res.status(500).json(e);
     });
 });
 /**
@@ -90,8 +80,7 @@ exports.router.get('/data/:typeName/:id', function (req, res) {
 exports.router.post('/login', function (req, res) {
     var info = req.body;
     if (!info || !info.name || !info.password) {
-        res.status(400);
-        res.end('Invalid request.');
+        res.sendStatus(400);
     }
     var accountGateway = gateway_1.dataGatewayFactory.produce('account');
     var query = {
@@ -101,11 +90,15 @@ exports.router.post('/login', function (req, res) {
     accountGateway.queryOne(query)
         .then(function (x) {
         delete x.secret;
-        res.json(x);
+        if (x.enabled) {
+            res.json(x);
+        }
+        else {
+            res.sendStatus(404);
+        }
     })
         .catch(function (e) {
-        res.status(500);
-        res.json(e);
+        res.status(500).json(e);
     });
 });
 //# sourceMappingURL=api.js.map

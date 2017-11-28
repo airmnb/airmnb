@@ -47,45 +47,57 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var uuid = require("uuid");
 var api_service_1 = require("../api.service");
+var router_1 = require("@angular/router");
+var session_service_1 = require("../session.service");
 var SignupComponent = (function () {
-    function SignupComponent(apiServiceFactory) {
+    function SignupComponent(apiServiceFactory, sessionService, router) {
+        this.sessionService = sessionService;
+        this.router = router;
         this.model = { id: uuid.v4(), name: null, email: null, enabled: true, secret: null, type: null };
         this.submitted = false;
-        this.apiService = apiServiceFactory.produce("account");
+        this.accountApi = apiServiceFactory.produce("account");
     }
     SignupComponent.prototype.ngOnInit = function () {
     };
     SignupComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var e_1;
+            var id, account, routeUrl, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.submitted = true;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.apiService.add(this.model)];
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.accountApi.add(this.model)];
                     case 2:
-                        _a.sent();
-                        this.submitted = false;
-                        return [3 /*break*/, 4];
+                        id = _a.sent();
+                        return [4 /*yield*/, this.accountApi.getOne(id)];
                     case 3:
+                        account = _a.sent();
+                        this.sessionService.account = account;
+                        routeUrl = account.type === 'provider' ? 'provider' :
+                            account.type === 'consumer' ? 'consumer' :
+                                '';
+                        this.router.navigateByUrl(routeUrl);
+                        return [3 /*break*/, 5];
+                    case 4:
                         e_1 = _a.sent();
                         console.log(e_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        this.submitted = false;
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
     };
     SignupComponent = __decorate([
         core_1.Component({
-            selector: 'app-signup',
+            selector: 'amb-signup',
             templateUrl: './signup.component.html',
             styleUrls: ['./signup.component.css']
         }),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory])
+        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory, session_service_1.SessionService, router_1.Router])
     ], SignupComponent);
     return SignupComponent;
 }());
