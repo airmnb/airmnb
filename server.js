@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 require('dotenv').config();
 // Get dependencies
 // Get dependencies
@@ -34,3 +34,4 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 server.listen(port, function () { return console.log("API running on localhost:" + port); });
+//# sourceMappingURL=server.js.map

@@ -28,7 +28,8 @@ export interface Baby extends HumanBio {
 }
 
 export interface Account {
-	id: string;
+  id: string;
+  name: string;
 	secret: string;
 	enabled: boolean;
 	type: "provider" | "consumer";

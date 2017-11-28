@@ -8,3 +8,4 @@ const connectionString = process.env.AMB_MONGO_DB_CONNECTION_STRING;
 const dbPromise = mongo.MongoClient.connect(connectionString);
 
 export const dataGatewayFactory = new GenericRepoFactory(dbPromise);
+

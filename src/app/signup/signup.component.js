@@ -1,14 +1,13 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -45,31 +44,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var DataGateway_1 = require("./DataGateway");
-var AccountGateway = (function (_super) {
-    __extends(AccountGateway, _super);
-    function AccountGateway() {
-        return _super.call(this, 'users') || this;
+var core_1 = require("@angular/core");
+var uuid = require("uuid");
+var api_service_1 = require("../api.service");
+var SignupComponent = (function () {
+    function SignupComponent(apiServiceFactory) {
+        this.model = { id: uuid.v4(), name: null, email: null, enabled: true, secret: null, type: null };
+        this.submitted = false;
+        this.apiService = apiServiceFactory.produce("account");
     }
-    AccountGateway.prototype.find = function (name, password) {
+    SignupComponent.prototype.ngOnInit = function () {
+    };
+    SignupComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var query, users;
+            var e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        query = { name: name, password: password };
-                        return [4 /*yield*/, this.repo().query(query, 1)];
+                        this.submitted = true;
+                        _a.label = 1;
                     case 1:
-                        users = _a.sent();
-                        if (users && users.length) {
-                            return [2 /*return*/, users[0]];
-                        }
-                        throw new Error("Invalid sign in");
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.apiService.add(this.model)];
+                    case 2:
+                        _a.sent();
+                        this.submitted = false;
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _a.sent();
+                        console.log(e_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    return AccountGateway;
-}(DataGateway_1.DataGatewayBase));
-exports.accountGateway = new AccountGateway();
-//# sourceMappingURL=accountGateway.js.map
+    Object.defineProperty(SignupComponent.prototype, "diagnostic", {
+        get: function () { return JSON.stringify(this.model); },
+        enumerable: true,
+        configurable: true
+    });
+    SignupComponent = __decorate([
+        core_1.Component({
+            selector: 'app-signup',
+            templateUrl: './signup.component.html',
+            styleUrls: ['./signup.component.css']
+        }),
+        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory])
+    ], SignupComponent);
+    return SignupComponent;
+}());
+exports.SignupComponent = SignupComponent;
+//# sourceMappingURL=signup.component.js.map

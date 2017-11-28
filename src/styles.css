@@ -14,7 +14,15 @@ option {
   color: black;
 }
 
-.search-card {
+.transparent-card {
   /* background-color: rgba(92, 184, 92, 0.4) !important;  */
   background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
 }

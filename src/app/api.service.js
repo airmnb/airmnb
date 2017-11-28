@@ -1,14 +1,13 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -45,31 +44,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var DataGateway_1 = require("./DataGateway");
-var AccountGateway = (function (_super) {
-    __extends(AccountGateway, _super);
-    function AccountGateway() {
-        return _super.call(this, 'users') || this;
+var core_1 = require("@angular/core");
+var environment_1 = require("../environments/environment");
+var http_1 = require("@angular/http");
+var API_URL_BASE = environment_1.environment.apiUrl.replace(/\/$/, "") + '/';
+var ApiService = (function () {
+    function ApiService(name, http) {
+        this.name = name;
+        this.http = http;
+        this.apiUrl = API_URL_BASE + name;
     }
-    AccountGateway.prototype.find = function (name, password) {
+    ApiService.prototype.add = function (item) {
         return __awaiter(this, void 0, void 0, function () {
-            var query, users;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        query = { name: name, password: password };
-                        return [4 /*yield*/, this.repo().query(query, 1)];
-                    case 1:
-                        users = _a.sent();
-                        if (users && users.length) {
-                            return [2 /*return*/, users[0]];
-                        }
-                        throw new Error("Invalid sign in");
+                    case 0: return [4 /*yield*/, this.http.post(this.apiUrl, item).toPromise()];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    return AccountGateway;
-}(DataGateway_1.DataGatewayBase));
-exports.accountGateway = new AccountGateway();
-//# sourceMappingURL=accountGateway.js.map
+    ApiService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [String, http_1.Http])
+    ], ApiService);
+    return ApiService;
+}());
+exports.ApiService = ApiService;
+var ApiServiceFactory = (function () {
+    function ApiServiceFactory(http) {
+        this.http = http;
+        this.pool = new Map();
+    }
+    ApiServiceFactory.prototype.produce = function (name) {
+        var service = this.pool.get(name);
+        if (!service) {
+            service = new ApiService(name, this.http);
+            this.pool.set(name, service);
+        }
+        return service;
+    };
+    ApiServiceFactory = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], ApiServiceFactory);
+    return ApiServiceFactory;
+}());
+exports.ApiServiceFactory = ApiServiceFactory;
+//# sourceMappingURL=api.service.js.map

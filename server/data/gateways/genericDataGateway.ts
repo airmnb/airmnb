@@ -42,10 +42,6 @@ class GenericDataGateway implements IGenericDataGateway {
   }
 
   async create(item: any): Promise < string > {
-    if (item.id) {
-      throw new Error(`To create an object, id must not be specified.`);
-    }
-    item.id = uuid.v4();
     const created = await this.upsert(item, true);
     return created.id;
   }
