@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { ApiService, ApiServiceFactory} from "./api.service";
+import { ApiService, ApiServiceFactory, LoginService} from "./api.service";
+import { SessionService } from './session.service';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { ApiService, ApiServiceFactory} from "./api.service";
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ApiService, ApiServiceFactory],
+  providers: [ApiService, ApiServiceFactory, LoginService, SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

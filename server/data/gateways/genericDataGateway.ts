@@ -4,6 +4,7 @@ import * as uuid from 'uuid';
 export interface IGenericDataGateway {
   list(limit ?: number, sort ?: any): Promise < any[] > ;
   get(id: string): Promise < any > ;
+  queryOne(query: any, sort ?: any): Promise<any>;
   query(query: any, limit ?: number, sort ?: any): Promise < any[] > ;
   create(item: any): Promise < string > ;
   update(item: any): Promise < any > ;
@@ -42,6 +43,7 @@ class GenericDataGateway implements IGenericDataGateway {
   }
 
   async create(item: any): Promise < string > {
+    item.id = item.id || uuid.v4();
     const created = await this.upsert(item, true);
     return created.id;
   }
@@ -76,6 +78,15 @@ class GenericDataGateway implements IGenericDataGateway {
       id: item.id
     }, item, option);
     return item;
+  }
+
+  async queryOne(query: any, sort: any = {}): Promise < any[] > {
+    const collection = await this.getCollection();
+    const result = await collection.find(query)
+      .sort(sort)
+      .limit(1)
+      .toArray();
+    return result.length ? result[0] : null;
   }
 
   async query(query: any, limit: number = 1000, sort: any = {}): Promise < any[] > {

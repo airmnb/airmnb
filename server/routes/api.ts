@@ -1,6 +1,6 @@
 'user strict';
 import * as express from 'express';
-import { Account } from "../../types";
+import { Account, LoginInfo } from "../../types";
 import { dataGatewayFactory } from "../data/gateway";
 export const router = express.Router();
 
@@ -9,19 +9,102 @@ router.get('/', (req, res) => {
   res.send('OK');
 });
 
-router.post('/account', (req, res) => {
-  const item: Account = req.body;
-  console.log(item);
+/**
+ * Generic creating data
+ */
+router.post('/data/:typeName', (req, res) => {
+  const typeName = req.params.typeName;
+  const item = req.body;
+  if (!typeName){
+    res.status(400).end('No typeName detected from routing URL.');
+  }
+  if (!item) {
+    res.status(400).end('No body detected from the request.');
+  }
 
-  const gateway = dataGatewayFactory.produce('account');
+  const gateway = dataGatewayFactory.produce(typeName);
   gateway.create(item)
-    .then(x => {
-      res.status(201);
+    .then(id => {
+      res.status(201).json(id);
     })
     .catch(e => {
-      console.log(e);
-      res.status(500);
-      res.end(e);
+      res.status(500).json(e);
+    });
+});
+
+/**
+ * Generic get one object
+ */
+router.get('/data/:typeName', (req, res) => {
+  const typeName = req.params.typeName;
+  const query = req.query || {};
+  const gateway = dataGatewayFactory.produce(typeName);
+  gateway.queryOne(query)
+  .then(x => {
+    res.json(x);
+  })
+  .catch(e => {
+    res.status(500).json(e);
+  });
+});
+
+/**
+ * Generic list objects by query
+ */
+router.get('/data/:typeName/list', (req, res) => {
+  const typeName = req.params.typeName;
+  const query = req.query || {};
+  const gateway = dataGatewayFactory.produce(typeName);
+  gateway.query(query)
+  .then(list => {
+    res.json(list);
+  })
+  .catch(e => {
+    res.status(500).json(e);
+  });
+});
+
+/**
+ * Generic get one object by id
+ */
+router.get('/data/:typeName/:id', (req, res) => {
+  const typeName = req.params.typeName;
+  const query = {id: req.params.id};
+  const gateway = dataGatewayFactory.produce(typeName);
+  gateway.queryOne(query)
+  .then(x => {
+    res.json(x);
+  })
+  .catch(e => {
+    res.status(500).json(e);
+  });
+});
+
+/**
+ * Login
+ */
+router.post('/login', (req, res) => {
+  const info: LoginInfo = req.body;
+  if (!info || !info.name || !info.password) {
+    res.sendStatus(400);
+  }
+
+  const accountGateway = dataGatewayFactory.produce('account');
+  const query = {
+    name: info.name,
+    secret: info.password
+  };
+  accountGateway.queryOne(query)
+    .then((x: Account) => {
+      delete x.secret;
+      if (x.enabled){
+        res.json(x);
+      }else {
+        res.sendStatus(404);
+      }
+    })
+    .catch(e => {
+      res.status(500).json(e);
     });
 });
 

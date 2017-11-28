@@ -33,7 +33,7 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 app_routing_module_1.AppRoutingModule
             ],
-            providers: [api_service_1.ApiService, api_service_1.ApiServiceFactory],
+            providers: [api_service_1.ApiService, api_service_1.ApiServiceFactory, api_service_1.LoginService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

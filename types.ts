@@ -27,6 +27,11 @@ export interface Baby extends HumanBio {
 	dislike?: string;
 }
 
+export interface LoginInfo {
+  name: string;
+  password: string;
+}
+
 export interface Account {
   id: string;
   name: string;

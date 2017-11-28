@@ -35,6 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var uuid = require("uuid");
 var GenericRepoFactory = (function () {
     function GenericRepoFactory(dbPromise) {
         this.dbPromise = dbPromise;
@@ -96,7 +97,9 @@ var GenericDataGateway = (function () {
             var created;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.upsert(item, true)];
+                    case 0:
+                        item.id = item.id || uuid.v4();
+                        return [4 /*yield*/, this.upsert(item, true)];
                     case 1:
                         created = _a.sent();
                         return [2 /*return*/, created.id];
@@ -162,6 +165,26 @@ var GenericDataGateway = (function () {
                     case 2:
                         result = _a.sent();
                         return [2 /*return*/, item];
+                }
+            });
+        });
+    };
+    GenericDataGateway.prototype.queryOne = function (query, sort) {
+        if (sort === void 0) { sort = {}; }
+        return __awaiter(this, void 0, void 0, function () {
+            var collection, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getCollection()];
+                    case 1:
+                        collection = _a.sent();
+                        return [4 /*yield*/, collection.find(query)
+                                .sort(sort)
+                                .limit(1)
+                                .toArray()];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/, result.length ? result[0] : null];
                 }
             });
         });

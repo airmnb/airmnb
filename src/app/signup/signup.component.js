@@ -79,11 +79,6 @@ var SignupComponent = (function () {
             });
         });
     };
-    Object.defineProperty(SignupComponent.prototype, "diagnostic", {
-        get: function () { return JSON.stringify(this.model); },
-        enumerable: true,
-        configurable: true
-    });
     SignupComponent = __decorate([
         core_1.Component({
             selector: 'app-signup',

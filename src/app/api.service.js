@@ -47,12 +47,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var environment_1 = require("../environments/environment");
 var http_1 = require("@angular/http");
-var API_URL_BASE = environment_1.environment.apiUrl.replace(/\/$/, "") + '/';
+// environment.apiUrl is like http://localhost:3000/api/
+var API_URL_BASE = environment_1.environment.apiUrl.replace(/\/$/, "");
 var ApiService = (function () {
     function ApiService(name, http) {
         this.name = name;
         this.http = http;
-        this.apiUrl = API_URL_BASE + name;
+        this.apiUrl = API_URL_BASE + '/data/' + name;
     }
     ApiService.prototype.add = function (item) {
         return __awaiter(this, void 0, void 0, function () {
@@ -91,4 +92,38 @@ var ApiServiceFactory = (function () {
     return ApiServiceFactory;
 }());
 exports.ApiServiceFactory = ApiServiceFactory;
+var LoginService = (function () {
+    function LoginService(http) {
+        this.http = http;
+        this.apiUrl = API_URL_BASE + '/login';
+    }
+    LoginService.prototype.login = function (info) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp, json;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('login info', info);
+                        return [4 /*yield*/, this.http.post(this.apiUrl, info).toPromise()];
+                    case 1:
+                        resp = _a.sent();
+                        if (resp.status === 200) {
+                            json = resp.text();
+                            return [2 /*return*/, JSON.parse(json)];
+                        }
+                        else {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    LoginService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], LoginService);
+    return LoginService;
+}());
+exports.LoginService = LoginService;
 //# sourceMappingURL=api.service.js.map
