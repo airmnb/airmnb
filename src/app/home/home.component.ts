@@ -13,7 +13,16 @@ export class HomeComponent implements OnInit {
   public model = {
     location: '',
     age: -1,
-    gender: -1
+    gender: -1,
+    date: new Date(),
+    timeFrom: {
+      hour: 0,
+      minute: 0
+    },
+    timeTo: {
+      hour: 0,
+      minute: 0
+    },
   };
   constructor(private sessionService: SessionService, private router: Router, private mapService: MapServiceService) { }
 

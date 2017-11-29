@@ -16,7 +16,8 @@ import { ProviderDashboardComponent } from './provider-dashboard/provider-dashbo
 import { ConsumerDashboardComponent } from './consumer-dashboard/consumer-dashboard.component';
 import { MapServiceService } from './map-service.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    NgbModule.forRoot(),
+    AngularFontAwesomeModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot(),
     AppRoutingModule
