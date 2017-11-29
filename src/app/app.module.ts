@@ -16,8 +16,9 @@ import { ProviderDashboardComponent } from './provider-dashboard/provider-dashbo
 import { ConsumerDashboardComponent } from './consumer-dashboard/consumer-dashboard.component';
 import { MapServiceService } from './map-service.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 
 @NgModule({
   declarations: [
@@ -27,13 +28,16 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     SignupComponent,
     ProviderDashboardComponent,
     ConsumerDashboardComponent,
-    AboutusComponent
+    AboutusComponent,
+    DateTimePickerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    NgbDatepickerModule.forRoot(),
+    NgbTimepickerModule.forRoot(),
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot(),

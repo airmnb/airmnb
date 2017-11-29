@@ -5,7 +5,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as http from 'http';
 import * as bodyParser from 'body-parser';
-
+import { environment } from './src/environments/environment';
 // Get our API routes
 import * as api from './server/routes/api';
 
