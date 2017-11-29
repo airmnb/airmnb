@@ -61,32 +61,38 @@ var SignupComponent = (function () {
     };
     SignupComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var id, account, routeUrl, e_1;
+            var dup, id, account, routeUrl, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.submitted = true;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, this.accountApi.add(this.model)];
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, this.accountApi.get({ name: this.model.name })];
                     case 2:
+                        dup = _a.sent();
+                        if (dup) {
+                            throw new Error('The account has be registered.');
+                        }
+                        return [4 /*yield*/, this.accountApi.add(this.model)];
+                    case 3:
                         id = _a.sent();
                         return [4 /*yield*/, this.accountApi.getOne(id)];
-                    case 3:
+                    case 4:
                         account = _a.sent();
                         this.sessionService.account = account;
                         routeUrl = account.type === 'provider' ? 'provider' :
                             account.type === 'consumer' ? 'consumer' :
                                 '';
                         this.router.navigateByUrl(routeUrl);
-                        return [3 /*break*/, 5];
-                    case 4:
+                        return [3 /*break*/, 6];
+                    case 5:
                         e_1 = _a.sent();
                         console.log(e_1);
                         this.submitted = false;
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });

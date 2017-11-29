@@ -45,58 +45,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var session_service_1 = require("../session.service");
-var map_service_service_1 = require("../map-service.service");
-var HomeComponent = (function () {
-    function HomeComponent(sessionService, router, mapService) {
-        this.sessionService = sessionService;
-        this.router = router;
-        this.mapService = mapService;
-        this.submitted = false;
-        this.model = {
-            location: '',
-            age: -1,
-            gender: -1
-        };
+var http_1 = require("@angular/http");
+var MapServiceService = (function () {
+    function MapServiceService(http) {
+        this.http = http;
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        // Get the current geolocation
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
-        }
-    };
-    HomeComponent.prototype.setPosition = function (position) {
-        var _this = this;
-        var coords = position.coords;
-        this.mapService.getAddress(coords)
-            .then(function (x) { return _this.model.location = x; })
-            .catch(function (e) { return _this.model.location = null; });
-    };
-    HomeComponent.prototype.onSubmit = function () {
+    MapServiceService.prototype.getAddress = function (coordinate) {
         return __awaiter(this, void 0, void 0, function () {
+            var googleMapApi, queryString, resp, obj;
             return __generator(this, function (_a) {
-                this.submitted = true;
-                try {
-                    this.router.navigateByUrl('consumer');
+                switch (_a.label) {
+                    case 0:
+                        googleMapApi = 'http://maps.googleapis.com/maps/api/geocode/json';
+                        queryString = {
+                            latlng: coordinate.latitude + ',' + coordinate.longitude
+                        };
+                        return [4 /*yield*/, this.http.get(googleMapApi, { params: queryString }).toPromise()];
+                    case 1:
+                        resp = _a.sent();
+                        if (resp.status === 200) {
+                            obj = resp.json();
+                            return [2 /*return*/, obj.results[0].formatted_address];
+                        }
+                        return [2 /*return*/, null];
                 }
-                catch (e) {
-                    console.log(e);
-                    this.submitted = false;
-                }
-                return [2 /*return*/];
             });
         });
     };
-    HomeComponent = __decorate([
-        core_1.Component({
-            selector: 'amb-home',
-            templateUrl: './home.component.html',
-            styleUrls: ['./home.component.css']
-        }),
-        __metadata("design:paramtypes", [session_service_1.SessionService, router_1.Router, map_service_service_1.MapServiceService])
-    ], HomeComponent);
-    return HomeComponent;
+    MapServiceService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], MapServiceService);
+    return MapServiceService;
 }());
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.MapServiceService = MapServiceService;
+//# sourceMappingURL=map-service.service.js.map

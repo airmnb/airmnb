@@ -95,6 +95,26 @@ var ApiService = (function () {
             });
         });
     };
+    ApiService.prototype.get = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp, body;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.get(this.apiUrl, { params: query }).toPromise()];
+                    case 1:
+                        resp = _a.sent();
+                        body = resp.json();
+                        if (resp.status === 200) {
+                            return [2 /*return*/, body];
+                        }
+                        else {
+                            throw new Error(body);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ApiService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [String, http_1.Http])

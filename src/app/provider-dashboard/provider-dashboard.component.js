@@ -10,18 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var api_service_1 = require("../api.service");
+var session_service_1 = require("../session.service");
 var ProviderDashboardComponent = (function () {
-    function ProviderDashboardComponent() {
+    function ProviderDashboardComponent(apiServiceFactory, sessionService, router) {
+        this.sessionService = sessionService;
+        this.router = router;
+        this.viewDate = new Date();
+        this.events = [];
+        this.slotApi = apiServiceFactory.produce("slot");
     }
     ProviderDashboardComponent.prototype.ngOnInit = function () {
     };
     ProviderDashboardComponent = __decorate([
         core_1.Component({
-            selector: 'app-provider-dashboard',
+            selector: 'amb-provider-dashboard',
             templateUrl: './provider-dashboard.component.html',
-            styleUrls: ['./provider-dashboard.component.css']
+            styleUrls: ['./provider-dashboard.component.css', '../../../node_modules/angular-calendar/css/angular-calendar.css']
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory, session_service_1.SessionService, router_1.Router])
     ], ProviderDashboardComponent);
     return ProviderDashboardComponent;
 }());

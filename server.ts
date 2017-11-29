@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
 // Set our api routes
 app.use('/api', api.router);
