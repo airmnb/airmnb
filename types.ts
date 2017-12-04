@@ -82,7 +82,11 @@ export interface Transaction {
 export interface ServiceSlot {
 	serviceSlotId: string;
   providerId: string;
-  date: Date;
+  date: {
+    year: number,
+    month: number,
+    day: number
+  };
 	timeCondition: ServiceSlotTimeCondition;
 	genderCondition: ServiceSlotGenderCondition;
 	ageCondition: ServiceSlotAgeCondition;
@@ -99,8 +103,14 @@ export interface FixedPrice {
 }
 
 export interface ServiceSlotTimeCondition {
-	startAt: number;
-	endAt: number;
+	startAt: {
+    hour: number,
+    minute: number
+  };
+	endAt: {
+    hour: number,
+    minute: number
+  };
 }
 
 export interface ServiceSlotGenderCondition {
