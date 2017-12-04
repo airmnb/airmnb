@@ -19,6 +19,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
+import { AddSlotComponent } from './add-slot/add-slot.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     ProviderDashboardComponent,
     ConsumerDashboardComponent,
     AboutusComponent,
-    DateTimePickerComponent
+    DateTimePickerComponent,
+    AddSlotComponent
   ],
   imports: [
     BrowserModule,

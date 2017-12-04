@@ -5,10 +5,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 Run `npm run watch` to start a server. It will watch both express site and angular site whenever source code change is detected. You need to refresh browser to get the new page. The default site is `http://localhost:3000` and express site (for webapi) is `http://localhost:3000/api`
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.

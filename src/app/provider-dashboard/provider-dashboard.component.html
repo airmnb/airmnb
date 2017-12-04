@@ -4,9 +4,9 @@
       provider-dashboard works!
     </h1>
   </div>
-
-  <pre>{{events | json}}</pre>
-
+  <div class="row">
+    <button class="btn btn-primary" (click)="addSlot()">Add slot</button>
+  </div>
   <div class="row">
     <div class="container">
       <ng-template #modalContent let-close="close">

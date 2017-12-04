@@ -1,0 +1,21 @@
+<div class="container">
+<div class="row form-group">
+  <label for="date"  class="col-2 col-form-label">Date</label>
+  <div class="col-10">
+      <div class="input-group">
+        <input class="form-control" placeholder="Date" required name="dp" [(ngModel)]="model.date" ngbDatepicker #d="ngbDatepicker">
+        <button class="input-group-addon" (click)="d.toggle()" type="button">
+            <i class="fa fa-calendar"></i>
+          </button>
+      </div>
+  </div>
+</div>
+<div class="row form-group">
+    <label for="date"  class="col-2 col-form-label">Time</label>
+    <div class="col-10 form-group">
+        <ngb-timepicker [(ngModel)]="model.timeCondition.startAt" name="startAt"></ngb-timepicker>
+        <ngb-timepicker [(ngModel)]="model.timeCondition.endAt" name="endAt"></ngb-timepicker>
+    </div>
+  </div>
+
+</div>

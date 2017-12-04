@@ -7,6 +7,7 @@ import { SignupComponent } from '../signup/signup.component';
 import { ProviderDashboardComponent } from '../provider-dashboard/provider-dashboard.component';
 import { ConsumerDashboardComponent } from '../consumer-dashboard/consumer-dashboard.component';
 import { AboutusComponent } from '../aboutus/aboutus.component';
+import { AddSlotComponent } from '../add-slot/add-slot.component';
 const routes: Routes = [
   {
       path: '',
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'provider',
     component: ProviderDashboardComponent
+  },
+  {
+    path: 'provider/addslot',
+    component: AddSlotComponent
   },
   {
     path: 'consumer',
