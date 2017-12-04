@@ -20,6 +20,7 @@ import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule } from '@ng-bootst
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 import { AddSlotComponent } from './add-slot/add-slot.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,14 @@ import { AddSlotComponent } from './add-slot/add-slot.component';
     CalendarModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [ApiService, ApiServiceFactory, LoginService, SessionService, MapServiceService],
+  providers: [
+    ApiService,
+    ApiServiceFactory,
+    LoginService,
+    SessionService,
+    MapServiceService,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

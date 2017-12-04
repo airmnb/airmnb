@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
       }
       const id = await this.accountApi.add(this.model);
       const account : Account = await this.accountApi.getOne(id);
-      this.sessionService.account = account;
+      this.sessionService.login(account);
       const routeUrl = account.type === 'provider' ? 'provider' :
                       account.type === 'consumer' ? 'consumer' :
                       '';

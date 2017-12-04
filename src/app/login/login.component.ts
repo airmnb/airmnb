@@ -22,11 +22,11 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     try{
       const account = await this.loginService.login(this.model);
-      this.sessionService.account = account;
+      this.sessionService.login(account);
       const routeUrl = account.type === 'provider' ? 'provider' :
-      account.type === 'consumer' ? 'consumer' :
-      '';
-this.router.navigateByUrl(routeUrl);
+            account.type === 'consumer' ? 'consumer' :
+            '';
+      this.router.navigateByUrl(routeUrl);
     }catch (e){
       console.log(e);
       this.submitted = false;
