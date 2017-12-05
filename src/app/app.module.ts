@@ -16,11 +16,13 @@ import { ProviderDashboardComponent } from './provider-dashboard/provider-dashbo
 import { ConsumerDashboardComponent } from './consumer-dashboard/consumer-dashboard.component';
 import { MapServiceService } from './map-service.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 import { AddSlotComponent } from './add-slot/add-slot.component';
 import { CookieService } from 'ngx-cookie-service';
+import { NotificationService } from './notification.service';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { CookieService } from 'ngx-cookie-service';
     ConsumerDashboardComponent,
     AboutusComponent,
     DateTimePickerComponent,
-    AddSlotComponent
+    AddSlotComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,9 @@ import { CookieService } from 'ngx-cookie-service';
     LoginService,
     SessionService,
     MapServiceService,
-    CookieService
+    CookieService,
+    NgbTimepickerConfig,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

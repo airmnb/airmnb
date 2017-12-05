@@ -5,6 +5,7 @@ import * as uuid from "uuid";
 import { SessionService } from '../session.service';
 import * as moment from "moment";
 import { ApiService, ApiServiceFactory } from '../api.service';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'amb-add-slot',
@@ -15,7 +16,10 @@ export class AddSlotComponent implements OnInit {
 
   public model: ServiceSlot;
 
-  constructor(private router: Router, private session: SessionService, private apiFactory: ApiServiceFactory) {
+  constructor(private router: Router,
+    private session: SessionService,
+    private apiFactory: ApiServiceFactory,
+    private notificationService: NotificationService) {
     this.model = this.createNewModel();
     this.session.getAccount().subscribe(account => this.model.providerId = account.id);
   }
@@ -58,13 +62,22 @@ export class AddSlotComponent implements OnInit {
   ngOnInit() {
   }
 
-  async create() {
+  async create(navigateOut: boolean) {
     const api = this.apiFactory.produce('slot');
     try{
       await api.add(this.model);
-      this.router.navigateByUrl('provider');
+      if(navigateOut) {
+        this.router.navigateByUrl('provider');
+      }
+      this.model = this.createNewModel();
+      this.notificationService.info(`Successfully create a slot.`);
     }catch(e){
-      alert(e);
+      this.notificationService.error(e);
     }
+  }
+
+  cancel() {
+    this.router.navigateByUrl('provider');
+    this.model = this.createNewModel();
   }
 }

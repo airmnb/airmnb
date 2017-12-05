@@ -7,7 +7,8 @@
   <div class="row">
     <button class="btn btn-primary" (click)="addSlot()">Add slot</button>
   </div>
-  <div class="row">
+  <!-- Only shows on md devices or above -->
+  <div class="row d-none d-md-block">
     <div class="container">
       <ng-template #modalContent let-close="close">
         <div class="modal-header">

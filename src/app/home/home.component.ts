@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { MapServiceService } from '../map-service.service';
+import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'amb-home',
@@ -24,7 +25,13 @@ export class HomeComponent implements OnInit {
       minute: 0
     },
   };
-  constructor(private sessionService: SessionService, private router: Router, private mapService: MapServiceService) { }
+  constructor(ngbTimerConfig: NgbTimepickerConfig,
+    private sessionService: SessionService,
+    private router: Router,
+    private mapService: MapServiceService) {
+    ngbTimerConfig.seconds = false;
+    ngbTimerConfig.spinners = false;
+  }
 
   ngOnInit(){
     // Get the current geolocation

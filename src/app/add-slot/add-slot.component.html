@@ -68,7 +68,9 @@
   <div class="row form-group">
       <div for="gender" class="col-2 col-form-label"></div>
       <div class="col-10 form-group">
-        <button class="btn btn-primary" (click)="create()">Create</button>
+        <button class="btn btn-primary" (click)="create(true)">Create</button>
+        <button class="btn btn-primary" (click)="create(false)">Create and next</button>
+        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>
 </div>

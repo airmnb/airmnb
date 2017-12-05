@@ -38,5 +38,6 @@ export class AppComponent implements OnInit  {
 
   logout(): void {
     this.sessionService.logout();
+    this.router.navigateByUrl('/');
   }
 }
