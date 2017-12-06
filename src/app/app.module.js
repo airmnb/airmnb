@@ -22,6 +22,14 @@ var session_service_1 = require("./session.service");
 var provider_dashboard_component_1 = require("./provider-dashboard/provider-dashboard.component");
 var consumer_dashboard_component_1 = require("./consumer-dashboard/consumer-dashboard.component");
 var map_service_service_1 = require("./map-service.service");
+var aboutus_component_1 = require("./aboutus/aboutus.component");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var angular_font_awesome_1 = require("angular-font-awesome");
+var date_time_picker_component_1 = require("./date-time-picker/date-time-picker.component");
+var add_slot_component_1 = require("./add-slot/add-slot.component");
+var ngx_cookie_service_1 = require("ngx-cookie-service");
+var notification_service_1 = require("./notification.service");
+var notification_component_1 = require("./notification/notification.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,17 +41,34 @@ var AppModule = (function () {
                 login_component_1.LoginComponent,
                 signup_component_1.SignupComponent,
                 provider_dashboard_component_1.ProviderDashboardComponent,
-                consumer_dashboard_component_1.ConsumerDashboardComponent
+                consumer_dashboard_component_1.ConsumerDashboardComponent,
+                aboutus_component_1.AboutusComponent,
+                date_time_picker_component_1.DateTimePickerComponent,
+                add_slot_component_1.AddSlotComponent,
+                notification_component_1.NotificationComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
+                ng_bootstrap_1.NgbModule.forRoot(),
+                ng_bootstrap_1.NgbDatepickerModule.forRoot(),
+                ng_bootstrap_1.NgbTimepickerModule.forRoot(),
+                angular_font_awesome_1.AngularFontAwesomeModule,
                 animations_1.BrowserAnimationsModule,
                 angular_calendar_1.CalendarModule.forRoot(),
                 app_routing_module_1.AppRoutingModule
             ],
-            providers: [api_service_1.ApiService, api_service_1.ApiServiceFactory, api_service_1.LoginService, session_service_1.SessionService, map_service_service_1.MapServiceService],
+            providers: [
+                api_service_1.ApiService,
+                api_service_1.ApiServiceFactory,
+                api_service_1.LoginService,
+                session_service_1.SessionService,
+                map_service_service_1.MapServiceService,
+                ngx_cookie_service_1.CookieService,
+                ng_bootstrap_1.NgbTimepickerConfig,
+                notification_service_1.NotificationService
+            ],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

@@ -27,34 +27,16 @@ export class AddSlotComponent implements OnInit {
   private createNewModel(): ServiceSlot {
     const now = moment();
     return {
-      serviceSlotId: uuid.v4(),
+      id: uuid.v4(),
       providerId: null,
-      date: {
-        year: now.year(),
-        month: now.month(),
-        day: now.date()
-      },
-      timeCondition: {
-        startAt: {
-          hour: now.hour(),
-          minute: 0
-        },
-        endAt: {
-          hour: now.hour() + 2,
-          minute: 0
-        }
-      },
-      ageCondition: {
-        ageFrom: 3,
-        ageTo: 6
-      },
-      genderCondition: {
-        gender: "either"
-      },
+      title: "",
+      start: now.toDate(),
+      end: now.toDate(),
+      ageFrom: 3,
+      ageTo: 6,
+      gender: 2,
       otherCondition: null,
-      price: {
-        fixedUnitPrice: 50
-      }
+      price: 50
     };
   }
 

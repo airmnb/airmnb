@@ -45,67 +45,83 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var uuid = require("uuid");
-var api_service_1 = require("../api.service");
 var router_1 = require("@angular/router");
+var uuid = require("uuid");
 var session_service_1 = require("../session.service");
-var SignupComponent = (function () {
-    function SignupComponent(apiServiceFactory, sessionService, router) {
-        this.sessionService = sessionService;
+var moment = require("moment");
+var api_service_1 = require("../api.service");
+var notification_service_1 = require("../notification.service");
+var AddSlotComponent = (function () {
+    function AddSlotComponent(router, session, apiFactory, notificationService) {
+        var _this = this;
         this.router = router;
-        this.model = { id: uuid.v4(), name: null, email: null, enabled: true, secret: null, type: null };
-        this.submitted = false;
-        this.accountApi = apiServiceFactory.produce("account");
+        this.session = session;
+        this.apiFactory = apiFactory;
+        this.notificationService = notificationService;
+        this.model = this.createNewModel();
+        this.session.getAccount().subscribe(function (account) { return _this.model.providerId = account.id; });
     }
-    SignupComponent.prototype.ngOnInit = function () {
+    AddSlotComponent.prototype.createNewModel = function () {
+        var now = moment();
+        return {
+            id: uuid.v4(),
+            providerId: null,
+            title: "",
+            start: now.toDate(),
+            end: now.toDate(),
+            ageFrom: 3,
+            ageTo: 6,
+            gender: 2,
+            otherCondition: null,
+            price: 50
+        };
     };
-    SignupComponent.prototype.onSubmit = function () {
+    AddSlotComponent.prototype.ngOnInit = function () {
+    };
+    AddSlotComponent.prototype.create = function (navigateOut) {
         return __awaiter(this, void 0, void 0, function () {
-            var dup, id, account, routeUrl, e_1;
+            var api, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.submitted = true;
+                        api = this.apiFactory.produce('slot');
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.accountApi.get({ name: this.model.name })];
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, api.add(this.model)];
                     case 2:
-                        dup = _a.sent();
-                        if (dup) {
-                            throw new Error('The account has be registered.');
+                        _a.sent();
+                        if (navigateOut) {
+                            this.router.navigateByUrl('provider');
                         }
-                        return [4 /*yield*/, this.accountApi.add(this.model)];
+                        this.model = this.createNewModel();
+                        this.notificationService.info("Successfully create a slot.");
+                        return [3 /*break*/, 4];
                     case 3:
-                        id = _a.sent();
-                        return [4 /*yield*/, this.accountApi.getOne(id)];
-                    case 4:
-                        account = _a.sent();
-                        this.sessionService.login(account);
-                        routeUrl = account.type === 'provider' ? 'provider' :
-                            account.type === 'consumer' ? 'consumer' :
-                                '';
-                        this.router.navigateByUrl(routeUrl);
-                        return [3 /*break*/, 6];
-                    case 5:
                         e_1 = _a.sent();
-                        console.log(e_1);
-                        this.submitted = false;
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        this.notificationService.error(e_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    SignupComponent = __decorate([
+    AddSlotComponent.prototype.cancel = function () {
+        this.router.navigateByUrl('provider');
+        this.model = this.createNewModel();
+    };
+    AddSlotComponent = __decorate([
         core_1.Component({
-            selector: 'amb-signup',
-            templateUrl: './signup.component.html',
-            styleUrls: ['./signup.component.css']
+            selector: 'amb-add-slot',
+            templateUrl: './add-slot.component.html',
+            styleUrls: ['./add-slot.component.css']
         }),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory, session_service_1.SessionService, router_1.Router])
-    ], SignupComponent);
-    return SignupComponent;
+        __metadata("design:paramtypes", [router_1.Router,
+            session_service_1.SessionService,
+            api_service_1.ApiServiceFactory,
+            notification_service_1.NotificationService])
+    ], AddSlotComponent);
+    return AddSlotComponent;
 }());
-exports.SignupComponent = SignupComponent;
-//# sourceMappingURL=signup.component.js.map
+exports.AddSlotComponent = AddSlotComponent;
+//# sourceMappingURL=add-slot.component.js.map

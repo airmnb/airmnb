@@ -19,6 +19,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
+// app.use((req, res, next) => {
+//   console.log('>>>', req.method, req.url);
+//   next();
+// });
 // Set our api routes
 app.use('/api', api.router);
 

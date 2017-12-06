@@ -44,6 +44,7 @@ export const DATE_TIME_PICKER_CONTROL_VALUE_ACCESSOR: any = {
       </div>
     </form>
     <ngb-timepicker
+      [minuteStep]="15"
       [(ngModel)]="timeStruct"
       (ngModelChange)="updateTime()"
       [meridian]="true">

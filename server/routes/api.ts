@@ -81,6 +81,40 @@ router.get('/data/:typeName/:id', (req, res) => {
 });
 
 /**
+ * Generic update one object by id
+ */
+router.put('/data/:typeName/:id', (req, res) => {
+  const typeName = req.params.typeName;
+  const id = req.params.id;
+  const item = req.body;
+  item.id = id;
+  const gateway = dataGatewayFactory.produce(typeName);
+  gateway.update(item)
+  .then(x => {
+    res.json(x);
+  })
+  .catch(e => {
+    res.status(500).json(e);
+  });
+});
+
+/**
+ * Generic update one object by id
+ */
+router.delete('/data/:typeName/:id', (req, res) => {
+  const typeName = req.params.typeName;
+  const id = req.params.id;
+  const gateway = dataGatewayFactory.produce(typeName);
+  gateway.delete(id)
+  .then(x => {
+    res.json(x);
+  })
+  .catch(e => {
+    res.status(500).json(e);
+  });
+});
+
+/**
  * Login
  */
 router.post('/login', (req, res) => {

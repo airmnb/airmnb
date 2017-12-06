@@ -38,6 +38,9 @@ import {
   CalendarEventAction,
   CalendarEventTimesChangedEvent
 } from 'angular-calendar';
+import { ServiceSlot } from '../../../types';
+import * as uuid from "uuid";
+import { NotificationService } from '../notification.service';
 
 const colors: any = {
   red: {
@@ -65,7 +68,8 @@ export class ProviderDashboardComponent implements OnInit {
   constructor(apiServiceFactory: ApiServiceFactory,
     private modal: NgbModal,
     private sessionService: SessionService,
-    private router: Router) {
+    private router: Router,
+  private notificationService: NotificationService) {
     this.slotApi = apiServiceFactory.produce("slot");
   }
 
@@ -77,7 +81,7 @@ export class ProviderDashboardComponent implements OnInit {
 
   modalData: {
     action: string;
-    event: CalendarEvent;
+    event: CalendarEvent<ServiceSlot>;
   };
 
   actions: CalendarEventAction[] = [{
@@ -85,7 +89,7 @@ export class ProviderDashboardComponent implements OnInit {
       onClick: ({
         event
       }: {
-        event: CalendarEvent
+        event: CalendarEvent<ServiceSlot>
       }): void => {
         this.handleEvent('Edited', event);
       }
@@ -95,7 +99,7 @@ export class ProviderDashboardComponent implements OnInit {
       onClick: ({
         event
       }: {
-        event: CalendarEvent
+        event: CalendarEvent<ServiceSlot>
       }): void => {
         this.events = this.events.filter(iEvent => iEvent !== event);
         this.handleEvent('Deleted', event);
@@ -105,38 +109,7 @@ export class ProviderDashboardComponent implements OnInit {
 
   refresh: Subject < any > = new Subject();
 
-  events: CalendarEvent[] = [{
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+  events: CalendarEvent<ServiceSlot>[] = [];
 
   activeDayIsOpen = true;
 
@@ -144,7 +117,8 @@ export class ProviderDashboardComponent implements OnInit {
     date,
     events
   }: {
-    date: Date;events: CalendarEvent[]
+    date: Date;
+    events: CalendarEvent<ServiceSlot>[]
   }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -170,7 +144,7 @@ export class ProviderDashboardComponent implements OnInit {
     this.refresh.next();
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
+  handleEvent(action: string, event: CalendarEvent<ServiceSlot>): void {
     this.modalData = {
       event,
       action
@@ -180,25 +154,83 @@ export class ProviderDashboardComponent implements OnInit {
     });
   }
 
-  addEvent(): void {
-    this.events.push({
+  public addEvent(): void {
+    const slot: ServiceSlot = {
       title: 'New event',
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
+      ageFrom: 2,
+      ageTo: 6,
+      gender: 2,
+      otherCondition: '',
+      providerId: this.sessionService.account.id,
+      id: uuid.v4(),
+      price: 50
+    };
+    const newEvent: CalendarEvent<ServiceSlot> = {
+      title: slot.title,
+      start: slot.start,
+      end: slot.end,
       color: colors.red,
       draggable: true,
       resizable: {
         beforeStart: true,
         afterEnd: true
-      }
+      },
+      meta: slot
+    };
+    this.events.push(newEvent);
+    this.refresh.next();
+    this.slotApi.add(slot)
+    .then(x => this.notificationService.info(`Added a service slot '${slot.id}'`))
+    .catch(e => this.notificationService.error(e));
+  }
+
+  public async delete(event: CalendarEvent<ServiceSlot>) {
+    const id = event.meta.id;
+    try{
+      await this.slotApi.delete(id);
+      this.notificationService.info(`Deleted the service slot '${id}'`);
+      this.events = this.events.filter(x => x !== event);
+      this.refresh.next();
+    }catch(e){
+      this.notificationService.error(e);
+    }
+  }
+
+  ngOnInit() {
+    this.loadAllSlots();
+  }
+
+  addSlot(): void {
+    // this.router.navigateByUrl("provider/addslot");
+  }
+
+  private async loadAllSlots(): Promise<void> {
+    const list: ServiceSlot[] = await this.slotApi.list({providerId: this.sessionService.account.id});
+    list.forEach(slot => {
+      this.events.push({
+          title: slot.title,
+          start: slot.start,
+          end: slot.end,
+          color: colors.red,
+          actions: this.actions,
+          draggable: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          },
+          meta: slot
+      });
     });
     this.refresh.next();
   }
-
-  ngOnInit() {}
-
-  addSlot(): void {
-    this.router.navigateByUrl("provider/addslot");
+  private convertToDto(event: CalendarEvent<ServiceSlot>): ServiceSlot {
+    const dto: ServiceSlot = event.meta;
+    dto.start = event.start;
+    dto.end = event.end;
+    dto.title = event.title;
+    return dto;
   }
 
 }

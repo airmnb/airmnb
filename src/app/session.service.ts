@@ -8,12 +8,18 @@ const cookieKey = 'c';
 
 @Injectable()
 export class SessionService {
-  private account = new Subject<Account>();
+  private accountSubject = new Subject<Account>();
+  private _account: Account;
 
   constructor(private cookieService: CookieService) { }
 
+  get account(): Account {
+    return this._account;
+  }
+
   login(account: Account): void {
-    this.account.next(account);
+    this._account = account;
+    this.accountSubject.next(account);
     const cookieValue = {
       account
     };
@@ -22,12 +28,13 @@ export class SessionService {
   }
 
   logout(): void {
-    this.account.next(null);
+    this._account = null;
+    this.accountSubject.next(null);
     this.cookieService.delete(cookieKey);
   }
 
   getAccount(): Observable<Account> {
-    return this.account.asObservable();
+    return this.accountSubject.asObservable();
   }
 
   loadCookie(): void {

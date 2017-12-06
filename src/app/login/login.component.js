@@ -70,7 +70,7 @@ var LoginComponent = (function () {
                         return [4 /*yield*/, this.loginService.login(this.model)];
                     case 2:
                         account = _a.sent();
-                        this.sessionService.account = account;
+                        this.sessionService.login(account);
                         routeUrl = account.type === 'provider' ? 'provider' :
                             account.type === 'consumer' ? 'consumer' :
                                 '';

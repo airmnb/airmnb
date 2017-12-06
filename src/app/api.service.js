@@ -75,6 +75,45 @@ var ApiService = (function () {
             });
         });
     };
+    ApiService.prototype.delete = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.delete(this.apiUrl + '/' + id).toPromise()];
+                    case 1:
+                        resp = _a.sent();
+                        if (resp.status === 200) {
+                            return [2 /*return*/];
+                        }
+                        else {
+                            throw new Error(resp.text());
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiService.prototype.update = function (item, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp, body;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.put(this.apiUrl, item).toPromise()];
+                    case 1:
+                        resp = _a.sent();
+                        body = resp.json();
+                        if (resp.status === 200) {
+                            return [2 /*return*/, body];
+                        }
+                        else {
+                            throw new Error(body);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ApiService.prototype.getOne = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var resp, body;
@@ -101,6 +140,26 @@ var ApiService = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.http.get(this.apiUrl, { params: query }).toPromise()];
+                    case 1:
+                        resp = _a.sent();
+                        body = resp.json();
+                        if (resp.status === 200) {
+                            return [2 /*return*/, body];
+                        }
+                        else {
+                            throw new Error(body);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiService.prototype.list = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp, body;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.get(this.apiUrl + '/list', { params: query }).toPromise()];
                     case 1:
                         resp = _a.sent();
                         body = resp.json();

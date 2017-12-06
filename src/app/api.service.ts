@@ -24,6 +24,26 @@ export class ApiService {
     }
   }
 
+
+  public async delete(id: string): Promise<void> {
+    const resp = await this.http.delete(this.apiUrl + '/' + id).toPromise();
+    if (resp.status === 200) {
+      return;
+    } else {
+      throw new Error(resp.text());
+    }
+  }
+
+  public async update(item, id: string): Promise<void> {
+    const resp = await this.http.put(this.apiUrl, item).toPromise();
+    const body = resp.json();
+    if (resp.status === 200) {
+      return body;
+    } else {
+      throw new Error(body);
+    }
+  }
+
   public async getOne(id: string): Promise<any> {
     const resp = await this.http.get(this.apiUrl + '/' + id).toPromise();
     const body = resp.json();
@@ -36,6 +56,16 @@ export class ApiService {
 
   public async get(query: any): Promise<any> {
     const resp = await this.http.get(this.apiUrl, {params: query}).toPromise();
+    const body = resp.json();
+    if (resp.status === 200) {
+      return body;
+    } else {
+      throw new Error(body);
+    }
+  }
+
+  public async list(query: any): Promise<any> {
+    const resp = await this.http.get(this.apiUrl + '/list', {params: query}).toPromise();
     const body = resp.json();
     if (resp.status === 200) {
       return body;

@@ -80,47 +80,18 @@ export interface Transaction {
 }
 
 export interface ServiceSlot {
-	serviceSlotId: string;
+	id: string;
   providerId: string;
-  date: {
-    year: number,
-    month: number,
-    day: number
-  };
-	timeCondition: ServiceSlotTimeCondition;
-	genderCondition: ServiceSlotGenderCondition;
-	ageCondition: ServiceSlotAgeCondition;
-	otherCondition: string;
-	price: AiPrice | FixedPrice;
-}
-
-export interface AiPrice {
-	floatPercentage: number;
-}
-
-export interface FixedPrice {
-	fixedUnitPrice: number;
-}
-
-export interface ServiceSlotTimeCondition {
-	startAt: {
-    hour: number,
-    minute: number
-  };
-	endAt: {
-    hour: number,
-    minute: number
-  };
-}
-
-export interface ServiceSlotGenderCondition {
-	gender: "boy" | "girl" | "either";
-}
-
-export interface ServiceSlotAgeCondition {
+  title: string;
+  start: Date;
+  end: Date;
+	gender: 0|1|2; // 0 for girl, 1 for boy, 2 for either
 	ageFrom: number;
 	ageTo: number;
+	otherCondition: string;
+	price: number;
 }
+
 
 // 936,706,490
 // 1.09:56:04

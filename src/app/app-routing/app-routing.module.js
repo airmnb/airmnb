@@ -14,6 +14,8 @@ var login_component_1 = require("../login/login.component");
 var signup_component_1 = require("../signup/signup.component");
 var provider_dashboard_component_1 = require("../provider-dashboard/provider-dashboard.component");
 var consumer_dashboard_component_1 = require("../consumer-dashboard/consumer-dashboard.component");
+var aboutus_component_1 = require("../aboutus/aboutus.component");
+var add_slot_component_1 = require("../add-slot/add-slot.component");
 var routes = [
     {
         path: '',
@@ -32,9 +34,17 @@ var routes = [
         component: provider_dashboard_component_1.ProviderDashboardComponent
     },
     {
+        path: 'provider/addslot',
+        component: add_slot_component_1.AddSlotComponent
+    },
+    {
         path: 'consumer',
         component: consumer_dashboard_component_1.ConsumerDashboardComponent
     },
+    {
+        path: 'aboutus',
+        component: aboutus_component_1.AboutusComponent
+    }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

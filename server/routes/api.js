@@ -75,6 +75,38 @@ exports.router.get('/data/:typeName/:id', function (req, res) {
     });
 });
 /**
+ * Generic update one object by id
+ */
+exports.router.put('/data/:typeName/:id', function (req, res) {
+    var typeName = req.params.typeName;
+    var id = req.params.id;
+    var item = req.body;
+    item.id = id;
+    var gateway = gateway_1.dataGatewayFactory.produce(typeName);
+    gateway.update(item)
+        .then(function (x) {
+        res.json(x);
+    })
+        .catch(function (e) {
+        res.status(500).json(e);
+    });
+});
+/**
+ * Generic update one object by id
+ */
+exports.router.delete('/data/:typeName/:id', function (req, res) {
+    var typeName = req.params.typeName;
+    var id = req.params.id;
+    var gateway = gateway_1.dataGatewayFactory.produce(typeName);
+    gateway.delete(id)
+        .then(function (x) {
+        res.json(x);
+    })
+        .catch(function (e) {
+        res.status(500).json(e);
+    });
+});
+/**
  * Login
  */
 exports.router.post('/login', function (req, res) {

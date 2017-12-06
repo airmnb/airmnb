@@ -23,6 +23,7 @@ import { AddSlotComponent } from './add-slot/add-slot.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './notification.service';
 import { NotificationComponent } from './notification/notification.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NotificationComponent } from './notification/notification.component';
     AboutusComponent,
     DateTimePickerComponent,
     AddSlotComponent,
-    NotificationComponent
+    NotificationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

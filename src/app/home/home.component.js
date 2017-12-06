@@ -48,8 +48,9 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var session_service_1 = require("../session.service");
 var map_service_service_1 = require("../map-service.service");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var HomeComponent = (function () {
-    function HomeComponent(sessionService, router, mapService) {
+    function HomeComponent(ngbTimerConfig, sessionService, router, mapService) {
         this.sessionService = sessionService;
         this.router = router;
         this.mapService = mapService;
@@ -57,8 +58,19 @@ var HomeComponent = (function () {
         this.model = {
             location: '',
             age: -1,
-            gender: -1
+            gender: -1,
+            date: new Date(),
+            timeFrom: {
+                hour: 0,
+                minute: 0
+            },
+            timeTo: {
+                hour: 0,
+                minute: 0
+            },
         };
+        ngbTimerConfig.seconds = false;
+        ngbTimerConfig.spinners = false;
     }
     HomeComponent.prototype.ngOnInit = function () {
         // Get the current geolocation
@@ -94,7 +106,10 @@ var HomeComponent = (function () {
             templateUrl: './home.component.html',
             styleUrls: ['./home.component.css']
         }),
-        __metadata("design:paramtypes", [session_service_1.SessionService, router_1.Router, map_service_service_1.MapServiceService])
+        __metadata("design:paramtypes", [ng_bootstrap_1.NgbTimepickerConfig,
+            session_service_1.SessionService,
+            router_1.Router,
+            map_service_service_1.MapServiceService])
     ], HomeComponent);
     return HomeComponent;
 }());
