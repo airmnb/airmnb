@@ -30,6 +30,9 @@ var add_slot_component_1 = require("./add-slot/add-slot.component");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var notification_service_1 = require("./notification.service");
 var notification_component_1 = require("./notification/notification.component");
+var profile_component_1 = require("./profile/profile.component");
+var core_2 = require("@agm/core");
+var address_input_component_1 = require("./address-input/address-input.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -45,11 +48,14 @@ var AppModule = (function () {
                 aboutus_component_1.AboutusComponent,
                 date_time_picker_component_1.DateTimePickerComponent,
                 add_slot_component_1.AddSlotComponent,
-                notification_component_1.NotificationComponent
+                notification_component_1.NotificationComponent,
+                profile_component_1.ProfileComponent,
+                address_input_component_1.AddressInputComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
                 ng_bootstrap_1.NgbDatepickerModule.forRoot(),
@@ -57,7 +63,11 @@ var AppModule = (function () {
                 angular_font_awesome_1.AngularFontAwesomeModule,
                 animations_1.BrowserAnimationsModule,
                 angular_calendar_1.CalendarModule.forRoot(),
-                app_routing_module_1.AppRoutingModule
+                app_routing_module_1.AppRoutingModule,
+                core_2.AgmCoreModule.forRoot({
+                    // apiKey: "YOUR KEY GOES HERE",
+                    libraries: ["places"]
+                })
             ],
             providers: [
                 api_service_1.ApiService,

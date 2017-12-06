@@ -173,6 +173,8 @@ var ProviderDashboardComponent = (function () {
                     case 2:
                         _a.sent();
                         this.notificationService.info("Deleted the service slot '" + id + "'");
+                        this.events = this.events.filter(function (x) { return x !== event; });
+                        this.refresh.next();
                         return [3 /*break*/, 4];
                     case 3:
                         e_1 = _a.sent();
@@ -204,6 +206,7 @@ var ProviderDashboardComponent = (function () {
                                 start: slot.start,
                                 end: slot.end,
                                 color: colors.red,
+                                actions: _this.actions,
                                 draggable: true,
                                 resizable: {
                                     beforeStart: true,

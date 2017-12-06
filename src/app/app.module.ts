@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +24,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './notification.service';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AgmCoreModule } from '@agm/core';
+import { AddressInputComponent } from './address-input/address-input.component';
 
 @NgModule({
   declarations: [
@@ -37,11 +39,13 @@ import { ProfileComponent } from './profile/profile.component';
     DateTimePickerComponent,
     AddSlotComponent,
     NotificationComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddressInputComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     NgbModule.forRoot(),
     NgbDatepickerModule.forRoot(),
@@ -49,7 +53,11 @@ import { ProfileComponent } from './profile/profile.component';
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      // apiKey: "YOUR KEY GOES HERE",
+      libraries: ["places"]
+    })
   ],
   providers: [
     ApiService,
