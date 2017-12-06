@@ -26,6 +26,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { AddressInputComponent } from './address-input/address-input.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { AddressInputComponent } from './address-input/address-input.component';
     CalendarModule.forRoot(),
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      // apiKey: "YOUR KEY GOES HERE",
+      apiKey: environment.googleApiKey,
       libraries: ["places"]
     })
   ],
