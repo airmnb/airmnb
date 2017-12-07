@@ -83,13 +83,27 @@ export interface ServiceSlot {
 	id: string;
   providerId: string;
   title: string;
+  text?: string;
   start: Date;
   end: Date;
-	gender: 0|1|2; // 0 for girl, 1 for boy, 2 for either
+	gender: Gender; // 0 for girl, 1 for boy, 2 for either
 	ageFrom: number;
 	ageTo: number;
 	otherCondition: string;
 	price: number;
+}
+
+export enum Gender {
+  Girl,
+  Boy,
+  Either
+}
+
+export interface SearchQuery {
+  age?: number;
+  start?: number;
+  end?: number;
+  gender?: Gender;
 }
 
 

@@ -10,10 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var slot_search_service_service_1 = require("../slot-search-service.service");
 var ConsumerDashboardComponent = (function () {
-    function ConsumerDashboardComponent() {
+    function ConsumerDashboardComponent(route, router, searchService) {
+        this.route = route;
+        this.router = router;
+        this.searchService = searchService;
     }
     ConsumerDashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.queryParams.subscribe(function (params) {
+            console.log('query string obj', params);
+            _this.searchService.search(params).subscribe(function (slots) { return _this.slots = slots; });
+        });
     };
     ConsumerDashboardComponent = __decorate([
         core_1.Component({
@@ -21,7 +31,9 @@ var ConsumerDashboardComponent = (function () {
             templateUrl: './consumer-dashboard.component.html',
             styleUrls: ['./consumer-dashboard.component.css']
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [router_1.ActivatedRoute,
+            router_1.Router,
+            slot_search_service_service_1.SlotSearchServiceService])
     ], ConsumerDashboardComponent);
     return ConsumerDashboardComponent;
 }());

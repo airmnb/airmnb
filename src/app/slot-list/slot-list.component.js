@@ -10,21 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ProfileComponent = (function () {
-    function ProfileComponent() {
-        this.address = "blah blah";
+var SlotListComponent = (function () {
+    function SlotListComponent() {
     }
-    ProfileComponent.prototype.ngOnInit = function () {
+    SlotListComponent.prototype.ngOnInit = function () {
     };
-    ProfileComponent = __decorate([
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Array)
+    ], SlotListComponent.prototype, "slots", void 0);
+    SlotListComponent = __decorate([
         core_1.Component({
-            selector: 'amb-profile',
-            templateUrl: './profile.component.html',
-            styleUrls: ['./profile.component.css']
+            selector: 'amb-slot-list',
+            templateUrl: './slot-list.component.html',
+            styleUrls: ['./slot-list.component.css']
         }),
         __metadata("design:paramtypes", [])
-    ], ProfileComponent);
-    return ProfileComponent;
+    ], SlotListComponent);
+    return SlotListComponent;
 }());
-exports.ProfileComponent = ProfileComponent;
-//# sourceMappingURL=profile.component.js.map
+exports.SlotListComponent = SlotListComponent;
+//# sourceMappingURL=slot-list.component.js.map

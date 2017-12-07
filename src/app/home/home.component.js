@@ -49,6 +49,7 @@ var router_1 = require("@angular/router");
 var session_service_1 = require("../session.service");
 var map_service_service_1 = require("../map-service.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var moment = require("moment");
 var HomeComponent = (function () {
     function HomeComponent(ngbTimerConfig, sessionService, router, mapService) {
         this.sessionService = sessionService;
@@ -59,7 +60,7 @@ var HomeComponent = (function () {
             location: '',
             age: -1,
             gender: -1,
-            date: new Date(),
+            date: undefined,
             timeFrom: {
                 hour: 0,
                 minute: 0
@@ -85,12 +86,15 @@ var HomeComponent = (function () {
             .then(function (x) { return _this.model.location = x; })
             .catch(function (e) { return _this.model.location = null; });
     };
-    HomeComponent.prototype.onSubmit = function () {
+    HomeComponent.prototype.search = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var queryParams;
             return __generator(this, function (_a) {
                 this.submitted = true;
                 try {
-                    this.router.navigateByUrl('consumer');
+                    queryParams = this.composeQuery();
+                    console.log('>>>', queryParams);
+                    this.router.navigate(['/consumer'], { queryParams: queryParams });
                 }
                 catch (e) {
                     console.log(e);
@@ -99,6 +103,26 @@ var HomeComponent = (function () {
                 return [2 /*return*/];
             });
         });
+    };
+    HomeComponent.prototype.composeQuery = function () {
+        return {
+            age: this.model.age >= 0 ? this.model.age : null,
+            start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
+            end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
+            gender: this.model.gender >= 0 ? this.model.gender : null
+        };
+    };
+    HomeComponent.prototype.getDate = function (date, hour, minute) {
+        try {
+            var d = moment(date);
+            d.hour(hour);
+            d.minute(minute);
+            d.second(0);
+            return d.toDate().valueOf();
+        }
+        catch (e) {
+            return undefined;
+        }
     };
     HomeComponent = __decorate([
         core_1.Component({

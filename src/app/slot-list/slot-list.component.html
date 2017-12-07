@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="card" style="width:20rem" *ngFor="let slot of slots">
+    <img class="card-img-top" [src]="slot.avatarUrl" alt="Slot photo">
+    <div class="card-block">
+      <h4 class="card-title">{{slot.title}}</h4>
+      <p class="card-text">{{slot.text}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Time: {{slot.start}} - {{slot.end}}</li>
+      <li class="list-group-item">Age: {{slot.ageFrom}} - {{slot.ageTo}}</li>
+      <li class="list-group-item">Age: {{slot.genderDisplay}}</li>
+      <li class="list-group-item">{{slot.otherCondition}}</li>
+      <li class="list-group-item">Price: {{slot.price | currency}} per unit</li>
+    </ul>
+    <div class="card-block">
+      <a href="#" class="btn btn-primary" (click)="seeDetail(slot.id)">See Details</a>
+    </div>
+  </div>
+</div>

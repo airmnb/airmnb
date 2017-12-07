@@ -27,6 +27,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { environment } from '../environments/environment';
+import { SlotListComponent } from './slot-list/slot-list.component';
+import { SlotSearchServiceService } from './slot-search-service.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { environment } from '../environments/environment';
     AddSlotComponent,
     NotificationComponent,
     ProfileComponent,
-    AddressInputComponent
+    AddressInputComponent,
+    SlotListComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import { environment } from '../environments/environment';
     MapServiceService,
     CookieService,
     NgbTimepickerConfig,
-    NotificationService
+    NotificationService,
+    SlotSearchServiceService
   ],
   bootstrap: [AppComponent]
 })

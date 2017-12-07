@@ -12,7 +12,7 @@
     <div class="row">
       <div class="card transparent-card col-md-6">
         <div class="card-block">
-          <form class="container" (ngSubmit)="onSubmit">
+          <div class="container">
             <fieldset [disabled]="submitted">
               <div class="row form-group">
                 <input class="form-control" type="text" placeholder="Location" required [(ngModel)]="model.location" name="location">
@@ -31,8 +31,8 @@
                 <div class="col-md-3">
                   <select class="custom-select" [(ngModel)]="model.gender" name="gender">
                     <option value="-1" disabled selected>Gender</option>
-                    <option value="0">Boy</option>
-                    <option value="1">Girl</option>
+                    <option value="0">Girl</option>
+                    <option value="1">Boy</option>
                   </select>
                 </div>
                 <div class="col-md-6">
@@ -55,10 +55,10 @@
                 </div>
               </div>
               <div class="row form-group">
-                <button class="btn btn-success col-md-12 btn-block" type="submit">Search</button>
+                <button class="btn btn-success col-md-12 btn-block" (click)="search()">Search</button>
               </div>
             </fieldset>
-          </form>
+          </div>
         </div>
       </div>
     </div>

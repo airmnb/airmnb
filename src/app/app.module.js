@@ -33,6 +33,9 @@ var notification_component_1 = require("./notification/notification.component");
 var profile_component_1 = require("./profile/profile.component");
 var core_2 = require("@agm/core");
 var address_input_component_1 = require("./address-input/address-input.component");
+var environment_1 = require("../environments/environment");
+var slot_list_component_1 = require("./slot-list/slot-list.component");
+var slot_search_service_service_1 = require("./slot-search-service.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -50,7 +53,8 @@ var AppModule = (function () {
                 add_slot_component_1.AddSlotComponent,
                 notification_component_1.NotificationComponent,
                 profile_component_1.ProfileComponent,
-                address_input_component_1.AddressInputComponent
+                address_input_component_1.AddressInputComponent,
+                slot_list_component_1.SlotListComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -65,7 +69,7 @@ var AppModule = (function () {
                 angular_calendar_1.CalendarModule.forRoot(),
                 app_routing_module_1.AppRoutingModule,
                 core_2.AgmCoreModule.forRoot({
-                    // apiKey: "YOUR KEY GOES HERE",
+                    apiKey: environment_1.environment.googleApiKey,
                     libraries: ["places"]
                 })
             ],
@@ -77,7 +81,8 @@ var AppModule = (function () {
                 map_service_service_1.MapServiceService,
                 ngx_cookie_service_1.CookieService,
                 ng_bootstrap_1.NgbTimepickerConfig,
-                notification_service_1.NotificationService
+                notification_service_1.NotificationService,
+                slot_search_service_service_1.SlotSearchServiceService
             ],
             bootstrap: [app_component_1.AppComponent]
         })

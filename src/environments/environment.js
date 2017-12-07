@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: false,
     port: 3000,
-    apiUrl: 'http://localhost:3000/api'
+    apiUrl: 'http://localhost:3000/api',
+    googleApiKey: 'AIzaSyAmXvvrwCbeg-GNQxsFVhYOICg0ta8Bjps'
 };
 //# sourceMappingURL=environment.js.map

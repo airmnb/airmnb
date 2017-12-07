@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { MapServiceService } from '../map-service.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { SearchQuery } from '../../../types';
+import * as moment from "moment";
 
 @Component({
   selector: 'amb-home',
@@ -15,7 +17,7 @@ export class HomeComponent implements OnInit {
     location: '',
     age: -1,
     gender: -1,
-    date: new Date(),
+    date: undefined,
     timeFrom: {
       hour: 0,
       minute: 0
@@ -47,14 +49,36 @@ export class HomeComponent implements OnInit {
       .catch(e => this.model.location = null);
   }
 
-  async onSubmit() {
+  async search() {
     this.submitted = true;
     try{
-
-      this.router.navigateByUrl('consumer');
+      const queryParams = this.composeQuery();
+      console.log('>>>', queryParams);
+      this.router.navigate(['/consumer'], {queryParams});
     }catch (e){
       console.log(e);
       this.submitted = false;
+    }
+  }
+
+  private composeQuery(): SearchQuery {
+    return {
+      age: this.model.age >= 0 ? this.model.age : null,
+      start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
+      end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
+      gender: this.model.gender >= 0 ? this.model.gender : null
+    };
+  }
+
+  private getDate(date: Date, hour: number, minute: number): number {
+    try{
+      const d = moment(date);
+      d.hour(hour);
+      d.minute(minute);
+      d.second(0);
+      return d.toDate().valueOf();
+    }catch(e){
+      return undefined;
     }
   }
 }
