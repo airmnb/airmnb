@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
 // app.use((req, res, next) => {
 //   console.log('>>>', req.method, req.url);

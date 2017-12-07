@@ -60,7 +60,7 @@ var HomeComponent = (function () {
             location: '',
             age: -1,
             gender: -1,
-            date: undefined,
+            date: null,
             timeFrom: {
                 hour: 0,
                 minute: 0
@@ -83,8 +83,8 @@ var HomeComponent = (function () {
         var _this = this;
         var coords = position.coords;
         this.mapService.getAddress(coords)
-            .then(function (x) { return _this.model.location = x; })
-            .catch(function (e) { return _this.model.location = null; });
+            .then(function (x) { return _this.model.location = _this.model.location || x; })
+            .catch(function (e) { return null; });
     };
     HomeComponent.prototype.search = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -93,7 +93,6 @@ var HomeComponent = (function () {
                 this.submitted = true;
                 try {
                     queryParams = this.composeQuery();
-                    console.log('>>>', queryParams);
                     this.router.navigate(['/consumer'], { queryParams: queryParams });
                 }
                 catch (e) {
@@ -113,6 +112,9 @@ var HomeComponent = (function () {
         };
     };
     HomeComponent.prototype.getDate = function (date, hour, minute) {
+        if (!date) {
+            return undefined;
+        }
         try {
             var d = moment(date);
             d.hour(hour);
@@ -121,6 +123,7 @@ var HomeComponent = (function () {
             return d.toDate().valueOf();
         }
         catch (e) {
+            alert(e);
             return undefined;
         }
     };

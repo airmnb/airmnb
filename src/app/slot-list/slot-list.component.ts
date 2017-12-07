@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ServiceSlot } from '../../../types';
+import { ServiceSlot, Gender } from '../../../types';
 
 @Component({
   selector: 'amb-slot-list',
@@ -15,4 +15,9 @@ export class SlotListComponent implements OnInit {
   ngOnInit() {
   }
 
+  displayGender(gender: Gender): string {
+    return gender === Gender.Boy ? 'Boy' :
+      gender === Gender.Girl ? 'Girl' :
+      'Both';
+  }
 }

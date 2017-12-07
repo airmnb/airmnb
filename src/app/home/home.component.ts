@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     location: '',
     age: -1,
     gender: -1,
-    date: undefined,
+    date: null,
     timeFrom: {
       hour: 0,
       minute: 0
@@ -45,15 +45,14 @@ export class HomeComponent implements OnInit {
   private setPosition(position){
     const coords = position.coords;
     this.mapService.getAddress(coords)
-      .then(x => this.model.location = x)
-      .catch(e => this.model.location = null);
+      .then(x => this.model.location = this.model.location || x)
+      .catch(e => null);
   }
 
   async search() {
     this.submitted = true;
     try{
       const queryParams = this.composeQuery();
-      console.log('>>>', queryParams);
       this.router.navigate(['/consumer'], {queryParams});
     }catch (e){
       console.log(e);
@@ -70,9 +69,12 @@ export class HomeComponent implements OnInit {
     };
   }
 
-  private getDate(date: Date, hour: number, minute: number): number {
+  private getDate(date: {year: number, month: number, day: number}, hour: number, minute: number): number {
     try{
-      const d = moment(date);
+      const d = moment();
+      d.year(date.year);
+      d.month(date.month);
+      d.day(date.day);
       d.hour(hour);
       d.minute(minute);
       d.second(0);

@@ -20,7 +20,7 @@ export class SlotSearchServiceService {
   }
 
   public search(query: SearchQuery): Observable<ServiceSlot[]> {
-    const consumerId = this.sessionService.account.id;
+    const consumerId = this.getConsumerId();
     const subject = new Subject<ServiceSlot[]>();
     const q = this.convertToMongoQuery(query);
     this.apiService.list(q)
@@ -32,6 +32,11 @@ export class SlotSearchServiceService {
       subject.next();
     });
     return subject.asObservable();
+  }
+
+  private getConsumerId(): string {
+    const account = this.sessionService.account;
+    return account ? account.id : undefined;
   }
 
   private convertToMongoQuery(query: SearchQuery): any {
