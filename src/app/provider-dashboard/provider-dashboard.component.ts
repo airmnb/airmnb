@@ -65,6 +65,10 @@ const colors: any = {
 })
 export class ProviderDashboardComponent implements OnInit {
   private slotApi: ApiService;
+  public uploadApiUrl = "/api/image/";
+  public images: string[] = [];
+
+
   constructor(apiServiceFactory: ApiServiceFactory,
     private modal: NgbModal,
     private sessionService: SessionService,
@@ -233,4 +237,14 @@ export class ProviderDashboardComponent implements OnInit {
     return dto;
   }
 
+  public onUploadFinished(event): void {
+    const resp = event.serverResponse;
+    const body = resp.response;
+    if(resp.status === 200) {
+      const obj = JSON.parse(body);
+      console.log('Upload response body', obj);
+    } else {
+      this.notificationService.error(body);
+    }
+  }
 }

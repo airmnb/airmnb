@@ -112,18 +112,17 @@ var HomeComponent = (function () {
         };
     };
     HomeComponent.prototype.getDate = function (date, hour, minute) {
-        if (!date) {
-            return undefined;
-        }
         try {
-            var d = moment(date);
+            var d = moment();
+            d.year(date.year);
+            d.month(date.month);
+            d.day(date.day);
             d.hour(hour);
             d.minute(minute);
             d.second(0);
             return d.toDate().valueOf();
         }
         catch (e) {
-            alert(e);
             return undefined;
         }
     };

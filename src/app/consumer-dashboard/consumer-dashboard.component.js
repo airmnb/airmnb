@@ -21,8 +21,10 @@ var ConsumerDashboardComponent = (function () {
     ConsumerDashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.queryParams.subscribe(function (params) {
-            console.log('query string obj', params);
-            _this.searchService.search(params).subscribe(function (slots) { return _this.slots = slots; });
+            var q = {};
+            Object.keys(params).forEach(function (k) { return q[k] = +params[k]; });
+            _this.searchService.search(q)
+                .subscribe(function (slots) { return _this.slots = slots; });
         });
     };
     ConsumerDashboardComponent = __decorate([

@@ -4,6 +4,10 @@ require('dotenv').config();
 import * as express from 'express';
 import * as path from 'path';
 import * as http from 'http';
+import * as multer from 'multer';
+import * as cors from 'cors';
+import * as fs from 'fs';
+import * as Loki from 'lokijs';
 import * as bodyParser from 'body-parser';
 import { environment } from './src/environments/environment';
 // Get our API routes
@@ -14,6 +18,7 @@ const app = express();
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));

@@ -22,7 +22,7 @@ var SlotSearchServiceService = (function () {
     }
     SlotSearchServiceService.prototype.search = function (query) {
         var _this = this;
-        var consumerId = this.sessionService.account.id;
+        var consumerId = this.getConsumerId();
         var subject = new Subject_1.Subject();
         var q = this.convertToMongoQuery(query);
         this.apiService.list(q)
@@ -32,6 +32,10 @@ var SlotSearchServiceService = (function () {
             subject.next();
         });
         return subject.asObservable();
+    };
+    SlotSearchServiceService.prototype.getConsumerId = function () {
+        var account = this.sessionService.account;
+        return account ? account.id : undefined;
     };
     SlotSearchServiceService.prototype.convertToMongoQuery = function (query) {
         var q = {};

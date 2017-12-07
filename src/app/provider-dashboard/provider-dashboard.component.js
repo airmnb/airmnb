@@ -75,6 +75,8 @@ var ProviderDashboardComponent = (function () {
         this.sessionService = sessionService;
         this.router = router;
         this.notificationService = notificationService;
+        this.uploadApiUrl = "/api/image/";
+        this.images = [];
         this.view = 'month';
         this.viewDate = new Date();
         this.actions = [{
@@ -227,6 +229,17 @@ var ProviderDashboardComponent = (function () {
         dto.end = event.end;
         dto.title = event.title;
         return dto;
+    };
+    ProviderDashboardComponent.prototype.onUploadFinished = function (event) {
+        var resp = event.serverResponse;
+        var body = resp.response;
+        if (resp.status === 200) {
+            var obj = JSON.parse(body);
+            console.log('Upload response body', obj);
+        }
+        else {
+            this.notificationService.error(body);
+        }
     };
     __decorate([
         core_2.ViewChild('modalContent'),

@@ -6,6 +6,7 @@ require('dotenv').config();
 var express = require("express");
 var path = require("path");
 var http = require("http");
+var cors = require("cors");
 var bodyParser = require("body-parser");
 // Get our API routes
 var api = require("./server/routes/api");
@@ -13,9 +14,11 @@ var app = express();
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
+app.use('/img', express.static(path.join(__dirname, 'img')));
 // app.use((req, res, next) => {
 //   console.log('>>>', req.method, req.url);
 //   next();

@@ -10,10 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var types_1 = require("../../../types");
 var SlotListComponent = (function () {
     function SlotListComponent() {
     }
     SlotListComponent.prototype.ngOnInit = function () {
+    };
+    SlotListComponent.prototype.displayGender = function (gender) {
+        return gender === types_1.Gender.Boy ? 'Boy' :
+            gender === types_1.Gender.Girl ? 'Girl' :
+                'Both';
     };
     __decorate([
         core_1.Input(),

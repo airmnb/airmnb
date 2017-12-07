@@ -143,7 +143,11 @@
     <ngb-tab title="Photos">
       <ng-template ngbTabContent>
         <div class="container pt-3">
-            Air Mom upload photos of your facility and service here!
+          <p>Air Mom upload photos of your facility and service here!
+            <p>
+              <!-- https://aberezkin.github.io/ng2-image-upload/#/readme -->
+              <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="images" (uploadFinished)="onUploadFinished($event)">
+              </image-upload>
         </div>
       </ng-template>
     </ngb-tab>

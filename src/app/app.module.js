@@ -36,6 +36,7 @@ var address_input_component_1 = require("./address-input/address-input.component
 var environment_1 = require("../environments/environment");
 var slot_list_component_1 = require("./slot-list/slot-list.component");
 var slot_search_service_service_1 = require("./slot-search-service.service");
+var angular2_image_upload_1 = require("angular2-image-upload");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -71,7 +72,8 @@ var AppModule = (function () {
                 core_2.AgmCoreModule.forRoot({
                     apiKey: environment_1.environment.googleApiKey,
                     libraries: ["places"]
-                })
+                }),
+                angular2_image_upload_1.ImageUploadModule.forRoot()
             ],
             providers: [
                 api_service_1.ApiService,

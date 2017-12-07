@@ -29,6 +29,7 @@ import { AddressInputComponent } from './address-input/address-input.component';
 import { environment } from '../environments/environment';
 import { SlotListComponent } from './slot-list/slot-list.component';
 import { SlotSearchServiceService } from './slot-search-service.service';
+import { ImageUploadModule } from "angular2-image-upload";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { SlotSearchServiceService } from './slot-search-service.service';
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
       libraries: ["places"]
-    })
+    }),
+    ImageUploadModule.forRoot()
   ],
   providers: [
     ApiService,
