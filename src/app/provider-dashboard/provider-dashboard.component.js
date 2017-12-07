@@ -99,6 +99,7 @@ var ProviderDashboardComponent = (function () {
         this.events = [];
         this.activeDayIsOpen = true;
         this.slotApi = apiServiceFactory.produce("slot");
+        this.providerImageApi = apiServiceFactory.produce("provider_image");
     }
     ProviderDashboardComponent.prototype.dayClicked = function (_a) {
         var date = _a.date, events = _a.events;
@@ -188,7 +189,11 @@ var ProviderDashboardComponent = (function () {
         });
     };
     ProviderDashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.loadAllSlots();
+        this.getUploadedImages()
+            .then(function (images) { return _this.images = images; })
+            .catch(function (e) { return _this.notificationService.error(e); });
     };
     ProviderDashboardComponent.prototype.addSlot = function () {
         // this.router.navigateByUrl("provider/addslot");
@@ -231,15 +236,64 @@ var ProviderDashboardComponent = (function () {
         return dto;
     };
     ProviderDashboardComponent.prototype.onUploadFinished = function (event) {
-        var resp = event.serverResponse;
-        var body = resp.response;
-        if (resp.status === 200) {
-            var obj = JSON.parse(body);
-            console.log('Upload response body', obj);
-        }
-        else {
-            this.notificationService.error(body);
-        }
+        return __awaiter(this, void 0, void 0, function () {
+            var resp, body, obj;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        resp = event.serverResponse;
+                        body = resp.text();
+                        if (!(resp.status === 200)) return [3 /*break*/, 2];
+                        obj = JSON.parse(body);
+                        console.log('Upload response body', obj);
+                        return [4 /*yield*/, this.tieImageToProvider(obj.id, obj.fileName)];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        this.notificationService.error(body);
+                        _a.label = 3;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProviderDashboardComponent.prototype.tieImageToProvider = function (imageId, imageName) {
+        return __awaiter(this, void 0, void 0, function () {
+            var providerId, item;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        providerId = this.sessionService.account.id;
+                        item = {
+                            id: uuid.v4(),
+                            providerId: providerId,
+                            imageId: imageId,
+                            imageName: imageName
+                        };
+                        return [4 /*yield*/, this.providerImageApi.add(item)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProviderDashboardComponent.prototype.getUploadedImages = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var providerId, list;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        providerId = this.sessionService.account.id;
+                        return [4 /*yield*/, this.providerImageApi.list({ providerId: providerId })];
+                    case 1:
+                        list = _a.sent();
+                        return [2 /*return*/, list.map(function (x) { return _this.uploadApiUrl + x.imageId; })];
+                }
+            });
+        });
     };
     __decorate([
         core_2.ViewChild('modalContent'),

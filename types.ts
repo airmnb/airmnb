@@ -57,6 +57,13 @@ export interface IdCertificate {
 	tertiary?: string;
 }
 
+export interface ProviderImage {
+  id: string;
+  providerId: string;
+  imageId: number;
+  imageName: string;
+}
+
 export interface Order {
 	id: string;
 	slotId: string;

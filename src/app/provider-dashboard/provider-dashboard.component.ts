@@ -38,7 +38,7 @@ import {
   CalendarEventAction,
   CalendarEventTimesChangedEvent
 } from 'angular-calendar';
-import { ServiceSlot } from '../../../types';
+import { ServiceSlot, ProviderImage } from '../../../types';
 import * as uuid from "uuid";
 import { NotificationService } from '../notification.service';
 
@@ -65,6 +65,7 @@ const colors: any = {
 })
 export class ProviderDashboardComponent implements OnInit {
   private slotApi: ApiService;
+  private providerImageApi: ApiService;
   public uploadApiUrl = "/api/image/";
   public images: string[] = [];
 
@@ -75,6 +76,7 @@ export class ProviderDashboardComponent implements OnInit {
     private router: Router,
   private notificationService: NotificationService) {
     this.slotApi = apiServiceFactory.produce("slot");
+    this.providerImageApi = apiServiceFactory.produce("provider_image");
   }
 
   @ViewChild('modalContent') modalContent: TemplateRef < any > ;
@@ -204,6 +206,9 @@ export class ProviderDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadAllSlots();
+    this.getUploadedImages()
+    .then(images => this.images = images)
+    .catch(e => this.notificationService.error(e));
   }
 
   addSlot(): void {
@@ -237,14 +242,32 @@ export class ProviderDashboardComponent implements OnInit {
     return dto;
   }
 
-  public onUploadFinished(event): void {
+  public async onUploadFinished(event): Promise<void> {
     const resp = event.serverResponse;
-    const body = resp.response;
+    const body = resp.text();
     if(resp.status === 200) {
       const obj = JSON.parse(body);
       console.log('Upload response body', obj);
+      await this.tieImageToProvider(obj.id, obj.fileName);
     } else {
       this.notificationService.error(body);
     }
+  }
+
+  async tieImageToProvider(imageId: number, imageName: string) {
+    const providerId = this.sessionService.account.id;
+    const item: ProviderImage = {
+      id: uuid.v4(),
+      providerId,
+      imageId,
+      imageName
+    };
+    await this.providerImageApi.add(item);
+  }
+
+  async getUploadedImages(): Promise<string[]> {
+    const providerId = this.sessionService.account.id;
+    const list: ProviderImage[] = await this.providerImageApi.list({providerId});
+    return list.map(x => this.uploadApiUrl + x.imageId);
   }
 }
