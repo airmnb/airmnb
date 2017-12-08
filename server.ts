@@ -9,6 +9,7 @@ import * as cors from 'cors';
 import * as fs from 'fs';
 import * as Loki from 'lokijs';
 import * as bodyParser from 'body-parser';
+import * as fileUpload from "express-fileupload";
 import { environment } from './src/environments/environment';
 // Get our API routes
 import * as api from './server/routes/api';
@@ -19,11 +20,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use(fileUpload());
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
-app.use('/img', express.static(path.join(__dirname, 'img')));
+app.use('/image', express.static(path.join(__dirname, 'image')));
 
 // app.use((req, res, next) => {
 //   console.log('>>>', req.method, req.url);

@@ -28,6 +28,8 @@
     "e2e/*.map": "explorerExcludedFiles",
     ".DS_Store": "explorerExcludedFiles",
     "Thumbs.db": "explorerExcludedFiles",
-    "*.map": "explorerExcludedFiles"
+    "*.map": "explorerExcludedFiles",
+    "uploads": "explorerExcludedFiles",
+    "image": "explorerExcludedFiles"
   }
 }

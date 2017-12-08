@@ -244,22 +244,19 @@ export class ProviderDashboardComponent implements OnInit {
 
   public async onUploadFinished(event): Promise<void> {
     const resp = event.serverResponse;
-    const body = resp.text();
+    const filename = resp.text();
     if(resp.status === 200) {
-      const obj = JSON.parse(body);
-      console.log('Upload response body', obj);
-      await this.tieImageToProvider(obj.id, obj.fileName);
+      await this.tieImageToProvider(filename);
     } else {
-      this.notificationService.error(body);
+      this.notificationService.error(resp);
     }
   }
 
-  async tieImageToProvider(imageId: number, imageName: string) {
+  async tieImageToProvider(imageName: string) {
     const providerId = this.sessionService.account.id;
     const item: ProviderImage = {
       id: uuid.v4(),
       providerId,
-      imageId,
       imageName
     };
     await this.providerImageApi.add(item);
@@ -268,6 +265,6 @@ export class ProviderDashboardComponent implements OnInit {
   async getUploadedImages(): Promise<string[]> {
     const providerId = this.sessionService.account.id;
     const list: ProviderImage[] = await this.providerImageApi.list({providerId});
-    return list.map(x => this.uploadApiUrl + x.imageId);
+    return list.map(x => "/image/" + x.imageName);
   }
 }

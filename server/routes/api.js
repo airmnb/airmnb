@@ -44,6 +44,7 @@ var fs = require("fs");
 var multer = require("multer");
 var path = require("path");
 var Loki = require("lokijs");
+var uuid = require("uuid");
 exports.router = express.Router();
 /* GET api listing. */
 exports.router.get('/', function (req, res) {
@@ -177,36 +178,40 @@ exports.router.post('/login', function (req, res) {
 /**
  * Upload image
  */
+exports.router.post('/image', function (req, res) {
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    var imageFile = req.files["image"];
+    var ext = path.extname(imageFile.name);
+    // Use the mv() method to place the file somewhere on your server
+    var name = uuid.v4() + ext;
+    imageFile.mv("./image/" + name, function (err) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.send(name);
+    });
+});
 var DB_NAME = 'db.json';
 var COLLECTION_NAME = 'images';
 var UPLOAD_PATH = 'uploads';
 var upload = multer({ dest: UPLOAD_PATH + "/", fileFilter: utils_1.imageFilter });
 var db = new Loki(UPLOAD_PATH + "/" + DB_NAME, { persistenceMethod: 'fs' });
-exports.router.post('/image', upload.single('image'), function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var col, data, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, utils_1.loadCollection(COLLECTION_NAME, db)];
-            case 1:
-                col = _a.sent();
-                data = col.insert(req.file);
-                db.saveDatabase();
-                res.send({
-                    id: data.$loki,
-                    fileName: data.filename,
-                    originalName: data.originalname
-                });
-                return [3 /*break*/, 3];
-            case 2:
-                err_1 = _a.sent();
-                res.sendStatus(400);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); });
+// router.post('/image', upload.single('image'), async (req, res) => {
+//   try {
+//       const col = await loadCollection(COLLECTION_NAME, db);
+//       const data = col.insert(req.file);
+//       db.saveDatabase();
+//       res.send({
+//         id: data.$loki,
+//         fileName: data.filename,
+//         originalName: data.originalname });
+//   } catch (err) {
+//       res.send(err.message).status(400);
+//   }
+// });
 // router.post('/image', upload.array('photo', 10), async (req, res) => {
 //   try {
 //       const col = await loadCollection(COLLECTION_NAME, db);
@@ -222,7 +227,7 @@ exports.router.post('/image', upload.single('image'), function (req, res) { retu
 //   }
 // });
 exports.router.get('/image', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var col, err_2;
+    var col, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -233,7 +238,7 @@ exports.router.get('/image', function (req, res) { return __awaiter(_this, void 
                 res.send(col.data);
                 return [3 /*break*/, 3];
             case 2:
-                err_2 = _a.sent();
+                err_1 = _a.sent();
                 res.sendStatus(400);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
@@ -241,7 +246,7 @@ exports.router.get('/image', function (req, res) { return __awaiter(_this, void 
     });
 }); });
 exports.router.get('/image/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var col, result, err_3;
+    var col, result, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -258,7 +263,7 @@ exports.router.get('/image/:id', function (req, res) { return __awaiter(_this, v
                 fs.createReadStream(path.join(UPLOAD_PATH, result.filename)).pipe(res);
                 return [3 /*break*/, 3];
             case 2:
-                err_3 = _a.sent();
+                err_2 = _a.sent();
                 res.sendStatus(400);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];

@@ -8,6 +8,7 @@ var path = require("path");
 var http = require("http");
 var cors = require("cors");
 var bodyParser = require("body-parser");
+var fileUpload = require("express-fileupload");
 // Get our API routes
 var api = require("./server/routes/api");
 var app = express();
@@ -15,6 +16,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use(fileUpload());
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));

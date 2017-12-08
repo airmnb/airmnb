@@ -60,7 +60,6 @@ export interface IdCertificate {
 export interface ProviderImage {
   id: string;
   providerId: string;
-  imageId: number;
   imageName: string;
 }
 
