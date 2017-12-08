@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
     this.submitted = true;
     try{
       const queryParams = this.composeQuery();
+      console.log(queryParams);
       this.router.navigate(['/consumer'], {queryParams});
     }catch (e){
       console.log(e);

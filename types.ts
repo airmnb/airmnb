@@ -106,6 +106,7 @@ export enum Gender {
 }
 
 export interface SearchQuery {
+  location?: string;
   age?: number;
   start?: number;
   end?: number;

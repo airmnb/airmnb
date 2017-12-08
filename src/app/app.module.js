@@ -37,6 +37,7 @@ var environment_1 = require("../environments/environment");
 var slot_list_component_1 = require("./slot-list/slot-list.component");
 var slot_search_service_service_1 = require("./slot-search-service.service");
 var angular2_image_upload_1 = require("angular2-image-upload");
+var slot_image_service_1 = require("./slot-image.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -84,7 +85,8 @@ var AppModule = (function () {
                 ngx_cookie_service_1.CookieService,
                 ng_bootstrap_1.NgbTimepickerConfig,
                 notification_service_1.NotificationService,
-                slot_search_service_service_1.SlotSearchServiceService
+                slot_search_service_service_1.SlotSearchServiceService,
+                slot_image_service_1.SlotImageService
             ],
             bootstrap: [app_component_1.AppComponent]
         })

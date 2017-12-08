@@ -12,10 +12,13 @@
     <div class="row">
       <div class="card transparent-card col-md-6">
         <div class="card-block">
-          <div class="container">
             <fieldset [disabled]="submitted">
+          <div class="container">
+
               <div class="row form-group">
-                <input class="form-control" type="text" placeholder="Location" required [(ngModel)]="model.location" name="location">
+                <div class="col-12">
+                <amb-address-input [(address)]="model.location" [showsMap]="false"></amb-address-input>
+                </div>
               </div>
               <div class="row form-group">
                 <select class="custom-select input-group col-md-3" [(ngModel)]="model.age" name="age">
@@ -57,8 +60,9 @@
               <div class="row form-group">
                 <button class="btn btn-success col-md-12 btn-block" (click)="search()">Search</button>
               </div>
-            </fieldset>
           </div>
+        </fieldset>
+
         </div>
       </div>
     </div>

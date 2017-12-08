@@ -20,7 +20,7 @@ app.use(fileUpload());
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
-app.use('/img', express.static(path.join(__dirname, 'img')));
+app.use('/image', express.static(path.join(__dirname, 'image')));
 // app.use((req, res, next) => {
 //   console.log('>>>', req.method, req.url);
 //   next();

@@ -3,9 +3,12 @@
     <div class="col-4 p-2" *ngFor="let slot of slots">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">{{slot.title}}</h4>
+          <h4 class=" d-inline card-title">{{slot.title}}</h4>
+          <div class="d-inline float-right">
+          <i class="fa fa-star text-warning" *ngFor="let x of slot.stars"></i>
+          </div>
         </div>
-        <img class="card-img-top" [src]="slot.avatarUrl" alt="Slot photo">
+        <img class="card-img-top img-thumbnail" [src]="slot.avatarUrl | async" alt="Slot photo">
         <div class="card-block">
           <p class="card-text">{{slot.text}}</p>
         </div>
@@ -17,7 +20,7 @@
           <li class="list-group-item">Price: {{slot.price | currency}} per unit</li>
         </ul>
         <div class="card-block">
-          <a href="#" class="btn btn-primary" (click)="seeDetail(slot.id)">See Details</a>
+          <a href="#" class="btn btn-primary" (click)="book(slot)">Book</a>
         </div>
       </div>
     </div>

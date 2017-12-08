@@ -14,6 +14,7 @@ export class AddressInputComponent implements OnInit {
   public searchControl: FormControl;
   public zoom: number;
   @Input() public address: string;
+  @Input() public showsMap: boolean;
   @Output() public addressChange = new EventEmitter<string>();
 
   @ViewChild("search")

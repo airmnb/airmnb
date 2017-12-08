@@ -64,6 +64,10 @@ var AddressInputComponent = (function () {
         __metadata("design:type", String)
     ], AddressInputComponent.prototype, "address", void 0);
     __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], AddressInputComponent.prototype, "showsMap", void 0);
+    __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
     ], AddressInputComponent.prototype, "addressChange", void 0);

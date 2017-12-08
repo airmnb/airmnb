@@ -30,6 +30,8 @@ import { environment } from '../environments/environment';
 import { SlotListComponent } from './slot-list/slot-list.component';
 import { SlotSearchServiceService } from './slot-search-service.service';
 import { ImageUploadModule } from "angular2-image-upload";
+import { SlotImageService } from './slot-image.service';
+import { SignonComponent } from './signon/signon.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { ImageUploadModule } from "angular2-image-upload";
     NotificationComponent,
     ProfileComponent,
     AddressInputComponent,
-    SlotListComponent
+    SlotListComponent,
+    SignonComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { ImageUploadModule } from "angular2-image-upload";
     CookieService,
     NgbTimepickerConfig,
     NotificationService,
-    SlotSearchServiceService
+    SlotSearchServiceService,
+    SlotImageService
   ],
   bootstrap: [AppComponent]
 })

@@ -54,6 +54,7 @@ var Subject_1 = require("rxjs/Subject");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var uuid = require("uuid");
 var notification_service_1 = require("../notification.service");
+var slot_image_service_1 = require("../slot-image.service");
 var colors = {
     red: {
         primary: '#ad2121',
@@ -69,8 +70,9 @@ var colors = {
     }
 };
 var ProviderDashboardComponent = (function () {
-    function ProviderDashboardComponent(apiServiceFactory, modal, sessionService, router, notificationService) {
+    function ProviderDashboardComponent(apiServiceFactory, slotImageService, modal, sessionService, router, notificationService) {
         var _this = this;
+        this.slotImageService = slotImageService;
         this.modal = modal;
         this.sessionService = sessionService;
         this.router = router;
@@ -99,7 +101,6 @@ var ProviderDashboardComponent = (function () {
         this.events = [];
         this.activeDayIsOpen = true;
         this.slotApi = apiServiceFactory.produce("slot");
-        this.providerImageApi = apiServiceFactory.produce("provider_image");
     }
     ProviderDashboardComponent.prototype.dayClicked = function (_a) {
         var date = _a.date, events = _a.events;
@@ -237,41 +238,33 @@ var ProviderDashboardComponent = (function () {
     };
     ProviderDashboardComponent.prototype.onUploadFinished = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            var resp, body, obj;
+            var resp, filename;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         resp = event.serverResponse;
-                        body = resp.text();
+                        filename = resp.text();
                         if (!(resp.status === 200)) return [3 /*break*/, 2];
-                        obj = JSON.parse(body);
-                        console.log('Upload response body', obj);
-                        return [4 /*yield*/, this.tieImageToProvider(obj.id, obj.fileName)];
+                        return [4 /*yield*/, this.tieImageToProvider(filename)];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 3];
                     case 2:
-                        this.notificationService.error(body);
+                        this.notificationService.error(resp);
                         _a.label = 3;
                     case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    ProviderDashboardComponent.prototype.tieImageToProvider = function (imageId, imageName) {
+    ProviderDashboardComponent.prototype.tieImageToProvider = function (imageName) {
         return __awaiter(this, void 0, void 0, function () {
-            var providerId, item;
+            var providerId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         providerId = this.sessionService.account.id;
-                        item = {
-                            id: uuid.v4(),
-                            providerId: providerId,
-                            imageId: imageId,
-                            imageName: imageName
-                        };
-                        return [4 /*yield*/, this.providerImageApi.add(item)];
+                        return [4 /*yield*/, this.slotImageService.saveImageNameForProvider(imageName, providerId)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -281,16 +274,15 @@ var ProviderDashboardComponent = (function () {
     };
     ProviderDashboardComponent.prototype.getUploadedImages = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            var providerId, list;
+            var providerId, names;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         providerId = this.sessionService.account.id;
-                        return [4 /*yield*/, this.providerImageApi.list({ providerId: providerId })];
+                        return [4 /*yield*/, this.slotImageService.getImageNamesForProvider(providerId)];
                     case 1:
-                        list = _a.sent();
-                        return [2 /*return*/, list.map(function (x) { return _this.uploadApiUrl + x.imageId; })];
+                        names = _a.sent();
+                        return [2 /*return*/, names.map(function (x) { return "/image/" + x; })];
                 }
             });
         });
@@ -307,6 +299,7 @@ var ProviderDashboardComponent = (function () {
             changeDetection: core_2.ChangeDetectionStrategy.OnPush
         }),
         __metadata("design:paramtypes", [api_service_1.ApiServiceFactory,
+            slot_image_service_1.SlotImageService,
             ng_bootstrap_1.NgbModal,
             session_service_1.SessionService,
             router_1.Router,

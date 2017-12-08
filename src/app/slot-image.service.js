@@ -45,100 +45,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var session_service_1 = require("../session.service");
-var map_service_service_1 = require("../map-service.service");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var moment = require("moment");
-var HomeComponent = (function () {
-    function HomeComponent(ngbTimerConfig, sessionService, router, mapService) {
-        this.sessionService = sessionService;
-        this.router = router;
-        this.mapService = mapService;
-        this.submitted = false;
-        this.model = {
-            location: '',
-            age: -1,
-            gender: -1,
-            date: null,
-            timeFrom: {
-                hour: 0,
-                minute: 0
-            },
-            timeTo: {
-                hour: 0,
-                minute: 0
-            },
-        };
-        ngbTimerConfig.seconds = false;
-        ngbTimerConfig.spinners = false;
+var api_service_1 = require("./api.service");
+var uuid = require("uuid");
+var SlotImageService = (function () {
+    function SlotImageService(apiFactory) {
+        this.api = apiFactory.produce("provider_image");
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        // Get the current geolocation
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
-        }
-    };
-    HomeComponent.prototype.setPosition = function (position) {
-        var _this = this;
-        var coords = position.coords;
-        this.mapService.getAddress(coords)
-            .then(function (x) { return _this.model.location = _this.model.location || x; })
-            .catch(function (e) { return null; });
-    };
-    HomeComponent.prototype.search = function () {
+    SlotImageService.prototype.getImageNamesForProvider = function (providerId) {
         return __awaiter(this, void 0, void 0, function () {
-            var queryParams;
+            var list;
             return __generator(this, function (_a) {
-                this.submitted = true;
-                try {
-                    queryParams = this.composeQuery();
-                    console.log(queryParams);
-                    this.router.navigate(['/consumer'], { queryParams: queryParams });
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.list({ providerId: providerId })];
+                    case 1:
+                        list = _a.sent();
+                        return [2 /*return*/, list.map(function (x) { return x.imageName; })];
                 }
-                catch (e) {
-                    console.log(e);
-                    this.submitted = false;
-                }
-                return [2 /*return*/];
             });
         });
     };
-    HomeComponent.prototype.composeQuery = function () {
-        return {
-            age: this.model.age >= 0 ? this.model.age : null,
-            start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
-            end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
-            gender: this.model.gender >= 0 ? this.model.gender : null
-        };
+    SlotImageService.prototype.saveImageNameForProvider = function (imageName, providerId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var item;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        item = {
+                            id: uuid.v4(),
+                            providerId: providerId,
+                            imageName: imageName
+                        };
+                        return [4 /*yield*/, this.api.add(item)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
-    HomeComponent.prototype.getDate = function (date, hour, minute) {
-        try {
-            var d = moment();
-            d.year(date.year);
-            d.month(date.month);
-            d.day(date.day);
-            d.hour(hour);
-            d.minute(minute);
-            d.second(0);
-            return d.toDate().valueOf();
-        }
-        catch (e) {
-            return undefined;
-        }
-    };
-    HomeComponent = __decorate([
-        core_1.Component({
-            selector: 'amb-home',
-            templateUrl: './home.component.html',
-            styleUrls: ['./home.component.css']
-        }),
-        __metadata("design:paramtypes", [ng_bootstrap_1.NgbTimepickerConfig,
-            session_service_1.SessionService,
-            router_1.Router,
-            map_service_service_1.MapServiceService])
-    ], HomeComponent);
-    return HomeComponent;
+    SlotImageService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory])
+    ], SlotImageService);
+    return SlotImageService;
 }());
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.SlotImageService = SlotImageService;
+//# sourceMappingURL=slot-image.service.js.map

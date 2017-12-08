@@ -41,6 +41,7 @@ import {
 import { ServiceSlot, ProviderImage } from '../../../types';
 import * as uuid from "uuid";
 import { NotificationService } from '../notification.service';
+import { SlotImageService } from '../slot-image.service';
 
 const colors: any = {
   red: {
@@ -65,18 +66,17 @@ const colors: any = {
 })
 export class ProviderDashboardComponent implements OnInit {
   private slotApi: ApiService;
-  private providerImageApi: ApiService;
   public uploadApiUrl = "/api/image/";
   public images: string[] = [];
 
 
   constructor(apiServiceFactory: ApiServiceFactory,
+    private slotImageService: SlotImageService,
     private modal: NgbModal,
     private sessionService: SessionService,
     private router: Router,
   private notificationService: NotificationService) {
     this.slotApi = apiServiceFactory.produce("slot");
-    this.providerImageApi = apiServiceFactory.produce("provider_image");
   }
 
   @ViewChild('modalContent') modalContent: TemplateRef < any > ;
@@ -252,19 +252,15 @@ export class ProviderDashboardComponent implements OnInit {
     }
   }
 
-  async tieImageToProvider(imageName: string) {
+  private async tieImageToProvider(imageName: string) {
     const providerId = this.sessionService.account.id;
-    const item: ProviderImage = {
-      id: uuid.v4(),
-      providerId,
-      imageName
-    };
-    await this.providerImageApi.add(item);
+    await this.slotImageService.saveImageNameForProvider(imageName, providerId);
   }
 
   async getUploadedImages(): Promise<string[]> {
     const providerId = this.sessionService.account.id;
-    const list: ProviderImage[] = await this.providerImageApi.list({providerId});
-    return list.map(x => "/image/" + x.imageName);
+    const names = await this.slotImageService.getImageNamesForProvider(providerId);
+    return names.map(x => "/image/" + x);
+
   }
 }
