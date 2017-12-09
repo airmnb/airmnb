@@ -8,15 +8,13 @@ import { CalendarModule } from 'angular-calendar';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
 import { ApiService, ApiServiceFactory, LoginService} from "./api.service";
 import { SessionService } from './session.service';
 import { ProviderDashboardComponent } from './provider-dashboard/provider-dashboard.component';
 import { ConsumerDashboardComponent } from './consumer-dashboard/consumer-dashboard.component';
 import { MapServiceService } from './map-service.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 import { AddSlotComponent } from './add-slot/add-slot.component';
@@ -31,14 +29,15 @@ import { SlotListComponent } from './slot-list/slot-list.component';
 import { SlotSearchServiceService } from './slot-search-service.service';
 import { ImageUploadModule } from "angular2-image-upload";
 import { SlotImageService } from './slot-image.service';
-import { SignonComponent } from './signon/signon.component';
+import { LoginContentComponent } from './login-content/login-content.component';
+import { SignupContentComponent } from './signup-content/signup-content.component';
+import { RegisterModalComponent } from './register-modal/register-modal.component';
+import { ModalService } from './modal.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent,
-    SignupComponent,
     ProviderDashboardComponent,
     ConsumerDashboardComponent,
     AboutusComponent,
@@ -48,7 +47,9 @@ import { SignonComponent } from './signon/signon.component';
     ProfileComponent,
     AddressInputComponent,
     SlotListComponent,
-    SignonComponent
+    LoginContentComponent,
+    SignupContentComponent,
+    RegisterModalComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +79,12 @@ import { SignonComponent } from './signon/signon.component';
     NgbTimepickerConfig,
     NotificationService,
     SlotSearchServiceService,
-    SlotImageService
+    SlotImageService,
+    ModalService,
+    NgbActiveModal
+  ],
+  entryComponents: [
+    RegisterModalComponent
   ],
   bootstrap: [AppComponent]
 })

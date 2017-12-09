@@ -1,0 +1,17 @@
+<div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{errorMessage}}
+</div>
+<form #theForm="ngForm" (ngSubmit)="onSubmit()">
+  <fieldset [disabled]="submitted">
+    <input type="text" class="form-control form-group" placeholder="account name" id="name" required [(ngModel)]="accountName"
+      name="name">
+    <input type="password" class="form-control form-group" placeholder="password" id="password" required [(ngModel)]="password"
+      name="password">
+    <input type="email" class="form-control form-group" placeholder="email" id="email" required [(ngModel)]="email" name="email">
+    <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">Sign up</button>
+    <hr>
+    <p class="text-center">Already have an ccount?
+      <a href (click)="login()">Login</a>
+    </p>
+  </fieldset>
+</form>

@@ -45,56 +45,88 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var uuid = require("uuid");
 var api_service_1 = require("../api.service");
-var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
-var LoginComponent = (function () {
-    function LoginComponent(loginService, sessionService, router) {
-        this.loginService = loginService;
+var session_service_1 = require("../session.service");
+var modal_service_1 = require("../modal.service");
+var SignupContentComponent = (function () {
+    function SignupContentComponent(apiServiceFactory, modalService, activeModal, sessionService, router) {
+        this.modalService = modalService;
+        this.activeModal = activeModal;
         this.sessionService = sessionService;
         this.router = router;
-        this.model = { name: null, password: null };
+        this.submitted = false;
+        this.accountApi = apiServiceFactory.produce("account");
     }
-    LoginComponent.prototype.ngOnInit = function () {
+    SignupContentComponent.prototype.ngOnInit = function () {
     };
-    LoginComponent.prototype.onSubmit = function () {
+    SignupContentComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var account, routeUrl, e_1;
+            var model, dup, id, account, routeUrl, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.submitted = true;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.loginService.login(this.model)];
+                        _a.trys.push([1, 5, , 6]);
+                        model = {
+                            id: uuid.v4(),
+                            name: this.accountName,
+                            email: this.email,
+                            enabled: true,
+                            secret: this.password,
+                            type: null
+                        };
+                        return [4 /*yield*/, this.accountApi.get({ name: model.name })];
                     case 2:
+                        dup = _a.sent();
+                        if (dup) {
+                            throw new Error('The account has be registered.');
+                        }
+                        return [4 /*yield*/, this.accountApi.add(model)];
+                    case 3:
+                        id = _a.sent();
+                        return [4 /*yield*/, this.accountApi.getOne(id)];
+                    case 4:
                         account = _a.sent();
                         this.sessionService.login(account);
+                        this.modalService.dismissModal();
                         routeUrl = account.type === 'provider' ? 'provider' :
                             account.type === 'consumer' ? 'consumer' :
                                 '';
                         this.router.navigateByUrl(routeUrl);
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 6];
+                    case 5:
                         e_1 = _a.sent();
                         console.log(e_1);
                         this.submitted = false;
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
-    LoginComponent = __decorate([
+    SignupContentComponent.prototype.login = function () {
+        this.activeModal.dismiss();
+        this.modalService.openLoginModal();
+        return false;
+    };
+    SignupContentComponent = __decorate([
         core_1.Component({
-            selector: 'amb-login',
-            templateUrl: './login.component.html',
-            styleUrls: ['./login.component.css']
+            selector: 'amb-signup-content',
+            templateUrl: './signup-content.component.html',
+            styleUrls: ['./signup-content.component.css']
         }),
-        __metadata("design:paramtypes", [api_service_1.LoginService, session_service_1.SessionService, router_1.Router])
-    ], LoginComponent);
-    return LoginComponent;
+        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory,
+            modal_service_1.ModalService,
+            ng_bootstrap_1.NgbActiveModal,
+            session_service_1.SessionService,
+            router_1.Router])
+    ], SignupContentComponent);
+    return SignupContentComponent;
 }());
-exports.LoginComponent = LoginComponent;
-//# sourceMappingURL=login.component.js.map
+exports.SignupContentComponent = SignupContentComponent;
+//# sourceMappingURL=signup-content.component.js.map

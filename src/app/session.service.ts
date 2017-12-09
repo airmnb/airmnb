@@ -17,6 +17,10 @@ export class SessionService {
     return this._account;
   }
 
+  get hasLoggedIn(): boolean {
+    return !!this.account;
+  }
+
   login(account: Account): void {
     this._account = account;
     this.accountSubject.next(account);

@@ -5,6 +5,7 @@ import { MapServiceService } from '../map-service.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { SearchQuery } from '../../../types';
 import * as moment from "moment";
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'amb-home',
@@ -27,7 +28,9 @@ export class HomeComponent implements OnInit {
       minute: 0
     },
   };
-  constructor(ngbTimerConfig: NgbTimepickerConfig,
+  constructor(
+    private modalService: ModalService,
+    ngbTimerConfig: NgbTimepickerConfig,
     private sessionService: SessionService,
     private router: Router,
     private mapService: MapServiceService) {
@@ -47,6 +50,22 @@ export class HomeComponent implements OnInit {
     this.mapService.getAddress(coords)
       .then(x => this.model.location = this.model.location || x)
       .catch(e => null);
+  }
+
+  signup() {
+    this.modalService.openSignupModal();
+    return false;
+  }
+
+  login() {
+    if(!this.hasLoggedIn) {
+      this.modalService.openLoginModal();
+    }
+    return false;
+  }
+
+  get hasLoggedIn(): boolean{
+    return !!this.sessionService.account;
   }
 
   async search() {

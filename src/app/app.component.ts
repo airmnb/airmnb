@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from './session.service';
 import { Router } from '@angular/router';
+import { ModalService } from './modal.service';
 
 @Component({
   selector: 'amb-root',
@@ -15,7 +16,10 @@ export class AppComponent implements OnInit  {
   unknownUser = true;
   accountName = null;
 
-  constructor(private sessionService: SessionService, private router: Router){
+  constructor(
+    private modalService: ModalService,
+    private sessionService: SessionService,
+    private router: Router){
     this.sessionService.getAccount().subscribe(account => {
       if(account) {
         this.accountName = account.name;
@@ -39,5 +43,21 @@ export class AppComponent implements OnInit  {
   logout(): void {
     this.sessionService.logout();
     this.router.navigateByUrl('/');
+  }
+
+  signup() {
+    this.modalService.openSignupModal();
+    return false;
+  }
+
+  get hasLoggedIn(): boolean {
+    return !!this.sessionService.account;
+  }
+
+  login() {
+    if(!this.hasLoggedIn) {
+      this.modalService.openLoginModal();
+    }
+    return false;
   }
 }

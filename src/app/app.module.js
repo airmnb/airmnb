@@ -38,6 +38,11 @@ var slot_list_component_1 = require("./slot-list/slot-list.component");
 var slot_search_service_service_1 = require("./slot-search-service.service");
 var angular2_image_upload_1 = require("angular2-image-upload");
 var slot_image_service_1 = require("./slot-image.service");
+var signon_component_1 = require("./signon/signon.component");
+var login_content_component_1 = require("./login-content/login-content.component");
+var signup_content_component_1 = require("./signup-content/signup-content.component");
+var register_modal_component_1 = require("./register-modal/register-modal.component");
+var modal_service_1 = require("./modal.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -56,7 +61,11 @@ var AppModule = (function () {
                 notification_component_1.NotificationComponent,
                 profile_component_1.ProfileComponent,
                 address_input_component_1.AddressInputComponent,
-                slot_list_component_1.SlotListComponent
+                slot_list_component_1.SlotListComponent,
+                login_content_component_1.LoginContentComponent,
+                signup_content_component_1.SignupContentComponent,
+                register_modal_component_1.RegisterModalComponent,
+                signon_component_1.SignonComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -86,7 +95,12 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbTimepickerConfig,
                 notification_service_1.NotificationService,
                 slot_search_service_service_1.SlotSearchServiceService,
-                slot_image_service_1.SlotImageService
+                slot_image_service_1.SlotImageService,
+                modal_service_1.ModalService,
+                ng_bootstrap_1.NgbActiveModal
+            ],
+            entryComponents: [
+                register_modal_component_1.RegisterModalComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

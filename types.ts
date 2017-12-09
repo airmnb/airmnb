@@ -30,6 +30,7 @@ export interface Baby extends HumanBio {
 export interface LoginInfo {
   name: string;
   password: string;
+  role: string;
 }
 
 export interface Account {

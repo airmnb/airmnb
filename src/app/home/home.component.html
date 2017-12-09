@@ -2,19 +2,15 @@
 <div class="jumbotron">
   <div class="container">
     <h1 class="display-3 text-white">Air Mom & Baby</h1>
-    <p class="text-white">Discover flexible and lovely childcare services for your baby!
-      <a href="signup">Register as an Air Mom</a> or
-      <a href="login">Login</a> to find a service for your babies.
-    </p>
-    <p class="text-white">
-      I am an <a href="provider">Air Mom</a>.
+    <p *ngIf="!hasLoggedIn" class="text-white">Discover flexible and lovely childcare services for your baby!
+      <a href (click)="signup()">Register as an Air Mom</a> or
+      <a href (click)="login()">Log in</a> to find a service for your babies.
     </p>
     <div class="row">
       <div class="card transparent-card col-md-6">
         <div class="card-block">
             <fieldset [disabled]="submitted">
           <div class="container">
-
               <div class="row form-group">
                 <div class="col-12">
                 <amb-address-input [(address)]="model.location" [showsMap]="false"></amb-address-input>
