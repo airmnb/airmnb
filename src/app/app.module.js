@@ -15,8 +15,6 @@ var animations_1 = require("@angular/platform-browser/animations");
 var angular_calendar_1 = require("angular-calendar");
 var app_component_1 = require("./app.component");
 var home_component_1 = require("./home/home.component");
-var login_component_1 = require("./login/login.component");
-var signup_component_1 = require("./signup/signup.component");
 var api_service_1 = require("./api.service");
 var session_service_1 = require("./session.service");
 var provider_dashboard_component_1 = require("./provider-dashboard/provider-dashboard.component");
@@ -38,11 +36,11 @@ var slot_list_component_1 = require("./slot-list/slot-list.component");
 var slot_search_service_service_1 = require("./slot-search-service.service");
 var angular2_image_upload_1 = require("angular2-image-upload");
 var slot_image_service_1 = require("./slot-image.service");
-var signon_component_1 = require("./signon/signon.component");
 var login_content_component_1 = require("./login-content/login-content.component");
 var signup_content_component_1 = require("./signup-content/signup-content.component");
 var register_modal_component_1 = require("./register-modal/register-modal.component");
 var modal_service_1 = require("./modal.service");
+var provider_profile_component_1 = require("./provider-profile/provider-profile.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -51,8 +49,6 @@ var AppModule = (function () {
             declarations: [
                 app_component_1.AppComponent,
                 home_component_1.HomeComponent,
-                login_component_1.LoginComponent,
-                signup_component_1.SignupComponent,
                 provider_dashboard_component_1.ProviderDashboardComponent,
                 consumer_dashboard_component_1.ConsumerDashboardComponent,
                 aboutus_component_1.AboutusComponent,
@@ -65,7 +61,7 @@ var AppModule = (function () {
                 login_content_component_1.LoginContentComponent,
                 signup_content_component_1.SignupContentComponent,
                 register_modal_component_1.RegisterModalComponent,
-                signon_component_1.SignonComponent
+                provider_profile_component_1.ProviderProfileComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -100,7 +96,9 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbActiveModal
             ],
             entryComponents: [
-                register_modal_component_1.RegisterModalComponent
+                register_modal_component_1.RegisterModalComponent,
+                login_content_component_1.LoginContentComponent,
+                signup_content_component_1.SignupContentComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

@@ -13,7 +13,6 @@ export class AppComponent implements OnInit  {
 
   title = 'Air Mom & Baby';
   language = 'en';
-  unknownUser = true;
   accountName = null;
 
   constructor(
@@ -23,7 +22,6 @@ export class AppComponent implements OnInit  {
     this.sessionService.getAccount().subscribe(account => {
       if(account) {
         this.accountName = account.name;
-        this.unknownUser = false;
         if (account.type === 'provider'){
           this.router.navigateByUrl('provider');
         }else if (account.type === 'consumer'){
@@ -31,7 +29,6 @@ export class AppComponent implements OnInit  {
         }
       } else {
         this.accountName = null;
-        this.unknownUser = true;
       }
     });
   }
@@ -59,5 +56,19 @@ export class AppComponent implements OnInit  {
       this.modalService.openLoginModal();
     }
     return false;
+  }
+
+  goTransactions() {
+    if(!this.hasLoggedIn) {
+      return false;
+    }
+    this.router.navigate(['transactions']);
+  }
+
+  goProfile() {
+    if(!this.hasLoggedIn) {
+      return false;
+    }
+    this.router.navigateByUrl('profile');
   }
 }

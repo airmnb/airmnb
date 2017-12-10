@@ -42,6 +42,7 @@ import { ServiceSlot, ProviderImage } from '../../../types';
 import * as uuid from "uuid";
 import { NotificationService } from '../notification.service';
 import { SlotImageService } from '../slot-image.service';
+import { ModalService } from '../modal.service';
 
 const colors: any = {
   red: {
@@ -75,6 +76,7 @@ export class ProviderDashboardComponent implements OnInit {
     private modal: NgbModal,
     private sessionService: SessionService,
     private router: Router,
+    private modalservice: ModalService,
   private notificationService: NotificationService) {
     this.slotApi = apiServiceFactory.produce("slot");
   }
@@ -209,6 +211,11 @@ export class ProviderDashboardComponent implements OnInit {
     this.getUploadedImages()
     .then(images => this.images = images)
     .catch(e => this.notificationService.error(e));
+
+  }
+
+  ngAfterViewChecked(){
+    //this.modalservice.openProviderProfileModal();
   }
 
   addSlot(): void {

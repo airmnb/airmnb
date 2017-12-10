@@ -12,7 +12,9 @@
           <a class="nav-item nav-link" href="aboutus">About Us</a>
           <a class="nav-item nav-link" href (click)="signup()" *ngIf="!hasLoggedIn">Sign up</a>
           <a class="nav-item nav-link" href (click)="login()" *ngIf="!hasLoggedIn">Log in</a>
-          <a class="nav-item nav-link" (click)="logout()" *ngIf=hasLoggedIn>Log out</a>
+          <a class="nav-item nav-link" (click)="goTransactions()" *ngIf="hasLoggedIn">Transactions</a>
+          <a class="nav-item nav-link" (click)="goProfile()" *ngIf="hasLoggedIn">Profile</a>
+          <a class="nav-item nav-link" (click)="logout()" *ngIf="hasLoggedIn">Log out</a>
           <select class="custom-select" [(ngModel)]="language">
             <option [value]="en">English</option>
             <option [value]="ch">中文（简体）</option>

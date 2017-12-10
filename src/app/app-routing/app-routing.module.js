@@ -10,8 +10,6 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var home_component_1 = require("../home/home.component");
-var login_component_1 = require("../login/login.component");
-var signup_component_1 = require("../signup/signup.component");
 var provider_dashboard_component_1 = require("../provider-dashboard/provider-dashboard.component");
 var consumer_dashboard_component_1 = require("../consumer-dashboard/consumer-dashboard.component");
 var aboutus_component_1 = require("../aboutus/aboutus.component");
@@ -20,14 +18,6 @@ var routes = [
     {
         path: '',
         component: home_component_1.HomeComponent
-    },
-    {
-        path: 'login',
-        component: login_component_1.LoginComponent
-    },
-    {
-        path: 'signup',
-        component: signup_component_1.SignupComponent
     },
     {
         path: 'provider',

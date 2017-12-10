@@ -6,10 +6,15 @@ import { ProviderDashboardComponent } from '../provider-dashboard/provider-dashb
 import { ConsumerDashboardComponent } from '../consumer-dashboard/consumer-dashboard.component';
 import { AboutusComponent } from '../aboutus/aboutus.component';
 import { AddSlotComponent } from '../add-slot/add-slot.component';
+import { ProfileComponent } from '../profile/profile.component';
 const routes: Routes = [
   {
-      path: '',
-      component: HomeComponent
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   {
     path: 'provider',

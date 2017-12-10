@@ -107,12 +107,12 @@
                 <td>
                   <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next(event)">
                 </td>
-                <td>
+                <!-- <td>
                   <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next(event)">
                 </td>
                 <td>
                   <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next(event)">
-                </td>
+                </td> -->
                 <td>
                   <amb-date-time-picker [(ngModel)]="event.start" (ngModelChange)="refresh.next(event)" placeholder="Not set">
                   </amb-date-time-picker>

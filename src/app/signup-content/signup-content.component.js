@@ -98,10 +98,12 @@ var SignupContentComponent = (function () {
                             account.type === 'consumer' ? 'consumer' :
                                 '';
                         this.router.navigateByUrl(routeUrl);
+                        this.errorMessage = null;
+                        this.activeModal.dismiss();
                         return [3 /*break*/, 6];
                     case 5:
                         e_1 = _a.sent();
-                        console.log(e_1);
+                        this.errorMessage = e_1.message;
                         this.submitted = false;
                         return [3 /*break*/, 6];
                     case 6: return [2 /*return*/];

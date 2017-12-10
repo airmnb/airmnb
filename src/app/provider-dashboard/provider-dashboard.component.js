@@ -55,6 +55,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var uuid = require("uuid");
 var notification_service_1 = require("../notification.service");
 var slot_image_service_1 = require("../slot-image.service");
+var modal_service_1 = require("../modal.service");
 var colors = {
     red: {
         primary: '#ad2121',
@@ -70,12 +71,13 @@ var colors = {
     }
 };
 var ProviderDashboardComponent = (function () {
-    function ProviderDashboardComponent(apiServiceFactory, slotImageService, modal, sessionService, router, notificationService) {
+    function ProviderDashboardComponent(apiServiceFactory, slotImageService, modal, sessionService, router, modalservice, notificationService) {
         var _this = this;
         this.slotImageService = slotImageService;
         this.modal = modal;
         this.sessionService = sessionService;
         this.router = router;
+        this.modalservice = modalservice;
         this.notificationService = notificationService;
         this.uploadApiUrl = "/api/image/";
         this.images = [];
@@ -196,6 +198,9 @@ var ProviderDashboardComponent = (function () {
             .then(function (images) { return _this.images = images; })
             .catch(function (e) { return _this.notificationService.error(e); });
     };
+    ProviderDashboardComponent.prototype.ngAfterViewChecked = function () {
+        //this.modalservice.openProviderProfileModal();
+    };
     ProviderDashboardComponent.prototype.addSlot = function () {
         // this.router.navigateByUrl("provider/addslot");
     };
@@ -303,6 +308,7 @@ var ProviderDashboardComponent = (function () {
             ng_bootstrap_1.NgbModal,
             session_service_1.SessionService,
             router_1.Router,
+            modal_service_1.ModalService,
             notification_service_1.NotificationService])
     ], ProviderDashboardComponent);
     return ProviderDashboardComponent;

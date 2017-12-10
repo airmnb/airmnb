@@ -50,8 +50,10 @@ var session_service_1 = require("../session.service");
 var map_service_service_1 = require("../map-service.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var moment = require("moment");
+var modal_service_1 = require("../modal.service");
 var HomeComponent = (function () {
-    function HomeComponent(ngbTimerConfig, sessionService, router, mapService) {
+    function HomeComponent(modalService, ngbTimerConfig, sessionService, router, mapService) {
+        this.modalService = modalService;
         this.sessionService = sessionService;
         this.router = router;
         this.mapService = mapService;
@@ -86,6 +88,23 @@ var HomeComponent = (function () {
             .then(function (x) { return _this.model.location = _this.model.location || x; })
             .catch(function (e) { return null; });
     };
+    HomeComponent.prototype.signup = function () {
+        this.modalService.openSignupModal();
+        return false;
+    };
+    HomeComponent.prototype.login = function () {
+        if (!this.hasLoggedIn) {
+            this.modalService.openLoginModal();
+        }
+        return false;
+    };
+    Object.defineProperty(HomeComponent.prototype, "hasLoggedIn", {
+        get: function () {
+            return !!this.sessionService.account;
+        },
+        enumerable: true,
+        configurable: true
+    });
     HomeComponent.prototype.search = function () {
         return __awaiter(this, void 0, void 0, function () {
             var queryParams;
@@ -133,7 +152,8 @@ var HomeComponent = (function () {
             templateUrl: './home.component.html',
             styleUrls: ['./home.component.css']
         }),
-        __metadata("design:paramtypes", [ng_bootstrap_1.NgbTimepickerConfig,
+        __metadata("design:paramtypes", [modal_service_1.ModalService,
+            ng_bootstrap_1.NgbTimepickerConfig,
             session_service_1.SessionService,
             router_1.Router,
             map_service_service_1.MapServiceService])

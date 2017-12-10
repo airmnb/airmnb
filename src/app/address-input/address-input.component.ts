@@ -11,7 +11,7 @@ import {} from '@types/googlemaps';
 export class AddressInputComponent implements OnInit {
   public latitude: number;
   public longitude: number;
-  public searchControl: FormControl;
+  // public searchControl: FormControl;
   public zoom: number;
   @Input() public address: string;
   @Input() public showsMap: boolean;
@@ -32,7 +32,7 @@ export class AddressInputComponent implements OnInit {
     this.longitude = -98.5795;
 
     // create search FormControl
-    this.searchControl = new FormControl(this.address);
+    // this.searchControl = new FormControl(this.address);
 
     // set current position
     this.setCurrentPosition();
@@ -52,6 +52,8 @@ export class AddressInputComponent implements OnInit {
             return;
           }
 
+          this.address = place.formatted_address;
+          console.log('>>>', this.address);
           // set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();

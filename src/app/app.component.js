@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var session_service_1 = require("./session.service");
 var router_1 = require("@angular/router");
+var modal_service_1 = require("./modal.service");
 var AppComponent = (function () {
-    function AppComponent(sessionService, router) {
+    function AppComponent(modalService, sessionService, router) {
         var _this = this;
+        this.modalService = modalService;
         this.sessionService = sessionService;
         this.router = router;
         this.title = 'Air Mom & Baby';
@@ -45,13 +47,32 @@ var AppComponent = (function () {
         this.sessionService.logout();
         this.router.navigateByUrl('/');
     };
+    AppComponent.prototype.signup = function () {
+        this.modalService.openSignupModal();
+        return false;
+    };
+    Object.defineProperty(AppComponent.prototype, "hasLoggedIn", {
+        get: function () {
+            return !!this.sessionService.account;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AppComponent.prototype.login = function () {
+        if (!this.hasLoggedIn) {
+            this.modalService.openLoginModal();
+        }
+        return false;
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'amb-root',
             templateUrl: './app.component.html',
             styleUrls: ['./app.component.css']
         }),
-        __metadata("design:paramtypes", [session_service_1.SessionService, router_1.Router])
+        __metadata("design:paramtypes", [modal_service_1.ModalService,
+            session_service_1.SessionService,
+            router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

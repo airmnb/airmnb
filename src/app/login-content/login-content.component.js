@@ -72,7 +72,8 @@ var LoginContentComponent = (function () {
                         _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.loginService.login({
                                 name: this.accountName,
-                                password: this.password
+                                password: this.password,
+                                role: this.role
                             })];
                     case 2:
                         account = _a.sent();
@@ -82,10 +83,12 @@ var LoginContentComponent = (function () {
                             this.role === 'consumer' ? 'consumer' :
                                 '';
                         this.router.navigateByUrl(routeUrl);
+                        this.errorMessage = null;
+                        this.activeModal.dismiss();
                         return [3 /*break*/, 4];
                     case 3:
                         e_1 = _a.sent();
-                        console.log(e_1);
+                        this.errorMessage = e_1.message;
                         this.submitted = false;
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];

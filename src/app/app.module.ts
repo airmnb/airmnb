@@ -33,6 +33,8 @@ import { LoginContentComponent } from './login-content/login-content.component';
 import { SignupContentComponent } from './signup-content/signup-content.component';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
 import { ModalService } from './modal.service';
+import { ProviderProfileComponent } from './provider-profile/provider-profile.component';
+import { SlotComponent } from './slot/slot.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { ModalService } from './modal.service';
     SlotListComponent,
     LoginContentComponent,
     SignupContentComponent,
-    RegisterModalComponent
+    RegisterModalComponent,
+    ProviderProfileComponent,
+    SlotComponent
   ],
   imports: [
     BrowserModule,

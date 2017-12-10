@@ -1,5 +1,5 @@
-  <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
-    #search [formControl]="searchControl">
+<input placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
+  #search [(ngModel)]="address">
 <agm-map *ngIf="showsMap" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
   <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
 </agm-map>

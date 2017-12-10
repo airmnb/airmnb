@@ -12,22 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var session_service_1 = require("./session.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var register_modal_component_1 = require("./register-modal/register-modal.component");
+var login_content_component_1 = require("./login-content/login-content.component");
+var signup_content_component_1 = require("./signup-content/signup-content.component");
 var ModalService = (function () {
     function ModalService(modalService, activeModal, sessionService) {
         this.modalService = modalService;
         this.activeModal = activeModal;
         this.sessionService = sessionService;
     }
-    ModalService.prototype.openGenericRegisterModal = function (mode) {
-        var modalRef = this.modalService.open(register_modal_component_1.RegisterModalComponent);
-        modalRef.componentInstance.mode = mode;
-    };
+    // private openGenericRegisterModal(mode: string, tit) {
+    //   const modalRef = this.modalService.open(RegisterModalComponent);
+    //   modalRef.componentInstance.mode = mode;
+    //   modalRef.componentInstance.title = mode;
+    // }
     ModalService.prototype.openLoginModal = function () {
-        this.openGenericRegisterModal('login');
+        this.activeModal.dismiss();
+        var modalRef = this.modalService.open(login_content_component_1.LoginContentComponent);
     };
     ModalService.prototype.openSignupModal = function () {
-        this.openGenericRegisterModal('signup');
+        this.activeModal.dismiss();
+        var modalRef = this.modalService.open(signup_content_component_1.SignupContentComponent);
+    };
+    ModalService.prototype.openProviderProfileModal = function () {
+        //this.openGenericRegisterModal('providerProfile');
     };
     ModalService.prototype.dismissModal = function () {
         this.activeModal.dismiss();

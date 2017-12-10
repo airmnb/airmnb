@@ -25,6 +25,13 @@ var SessionService = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(SessionService.prototype, "hasLoggedIn", {
+        get: function () {
+            return !!this.account;
+        },
+        enumerable: true,
+        configurable: true
+    });
     SessionService.prototype.login = function (account) {
         this._account = account;
         this.accountSubject.next(account);
