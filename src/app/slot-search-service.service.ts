@@ -6,24 +6,21 @@ import { SearchQuery, ServiceSlot, Gender } from '../../types';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ApiService, ApiServiceFactory } from './api.service';
+import { ApiFacade } from './apiFacade';
 
 @Injectable()
 export class SlotSearchServiceService {
-
-  private apiService: ApiService;
-
   constructor(private notificationService: NotificationService,
     private sessionService: SessionService,
-    apiServiceFactory: ApiServiceFactory
+    private api: ApiFacade
   ) {
-    this.apiService = apiServiceFactory.produce('slot');
   }
 
   public search(query: SearchQuery): Observable<ServiceSlot[]> {
     const consumerId = this.getConsumerId();
     const subject = new Subject<ServiceSlot[]>();
     const q = this.convertToMongoQuery(query);
-    this.apiService.list(q)
+    this.api.slotApi.list(q)
     .then(
       x => subject.next(x)
     )

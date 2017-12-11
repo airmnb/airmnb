@@ -73,6 +73,7 @@ var AddSlotComponent = (function () {
             ageTo: 6,
             gender: 2,
             otherCondition: null,
+            capping: 5,
             price: 50
         };
     };

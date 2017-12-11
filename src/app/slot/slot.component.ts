@@ -7,6 +7,7 @@ import { NotificationService } from '../notification.service';
 import { ModalService } from '../modal.service';
 import * as moment from "moment";
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApiFacade } from '../apiFacade';
 
 @Component({
   selector: 'amb-slot',
@@ -14,7 +15,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./slot.component.css']
 })
 export class SlotComponent implements OnInit {
-  private api: ApiService;
 
   model = {
     capping: 5,
@@ -74,12 +74,12 @@ export class SlotComponent implements OnInit {
   }
 
 
-  constructor(apiFactory: ApiServiceFactory,
+  constructor(
+    private api: ApiFacade,
     private sessionService: SessionService,
     private notificationService: NotificationService,
     private modalService: ModalService,
     public activeModal: NgbActiveModal) {
-    this.api = apiFactory.produce('slot');
    }
 
   ngOnInit() {
@@ -93,7 +93,7 @@ export class SlotComponent implements OnInit {
     }
     const producerId = this.sessionService.account.id;
     const slot = this.ConvertToSlot();
-    this.api.add(slot)
+    this.api.slotApi.add(slot)
     .then(
       x => {this.notificationService.info(`Added slot ${x}`);
         this.activeModal.dismiss();

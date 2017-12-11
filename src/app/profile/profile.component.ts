@@ -3,6 +3,7 @@ import { ApiServiceFactory, ApiService } from '../api.service';
 import { ProviderProfile } from '../../../types';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
+import { ApiFacade } from '../apiFacade';
 
 @Component({
   selector: 'amb-profile',
@@ -35,20 +36,17 @@ export class ProfileComponent implements OnInit {
     }
   };
 
-  private api: ApiService;
-
   constructor(
-    apiFactory: ApiServiceFactory,
+    private api: ApiFacade,
     private sessionService: SessionService,
     private notificationService: NotificationService
   ) {
-    this.api = apiFactory.produce("provider_profile");
   }
 
   ngOnInit() {
     const accountId = this.sessionService.account.id;
 
-    this.api.get({accountId})
+    this.api.providerProfileApi.get({accountId})
       .then(p => this.setModel(p))
       .catch(e => this.notificationService.error(e));
   }
@@ -82,9 +80,9 @@ export class ProfileComponent implements OnInit {
     };
 
     if(p.id){
-      this.api.update(p, p.id);
+      this.api.providerProfileApi.update(p, p.id);
     }else{
-      this.api.add(p);
+      this.api.providerProfileApi.add(p);
     }
   }
 

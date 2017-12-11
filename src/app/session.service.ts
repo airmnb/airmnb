@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 const cookieKey = 'c';
+const langKey = 'lang';
 
 @Injectable()
 export class SessionService {
@@ -55,5 +56,13 @@ export class SessionService {
     }
 
     this.logout();
+  }
+
+  setLanguage(lang: string) {
+    this.cookieService.set(langKey, lang);
+  }
+
+  getLanguage(): string {
+    return this.cookieService.get(langKey) || 'en';
   }
 }

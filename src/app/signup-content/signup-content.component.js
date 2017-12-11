@@ -47,18 +47,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var uuid = require("uuid");
-var api_service_1 = require("../api.service");
 var router_1 = require("@angular/router");
 var session_service_1 = require("../session.service");
 var modal_service_1 = require("../modal.service");
+var apiFacade_1 = require("../apiFacade");
 var SignupContentComponent = (function () {
-    function SignupContentComponent(apiServiceFactory, modalService, activeModal, sessionService, router) {
+    function SignupContentComponent(api, modalService, activeModal, sessionService, router) {
+        this.api = api;
         this.modalService = modalService;
         this.activeModal = activeModal;
         this.sessionService = sessionService;
         this.router = router;
         this.submitted = false;
-        this.accountApi = apiServiceFactory.produce("account");
     }
     SignupContentComponent.prototype.ngOnInit = function () {
     };
@@ -80,16 +80,16 @@ var SignupContentComponent = (function () {
                             secret: this.password,
                             type: null
                         };
-                        return [4 /*yield*/, this.accountApi.get({ name: model.name })];
+                        return [4 /*yield*/, this.api.accountApi.get({ name: model.name })];
                     case 2:
                         dup = _a.sent();
                         if (dup) {
                             throw new Error('The account has be registered.');
                         }
-                        return [4 /*yield*/, this.accountApi.add(model)];
+                        return [4 /*yield*/, this.api.accountApi.add(model)];
                     case 3:
                         id = _a.sent();
-                        return [4 /*yield*/, this.accountApi.getOne(id)];
+                        return [4 /*yield*/, this.api.accountApi.getOne(id)];
                     case 4:
                         account = _a.sent();
                         this.sessionService.login(account);
@@ -122,7 +122,7 @@ var SignupContentComponent = (function () {
             templateUrl: './signup-content.component.html',
             styleUrls: ['./signup-content.component.css']
         }),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory,
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
             modal_service_1.ModalService,
             ng_bootstrap_1.NgbActiveModal,
             session_service_1.SessionService,

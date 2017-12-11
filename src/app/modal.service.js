@@ -12,29 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var session_service_1 = require("./session.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var login_content_component_1 = require("./login-content/login-content.component");
-var signup_content_component_1 = require("./signup-content/signup-content.component");
+var register_modal_component_1 = require("./register-modal/register-modal.component");
 var ModalService = (function () {
     function ModalService(modalService, activeModal, sessionService) {
         this.modalService = modalService;
         this.activeModal = activeModal;
         this.sessionService = sessionService;
     }
-    // private openGenericRegisterModal(mode: string, tit) {
-    //   const modalRef = this.modalService.open(RegisterModalComponent);
-    //   modalRef.componentInstance.mode = mode;
-    //   modalRef.componentInstance.title = mode;
-    // }
+    ModalService.prototype.openGenericRegisterModal = function (mode, title) {
+        var modalRef = this.modalService.open(register_modal_component_1.RegisterModalComponent);
+        modalRef.componentInstance.mode = mode;
+        modalRef.componentInstance.title = title;
+    };
     ModalService.prototype.openLoginModal = function () {
-        this.activeModal.dismiss();
-        var modalRef = this.modalService.open(login_content_component_1.LoginContentComponent);
+        this.openGenericRegisterModal('login', 'Log in');
     };
     ModalService.prototype.openSignupModal = function () {
-        this.activeModal.dismiss();
-        var modalRef = this.modalService.open(signup_content_component_1.SignupContentComponent);
+        this.openGenericRegisterModal('signup', 'Sign up');
     };
-    ModalService.prototype.openProviderProfileModal = function () {
-        //this.openGenericRegisterModal('providerProfile');
+    ModalService.prototype.openAddSlotModal = function () {
+        this.openGenericRegisterModal('addslot', 'Add a new service slot');
+    };
+    ModalService.prototype.openAddBabyModal = function () {
+        this.openGenericRegisterModal('addbaby', 'Add baby information');
     };
     ModalService.prototype.dismissModal = function () {
         this.activeModal.dismiss();

@@ -45,49 +45,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var api_service_1 = require("./api.service");
-var uuid = require("uuid");
-var SlotImageService = (function () {
-    function SlotImageService(apiFactory) {
-        this.api = apiFactory.produce("provider_image");
+var apiFacade_1 = require("./apiFacade");
+var ImageService = (function () {
+    function ImageService(api) {
+        this.api = api;
     }
-    SlotImageService.prototype.getImageNamesForProvider = function (providerId) {
+    ImageService.prototype.getImageNamesForProvider = function (accountId) {
         return __awaiter(this, void 0, void 0, function () {
-            var list;
+            var providerProfile;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.list({ providerId: providerId })];
+                    case 0: return [4 /*yield*/, this.api.providerProfileApi.get({ accountId: accountId })];
                     case 1:
-                        list = _a.sent();
-                        return [2 /*return*/, list.map(function (x) { return x.imageName; })];
+                        providerProfile = _a.sent();
+                        return [2 /*return*/, providerProfile.images || []];
                 }
             });
         });
     };
-    SlotImageService.prototype.saveImageNameForProvider = function (imageName, providerId) {
+    ImageService.prototype.saveImageNameForProvider = function (imageName, accountId) {
         return __awaiter(this, void 0, void 0, function () {
-            var item;
+            var providerProfile;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        item = {
-                            id: uuid.v4(),
-                            providerId: providerId,
-                            imageName: imageName
-                        };
-                        return [4 /*yield*/, this.api.add(item)];
+                    case 0: return [4 /*yield*/, this.api.providerProfileApi.get({ accountId: accountId })];
                     case 1:
+                        providerProfile = _a.sent();
+                        providerProfile.images = providerProfile.images || [];
+                        providerProfile.images.push(imageName);
+                        return [4 /*yield*/, this.api.providerProfileApi.update(providerProfile, providerProfile.id)];
+                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    SlotImageService = __decorate([
+    ImageService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory])
-    ], SlotImageService);
-    return SlotImageService;
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade])
+    ], ImageService);
+    return ImageService;
 }());
-exports.SlotImageService = SlotImageService;
+exports.ImageService = ImageService;
 //# sourceMappingURL=slot-image.service.js.map

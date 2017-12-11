@@ -13,6 +13,7 @@ var app_routing_module_1 = require("./app-routing/app-routing.module");
 var http_1 = require("@angular/http");
 var animations_1 = require("@angular/platform-browser/animations");
 var angular_calendar_1 = require("angular-calendar");
+var ng2_smart_table_1 = require("ng2-smart-table");
 var app_component_1 = require("./app.component");
 var home_component_1 = require("./home/home.component");
 var api_service_1 = require("./api.service");
@@ -41,6 +42,13 @@ var signup_content_component_1 = require("./signup-content/signup-content.compon
 var register_modal_component_1 = require("./register-modal/register-modal.component");
 var modal_service_1 = require("./modal.service");
 var provider_profile_component_1 = require("./provider-profile/provider-profile.component");
+var slot_component_1 = require("./slot/slot.component");
+var profile_content_component_1 = require("./profile-content/profile-content.component");
+var provider_main_component_1 = require("./provider-main/provider-main.component");
+var baby_content_component_1 = require("./baby-content/baby-content.component");
+var booking_service_1 = require("./booking.service");
+var apiFacade_1 = require("./apiFacade");
+var header_component_1 = require("./header/header.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -61,7 +69,12 @@ var AppModule = (function () {
                 login_content_component_1.LoginContentComponent,
                 signup_content_component_1.SignupContentComponent,
                 register_modal_component_1.RegisterModalComponent,
-                provider_profile_component_1.ProviderProfileComponent
+                provider_profile_component_1.ProviderProfileComponent,
+                slot_component_1.SlotComponent,
+                profile_content_component_1.ProfileContentComponent,
+                provider_main_component_1.ProviderMainComponent,
+                baby_content_component_1.BabyContentComponent,
+                header_component_1.HeaderComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -79,7 +92,8 @@ var AppModule = (function () {
                     apiKey: environment_1.environment.googleApiKey,
                     libraries: ["places"]
                 }),
-                angular2_image_upload_1.ImageUploadModule.forRoot()
+                angular2_image_upload_1.ImageUploadModule.forRoot(),
+                ng2_smart_table_1.Ng2SmartTableModule
             ],
             providers: [
                 api_service_1.ApiService,
@@ -91,14 +105,14 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbTimepickerConfig,
                 notification_service_1.NotificationService,
                 slot_search_service_service_1.SlotSearchServiceService,
-                slot_image_service_1.SlotImageService,
+                slot_image_service_1.ImageService,
                 modal_service_1.ModalService,
-                ng_bootstrap_1.NgbActiveModal
+                ng_bootstrap_1.NgbActiveModal,
+                booking_service_1.BookingService,
+                apiFacade_1.ApiFacade
             ],
             entryComponents: [
-                register_modal_component_1.RegisterModalComponent,
-                login_content_component_1.LoginContentComponent,
-                signup_content_component_1.SignupContentComponent
+                register_modal_component_1.RegisterModalComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

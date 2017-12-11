@@ -45,86 +45,70 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var types_1 = require("../../../types");
-var slot_image_service_1 = require("../slot-image.service");
-require("rxjs/add/observable/fromPromise");
-var SlotListComponent = (function () {
-    function SlotListComponent(slotImageService) {
-        this.slotImageService = slotImageService;
+var session_service_1 = require("../session.service");
+var uuid = require("uuid");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var apiFacade_1 = require("../apiFacade");
+var BabyContentComponent = (function () {
+    function BabyContentComponent(sessionService, api, activeModal) {
+        this.sessionService = sessionService;
+        this.api = api;
+        this.activeModal = activeModal;
+        this.model = {
+            nickName: null,
+            age: null,
+            gender: null,
+            hobby: null,
+            info: null
+        };
     }
-    Object.defineProperty(SlotListComponent.prototype, "slots", {
-        get: function () {
-            return this._slots;
-        },
-        set: function (slots) {
-            var _this = this;
-            this._slots = slots;
-            if (this._slots) {
-                this._slots.forEach(function (s) {
-                    Object.assign(s, {
-                        avatarUrl: _this.getSlotAvatar(s),
-                        stars: Array(_this.getSlotRate(s)).fill(null)
-                    });
-                });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SlotListComponent.prototype.ngOnInit = function () {
+    BabyContentComponent.prototype.ngOnInit = function () {
     };
-    SlotListComponent.prototype.ngOnChanges = function (changes) {
-    };
-    SlotListComponent.prototype.ngDoCheck = function () {
-    };
-    SlotListComponent.prototype.displayGender = function (gender) {
-        return gender === types_1.Gender.Boy ? 'Boy' :
-            gender === types_1.Gender.Girl ? 'Girl' :
-                'Both';
-    };
-    SlotListComponent.prototype.getSlotAvatar = function (slot) {
+    BabyContentComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var providerId, imageNames, index;
+            var consumerId, babyProfile, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        providerId = slot.providerId;
-                        return [4 /*yield*/, this.slotImageService.getImageNamesForProvider(providerId)];
+                        consumerId = this.sessionService.account.id;
+                        babyProfile = {
+                            id: uuid.v4(),
+                            nickName: this.model.nickName,
+                            consumerId: consumerId,
+                            age: this.model.age,
+                            gender: this.model.gender,
+                            hobby: this.model.hobby,
+                            info: this.model.info
+                        };
+                        _a.label = 1;
                     case 1:
-                        imageNames = _a.sent();
-                        if (imageNames.length) {
-                            index = Math.floor(Math.random() * imageNames.length);
-                            return [2 /*return*/, '/image/' + imageNames[index]];
-                        }
-                        return [2 /*return*/, null];
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.api.babyProfileApi.add(babyProfile)];
+                    case 2:
+                        _a.sent();
+                        this.activeModal.dismiss();
+                        window.location.reload();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _a.sent();
+                        this.errorMessage = e_1.message;
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    SlotListComponent.prototype.getSlotRate = function (slot) {
-        return Math.floor(Math.random() * 3) + 3; // 3,4,5
-    };
-    SlotListComponent.prototype.book = function (slot) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
-    };
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Array),
-        __metadata("design:paramtypes", [Array])
-    ], SlotListComponent.prototype, "slots", null);
-    SlotListComponent = __decorate([
+    BabyContentComponent = __decorate([
         core_1.Component({
-            selector: 'amb-slot-list',
-            templateUrl: './slot-list.component.html',
-            styleUrls: ['./slot-list.component.css']
+            selector: 'amb-baby-content',
+            templateUrl: './baby-content.component.html',
+            styleUrls: ['./baby-content.component.css']
         }),
-        __metadata("design:paramtypes", [slot_image_service_1.ImageService])
-    ], SlotListComponent);
-    return SlotListComponent;
+        __metadata("design:paramtypes", [session_service_1.SessionService,
+            apiFacade_1.ApiFacade,
+            ng_bootstrap_1.NgbActiveModal])
+    ], BabyContentComponent);
+    return BabyContentComponent;
 }());
-exports.SlotListComponent = SlotListComponent;
-//# sourceMappingURL=slot-list.component.js.map
+exports.BabyContentComponent = BabyContentComponent;
+//# sourceMappingURL=baby-content.component.js.map

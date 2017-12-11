@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -28,7 +29,7 @@ import { environment } from '../environments/environment';
 import { SlotListComponent } from './slot-list/slot-list.component';
 import { SlotSearchServiceService } from './slot-search-service.service';
 import { ImageUploadModule } from "angular2-image-upload";
-import { SlotImageService } from './slot-image.service';
+import { ImageService } from './slot-image.service';
 import { LoginContentComponent } from './login-content/login-content.component';
 import { SignupContentComponent } from './signup-content/signup-content.component';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
@@ -38,6 +39,9 @@ import { SlotComponent } from './slot/slot.component';
 import { ProfileContentComponent } from './profile-content/profile-content.component';
 import { ProviderMainComponent } from './provider-main/provider-main.component';
 import { BabyContentComponent } from './baby-content/baby-content.component';
+import { BookingService } from './booking.service';
+import { ApiFacade } from "./apiFacade";
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,8 @@ import { BabyContentComponent } from './baby-content/baby-content.component';
     SlotComponent,
     ProfileContentComponent,
     ProviderMainComponent,
-    BabyContentComponent
+    BabyContentComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,8 @@ import { BabyContentComponent } from './baby-content/baby-content.component';
       apiKey: environment.googleApiKey,
       libraries: ["places"]
     }),
-    ImageUploadModule.forRoot()
+    ImageUploadModule.forRoot(),
+    Ng2SmartTableModule
   ],
   providers: [
     ApiService,
@@ -89,9 +95,11 @@ import { BabyContentComponent } from './baby-content/baby-content.component';
     NgbTimepickerConfig,
     NotificationService,
     SlotSearchServiceService,
-    SlotImageService,
+    ImageService,
     ModalService,
-    NgbActiveModal
+    NgbActiveModal,
+    BookingService,
+    ApiFacade
   ],
   entryComponents: [
     RegisterModalComponent

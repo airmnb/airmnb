@@ -21,12 +21,10 @@ var AppComponent = (function () {
         this.router = router;
         this.title = 'Air Mom & Baby';
         this.language = 'en';
-        this.unknownUser = true;
         this.accountName = null;
         this.sessionService.getAccount().subscribe(function (account) {
             if (account) {
                 _this.accountName = account.name;
-                _this.unknownUser = false;
                 if (account.type === 'provider') {
                     _this.router.navigateByUrl('provider');
                 }
@@ -36,7 +34,6 @@ var AppComponent = (function () {
             }
             else {
                 _this.accountName = null;
-                _this.unknownUser = true;
             }
         });
     }
@@ -63,6 +60,18 @@ var AppComponent = (function () {
             this.modalService.openLoginModal();
         }
         return false;
+    };
+    AppComponent.prototype.goTransactions = function () {
+        if (!this.hasLoggedIn) {
+            return false;
+        }
+        this.router.navigate(['transactions']);
+    };
+    AppComponent.prototype.goProfile = function () {
+        if (!this.hasLoggedIn) {
+            return false;
+        }
+        this.router.navigateByUrl('profile');
     };
     AppComponent = __decorate([
         core_1.Component({

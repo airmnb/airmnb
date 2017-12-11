@@ -124,12 +124,18 @@ export interface Profile  {
   gender: Gender;
 }
 
+export interface Image {
+  id: string;
+  imageName: string;
+}
+
 export interface ProviderProfile extends Profile {
   address: {
     address: null,
     longitude: null,
     latitude: null
   };
+  images?: string[];
   ageFrom?: number;
   ageTo?: number;
   languages?: string[];
@@ -143,6 +149,7 @@ export interface ConsumerProfile extends Profile {
 export interface BabyProfile {
   id: string;
   consumerId: string;
+  nickName: string;
   age: number;
   gender: Gender;
   hobby?: string;
@@ -153,6 +160,29 @@ export interface MapLocation {
   address: string;
   longitude?: number;
   latitude?: number;
+}
+
+export interface Booking {
+  id: string;
+  consumerId: string;
+  slotId: string;
+  babyId: string;
+  createdAt: Date;
+  cancelledAt: Date;
+  expiredAt: Date;
+}
+
+export interface Transaction {
+  id: string;
+  bookingId: string;
+  startedAt: Date;
+  startedImageIdByProvider: string;
+  startedImageIdByConsumer: string;
+  cancelledAt?: Date;
+  terminatedAt?: Date;
+  finishedAt?: Date;
+  doneImageIdByProvider?: string;
+  doneImageIdByConsumer?: string;
 }
 
 

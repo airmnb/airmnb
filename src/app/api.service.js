@@ -96,10 +96,15 @@ var ApiService = (function () {
     };
     ApiService.prototype.update = function (item, id) {
         return __awaiter(this, void 0, void 0, function () {
-            var resp, body;
+            var itemId, resp, body;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.http.put(this.apiUrl, item).toPromise()];
+                    case 0:
+                        itemId = id || item['id'];
+                        if (!itemId) {
+                            throw new Error("'id' isn't specified for update() method.");
+                        }
+                        return [4 /*yield*/, this.http.put(this.apiUrl + '/' + id, item).toPromise()];
                     case 1:
                         resp = _a.sent();
                         body = resp.json();

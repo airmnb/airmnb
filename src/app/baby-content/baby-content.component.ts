@@ -4,6 +4,7 @@ import { BabyProfile } from '../../../types';
 import * as uuid from "uuid";
 import { ApiServiceFactory, ApiService } from '../api.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApiFacade } from '../apiFacade';
 
 @Component({
   selector: 'amb-baby-content',
@@ -22,13 +23,10 @@ export class BabyContentComponent implements OnInit {
 
   errorMessage: string;
 
-  private api: ApiService;
-
   constructor(private sessionService: SessionService,
-    apiFactory: ApiServiceFactory,
+    private api: ApiFacade,
     public activeModal: NgbActiveModal
   ) {
-    this.api = apiFactory.produce('baby_profile');
   }
 
   ngOnInit() {
@@ -38,6 +36,7 @@ export class BabyContentComponent implements OnInit {
     const consumerId = this.sessionService.account.id;
     const babyProfile: BabyProfile = {
       id: uuid.v4(),
+      nickName: this.model.nickName,
       consumerId: consumerId,
       age: this.model.age,
       gender: this.model.gender,
@@ -46,7 +45,7 @@ export class BabyContentComponent implements OnInit {
     };
 
     try{
-      await this.api.add(babyProfile);
+      await this.api.babyProfileApi.add(babyProfile);
       this.activeModal.dismiss();
       window.location.reload();
     }catch(e){

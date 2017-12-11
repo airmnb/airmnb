@@ -45,86 +45,108 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var types_1 = require("../../../types");
+var session_service_1 = require("../session.service");
+var notification_service_1 = require("../notification.service");
 var slot_image_service_1 = require("../slot-image.service");
-require("rxjs/add/observable/fromPromise");
-var SlotListComponent = (function () {
-    function SlotListComponent(slotImageService) {
+var apiFacade_1 = require("../apiFacade");
+var ProfileContentComponent = (function () {
+    function ProfileContentComponent(api, sessionService, notificationService, slotImageService) {
+        this.api = api;
+        this.sessionService = sessionService;
+        this.notificationService = notificationService;
         this.slotImageService = slotImageService;
+        this.uploadApiUrl = "/api/image/";
+        this.model = {
+            firstName: null,
+            lastName: null,
+            dob: null,
+            gender: null,
+        };
     }
-    Object.defineProperty(SlotListComponent.prototype, "slots", {
-        get: function () {
-            return this._slots;
-        },
-        set: function (slots) {
-            var _this = this;
-            this._slots = slots;
-            if (this._slots) {
-                this._slots.forEach(function (s) {
-                    Object.assign(s, {
-                        avatarUrl: _this.getSlotAvatar(s),
-                        stars: Array(_this.getSlotRate(s)).fill(null)
-                    });
-                });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SlotListComponent.prototype.ngOnInit = function () {
+    ProfileContentComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.getUploadedImages()
+            .then(function (images) { return _this.images = images; })
+            .catch(function (e) { return _this.notificationService.error(e); });
     };
-    SlotListComponent.prototype.ngOnChanges = function (changes) {
+    ProfileContentComponent.prototype.onSubmit = function () {
+        // const profile: Profile = {
+        //   id: uuid.v4(),
+        //   accountId: this.sessionService.account.id,
+        //   firstName: this.model.firstName,
+        //   lastName: this.model.lastName,
+        //   dob: this.model.dob,
+        //   gender: this.model.gender
+        // };
+        // this.api.providerProfileApi.add(profile);
     };
-    SlotListComponent.prototype.ngDoCheck = function () {
-    };
-    SlotListComponent.prototype.displayGender = function (gender) {
-        return gender === types_1.Gender.Boy ? 'Boy' :
-            gender === types_1.Gender.Girl ? 'Girl' :
-                'Both';
-    };
-    SlotListComponent.prototype.getSlotAvatar = function (slot) {
+    ProfileContentComponent.prototype.onUploadFinished = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            var providerId, imageNames, index;
+            var resp, filename;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        providerId = slot.providerId;
-                        return [4 /*yield*/, this.slotImageService.getImageNamesForProvider(providerId)];
+                        resp = event.serverResponse;
+                        filename = resp.text();
+                        if (!(resp.status === 200)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.tieImageToProvider(filename)];
                     case 1:
-                        imageNames = _a.sent();
-                        if (imageNames.length) {
-                            index = Math.floor(Math.random() * imageNames.length);
-                            return [2 /*return*/, '/image/' + imageNames[index]];
-                        }
-                        return [2 /*return*/, null];
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        this.notificationService.error(resp);
+                        _a.label = 3;
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    SlotListComponent.prototype.getSlotRate = function (slot) {
-        return Math.floor(Math.random() * 3) + 3; // 3,4,5
-    };
-    SlotListComponent.prototype.book = function (slot) {
+    ProfileContentComponent.prototype.tieImageToProvider = function (imageName) {
         return __awaiter(this, void 0, void 0, function () {
+            var providerId;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        providerId = this.sessionService.account.id;
+                        return [4 /*yield*/, this.slotImageService.saveImageNameForProvider(imageName, providerId)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProfileContentComponent.prototype.getUploadedImages = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var providerId, names;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        providerId = this.sessionService.account.id;
+                        return [4 /*yield*/, this.slotImageService.getImageNamesForProvider(providerId)];
+                    case 1:
+                        names = _a.sent();
+                        return [2 /*return*/, names.map(function (x) { return "/image/" + x; })];
+                }
             });
         });
     };
     __decorate([
         core_1.Input(),
-        __metadata("design:type", Array),
-        __metadata("design:paramtypes", [Array])
-    ], SlotListComponent.prototype, "slots", null);
-    SlotListComponent = __decorate([
+        __metadata("design:type", String)
+    ], ProfileContentComponent.prototype, "profileRole", void 0);
+    ProfileContentComponent = __decorate([
         core_1.Component({
-            selector: 'amb-slot-list',
-            templateUrl: './slot-list.component.html',
-            styleUrls: ['./slot-list.component.css']
+            selector: 'amb-profile-content',
+            templateUrl: './profile-content.component.html',
+            styleUrls: ['./profile-content.component.css']
         }),
-        __metadata("design:paramtypes", [slot_image_service_1.ImageService])
-    ], SlotListComponent);
-    return SlotListComponent;
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
+            session_service_1.SessionService,
+            notification_service_1.NotificationService,
+            slot_image_service_1.ImageService])
+    ], ProfileContentComponent);
+    return ProfileContentComponent;
 }());
-exports.SlotListComponent = SlotListComponent;
-//# sourceMappingURL=slot-list.component.js.map
+exports.ProfileContentComponent = ProfileContentComponent;
+//# sourceMappingURL=profile-content.component.js.map

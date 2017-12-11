@@ -24,6 +24,10 @@ var RegisterModalComponent = (function () {
         core_1.Input(),
         __metadata("design:type", String)
     ], RegisterModalComponent.prototype, "mode", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], RegisterModalComponent.prototype, "title", void 0);
     RegisterModalComponent = __decorate([
         core_1.Component({
             selector: 'amb-register-modal',

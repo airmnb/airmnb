@@ -2,28 +2,26 @@ import { Injectable } from '@angular/core';
 import { ApiServiceFactory, ApiService } from './api.service';
 import { ProviderImage } from '../../types';
 import * as uuid from 'uuid';
+import { ApiFacade } from './apiFacade';
 
 @Injectable()
-export class SlotImageService {
+export class ImageService {
 
-  private api: ApiService;
-
-  constructor(apiFactory: ApiServiceFactory) {
-    this.api = apiFactory.produce("provider_image");
+  constructor(
+    private api: ApiFacade
+  ) {
   }
 
-  public async getImageNamesForProvider(providerId: string): Promise<string[]> {
-    const list: ProviderImage[] = await this.api.list({providerId});
-    return list.map(x => x.imageName);
+  public async getImageNamesForProvider(accountId: string): Promise<string[]> {
+    const providerProfile = await this.api.providerProfileApi.get({accountId});
+    return providerProfile.images || [];
   }
 
-  public async saveImageNameForProvider(imageName: string, providerId: string): Promise<void> {
-    const item: ProviderImage = {
-      id: uuid.v4(),
-      providerId,
-      imageName
-    };
-    await this.api.add(item);
+  public async saveImageNameForProvider(imageName: string, accountId: string): Promise<void> {
+    const providerProfile = await this.api.providerProfileApi.get({accountId});
+    providerProfile.images = providerProfile.images || [];
+    providerProfile.images.push(imageName);
+    await this.api.providerProfileApi.update(providerProfile, providerProfile.id);
   }
 
 }

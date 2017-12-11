@@ -41,8 +41,9 @@ import {
 import { ServiceSlot, ProviderImage } from '../../../types';
 import * as uuid from "uuid";
 import { NotificationService } from '../notification.service';
-import { SlotImageService } from '../slot-image.service';
+import { ImageService } from '../slot-image.service';
 import { ModalService } from '../modal.service';
+import { ApiFacade } from '../apiFacade';
 
 const colors: any = {
   red: {
@@ -66,19 +67,18 @@ const colors: any = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProviderDashboardComponent implements OnInit {
-  private slotApi: ApiService;
   public uploadApiUrl = "/api/image/";
   public images: string[] = [];
 
 
-  constructor(apiServiceFactory: ApiServiceFactory,
-    private slotImageService: SlotImageService,
+  constructor(
+    private api: ApiFacade,
+    private slotImageService: ImageService,
     private modal: NgbModal,
     private sessionService: SessionService,
     private router: Router,
     private modalservice: ModalService,
   private notificationService: NotificationService) {
-    this.slotApi = apiServiceFactory.produce("slot");
   }
 
   @ViewChild('modalContent') modalContent: TemplateRef < any > ;
@@ -197,7 +197,7 @@ export class ProviderDashboardComponent implements OnInit {
   public async delete(event: CalendarEvent<ServiceSlot>) {
     const id = event.meta.id;
     try{
-      await this.slotApi.delete(id);
+      await this.api.slotApi.delete(id);
       this.notificationService.info(`Deleted the service slot '${id}'`);
       this.events = this.events.filter(x => x !== event);
       this.refresh.next();
@@ -224,7 +224,7 @@ export class ProviderDashboardComponent implements OnInit {
   }
 
   private async loadAllSlots(): Promise<void> {
-    const list: ServiceSlot[] = await this.slotApi.list({providerId: this.sessionService.account.id});
+    const list: ServiceSlot[] = await this.api.slotApi.list({providerId: this.sessionService.account.id});
     list.forEach(slot => {
       this.events.push({
           title: slot.title,

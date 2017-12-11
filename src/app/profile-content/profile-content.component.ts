@@ -4,7 +4,8 @@ import { Profile, ServiceSlot } from '../../../types';
 import * as uuid from 'uuid';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
-import { SlotImageService } from '../slot-image.service';
+import { ImageService } from '../slot-image.service';
+import { ApiFacade } from '../apiFacade';
 
 @Component({
   selector: 'amb-profile-content',
@@ -13,7 +14,6 @@ import { SlotImageService } from '../slot-image.service';
 })
 export class ProfileContentComponent implements OnInit {
 
-  private api: ApiService;
   public uploadApiUrl = "/api/image/";
   public images: string[];
   @Input() profileRole: string;
@@ -25,12 +25,11 @@ export class ProfileContentComponent implements OnInit {
     gender: null,
 
   };
-  constructor(apiFactory: ApiServiceFactory,
+  constructor(private api: ApiFacade,
   private sessionService: SessionService,
   private notificationService: NotificationService,
-  private slotImageService: SlotImageService
+  private slotImageService: ImageService
 ) {
-    this.api = apiFactory.produce('profile');
   }
 
   ngOnInit() {
@@ -40,15 +39,15 @@ export class ProfileContentComponent implements OnInit {
   }
 
   onSubmit() {
-    const profile: Profile = {
-      id: uuid.v4(),
-      accountId: this.sessionService.account.id,
-      firstName: this.model.firstName,
-      lastName: this.model.lastName,
-      dob: this.model.dob,
-      gender: this.model.gender
-    };
-    this.api.add(profile);
+    // const profile: Profile = {
+    //   id: uuid.v4(),
+    //   accountId: this.sessionService.account.id,
+    //   firstName: this.model.firstName,
+    //   lastName: this.model.lastName,
+    //   dob: this.model.dob,
+    //   gender: this.model.gender
+    // };
+    // this.api.providerProfileApi.add(profile);
   }
 
   public async onUploadFinished(event): Promise<void> {

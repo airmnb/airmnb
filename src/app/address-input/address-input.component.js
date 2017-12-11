@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
 var core_2 = require("@agm/core");
 var AddressInputComponent = (function () {
     function AddressInputComponent(mapsAPILoader, ngZone) {
@@ -19,13 +18,13 @@ var AddressInputComponent = (function () {
         this.addressChange = new core_1.EventEmitter();
     }
     AddressInputComponent.prototype.ngOnInit = function () {
+        // // set google maps defaults
+        // this.zoom = 4;
+        // this.latitude = 39.8282;
+        // this.longitude = -98.5795;
         var _this = this;
-        // set google maps defaults
-        this.zoom = 4;
-        this.latitude = 39.8282;
-        this.longitude = -98.5795;
         // create search FormControl
-        this.searchControl = new forms_1.FormControl(this.address);
+        // this.searchControl = new FormControl(this.address);
         // set current position
         this.setCurrentPosition();
         // load Places Autocomplete
@@ -41,9 +40,15 @@ var AddressInputComponent = (function () {
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
-                    // set latitude, longitude and zoom
-                    _this.latitude = place.geometry.location.lat();
-                    _this.longitude = place.geometry.location.lng();
+                    _this.address = {
+                        address: place.formatted_address,
+                        longitude: place.geometry.location.lng(),
+                        latitude: place.geometry.location.lat()
+                    };
+                    _this.addressChange.next(_this.address);
+                    // // set latitude, longitude and zoom
+                    // this.latitude = place.geometry.location.lat();
+                    // this.longitude = place.geometry.location.lng();
                     _this.zoom = 12;
                 });
             });
@@ -55,13 +60,18 @@ var AddressInputComponent = (function () {
             navigator.geolocation.getCurrentPosition(function (position) {
                 _this.latitude = position.coords.latitude;
                 _this.longitude = position.coords.longitude;
+                _this.address = {
+                    address: "",
+                    longitude: position.coords.longitude,
+                    latitude: position.coords.latitude
+                };
                 _this.zoom = 12;
             });
         }
     };
     __decorate([
         core_1.Input(),
-        __metadata("design:type", String)
+        __metadata("design:type", Object)
     ], AddressInputComponent.prototype, "address", void 0);
     __decorate([
         core_1.Input(),

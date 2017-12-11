@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var Subject_1 = require("rxjs/Subject");
 var cookieKey = 'c';
+var langKey = 'lang';
 var SessionService = (function () {
     function SessionService(cookieService) {
         this.cookieService = cookieService;
@@ -62,6 +63,12 @@ var SessionService = (function () {
             }
         }
         this.logout();
+    };
+    SessionService.prototype.setLanguage = function (lang) {
+        this.cookieService.set(langKey, lang);
+    };
+    SessionService.prototype.getLanguage = function () {
+        return this.cookieService.get(langKey) || 'en';
     };
     SessionService = __decorate([
         core_1.Injectable(),

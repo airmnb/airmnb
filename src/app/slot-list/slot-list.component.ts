@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, DoCheck } from '@angular/core';
 import { ServiceSlot, Gender } from '../../../types';
-import { SlotImageService } from '../slot-image.service';
+import { ImageService } from '../slot-image.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 
@@ -30,7 +30,7 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
     return this._slots;
   }
 
-  constructor(private slotImageService: SlotImageService) { }
+  constructor(private slotImageService: ImageService) { }
 
   ngOnInit() {
   }

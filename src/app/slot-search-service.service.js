@@ -13,19 +13,19 @@ var core_1 = require("@angular/core");
 var notification_service_1 = require("./notification.service");
 var session_service_1 = require("./session.service");
 var Subject_1 = require("rxjs/Subject");
-var api_service_1 = require("./api.service");
+var apiFacade_1 = require("./apiFacade");
 var SlotSearchServiceService = (function () {
-    function SlotSearchServiceService(notificationService, sessionService, apiServiceFactory) {
+    function SlotSearchServiceService(notificationService, sessionService, api) {
         this.notificationService = notificationService;
         this.sessionService = sessionService;
-        this.apiService = apiServiceFactory.produce('slot');
+        this.api = api;
     }
     SlotSearchServiceService.prototype.search = function (query) {
         var _this = this;
         var consumerId = this.getConsumerId();
         var subject = new Subject_1.Subject();
         var q = this.convertToMongoQuery(query);
-        this.apiService.list(q)
+        this.api.slotApi.list(q)
             .then(function (x) { return subject.next(x); })
             .catch(function (e) {
             _this.notificationService.error(e);
@@ -62,13 +62,13 @@ var SlotSearchServiceService = (function () {
                 $eq: query.gender
             };
         }
-        return q;
+        return {} || q; // Always return all slots for demo.
     };
     SlotSearchServiceService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [notification_service_1.NotificationService,
             session_service_1.SessionService,
-            api_service_1.ApiServiceFactory])
+            apiFacade_1.ApiFacade])
     ], SlotSearchServiceService);
     return SlotSearchServiceService;
 }());

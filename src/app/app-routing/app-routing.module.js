@@ -10,18 +10,23 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var home_component_1 = require("../home/home.component");
-var provider_dashboard_component_1 = require("../provider-dashboard/provider-dashboard.component");
 var consumer_dashboard_component_1 = require("../consumer-dashboard/consumer-dashboard.component");
 var aboutus_component_1 = require("../aboutus/aboutus.component");
 var add_slot_component_1 = require("../add-slot/add-slot.component");
+var profile_component_1 = require("../profile/profile.component");
+var provider_main_component_1 = require("../provider-main/provider-main.component");
 var routes = [
     {
         path: '',
         component: home_component_1.HomeComponent
     },
     {
+        path: 'profile',
+        component: profile_component_1.ProfileComponent
+    },
+    {
         path: 'provider',
-        component: provider_dashboard_component_1.ProviderDashboardComponent
+        component: provider_main_component_1.ProviderMainComponent
     },
     {
         path: 'provider/addslot',

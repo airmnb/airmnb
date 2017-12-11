@@ -46,16 +46,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var api_service_1 = require("../api.service");
 var session_service_1 = require("../session.service");
 var core_2 = require("@angular/core");
 var date_fns_1 = require("date-fns");
 var Subject_1 = require("rxjs/Subject");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var uuid = require("uuid");
 var notification_service_1 = require("../notification.service");
 var slot_image_service_1 = require("../slot-image.service");
 var modal_service_1 = require("../modal.service");
+var apiFacade_1 = require("../apiFacade");
 var colors = {
     red: {
         primary: '#ad2121',
@@ -71,8 +70,9 @@ var colors = {
     }
 };
 var ProviderDashboardComponent = (function () {
-    function ProviderDashboardComponent(apiServiceFactory, slotImageService, modal, sessionService, router, modalservice, notificationService) {
+    function ProviderDashboardComponent(api, slotImageService, modal, sessionService, router, modalservice, notificationService) {
         var _this = this;
+        this.api = api;
         this.slotImageService = slotImageService;
         this.modal = modal;
         this.sessionService = sessionService;
@@ -102,7 +102,6 @@ var ProviderDashboardComponent = (function () {
         this.refresh = new Subject_1.Subject();
         this.events = [];
         this.activeDayIsOpen = true;
-        this.slotApi = apiServiceFactory.produce("slot");
     }
     ProviderDashboardComponent.prototype.dayClicked = function (_a) {
         var date = _a.date, events = _a.events;
@@ -133,38 +132,37 @@ var ProviderDashboardComponent = (function () {
             size: 'lg'
         });
     };
-    ProviderDashboardComponent.prototype.addEvent = function () {
-        var _this = this;
-        var slot = {
-            title: 'New event',
-            start: date_fns_1.startOfDay(new Date()),
-            end: date_fns_1.endOfDay(new Date()),
-            ageFrom: 2,
-            ageTo: 6,
-            gender: 2,
-            otherCondition: '',
-            providerId: this.sessionService.account.id,
-            id: uuid.v4(),
-            price: 50
-        };
-        var newEvent = {
-            title: slot.title,
-            start: slot.start,
-            end: slot.end,
-            color: colors.red,
-            draggable: true,
-            resizable: {
-                beforeStart: true,
-                afterEnd: true
-            },
-            meta: slot
-        };
-        this.events.push(newEvent);
-        this.refresh.next();
-        this.slotApi.add(slot)
-            .then(function (x) { return _this.notificationService.info("Added a service slot '" + slot.id + "'"); })
-            .catch(function (e) { return _this.notificationService.error(e); });
-    };
+    // public addEvent(): void {
+    //   const slot: ServiceSlot = {
+    //     title: 'New event',
+    //     start: startOfDay(new Date()),
+    //     end: endOfDay(new Date()),
+    //     ageFrom: 2,
+    //     ageTo: 6,
+    //     gender: 2,
+    //     otherCondition: '',
+    //     providerId: this.sessionService.account.id,
+    //     id: uuid.v4(),
+    //     price: 50
+    //   };
+    //   const newEvent: CalendarEvent<ServiceSlot> = {
+    //     title: slot.title,
+    //     start: slot.start,
+    //     end: slot.end,
+    //     color: colors.red,
+    //     draggable: true,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true
+    //     },
+    //     meta: slot
+    //   };
+    //   this.events.push(newEvent);
+    //   this.refresh.next();
+    //   this.slotApi.add(slot)
+    //   .then(x => this.notificationService.info(`Added a service slot '${slot.id}'`))
+    //   .catch(e => this.notificationService.error(e));
+    // }
     ProviderDashboardComponent.prototype.delete = function (event) {
         return __awaiter(this, void 0, void 0, function () {
             var id, e_1;
@@ -175,7 +173,7 @@ var ProviderDashboardComponent = (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.slotApi.delete(id)];
+                        return [4 /*yield*/, this.api.slotApi.delete(id)];
                     case 2:
                         _a.sent();
                         this.notificationService.info("Deleted the service slot '" + id + "'");
@@ -198,11 +196,12 @@ var ProviderDashboardComponent = (function () {
             .then(function (images) { return _this.images = images; })
             .catch(function (e) { return _this.notificationService.error(e); });
     };
-    ProviderDashboardComponent.prototype.ngAfterViewChecked = function () {
-        //this.modalservice.openProviderProfileModal();
-    };
+    // ngAfterViewChecked(){
+    //   //this.modalservice.openProviderProfileModal();
+    // }
     ProviderDashboardComponent.prototype.addSlot = function () {
         // this.router.navigateByUrl("provider/addslot");
+        this.modalservice.openAddSlotModal();
     };
     ProviderDashboardComponent.prototype.loadAllSlots = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -210,7 +209,7 @@ var ProviderDashboardComponent = (function () {
             var list;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.slotApi.list({ providerId: this.sessionService.account.id })];
+                    case 0: return [4 /*yield*/, this.api.slotApi.list({ providerId: this.sessionService.account.id })];
                     case 1:
                         list = _a.sent();
                         list.forEach(function (slot) {
@@ -303,8 +302,8 @@ var ProviderDashboardComponent = (function () {
             styleUrls: ['./provider-dashboard.component.css', '../../../node_modules/angular-calendar/css/angular-calendar.css'],
             changeDetection: core_2.ChangeDetectionStrategy.OnPush
         }),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory,
-            slot_image_service_1.SlotImageService,
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
+            slot_image_service_1.ImageService,
             ng_bootstrap_1.NgbModal,
             session_service_1.SessionService,
             router_1.Router,

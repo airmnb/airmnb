@@ -8,6 +8,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { ModalService } from '../modal.service';
+import { ApiFacade } from '../apiFacade';
 
 @Component({
   selector: 'amb-signup-content',
@@ -20,14 +21,13 @@ export class SignupContentComponent implements OnInit {
   password: string;
   email: string;
   errorMessage: string;
-  private accountApi: ApiService;
 
-  constructor(apiServiceFactory: ApiServiceFactory,
+  constructor(
+    private api: ApiFacade,
     public modalService: ModalService,
     public activeModal: NgbActiveModal,
     private sessionService: SessionService,
     private router: Router) {
-      this.accountApi = apiServiceFactory.produce("account");
     }
 
   ngOnInit() {
@@ -44,12 +44,12 @@ export class SignupContentComponent implements OnInit {
         secret: this.password,
         type: null};
 
-      const dup = await this.accountApi.get({name: model.name});
+      const dup = await this.api.accountApi.get({name: model.name});
       if (dup){
         throw new Error('The account has be registered.');
       }
-      const id = await this.accountApi.add(model);
-      const account : Account = await this.accountApi.getOne(id);
+      const id = await this.api.accountApi.add(model);
+      const account : Account = await this.api.accountApi.getOne(id);
       this.sessionService.login(account);
       this.modalService.dismissModal();
       const routeUrl = account.type === 'provider' ? 'provider' :
