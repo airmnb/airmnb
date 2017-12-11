@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <h1>Provider workbench</h1>
+  </div>
+  <div class="row mt-2">
+    <ngb-tabset>
+      <ngb-tab title="Slot Management">
+        <ng-template ngbTabContent>
+          <button class="btn btn-primary" (click)="addSlot()">
+            Add new
+          </button>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Time</th>
+                <th>Age</th>
+                <th>Capping</th>
+                <th>Price</th>
+                <th>Bookings</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let slot of slots">
+                <td>{{slot.title}}</td>
+                <td>{{slot.start | date:'short'}} - {{slot.end | date:'short'}}</td>
+                <td>{{slot.ageFrom}} - {{slot.ageTo}}</td>
+                <td>{{slot.capping}}</td>
+                <td>{{slot.price | currency}}</td>
+                <td>{{slot.bookings}}</td>
+                <td>
+                  <button class="btn btn-secondary" (click)="edit(slot)">Edit</button>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="delete(slot)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Profile">
+        <ng-template ngbTabContent>
+          <div class="container pt-3">
+            <amb-profile></amb-profile>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Photos">
+        <ng-template ngbTabContent>
+          <div class="container pt-3">
+            <p>Air Mom upload photos of your facility and service here!
+              <p>
+                <!-- https://aberezkin.github.io/ng2-image-upload/#/readme -->
+                <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="images" (uploadFinished)="onUploadFinished($event)">
+                </image-upload>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+
+</div>

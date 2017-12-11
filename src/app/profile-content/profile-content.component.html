@@ -1,0 +1,81 @@
+<div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{errorMessage}}
+</div>
+<form #theForm="ngForm" (ngSubmit)="onSubmit()">
+  <fieldset [disabled]="submitted">
+    <div class="form-group">
+      <label for="firstName">First name</label>
+      <input type="text" class="form-control form-group" placeholder="First name" id="firstName" required [(ngModel)]="model.firstName"
+        name="firstName">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last name</label>
+      <input type="text" class="form-control form-group" placeholder="Last name" id="lastName" required [(ngModel)]="model.lastName"
+        name="lastName">
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of birth</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dob" [(ngModel)]="model.dob" ngbDatepicker #d="ngbDatepicker">
+        <button class="input-group-addon" (click)="d.toggle()" type="button">
+          <i class="fa fa-calendar"></i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select class="custom-select input-group" [(ngModel)]="model.gender" name="gender">
+        <option value="-1" disabled selected>Age</option>
+        <option value="0">Female</option>
+        <option value="1">Male</option>
+      </select>
+    </div>
+    <!-- Provider specific starts -->
+    <div class="form-group" *ngIf="profileRole==='provider'">
+        <label for="address">Address</label>
+        <amb-address-input [(address)]="model.address" [showsMap]="true"></amb-address-input>
+    </div>
+    <div class="form-group" *ngIf="profileRole==='provider'">
+        <label for="description">Description</label>
+        <input type="text" class="form-control form-group" placeholder="Description" id="description" required [(ngModel)]="model.description"
+          name="description">
+    </div>
+    <div class="form-group" *ngIf="profileRole==='provider'">
+        <label for="photos">Photos</label>
+        <!-- https://aberezkin.github.io/ng2-image-upload/#/readme -->
+        <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="images" (uploadFinished)="onUploadFinished($event)">
+        </image-upload>
+    </div>
+    <!-- Provider specific ends -->
+    <div class="form-group">
+        <label class="col-sm-2">Languages I speak</label>
+        <div class="col-sm-10">
+          <label class="form-check-label">
+            <input class="form-check-input" name="language" type="checkbox"
+            [checked]="model.language.english"
+            (change)="model.language.english = !model.language.english">
+            English
+          </label>
+          <label class="form-check-label">
+            <input class="form-check-input" name="language" type="checkbox"
+            [checked]="model.language.chinese"
+            (change)="model.language.chinese = !model.language.chinese">
+            中文
+          </label>
+          <label class="form-check-label">
+            <input class="form-check-input" name="language" type="checkbox"
+            [checked]="model.language.japanese"
+            (change)="model.language.japanese = !model.language.japanese">
+            日本語
+          </label>
+        </div>
+      </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">Save</button>
+    </div>
+    <hr>
+    <p class="text-center">Already have an ccount?
+      <a href (click)="login()">Login</a>
+    </p>
+  </fieldset>
+</form>

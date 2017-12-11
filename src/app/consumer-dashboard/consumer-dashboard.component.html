@@ -1,1 +1,21 @@
-<amb-slot-list [slots]="slots"></amb-slot-list>
+<div class="container">
+    <div class="row">
+      <h1>Provider workbench</h1>
+    </div>
+    <div class="row mt-2">
+        <ngb-tabset>
+          <ngb-tab title="Slot Management">
+            <ng-template ngbTabContent>
+                <amb-slot-list [slots]="slots"></amb-slot-list>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="My babies" *ngIf="hasLoggedIn">
+              <ng-template ngbTabContent>
+                  <button class="btn btn-primary pull-right" (click)="addBaby()">
+                      Add baby
+                    </button>
+              </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+      </div>
+</div>

@@ -10,17 +10,26 @@ export class ModalService {
     private activeModal: NgbActiveModal,
     private sessionService: SessionService) { }
 
-  private openGenericRegisterModal(mode: string) {
+  private openGenericRegisterModal(mode: string, title?: string) {
     const modalRef = this.modalService.open(RegisterModalComponent);
     modalRef.componentInstance.mode = mode;
+    modalRef.componentInstance.title = title;
   }
 
   openLoginModal(){
-    this.openGenericRegisterModal('login');
+    this.openGenericRegisterModal('login', 'Log in');
   }
 
   openSignupModal(){
-    this.openGenericRegisterModal('signup');
+    this.openGenericRegisterModal('signup', 'Sign up');
+  }
+
+  openAddSlotModal(){
+    this.openGenericRegisterModal('addslot', 'Add a new service slot');
+  }
+
+  openAddBabyModal(){
+    this.openGenericRegisterModal('addbaby', 'Add baby information');
   }
 
   dismissModal() {

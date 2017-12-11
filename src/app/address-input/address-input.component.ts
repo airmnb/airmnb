@@ -2,6 +2,7 @@ import { Component, ElementRef, NgModule, NgZone, OnInit, ViewChild, Input, Outp
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
+import { MapLocation } from '../../../types';
 
 @Component({
   selector: 'amb-address-input',
@@ -13,9 +14,9 @@ export class AddressInputComponent implements OnInit {
   public longitude: number;
   // public searchControl: FormControl;
   public zoom: number;
-  @Input() public address: string;
+  @Input() public address: MapLocation;
   @Input() public showsMap: boolean;
-  @Output() public addressChange = new EventEmitter<string>();
+  @Output() public addressChange = new EventEmitter<MapLocation>();
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
@@ -26,10 +27,10 @@ export class AddressInputComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // set google maps defaults
-    this.zoom = 4;
-    this.latitude = 39.8282;
-    this.longitude = -98.5795;
+    // // set google maps defaults
+    // this.zoom = 4;
+    // this.latitude = 39.8282;
+    // this.longitude = -98.5795;
 
     // create search FormControl
     // this.searchControl = new FormControl(this.address);
@@ -52,11 +53,17 @@ export class AddressInputComponent implements OnInit {
             return;
           }
 
-          this.address = place.formatted_address;
-          console.log('>>>', this.address);
-          // set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
+          this.address = {
+            address: place.formatted_address,
+            longitude: place.geometry.location.lng(),
+            latitude: place.geometry.location.lat()
+          };
+
+          this.addressChange.next(this.address);
+
+          // // set latitude, longitude and zoom
+          // this.latitude = place.geometry.location.lat();
+          // this.longitude = place.geometry.location.lng();
           this.zoom = 12;
         });
       });
@@ -68,6 +75,11 @@ export class AddressInputComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
+        this.address = {
+          address: "",
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude
+        };
         this.zoom = 12;
       });
     }

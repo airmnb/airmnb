@@ -64,7 +64,7 @@ export class SlotSearchServiceService {
         $eq: query.gender
       };
     }
-    return q;
+    return {} || q; // Always return all slots for demo.
   }
 
 }

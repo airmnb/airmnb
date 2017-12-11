@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SlotSearchServiceService } from '../slot-search-service.service';
-import { ServiceSlot } from '../../../types';
+import { ServiceSlot, BabyProfile } from '../../../types';
+import { ModalService } from '../modal.service';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'amb-consumer-dashboard',
@@ -11,11 +13,19 @@ import { ServiceSlot } from '../../../types';
 export class ConsumerDashboardComponent implements OnInit {
 
   public slots: ServiceSlot[];
+  public babies: BabyProfile[];
+
+  get hasLoggedIn(): boolean {
+    return this.sessionService.hasLoggedIn;
+  }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private searchService: SlotSearchServiceService) { }
+    private sessionService: SessionService,
+    private searchService: SlotSearchServiceService,
+    private modalService: ModalService
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -24,6 +34,14 @@ export class ConsumerDashboardComponent implements OnInit {
       this.searchService.search(q)
         .subscribe(slots => this.slots = slots);
     });
+  }
+
+  addBaby(){
+    this.modalService.openAddBabyModal();
+  }
+
+  private loadBabyProfiles(){
+
   }
 
 }

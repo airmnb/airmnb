@@ -162,37 +162,37 @@ export class ProviderDashboardComponent implements OnInit {
     });
   }
 
-  public addEvent(): void {
-    const slot: ServiceSlot = {
-      title: 'New event',
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      ageFrom: 2,
-      ageTo: 6,
-      gender: 2,
-      otherCondition: '',
-      providerId: this.sessionService.account.id,
-      id: uuid.v4(),
-      price: 50
-    };
-    const newEvent: CalendarEvent<ServiceSlot> = {
-      title: slot.title,
-      start: slot.start,
-      end: slot.end,
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      meta: slot
-    };
-    this.events.push(newEvent);
-    this.refresh.next();
-    this.slotApi.add(slot)
-    .then(x => this.notificationService.info(`Added a service slot '${slot.id}'`))
-    .catch(e => this.notificationService.error(e));
-  }
+  // public addEvent(): void {
+  //   const slot: ServiceSlot = {
+  //     title: 'New event',
+  //     start: startOfDay(new Date()),
+  //     end: endOfDay(new Date()),
+  //     ageFrom: 2,
+  //     ageTo: 6,
+  //     gender: 2,
+  //     otherCondition: '',
+  //     providerId: this.sessionService.account.id,
+  //     id: uuid.v4(),
+  //     price: 50
+  //   };
+  //   const newEvent: CalendarEvent<ServiceSlot> = {
+  //     title: slot.title,
+  //     start: slot.start,
+  //     end: slot.end,
+  //     color: colors.red,
+  //     draggable: true,
+  //     resizable: {
+  //       beforeStart: true,
+  //       afterEnd: true
+  //     },
+  //     meta: slot
+  //   };
+  //   this.events.push(newEvent);
+  //   this.refresh.next();
+  //   this.slotApi.add(slot)
+  //   .then(x => this.notificationService.info(`Added a service slot '${slot.id}'`))
+  //   .catch(e => this.notificationService.error(e));
+  // }
 
   public async delete(event: CalendarEvent<ServiceSlot>) {
     const id = event.meta.id;
@@ -214,12 +214,13 @@ export class ProviderDashboardComponent implements OnInit {
 
   }
 
-  ngAfterViewChecked(){
-    //this.modalservice.openProviderProfileModal();
-  }
+  // ngAfterViewChecked(){
+  //   //this.modalservice.openProviderProfileModal();
+  // }
 
   addSlot(): void {
     // this.router.navigateByUrl("provider/addslot");
+    this.modalservice.openAddSlotModal();
   }
 
   private async loadAllSlots(): Promise<void> {

@@ -97,13 +97,14 @@ export interface ServiceSlot {
 	ageFrom: number;
 	ageTo: number;
 	otherCondition: string;
-	price: number;
+  price: number;
+  capping: number;
 }
 
 export enum Gender {
-  Girl,
-  Boy,
-  Either
+  Girl = 0,
+  Boy = 1,
+  Either = 2
 }
 
 export interface SearchQuery {
@@ -112,6 +113,46 @@ export interface SearchQuery {
   start?: number;
   end?: number;
   gender?: Gender;
+}
+
+export interface Profile  {
+  id: string;
+  accountId: string;
+  firstName: string;
+  lastName: string;
+  dob: Date;
+  gender: Gender;
+}
+
+export interface ProviderProfile extends Profile {
+  address: {
+    address: null,
+    longitude: null,
+    latitude: null
+  };
+  ageFrom?: number;
+  ageTo?: number;
+  languages?: string[];
+}
+
+export interface ConsumerProfile extends Profile {
+  babies: string[];
+  emergencyContact: string;
+}
+
+export interface BabyProfile {
+  id: string;
+  consumerId: string;
+  age: number;
+  gender: Gender;
+  hobby?: string;
+  info?: string;
+}
+
+export interface MapLocation {
+  address: string;
+  longitude?: number;
+  latitude?: number;
 }
 
 

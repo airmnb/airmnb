@@ -7,6 +7,7 @@ import { ConsumerDashboardComponent } from '../consumer-dashboard/consumer-dashb
 import { AboutusComponent } from '../aboutus/aboutus.component';
 import { AddSlotComponent } from '../add-slot/add-slot.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { ProviderMainComponent } from '../provider-main/provider-main.component';
 const routes: Routes = [
   {
     path: '',
@@ -18,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'provider',
-    component: ProviderDashboardComponent
+    component: ProviderMainComponent
   },
   {
     path: 'provider/addslot',

@@ -35,7 +35,7 @@ export class ApiService {
   }
 
   public async update(item, id: string): Promise<void> {
-    const resp = await this.http.put(this.apiUrl, item).toPromise();
+    const resp = await this.http.put(this.apiUrl + '/' + id, item).toPromise();
     const body = resp.json();
     if (resp.status === 200) {
       return body;

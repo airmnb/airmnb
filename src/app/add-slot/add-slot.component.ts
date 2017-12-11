@@ -36,10 +36,10 @@ export class AddSlotComponent implements OnInit {
       ageTo: 6,
       gender: 2,
       otherCondition: null,
+      capping: 5,
       price: 50
     };
   }
-
 
   ngOnInit() {
   }
