@@ -4,6 +4,8 @@ import { LoginService } from '../api.service';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
 import { ModalService } from '../modal.service';
+import { AccountProfile } from '../../../types';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'amb-login-content',
@@ -22,6 +24,7 @@ export class LoginContentComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private loginService: LoginService,
     private sessionService: SessionService,
+    private notificationService: NotificationService,
     private router: Router) { }
 
   ngOnInit() {
@@ -36,16 +39,27 @@ export class LoginContentComponent implements OnInit {
         role: this.role
       });
       this.sessionService.login(account);
-      this.modalService.dismissModal();
-      const routeUrl = this.role === 'provider' ? 'provider' :
-            this.role === 'consumer' ? 'consumer' :
-            '';
-      this.router.navigateByUrl(routeUrl);
-      this.errorMessage = null;
-      this.activeModal.dismiss();
+      this.sessionService.role = this.role;
+      // this.modalService.dismissModal();
+      // const routeUrl = this.role === 'provider' ? 'provider' :
+      //       this.role === 'consumer' ? 'consumer' :
+      //       '';
+      // this.router.navigateByUrl(routeUrl);
+      // this.errorMessage = null;
+      // this.activeModal.dismiss();
+      this.sessionService.getProfile().subscribe(p => this.routeByProfile(p));
     }catch (e){
       this.errorMessage = e.message;
       this.submitted = false;
+    }
+  }
+
+  private routeByProfile(p: AccountProfile) {
+    if(p) {
+      this.router.navigateByUrl("/");
+    }else{
+      this.notificationService.info("Please input your profile to continue the journey.");
+      this.router.navigate(['/profile']);
     }
   }
 

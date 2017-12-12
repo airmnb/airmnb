@@ -39,13 +39,23 @@ export class ApiService<T> {
     if(!itemId) {
       throw new Error("'id' isn't specified for update() method.");
     }
-    const resp = await this.http.put(this.apiUrl + '/' + id, item).toPromise();
+    const resp = await this.http.put(this.apiUrl + '/' + itemId, item).toPromise();
     const body = resp.json();
     if (resp.status === 200) {
       return body;
     } else {
       throw new Error(body);
     }
+  }
+
+  public async updateFunc(id: string, func: (item: T) => T): Promise<void> {
+    let item = await this.getOne(id);
+    item = func(item);
+    const result = await this.update(item, id);
+  }
+
+  public async merge(id: string, delta: any): Promise<void> {
+    await this.updateFunc(id, item => Object.assign(item, delta));
   }
 
   public async getOne(id: string): Promise<T> {

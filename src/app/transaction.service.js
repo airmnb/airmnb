@@ -10,17 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var api_service_1 = require("./api.service");
+var apiFacade_1 = require("./apiFacade");
+var util_service_1 = require("./util.service");
 var TransactionService = (function () {
-    function TransactionService(apiFactory) {
-        this.tranApi = apiFactory.produce('transaction');
-        this.slotApi = apiFactory.produce('slot');
+    function TransactionService(api, util) {
+        this.api = api;
+        this.util = util;
     }
-    TransactionService.prototype.getReviewContent = function () {
-    };
     TransactionService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory])
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
+            util_service_1.UtilService])
     ], TransactionService);
     return TransactionService;
 }());

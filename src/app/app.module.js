@@ -49,6 +49,12 @@ var baby_content_component_1 = require("./baby-content/baby-content.component");
 var booking_service_1 = require("./booking.service");
 var apiFacade_1 = require("./apiFacade");
 var header_component_1 = require("./header/header.component");
+var login_component_1 = require("./login/login.component");
+var signup_component_1 = require("./signup/signup.component");
+var account_profile_component_1 = require("./account-profile/account-profile.component");
+var util_service_1 = require("./util.service");
+var slot_edit_component_1 = require("./slot-edit/slot-edit.component");
+var transaction_service_1 = require("./transaction.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -74,7 +80,11 @@ var AppModule = (function () {
                 profile_content_component_1.ProfileContentComponent,
                 provider_main_component_1.ProviderMainComponent,
                 baby_content_component_1.BabyContentComponent,
-                header_component_1.HeaderComponent
+                header_component_1.HeaderComponent,
+                login_component_1.LoginComponent,
+                signup_component_1.SignupComponent,
+                account_profile_component_1.AccountProfileComponent,
+                slot_edit_component_1.SlotEditComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -109,7 +119,9 @@ var AppModule = (function () {
                 modal_service_1.ModalService,
                 ng_bootstrap_1.NgbActiveModal,
                 booking_service_1.BookingService,
-                apiFacade_1.ApiFacade
+                apiFacade_1.ApiFacade,
+                util_service_1.UtilService,
+                transaction_service_1.TransactionService
             ],
             entryComponents: [
                 register_modal_component_1.RegisterModalComponent

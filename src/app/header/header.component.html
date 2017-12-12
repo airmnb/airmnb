@@ -9,11 +9,13 @@
       <!-- <pre *ngIf="hasLoggedIn" class="float-right">Welcome {{accountName}}</pre> -->
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link" href="aboutus">About Us</a>
-          <a class="nav-item nav-link" href (click)="signup()" *ngIf="!hasLoggedIn">Sign up</a>
-          <a class="nav-item nav-link" href (click)="login()" *ngIf="!hasLoggedIn">Log in</a>
-          <a class="nav-item nav-link" (click)="goTransactions()" *ngIf="hasLoggedIn">Transactions</a>
-          <a class="nav-item nav-link" (click)="goProfile()" *ngIf="hasLoggedIn">Profile</a>
+          <a class="nav-item nav-link" href="/aboutus">About Us</a>
+          <a class="nav-item nav-link" href="/signup" *ngIf="!hasLoggedIn">Sign up</a>
+          <a class="nav-item nav-link" href="/login" *ngIf="!hasLoggedIn">Log in</a>
+          <a class="nav-item nav-link" href="/slots" *ngIf="isProvider">Slots</a>
+          <a class="nav-item nav-link" href="/booking" *ngIf="isConsumer">Bookings</a>
+          <a class="nav-item nav-link" href="/transaction" *ngIf="hasLoggedIn">Transactions</a>
+          <a class="nav-item nav-link" href="/profile" *ngIf="hasLoggedIn">Profile</a>
           <a class="nav-item nav-link" (click)="logout()" *ngIf="hasLoggedIn">Log out</a>
           <select class="custom-select" [(ngModel)]="language">
             <option [value]="en">English</option>
@@ -24,5 +26,4 @@
       </div>
     </nav>
   </div>
-  <amb-notification></amb-notification>
 </div>

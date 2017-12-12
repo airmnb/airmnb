@@ -91,7 +91,7 @@ class GenericDataGateway implements IGenericDataGateway {
 
   async query(query: any, limit: number = 1000, sort: any = {}): Promise < any[] > {
     const collection = await this.getCollection();
-    console.log('Mongo query:', query);
+    console.log('Mongo query:', this.collectionName, query);
     const result = await collection.find(query)
       .sort(sort)
       .limit(limit)

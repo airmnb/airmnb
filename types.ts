@@ -99,6 +99,7 @@ export interface ServiceSlot {
 	otherCondition: string;
   price: number;
   capping: number;
+  bookingCount: number;
 }
 
 export enum Gender {
@@ -115,22 +116,15 @@ export interface SearchQuery {
   gender?: Gender;
 }
 
-export interface Profile  {
+export interface AccountProfile  {
   id: string;
   accountId: string;
   firstName: string;
   lastName: string;
   dob: Date;
   gender: Gender;
-}
-
-export interface Image {
-  id: string;
-  imageName: string;
-}
-
-export interface ProviderProfile extends Profile {
-  address: {
+  // For provider
+  address?: {
     address: null,
     longitude: null,
     latitude: null
@@ -139,11 +133,14 @@ export interface ProviderProfile extends Profile {
   ageFrom?: number;
   ageTo?: number;
   languages?: string[];
+  // For consumer
+  babies?: string[];
+  emergencyContact?: string;
 }
 
-export interface ConsumerProfile extends Profile {
-  babies: string[];
-  emergencyContact: string;
+export interface Image {
+  id: string;
+  imageName: string;
 }
 
 export interface BabyProfile {
@@ -164,12 +161,14 @@ export interface MapLocation {
 
 export interface Booking {
   id: string;
+  providerId: string;
   consumerId: string;
   slotId: string;
   babyId: string;
   createdAt: Date;
   cancelledAt: Date;
   expiredAt: Date;
+  open: boolean;
 }
 
 export interface Transaction {

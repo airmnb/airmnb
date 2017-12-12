@@ -8,14 +8,47 @@ import { AboutusComponent } from '../aboutus/aboutus.component';
 import { AddSlotComponent } from '../add-slot/add-slot.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { ProviderMainComponent } from '../provider-main/provider-main.component';
+import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
+import { AccountProfileComponent } from '../account-profile/account-profile.component';
+import { SlotListComponent } from '../slot-list/slot-list.component';
+import { SlotEditComponent } from '../slot-edit/slot-edit.component';
+import { SlotComponent } from '../slot/slot.component';
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
   },
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
+  },
+  {
     path: 'profile',
-    component: ProfileComponent
+    component: AccountProfileComponent
+  },
+  {
+    path: 'slotlist',
+    component: SlotListComponent
+  },
+  {
+    path: 'slots',
+    component: SlotEditComponent,
+  },
+  {
+    path: 'slots/add',
+    component: SlotComponent,
+    data: {isNew: true}
+
+  },
+  {
+    path: 'slots/edit',
+    component: SlotComponent,
+    data: {isNew: false}
   },
   {
     path: 'provider',

@@ -17,8 +17,7 @@ var ApiFacade = (function () {
         this.bookingApi = apiFactory.produce('booking');
         this.slotApi = apiFactory.produce('slot');
         this.accountApi = apiFactory.produce('account');
-        this.providerProfileApi = apiFactory.produce('provider_profile');
-        this.consumerProfileApi = apiFactory.produce('consumer_profile');
+        this.accountProfileApi = apiFactory.produce('account_profile');
         this.babyProfileApi = apiFactory.produce('baby_profile');
     }
     ApiFacade.prototype.getReviewContent = function () {

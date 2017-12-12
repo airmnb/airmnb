@@ -55,10 +55,10 @@ var ImageService = (function () {
             var providerProfile;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.providerProfileApi.get({ accountId: accountId })];
+                    case 0: return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: accountId })];
                     case 1:
                         providerProfile = _a.sent();
-                        return [2 /*return*/, providerProfile.images || []];
+                        return [2 /*return*/, providerProfile ? providerProfile.images || [] : []];
                 }
             });
         });
@@ -68,12 +68,12 @@ var ImageService = (function () {
             var providerProfile;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.providerProfileApi.get({ accountId: accountId })];
+                    case 0: return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: accountId })];
                     case 1:
                         providerProfile = _a.sent();
-                        providerProfile.images = providerProfile.images || [];
+                        providerProfile.images = providerProfile ? providerProfile.images || [] : [];
                         providerProfile.images.push(imageName);
-                        return [4 /*yield*/, this.api.providerProfileApi.update(providerProfile, providerProfile.id)];
+                        return [4 /*yield*/, this.api.accountProfileApi.update(providerProfile, providerProfile.id)];
                     case 2:
                         _a.sent();
                         return [2 /*return*/];

@@ -49,18 +49,30 @@ var session_service_1 = require("../session.service");
 var notification_service_1 = require("../notification.service");
 var slot_image_service_1 = require("../slot-image.service");
 var apiFacade_1 = require("../apiFacade");
+var util_service_1 = require("../util.service");
+var router_1 = require("@angular/router");
 var ProfileContentComponent = (function () {
-    function ProfileContentComponent(api, sessionService, notificationService, slotImageService) {
+    function ProfileContentComponent(api, sessionService, notificationService, slotImageService, util, router) {
         this.api = api;
         this.sessionService = sessionService;
         this.notificationService = notificationService;
         this.slotImageService = slotImageService;
+        this.util = util;
+        this.router = router;
         this.uploadApiUrl = "/api/image/";
         this.model = {
             firstName: null,
             lastName: null,
             dob: null,
             gender: null,
+            address: null,
+            images: [],
+            description: null,
+            language: {
+                english: null,
+                chinese: null,
+                japanese: null
+            }
         };
     }
     ProfileContentComponent.prototype.ngOnInit = function () {
@@ -70,6 +82,7 @@ var ProfileContentComponent = (function () {
             .catch(function (e) { return _this.notificationService.error(e); });
     };
     ProfileContentComponent.prototype.onSubmit = function () {
+        var _this = this;
         // const profile: Profile = {
         //   id: uuid.v4(),
         //   accountId: this.sessionService.account.id,
@@ -79,6 +92,20 @@ var ProfileContentComponent = (function () {
         //   gender: this.model.gender
         // };
         // this.api.providerProfileApi.add(profile);
+        var p = {
+            id: this.util.newGuid(),
+            firstName: this.model.firstName,
+            lastName: this.model.lastName,
+            dob: this.util.getDate(this.model.dob),
+            address: this.model.address,
+            accountId: this.sessionService.account.id,
+            gender: this.model.gender
+        };
+        this.api.accountProfileApi.add(p)
+            .then(function (x) {
+            _this.router.navigate([]);
+        })
+            .catch(function (e) { return _this.notificationService.error(e); });
     };
     ProfileContentComponent.prototype.onUploadFinished = function (event) {
         return __awaiter(this, void 0, void 0, function () {
@@ -144,7 +171,9 @@ var ProfileContentComponent = (function () {
         __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
             session_service_1.SessionService,
             notification_service_1.NotificationService,
-            slot_image_service_1.ImageService])
+            slot_image_service_1.ImageService,
+            util_service_1.UtilService,
+            router_1.Router])
     ], ProfileContentComponent);
     return ProfileContentComponent;
 }());

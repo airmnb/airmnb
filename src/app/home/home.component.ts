@@ -6,6 +6,7 @@ import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { SearchQuery } from '../../../types';
 import * as moment from "moment";
 import { ModalService } from '../modal.service';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'amb-home',
@@ -33,7 +34,9 @@ export class HomeComponent implements OnInit {
     ngbTimerConfig: NgbTimepickerConfig,
     private sessionService: SessionService,
     private router: Router,
-    private mapService: MapServiceService) {
+    private mapService: MapServiceService,
+    private notificationService: NotificationService
+  ) {
     ngbTimerConfig.seconds = false;
     ngbTimerConfig.spinners = false;
   }
@@ -72,10 +75,9 @@ export class HomeComponent implements OnInit {
     this.submitted = true;
     try{
       const queryParams = this.composeQuery();
-      console.log(queryParams);
       this.router.navigate(['/consumer'], {queryParams});
     }catch (e){
-      console.log(e);
+      this.notificationService.error(e);
       this.submitted = false;
     }
   }

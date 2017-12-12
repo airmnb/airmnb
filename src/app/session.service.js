@@ -12,12 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var Subject_1 = require("rxjs/Subject");
+var Observable_1 = require("rxjs/Observable");
+var apiFacade_1 = require("./apiFacade");
 var cookieKey = 'c';
 var langKey = 'lang';
 var SessionService = (function () {
-    function SessionService(cookieService) {
+    function SessionService(cookieService, api) {
         this.cookieService = cookieService;
+        this.api = api;
         this.accountSubject = new Subject_1.Subject();
+        this.databag = {};
     }
     Object.defineProperty(SessionService.prototype, "account", {
         get: function () {
@@ -64,6 +68,10 @@ var SessionService = (function () {
         }
         this.logout();
     };
+    SessionService.prototype.getProfile = function () {
+        var p = this.api.accountProfileApi.get({ accountId: this.account.id });
+        return Observable_1.Observable.fromPromise(p);
+    };
     SessionService.prototype.setLanguage = function (lang) {
         this.cookieService.set(langKey, lang);
     };
@@ -72,7 +80,8 @@ var SessionService = (function () {
     };
     SessionService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [ngx_cookie_service_1.CookieService])
+        __metadata("design:paramtypes", [ngx_cookie_service_1.CookieService,
+            apiFacade_1.ApiFacade])
     ], SessionService);
     return SessionService;
 }());

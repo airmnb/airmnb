@@ -19,28 +19,24 @@ export class AppComponent implements OnInit  {
     private modalService: ModalService,
     private sessionService: SessionService,
     private router: Router){
-    this.sessionService.getAccount().subscribe(account => {
-      if(account) {
-        this.accountName = account.name;
-        if (account.type === 'provider'){
-          this.router.navigateByUrl('provider');
-        }else if (account.type === 'consumer'){
-          this.router.navigateByUrl('consumer');
-        }
-      } else {
-        this.accountName = null;
-      }
-    });
+    // this.sessionService.getAccount().subscribe(account => {
+    //   if(account) {
+    //     this.accountName = account.name;
+    //     if (account.type === 'provider'){
+    //       this.router.navigateByUrl('provider');
+    //     }else if (account.type === 'consumer'){
+    //       this.router.navigateByUrl('consumer');
+    //     }
+    //   } else {
+    //     this.accountName = null;
+    //   }
+    // });
   }
 
   ngOnInit(): void {
     this.sessionService.loadCookie();
   }
 
-  logout(): void {
-    this.sessionService.logout();
-    this.router.navigateByUrl('/');
-  }
 
   signup() {
     this.modalService.openSignupModal();

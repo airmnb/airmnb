@@ -1,31 +1,4 @@
-<div class="container-fuid bg-success">
-  <div class="container">
-    <nav class="navbar navbar-toggleable-md navbar-light">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="/">Air Mom & Baby</a>
-      <!-- <pre *ngIf="hasLoggedIn" class="float-right">Welcome {{accountName}}</pre> -->
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" href="aboutus">About Us</a>
-          <a class="nav-item nav-link" href (click)="signup()" *ngIf="!hasLoggedIn">Sign up</a>
-          <a class="nav-item nav-link" href (click)="login()" *ngIf="!hasLoggedIn">Log in</a>
-          <a class="nav-item nav-link" (click)="goTransactions()" *ngIf="hasLoggedIn">Transactions</a>
-          <a class="nav-item nav-link" (click)="goProfile()" *ngIf="hasLoggedIn">Profile</a>
-          <a class="nav-item nav-link" (click)="logout()" *ngIf="hasLoggedIn">Log out</a>
-          <select class="custom-select" [(ngModel)]="language">
-            <option [value]="en">English</option>
-            <option [value]="ch">中文（简体）</option>
-            <option [value]="jp">日本語</option>
-          </select>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <amb-notification></amb-notification>
-</div>>
+<amb-notification></amb-notification>
 <router-outlet></router-outlet>
 <hr>
 <footer>

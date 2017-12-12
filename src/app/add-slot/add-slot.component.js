@@ -74,6 +74,7 @@ var AddSlotComponent = (function () {
             gender: 2,
             otherCondition: null,
             capping: 5,
+            bookingCount: 0,
             price: 50
         };
     };

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Account } from "../../types";
+import { Account, AccountProfile } from "../../types";
 import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { ApiFacade } from './apiFacade';
 
 const cookieKey = 'c';
 const langKey = 'lang';
@@ -11,8 +12,13 @@ const langKey = 'lang';
 export class SessionService {
   private accountSubject = new Subject<Account>();
   private _account: Account;
+  public role: string;
+  public databag: any = {};
 
-  constructor(private cookieService: CookieService) { }
+  constructor(
+    private cookieService: CookieService,
+    private api: ApiFacade
+  ) { }
 
   get account(): Account {
     return this._account;
@@ -56,6 +62,11 @@ export class SessionService {
     }
 
     this.logout();
+  }
+
+  getProfile(): Observable<AccountProfile> {
+    const p = this.api.accountProfileApi.get({accountId: this.account.id});
+    return Observable.fromPromise(p);
   }
 
   setLanguage(lang: string) {

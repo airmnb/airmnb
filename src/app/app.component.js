@@ -15,34 +15,27 @@ var router_1 = require("@angular/router");
 var modal_service_1 = require("./modal.service");
 var AppComponent = (function () {
     function AppComponent(modalService, sessionService, router) {
-        var _this = this;
         this.modalService = modalService;
         this.sessionService = sessionService;
         this.router = router;
         this.title = 'Air Mom & Baby';
         this.language = 'en';
         this.accountName = null;
-        this.sessionService.getAccount().subscribe(function (account) {
-            if (account) {
-                _this.accountName = account.name;
-                if (account.type === 'provider') {
-                    _this.router.navigateByUrl('provider');
-                }
-                else if (account.type === 'consumer') {
-                    _this.router.navigateByUrl('consumer');
-                }
-            }
-            else {
-                _this.accountName = null;
-            }
-        });
+        // this.sessionService.getAccount().subscribe(account => {
+        //   if(account) {
+        //     this.accountName = account.name;
+        //     if (account.type === 'provider'){
+        //       this.router.navigateByUrl('provider');
+        //     }else if (account.type === 'consumer'){
+        //       this.router.navigateByUrl('consumer');
+        //     }
+        //   } else {
+        //     this.accountName = null;
+        //   }
+        // });
     }
     AppComponent.prototype.ngOnInit = function () {
         this.sessionService.loadCookie();
-    };
-    AppComponent.prototype.logout = function () {
-        this.sessionService.logout();
-        this.router.navigateByUrl('/');
     };
     AppComponent.prototype.signup = function () {
         this.modalService.openSignupModal();

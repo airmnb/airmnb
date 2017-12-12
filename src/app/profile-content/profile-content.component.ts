@@ -1,11 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiServiceFactory, ApiService } from '../api.service';
-import { Profile, ServiceSlot } from '../../../types';
+import { AccountProfile, ServiceSlot } from '../../../types';
 import * as uuid from 'uuid';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
 import { ImageService } from '../slot-image.service';
 import { ApiFacade } from '../apiFacade';
+import { UtilService } from '../util.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'amb-profile-content',
@@ -23,12 +25,21 @@ export class ProfileContentComponent implements OnInit {
     lastName: null,
     dob: null,
     gender: null,
-
+    address: null,
+    images: [],
+    description: null,
+    language: {
+      english: null,
+      chinese: null,
+      japanese: null
+    }
   };
   constructor(private api: ApiFacade,
   private sessionService: SessionService,
   private notificationService: NotificationService,
-  private slotImageService: ImageService
+  private slotImageService: ImageService,
+  private util: UtilService,
+  private router: Router
 ) {
   }
 
@@ -48,6 +59,20 @@ export class ProfileContentComponent implements OnInit {
     //   gender: this.model.gender
     // };
     // this.api.providerProfileApi.add(profile);
+    const p: AccountProfile = {
+      id: this.util.newGuid(),
+      firstName: this.model.firstName,
+      lastName: this.model.lastName,
+      dob: this.util.getDate(this.model.dob),
+      address: this.model.address,
+      accountId: this.sessionService.account.id,
+      gender: this.model.gender
+    };
+    this.api.accountProfileApi.add(p)
+    .then(x => {
+      this.router.navigate([]);
+    })
+    .catch(e => this.notificationService.error(e));
   }
 
   public async onUploadFinished(event): Promise<void> {

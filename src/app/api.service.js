@@ -104,7 +104,7 @@ var ApiService = (function () {
                         if (!itemId) {
                             throw new Error("'id' isn't specified for update() method.");
                         }
-                        return [4 /*yield*/, this.http.put(this.apiUrl + '/' + id, item).toPromise()];
+                        return [4 /*yield*/, this.http.put(this.apiUrl + '/' + itemId, item).toPromise()];
                     case 1:
                         resp = _a.sent();
                         body = resp.json();
@@ -114,6 +114,35 @@ var ApiService = (function () {
                         else {
                             throw new Error(body);
                         }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiService.prototype.updateFunc = function (id, func) {
+        return __awaiter(this, void 0, void 0, function () {
+            var item, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getOne(id)];
+                    case 1:
+                        item = _a.sent();
+                        item = func(item);
+                        return [4 /*yield*/, this.update(item, id)];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiService.prototype.merge = function (id, delta) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.updateFunc(id, function (item) { return Object.assign(item, delta); })];
+                    case 1:
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });

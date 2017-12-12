@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService, ApiServiceFactory } from './api.service';
 import { ApiFacade } from './apiFacade';
+import { UtilService } from './util.service';
+import { Observable } from 'rxjs/Observable';
+import { Booking } from "../../types";
 
 @Injectable()
 export class BookingService {
@@ -8,7 +11,8 @@ export class BookingService {
   reviewModel: {};
 
   constructor(
-    private api: ApiFacade
+    private api: ApiFacade,
+    private util: UtilService
   ) {
   }
 
@@ -16,4 +20,52 @@ export class BookingService {
 
   }
 
+  listAliveBookingsForConsumer(accountId: string): Observable<Booking[]>{
+    const query = {
+      consumerId: accountId,
+      cancelledAt: null,
+      expiredAt: {
+        $gt: new Date
+      },
+      open: true
+    };
+    const p = this.api.bookingApi.list(query);
+    return Observable.fromPromise(p);
+  }
+
+  listBookingsForProvider(accountId: string): Observable<Booking[]>{
+    const query = {
+      providerId: accountId
+    };
+    const p = this.api.bookingApi.list(query);
+    return Observable.fromPromise(p);
+  }
+
+  async create(slotId: string, providerId: string, consumerId: string, babyId: string): Promise<void> {
+    const slot = await this.api.slotApi.getOne(slotId);
+    if(slot.bookingCount === 0) {
+      throw new Error("No more available space for this slot.");
+    }
+    await this.api.slotApi.updateFunc(slotId, x => {
+      x.bookingCount++;
+      return x;
+    });
+    const booking: Booking = {
+      id: this.util.newGuid(),
+      providerId,
+      consumerId,
+      slotId,
+      babyId,
+      createdAt: new Date(),
+      cancelledAt: null,
+      expiredAt: null,
+      open: true
+    };
+    await this.api.bookingApi.add(booking);
+  }
+
+  delete(bookingId: string): Observable<void> {
+    const p = this.api.bookingApi.delete(bookingId);
+    return Observable.fromPromise(p);
+  }
 }

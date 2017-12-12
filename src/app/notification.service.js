@@ -23,7 +23,7 @@ var NotificationService = (function () {
         return this.infoSubject.asObservable();
     };
     NotificationService.prototype.error = function (error) {
-        this.errorSubject.next(JSON.stringify(error));
+        this.errorSubject.next(error.toString() + error.stack);
     };
     NotificationService.prototype.getError = function () {
         return this.errorSubject.asObservable();

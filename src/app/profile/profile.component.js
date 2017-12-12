@@ -45,7 +45,7 @@ var ProfileComponent = (function () {
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         var accountId = this.sessionService.account.id;
-        this.api.providerProfileApi.get({ accountId: accountId })
+        this.api.accountProfileApi.get({ accountId: accountId })
             .then(function (p) { return _this.setModel(p); })
             .catch(function (e) { return _this.notificationService.error(e); });
     };
@@ -76,10 +76,10 @@ var ProfileComponent = (function () {
             address: this.model.address,
         };
         if (p.id) {
-            this.api.providerProfileApi.update(p, p.id);
+            this.api.accountProfileApi.update(p, p.id);
         }
         else {
-            this.api.providerProfileApi.add(p);
+            this.api.accountProfileApi.add(p);
         }
     };
     ProfileComponent = __decorate([

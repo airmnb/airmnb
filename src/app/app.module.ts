@@ -42,6 +42,12 @@ import { BabyContentComponent } from './baby-content/baby-content.component';
 import { BookingService } from './booking.service';
 import { ApiFacade } from "./apiFacade";
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { AccountProfileComponent } from './account-profile/account-profile.component';
+import { UtilService } from './util.service';
+import { SlotEditComponent } from './slot-edit/slot-edit.component';
+import { TransactionService } from './transaction.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +70,11 @@ import { HeaderComponent } from './header/header.component';
     ProfileContentComponent,
     ProviderMainComponent,
     BabyContentComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    SignupComponent,
+    AccountProfileComponent,
+    SlotEditComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +109,9 @@ import { HeaderComponent } from './header/header.component';
     ModalService,
     NgbActiveModal,
     BookingService,
-    ApiFacade
+    ApiFacade,
+    UtilService,
+    TransactionService
   ],
   entryComponents: [
     RegisterModalComponent

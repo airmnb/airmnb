@@ -50,19 +50,22 @@ var api_service_1 = require("../api.service");
 var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
 var modal_service_1 = require("../modal.service");
+var notification_service_1 = require("../notification.service");
 var LoginContentComponent = (function () {
-    function LoginContentComponent(modalService, activeModal, loginService, sessionService, router) {
+    function LoginContentComponent(modalService, activeModal, loginService, sessionService, notificationService, router) {
         this.modalService = modalService;
         this.activeModal = activeModal;
         this.loginService = loginService;
         this.sessionService = sessionService;
+        this.notificationService = notificationService;
         this.router = router;
     }
     LoginContentComponent.prototype.ngOnInit = function () {
     };
     LoginContentComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var account, routeUrl, e_1;
+            var _this = this;
+            var account, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -78,13 +81,15 @@ var LoginContentComponent = (function () {
                     case 2:
                         account = _a.sent();
                         this.sessionService.login(account);
-                        this.modalService.dismissModal();
-                        routeUrl = this.role === 'provider' ? 'provider' :
-                            this.role === 'consumer' ? 'consumer' :
-                                '';
-                        this.router.navigateByUrl(routeUrl);
-                        this.errorMessage = null;
-                        this.activeModal.dismiss();
+                        this.sessionService.role = this.role;
+                        // this.modalService.dismissModal();
+                        // const routeUrl = this.role === 'provider' ? 'provider' :
+                        //       this.role === 'consumer' ? 'consumer' :
+                        //       '';
+                        // this.router.navigateByUrl(routeUrl);
+                        // this.errorMessage = null;
+                        // this.activeModal.dismiss();
+                        this.sessionService.getProfile().subscribe(function (p) { return _this.routeByProfile(p); });
                         return [3 /*break*/, 4];
                     case 3:
                         e_1 = _a.sent();
@@ -95,6 +100,15 @@ var LoginContentComponent = (function () {
                 }
             });
         });
+    };
+    LoginContentComponent.prototype.routeByProfile = function (p) {
+        if (p) {
+            this.router.navigateByUrl("/");
+        }
+        else {
+            this.notificationService.info("Please input your profile to continue the journey.");
+            this.router.navigate(['/profile']);
+        }
     };
     LoginContentComponent.prototype.signup = function () {
         this.activeModal.dismiss();
@@ -115,6 +129,7 @@ var LoginContentComponent = (function () {
             ng_bootstrap_1.NgbActiveModal,
             api_service_1.LoginService,
             session_service_1.SessionService,
+            notification_service_1.NotificationService,
             router_1.Router])
     ], LoginContentComponent);
     return LoginContentComponent;

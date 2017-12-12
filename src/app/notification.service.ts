@@ -18,7 +18,7 @@ export class NotificationService {
   }
 
   error(error): void {
-    this.errorSubject.next(JSON.stringify(error));
+    this.errorSubject.next(error.toString() + error.stack);
   }
 
   getError(): Observable<string> {

@@ -1,61 +1,68 @@
-<form #theForm="ngForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="title" required>Title</label>
-        <div>
-          <input type="text" class="form-control" name="title" placeholder="Title" [(ngModel)]="model.title">
+<amb-header></amb-header>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 offset-md-3">
+      <form #theForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="title" required>Title</label>
+          <div>
+            <input type="text" class="form-control" name="title" placeholder="Title" [(ngModel)]="model.title">
+          </div>
         </div>
-      </div>
-  <div class="form-group">
-    <label for="date" required>Date</label>
-    <div class="input-group">
-      <input class="form-control" placeholder="Date" required name="dp" [(ngModel)]="model.date" ngbDatepicker #d="ngbDatepicker">
-      <button class="input-group-addon" (click)="d.toggle()" type="button">
-        <i class="fa fa-calendar"></i>
-      </button>
+        <div class="form-group">
+          <label for="date" required>Date</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="Date" required name="dp" [(ngModel)]="model.date" ngbDatepicker #d="ngbDatepicker">
+            <button class="input-group-addon" (click)="d.toggle()" type="button">
+              <i class="fa fa-calendar"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="timeFrom">From</label>
+          <div>
+            <ngb-timepicker [(ngModel)]="model.timeFrom" [minuteStep]="30" name="timeFrom"></ngb-timepicker>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="timeTo">To</label>
+          <div>
+            <ngb-timepicker [(ngModel)]="model.timeTo" [minuteStep]="30" name="timeTo"></ngb-timepicker>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ageFrom" required>Age from</label>
+          <div>
+            <input type="text" class="form-control" name="ageFrom" placeholder="Age from" [(ngModel)]="model.ageFrom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ageTo" required>Age to</label>
+          <div>
+            <input type="text" class="form-control" name="ageTo" placeholder="Age to" [(ngModel)]="model.ageTo">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <div>
+            <input type="text" class="form-control" name="description" placeholder="Description" [(ngModel)]="model.description">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="capping" required>Capping</label>
+          <div>
+            <input type="text" class="form-control" name="capping" placeholder="Capping" [(ngModel)]="model.capping">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="price" required>Price per hour</label>
+          <div>
+            <input type="text" class="form-control" name="price" placeholder="Price per hour" [(ngModel)]="model.price">
+          </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
+      </form>
     </div>
   </div>
-  <div class="form-group">
-    <label for="timeFrom">From</label>
-    <div>
-      <ngb-timepicker [(ngModel)]="model.timeFrom" name="timeFrom"></ngb-timepicker>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="timeTo">To</label>
-    <div>
-      <ngb-timepicker [(ngModel)]="model.timeTo" name="timeTo"></ngb-timepicker>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="ageFrom" required>Age from</label>
-    <div>
-      <input type="text" class="form-control" name="ageFrom" placeholder="Age from" [(ngModel)]="model.ageFrom">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="ageTo" required>Age to</label>
-    <div>
-      <input type="text" class="form-control" name="ageTo" placeholder="Age to" [(ngModel)]="model.ageTo">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <div>
-      <input type="text" class="form-control" name="description" placeholder="Description" [(ngModel)]="model.description">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="capping" required>Capping</label>
-    <div>
-      <input type="text" class="form-control" name="capping" placeholder="Capping" [(ngModel)]="model.capping">
-    </div>
-  </div>
-  <div class="form-group">
-      <label for="price" required>Price per hour</label>
-      <div>
-        <input type="text" class="form-control" name="price" placeholder="Price per hour" [(ngModel)]="model.price">
-      </div>
-    </div>
-  <hr>
-  <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">Add</button>
-</form>
+</div>

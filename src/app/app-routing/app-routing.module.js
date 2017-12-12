@@ -13,16 +13,47 @@ var home_component_1 = require("../home/home.component");
 var consumer_dashboard_component_1 = require("../consumer-dashboard/consumer-dashboard.component");
 var aboutus_component_1 = require("../aboutus/aboutus.component");
 var add_slot_component_1 = require("../add-slot/add-slot.component");
-var profile_component_1 = require("../profile/profile.component");
 var provider_main_component_1 = require("../provider-main/provider-main.component");
+var login_component_1 = require("../login/login.component");
+var signup_component_1 = require("../signup/signup.component");
+var account_profile_component_1 = require("../account-profile/account-profile.component");
+var slot_list_component_1 = require("../slot-list/slot-list.component");
+var slot_edit_component_1 = require("../slot-edit/slot-edit.component");
+var slot_component_1 = require("../slot/slot.component");
 var routes = [
     {
         path: '',
         component: home_component_1.HomeComponent
     },
     {
+        path: 'login',
+        component: login_component_1.LoginComponent
+    },
+    {
+        path: 'signup',
+        component: signup_component_1.SignupComponent
+    },
+    {
         path: 'profile',
-        component: profile_component_1.ProfileComponent
+        component: account_profile_component_1.AccountProfileComponent
+    },
+    {
+        path: 'slotlist',
+        component: slot_list_component_1.SlotListComponent
+    },
+    {
+        path: 'slots',
+        component: slot_edit_component_1.SlotEditComponent,
+    },
+    {
+        path: 'slots/add',
+        component: slot_component_1.SlotComponent,
+        data: { isNew: true }
+    },
+    {
+        path: 'slots/edit',
+        component: slot_component_1.SlotComponent,
+        data: { isNew: false }
     },
     {
         path: 'provider',

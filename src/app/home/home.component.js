@@ -51,12 +51,14 @@ var map_service_service_1 = require("../map-service.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var moment = require("moment");
 var modal_service_1 = require("../modal.service");
+var notification_service_1 = require("../notification.service");
 var HomeComponent = (function () {
-    function HomeComponent(modalService, ngbTimerConfig, sessionService, router, mapService) {
+    function HomeComponent(modalService, ngbTimerConfig, sessionService, router, mapService, notificationService) {
         this.modalService = modalService;
         this.sessionService = sessionService;
         this.router = router;
         this.mapService = mapService;
+        this.notificationService = notificationService;
         this.submitted = false;
         this.model = {
             location: '',
@@ -112,11 +114,10 @@ var HomeComponent = (function () {
                 this.submitted = true;
                 try {
                     queryParams = this.composeQuery();
-                    console.log(queryParams);
                     this.router.navigate(['/consumer'], { queryParams: queryParams });
                 }
                 catch (e) {
-                    console.log(e);
+                    this.notificationService.error(e);
                     this.submitted = false;
                 }
                 return [2 /*return*/];
@@ -156,7 +157,8 @@ var HomeComponent = (function () {
             ng_bootstrap_1.NgbTimepickerConfig,
             session_service_1.SessionService,
             router_1.Router,
-            map_service_service_1.MapServiceService])
+            map_service_service_1.MapServiceService,
+            notification_service_1.NotificationService])
     ], HomeComponent);
     return HomeComponent;
 }());

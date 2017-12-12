@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceFactory, ApiService } from '../api.service';
-import { ProviderProfile } from '../../../types';
+import { AccountProfile } from '../../../types';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
 import { ApiFacade } from '../apiFacade';
@@ -46,12 +46,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     const accountId = this.sessionService.account.id;
 
-    this.api.providerProfileApi.get({accountId})
+    this.api.accountProfileApi.get({accountId})
       .then(p => this.setModel(p))
       .catch(e => this.notificationService.error(e));
   }
 
-  private setModel(p: ProviderProfile){
+  private setModel(p: AccountProfile){
     if(!p){
       return;
     }
@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(){
-    const p: ProviderProfile = {
+    const p: AccountProfile = {
       id: this.model.id,
       dob: null,
       gender: null,
@@ -80,9 +80,9 @@ export class ProfileComponent implements OnInit {
     };
 
     if(p.id){
-      this.api.providerProfileApi.update(p, p.id);
+      this.api.accountProfileApi.update(p, p.id);
     }else{
-      this.api.providerProfileApi.add(p);
+      this.api.accountProfileApi.add(p);
     }
   }
 
