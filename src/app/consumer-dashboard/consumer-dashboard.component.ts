@@ -110,7 +110,6 @@ export class ConsumerDashboardComponent implements OnInit {
   private displayGender(cell, row){
     const gender = cell === '1' ? 'Boy' :
         cell === '0' ? 'Girl' : '';
-    console.log(cell, gender);
     return gender;
   }
 

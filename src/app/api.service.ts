@@ -112,7 +112,6 @@ export class LoginService {
    }
 
   public async login(info: LoginInfo): Promise<Account> {
-    console.log('login info', info);
     const resp = await this.http.post(this.apiUrl, info).toPromise();
     if (resp.status === 200){
       const json = resp.text();

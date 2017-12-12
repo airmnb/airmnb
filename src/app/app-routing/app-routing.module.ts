@@ -14,6 +14,7 @@ import { AccountProfileComponent } from '../account-profile/account-profile.comp
 import { SlotListComponent } from '../slot-list/slot-list.component';
 import { SlotEditComponent } from '../slot-edit/slot-edit.component';
 import { SlotComponent } from '../slot/slot.component';
+import { BookingComponent } from '../booking/booking.component';
 const routes: Routes = [
   {
     path: '',
@@ -49,6 +50,10 @@ const routes: Routes = [
     path: 'slots/edit',
     component: SlotComponent,
     data: {isNew: false}
+  },
+  {
+    path: 'booking',
+    component: BookingComponent
   },
   {
     path: 'provider',

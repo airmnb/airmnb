@@ -48,6 +48,8 @@ import { AccountProfileComponent } from './account-profile/account-profile.compo
 import { UtilService } from './util.service';
 import { SlotEditComponent } from './slot-edit/slot-edit.component';
 import { TransactionService } from './transaction.service';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { BookingComponent } from './booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { TransactionService } from './transaction.service';
     LoginComponent,
     SignupComponent,
     AccountProfileComponent,
-    SlotEditComponent
+    SlotEditComponent,
+    ImageUploadComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,

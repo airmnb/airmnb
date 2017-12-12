@@ -23,6 +23,10 @@ export class HeaderComponent implements OnInit {
     return this.hasLoggedIn && this.sessionService.role === 'provider';
   }
 
+  get role(): string {
+    return this.sessionService.role;
+  }
+
   get isConsumer(): boolean {
     return this.hasLoggedIn && this.sessionService.role === 'consumer';
   }

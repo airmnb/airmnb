@@ -100,6 +100,7 @@ export interface ServiceSlot {
   price: number;
   capping: number;
   bookingCount: number;
+  imageNames?: string[];
 }
 
 export enum Gender {
