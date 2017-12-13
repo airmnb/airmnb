@@ -108,7 +108,6 @@ var ConsumerDashboardComponent = (function () {
     ConsumerDashboardComponent.prototype.displayGender = function (cell, row) {
         var gender = cell === '1' ? 'Boy' :
             cell === '0' ? 'Girl' : '';
-        console.log(cell, gender);
         return gender;
     };
     ConsumerDashboardComponent.prototype.loadBabyProfiles = function () {

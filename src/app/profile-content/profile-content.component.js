@@ -66,7 +66,7 @@ var ProfileContentComponent = (function () {
             dob: null,
             gender: null,
             address: null,
-            images: [],
+            imageNames: [],
             description: null,
             language: {
                 english: null,
@@ -76,10 +76,9 @@ var ProfileContentComponent = (function () {
         };
     }
     ProfileContentComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.getUploadedImages()
-            .then(function (images) { return _this.images = images; })
-            .catch(function (e) { return _this.notificationService.error(e); });
+        // this.getUploadedImages()
+        // .then(images => this.images = images)
+        // .catch(e => this.notificationService.error(e));
     };
     ProfileContentComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -99,7 +98,8 @@ var ProfileContentComponent = (function () {
             dob: this.util.getDate(this.model.dob),
             address: this.model.address,
             accountId: this.sessionService.account.id,
-            gender: this.model.gender
+            gender: this.model.gender,
+            imageNames: this.model.imageNames
         };
         this.api.accountProfileApi.add(p)
             .then(function (x) {
@@ -111,24 +111,19 @@ var ProfileContentComponent = (function () {
         return __awaiter(this, void 0, void 0, function () {
             var resp, filename;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        resp = event.serverResponse;
-                        filename = resp.text();
-                        if (!(resp.status === 200)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.tieImageToProvider(filename)];
-                    case 1:
-                        _a.sent();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        this.notificationService.error(resp);
-                        _a.label = 3;
-                    case 3: return [2 /*return*/];
+                resp = event.serverResponse;
+                filename = resp.text();
+                if (resp.status === 200) {
+                    // await this.tieImageToAccount(filename);
                 }
+                else {
+                    this.notificationService.error(resp);
+                }
+                return [2 /*return*/];
             });
         });
     };
-    ProfileContentComponent.prototype.tieImageToProvider = function (imageName) {
+    ProfileContentComponent.prototype.tieImageToAccount = function (imageName) {
         return __awaiter(this, void 0, void 0, function () {
             var providerId;
             return __generator(this, function (_a) {

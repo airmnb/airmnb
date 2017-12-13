@@ -48,9 +48,13 @@ var core_1 = require("@angular/core");
 var types_1 = require("../../../types");
 var slot_image_service_1 = require("../slot-image.service");
 require("rxjs/add/observable/fromPromise");
+var session_service_1 = require("../session.service");
+var router_1 = require("@angular/router");
 var SlotListComponent = (function () {
-    function SlotListComponent(slotImageService) {
+    function SlotListComponent(slotImageService, session, router) {
         this.slotImageService = slotImageService;
+        this.session = session;
+        this.router = router;
     }
     Object.defineProperty(SlotListComponent.prototype, "slots", {
         get: function () {
@@ -105,11 +109,9 @@ var SlotListComponent = (function () {
         return Math.floor(Math.random() * 3) + 3; // 3,4,5
     };
     SlotListComponent.prototype.book = function (slot) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
+        this.session.databag.bookingSlot = slot;
+        this.router.navigate(['booking']);
+        return false;
     };
     __decorate([
         core_1.Input(),
@@ -122,7 +124,9 @@ var SlotListComponent = (function () {
             templateUrl: './slot-list.component.html',
             styleUrls: ['./slot-list.component.css']
         }),
-        __metadata("design:paramtypes", [slot_image_service_1.ImageService])
+        __metadata("design:paramtypes", [slot_image_service_1.ImageService,
+            session_service_1.SessionService,
+            router_1.Router])
     ], SlotListComponent);
     return SlotListComponent;
 }());

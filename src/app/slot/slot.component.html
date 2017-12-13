@@ -60,9 +60,17 @@
             <input type="text" class="form-control" name="price" placeholder="Price per hour" [(ngModel)]="model.price">
           </div>
         </div>
+        <div class="form-group">
+          <label for="price" required>Images</label>
+          <div>
+            <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="getUploadedImages(model.imageNames)" (uploadFinished)="onUploadFinished($event)">
+            </image-upload>
+          </div>
+        </div>
         <hr>
         <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
       </form>
     </div>
   </div>
 </div>
+{{model | json}}

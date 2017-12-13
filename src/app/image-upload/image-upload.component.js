@@ -45,47 +45,102 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var apiFacade_1 = require("./apiFacade");
-var ImageService = (function () {
-    function ImageService(api) {
+var notification_service_1 = require("../notification.service");
+var session_service_1 = require("../session.service");
+var slot_image_service_1 = require("../slot-image.service");
+var apiFacade_1 = require("../apiFacade");
+var ImageUploadComponent = (function () {
+    function ImageUploadComponent(notificationService, sessionService, imageService, api) {
+        this.notificationService = notificationService;
+        this.sessionService = sessionService;
+        this.imageService = imageService;
         this.api = api;
+        this.uploadApiUrl = "/api/image/";
+        this.images = [];
     }
-    ImageService.prototype.getImageNamesForProvider = function (accountId) {
+    ImageUploadComponent.prototype.ngOnInit = function () {
+    };
+    ImageUploadComponent.prototype.onUploadFinished = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            var providerProfile;
+            var resp, filename;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: accountId })];
+                    case 0:
+                        resp = event.serverResponse;
+                        filename = resp.text();
+                        if (!(resp.status === 200)) return [3 /*break*/, 5];
+                        if (!this.slotId) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.tieImageToSlot(filename)];
                     case 1:
-                        providerProfile = _a.sent();
-                        return [2 /*return*/, providerProfile ? providerProfile.imageNames || [] : []];
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2:
+                        if (!this.accountId) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.tieImageToProvider(filename)];
+                    case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        this.notificationService.error(resp);
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
-    ImageService.prototype.saveImageNameForProvider = function (imageName, accountId) {
+    ImageUploadComponent.prototype.tieImageToSlot = function (imageName) {
         return __awaiter(this, void 0, void 0, function () {
-            var providerProfile;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: accountId })];
+                    case 0: return [4 /*yield*/, this.api.slotApi.updateFunc(this.slotId, function (s) {
+                            var images = s.imageNames || [];
+                            images.push(imageName);
+                            s.imageNames = images;
+                            return s;
+                        })];
                     case 1:
-                        providerProfile = _a.sent();
-                        providerProfile.imageNames = providerProfile ? providerProfile.imageNames || [] : [];
-                        providerProfile.imageNames.push(imageName);
-                        return [4 /*yield*/, this.api.accountProfileApi.update(providerProfile, providerProfile.id)];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    ImageService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [apiFacade_1.ApiFacade])
-    ], ImageService);
-    return ImageService;
+    ImageUploadComponent.prototype.tieImageToProvider = function (imageName) {
+        return __awaiter(this, void 0, void 0, function () {
+            var accountId;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        accountId = this.sessionService.account.id;
+                        return [4 /*yield*/, this.imageService.saveImageNameForProvider(imageName, accountId)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], ImageUploadComponent.prototype, "slotId", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], ImageUploadComponent.prototype, "accountId", void 0);
+    ImageUploadComponent = __decorate([
+        core_1.Component({
+            selector: 'amb-image-upload',
+            templateUrl: './image-upload.component.html',
+            styleUrls: ['./image-upload.component.css']
+        }),
+        __metadata("design:paramtypes", [notification_service_1.NotificationService,
+            session_service_1.SessionService,
+            slot_image_service_1.ImageService,
+            apiFacade_1.ApiFacade])
+    ], ImageUploadComponent);
+    return ImageUploadComponent;
 }());
-exports.ImageService = ImageService;
-//# sourceMappingURL=slot-image.service.js.map
+exports.ImageUploadComponent = ImageUploadComponent;
+//# sourceMappingURL=image-upload.component.js.map

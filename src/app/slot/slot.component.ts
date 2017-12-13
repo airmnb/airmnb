@@ -10,6 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ImageService } from '../slot-image.service';
 
 @Component({
   selector: 'amb-slot',
@@ -18,6 +19,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SlotComponent implements OnInit {
   isNew: boolean;
+  public uploadApiUrl = "/api/image/";
 
   @Input() set slot(value: ServiceSlot) {
     if(value) {
@@ -36,7 +38,8 @@ export class SlotComponent implements OnInit {
     description: null,
     capping: null,
     vacancy: null,
-    price: null
+    price: null,
+    imageNames: []
   };
 
   theSlot: ServiceSlot = {
@@ -52,7 +55,8 @@ export class SlotComponent implements OnInit {
     ageFrom: 2,
     ageTo: 6,
     start: new Date(),
-    end: null
+    end: null,
+    imageNames: null
   };
 
   constructor(
@@ -63,7 +67,8 @@ export class SlotComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private util: UtilService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private imageServcie: ImageService
   ) {
    }
 
@@ -88,7 +93,8 @@ export class SlotComponent implements OnInit {
       description: slot.otherCondition,
       capping: slot.capping,
       vacancy: slot.capping - slot.bookingCount,
-      price: slot.price
+      price: slot.price,
+      imageNames: slot.imageNames
     };
     return m;
   }
@@ -102,7 +108,8 @@ export class SlotComponent implements OnInit {
       ageFrom: this.model.ageFrom,
       ageTo: this.model.ageTo,
       price: this.model.price,
-      otherCondition: this.model.description
+      otherCondition: this.model.description,
+      imageNames: this.model.imageNames
     });
     return this.theSlot;
   }
@@ -127,6 +134,22 @@ export class SlotComponent implements OnInit {
     await this.api.slotApi.update(slot);
   }
 
+  public getUploadedImages(): string[] {
+    return this.imageServcie.getImageUrls(this.model.imageNames);
+  }
+
+  public async onUploadFinished(event): Promise<void> {
+    console.log('uploaded <<<<');
+    const resp = event.serverResponse;
+    const filename = resp.text();
+    if(resp.status === 200) {
+      // await this.tieImageToAccount(filename);
+      this.model.imageNames = this.model.imageNames || [];
+      this.model.imageNames.push(filename);
+    } else {
+      this.notificationService.error(resp);
+    }
+  }
 
   // onSubmit() {
   //   if(!this.sessionService.hasLoggedIn) {

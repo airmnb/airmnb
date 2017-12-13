@@ -12,7 +12,10 @@ const langKey = 'lang';
 export class SessionService {
   private accountSubject = new Subject<Account>();
   private _account: Account;
-  public role: string;
+  private _role: string;
+  public get role(): string{
+    return this._role;
+  }
   public databag: any = {};
 
   constructor(
@@ -28,12 +31,14 @@ export class SessionService {
     return !!this.account;
   }
 
-  login(account: Account): void {
+  login(account: Account, role: string): void {
     this._account = account;
     this.accountSubject.next(account);
     const cookieValue = {
-      account
+      account,
+      role
     };
+    this._role = role;
     const json = JSON.stringify(cookieValue);
     this.cookieService.set(cookieKey, json);
   }
@@ -55,7 +60,7 @@ export class SessionService {
       if (obj) {
         const account = obj.account;
         if (account) {
-          this.login(account);
+          this.login(account, obj.role);
           return;
         }
       }

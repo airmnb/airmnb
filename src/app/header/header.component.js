@@ -31,6 +31,13 @@ var HeaderComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(HeaderComponent.prototype, "role", {
+        get: function () {
+            return this.sessionService.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(HeaderComponent.prototype, "isConsumer", {
         get: function () {
             return this.hasLoggedIn && this.sessionService.role === 'consumer';

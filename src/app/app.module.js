@@ -55,6 +55,10 @@ var account_profile_component_1 = require("./account-profile/account-profile.com
 var util_service_1 = require("./util.service");
 var slot_edit_component_1 = require("./slot-edit/slot-edit.component");
 var transaction_service_1 = require("./transaction.service");
+var image_upload_component_1 = require("./image-upload/image-upload.component");
+var booking_component_1 = require("./booking/booking.component");
+var angular2_wizard_1 = require("angular2-wizard");
+var slot_display_component_1 = require("./slot-display/slot-display.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -84,7 +88,10 @@ var AppModule = (function () {
                 login_component_1.LoginComponent,
                 signup_component_1.SignupComponent,
                 account_profile_component_1.AccountProfileComponent,
-                slot_edit_component_1.SlotEditComponent
+                slot_edit_component_1.SlotEditComponent,
+                image_upload_component_1.ImageUploadComponent,
+                booking_component_1.BookingComponent,
+                slot_display_component_1.SlotDisplayComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -103,7 +110,8 @@ var AppModule = (function () {
                     libraries: ["places"]
                 }),
                 angular2_image_upload_1.ImageUploadModule.forRoot(),
-                ng2_smart_table_1.Ng2SmartTableModule
+                ng2_smart_table_1.Ng2SmartTableModule,
+                angular2_wizard_1.FormWizardModule
             ],
             providers: [
                 api_service_1.ApiService,

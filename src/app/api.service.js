@@ -245,9 +245,7 @@ var LoginService = (function () {
             var resp, json;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log('login info', info);
-                        return [4 /*yield*/, this.http.post(this.apiUrl, info).toPromise()];
+                    case 0: return [4 /*yield*/, this.http.post(this.apiUrl, info).toPromise()];
                     case 1:
                         resp = _a.sent();
                         if (resp.status === 200) {

@@ -130,7 +130,7 @@ export interface AccountProfile  {
     longitude: null,
     latitude: null
   };
-  images?: string[];
+  imageNames?: string[];
   ageFrom?: number;
   ageTo?: number;
   languages?: string[];

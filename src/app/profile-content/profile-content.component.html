@@ -43,8 +43,9 @@
     <div class="form-group" *ngIf="profileRole==='provider'">
         <label for="photos">Photos</label>
         <!-- https://aberezkin.github.io/ng2-image-upload/#/readme -->
-        <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="images" (uploadFinished)="onUploadFinished($event)">
+        <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="model.imageNames" (uploadFinished)="onUploadFinished($event)">
         </image-upload>
+        {{model.imageNames}}
     </div>
     <!-- Provider specific ends -->
     <div class="form-group">

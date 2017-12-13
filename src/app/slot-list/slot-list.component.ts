@@ -3,6 +3,8 @@ import { ServiceSlot, Gender } from '../../../types';
 import { ImageService } from '../slot-image.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
+import { SessionService } from '../session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'amb-slot-list',
@@ -30,7 +32,11 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
     return this._slots;
   }
 
-  constructor(private slotImageService: ImageService) { }
+  constructor(
+    private slotImageService: ImageService,
+    private session: SessionService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -61,7 +67,9 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
     return Math.floor(Math.random() * 3) + 3; // 3,4,5
   }
 
-  async book(slot: ServiceSlot): Promise<void> {
-
+  book(slot: ServiceSlot) {
+    this.session.databag.bookingSlot = slot;
+    this.router.navigate(['booking']);
+    return false;
   }
 }

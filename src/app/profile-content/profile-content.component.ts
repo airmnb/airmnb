@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 export class ProfileContentComponent implements OnInit {
 
   public uploadApiUrl = "/api/image/";
-  public images: string[];
   @Input() profileRole: string;
 
   model = {
@@ -26,7 +25,7 @@ export class ProfileContentComponent implements OnInit {
     dob: null,
     gender: null,
     address: null,
-    images: [],
+    imageNames: [],
     description: null,
     language: {
       english: null,
@@ -40,13 +39,13 @@ export class ProfileContentComponent implements OnInit {
   private slotImageService: ImageService,
   private util: UtilService,
   private router: Router
-) {
-  }
+  ) {
+    }
 
   ngOnInit() {
-    this.getUploadedImages()
-    .then(images => this.images = images)
-    .catch(e => this.notificationService.error(e));
+    // this.getUploadedImages()
+    // .then(images => this.images = images)
+    // .catch(e => this.notificationService.error(e));
   }
 
   onSubmit() {
@@ -66,7 +65,8 @@ export class ProfileContentComponent implements OnInit {
       dob: this.util.getDate(this.model.dob),
       address: this.model.address,
       accountId: this.sessionService.account.id,
-      gender: this.model.gender
+      gender: this.model.gender,
+      imageNames: this.model.imageNames
     };
     this.api.accountProfileApi.add(p)
     .then(x => {
@@ -79,13 +79,14 @@ export class ProfileContentComponent implements OnInit {
     const resp = event.serverResponse;
     const filename = resp.text();
     if(resp.status === 200) {
-      await this.tieImageToProvider(filename);
+      // await this.tieImageToAccount(filename);
+
     } else {
       this.notificationService.error(resp);
     }
   }
 
-  private async tieImageToProvider(imageName: string) {
+  private async tieImageToAccount(imageName: string) {
     const providerId = this.sessionService.account.id;
     await this.slotImageService.saveImageNameForProvider(imageName, providerId);
   }

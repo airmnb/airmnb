@@ -1,0 +1,34 @@
+<div class="contianer">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-inline float-right">
+          <i class="fa fa-star text-warning" *ngFor="let x of slot.stars"></i>
+        </div>
+        <h4 class=" d-inline card-title">{{slot.title}}</h4>
+      </div>
+  </div>
+  <div class="row">
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let imageName of slot.imageNames">
+          <img [src]="getImageUrl(imageName)" alt="Slot image">
+          <!-- <div class="carousel-caption">
+            <h3>10 seconds between slides...</h3>
+            <p>This carousel uses customized default values.</p>
+          </div> -->
+        </ng-template>
+      </ngb-carousel>
+  </div>
+  <div class="row">
+      <p class="card-text">{{slot.text}}</p>
+      <p>Time: {{slot.start | date:'short'}} - {{slot.end | date:'short'}}</p>
+      <p>Age: {{slot.ageFrom}} - {{slot.ageTo}}</p>
+      <p>Gender: {{displayGender(slot.gender)}}</p>
+      <p *ngIf="slot.otherCondition">{{slot.otherCondition}}</p>
+      <p>Price: {{slot.price | currency}} per unit</p>
+  </div>
+  <div class="row">
+    <h2>Choose your baby</h2>
+  </div>
+</div>
+
+

@@ -20,6 +20,7 @@ var account_profile_component_1 = require("../account-profile/account-profile.co
 var slot_list_component_1 = require("../slot-list/slot-list.component");
 var slot_edit_component_1 = require("../slot-edit/slot-edit.component");
 var slot_component_1 = require("../slot/slot.component");
+var booking_component_1 = require("../booking/booking.component");
 var routes = [
     {
         path: '',
@@ -54,6 +55,10 @@ var routes = [
         path: 'slots/edit',
         component: slot_component_1.SlotComponent,
         data: { isNew: false }
+    },
+    {
+        path: 'booking',
+        component: booking_component_1.BookingComponent
     },
     {
         path: 'provider',

@@ -50,6 +50,8 @@ import { SlotEditComponent } from './slot-edit/slot-edit.component';
 import { TransactionService } from './transaction.service';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { BookingComponent } from './booking/booking.component';
+import { FormWizardModule } from 'angular2-wizard';
+import { SlotDisplayComponent } from './slot-display/slot-display.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { BookingComponent } from './booking/booking.component';
     AccountProfileComponent,
     SlotEditComponent,
     ImageUploadComponent,
-    BookingComponent
+    BookingComponent,
+    SlotDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +100,8 @@ import { BookingComponent } from './booking/booking.component';
       libraries: ["places"]
     }),
     ImageUploadModule.forRoot(),
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    FormWizardModule
   ],
   providers: [
     ApiService,
