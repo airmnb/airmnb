@@ -10,7 +10,7 @@
   <div class="row">
       <ngb-carousel>
         <ng-template ngbSlide *ngFor="let imageName of slot.imageNames">
-          <img [src]="getImageUrl(imageName)" alt="Slot image">
+          <img [src]="getImageUrl(imageName)" class="img-thumbnail" alt="Slot image">
           <!-- <div class="carousel-caption">
             <h3>10 seconds between slides...</h3>
             <p>This carousel uses customized default values.</p>

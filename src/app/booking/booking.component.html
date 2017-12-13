@@ -1,40 +1,36 @@
 <amb-header></amb-header>
 <div class="container">
-<form-wizard *ngIf="slot">
-  <wizard-step [title]="'Review Slot'" (onNext)="onStep1Next($event)">
-    <amb-slot-display [slot]="slot"></amb-slot-display>
-    <br>
-    <select class="custom-select input-group col-md-3" [(ngModel)]="theBaby" name="baby">
-      <option [ngValue]="null" disabled selected>Please select a baby</option>
-      <option *ngFor="let baby of babies" [ngValue]="baby">{{baby.nickName}}</option>
-    </select>
-  </wizard-step>
-  <wizard-step [title]="'Baby Information'" (onNext)="onStep2Next($event)">
+  <form-wizard *ngIf="slot">
+    <wizard-step [title]="'Choose baby'" [isValid]="theBaby" (onNext)="onChooseBabyNext($event)">
+      <amb-slot-display [slot]="slot"></amb-slot-display>
+      <br>
+      <select class="custom-select input-group col-md-3" [(ngModel)]="theBaby" name="baby">
+        <option [ngValue]="null" disabled selected>Please select a baby</option>
+        <option *ngFor="let baby of babies" [ngValue]="baby">{{baby.nickName}}</option>
+      </select>
+    </wizard-step>
+    <wizard-step [title]="'Payment Information'" (onNext)="onPaymentNext($event)">
       <p>fake payment method - Credit card/PayPal/Weixin</p>
     </wizard-step>
-  <wizard-step [title]="'Payment Information'" (onNext)="onStep2Next($event)">
-    <p>fake payment method - Credit card/PayPal/Weixin</p>
-  </wizard-step>
-  <wizard-step [title]="'Step3'" [isValid]="theForm.form.valid" (onNext)="onStep3Next($event)">
-    <h1>Confirmation</h1>
-      <form #theForm="ngForm">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <!-- <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
-              [(ngModel)]="data.email" required> -->
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-        </form>
-  </wizard-step>
-  <wizard-step [title]="'Step4'" (onComplete)="onComplete($event)">
-    <div [ngSwitch]="isCompleted">
-      <div *ngSwitchDefault>
-        <h1>Step4</h1>
+    <wizard-step [title]="'Completed'" (onComplete)="onComplete($event)">
+      <div [ngSwitch]="isCompleted">
+        <div *ngSwitchDefault>
+            <ul class="list-group list-group-flush" *ngIf="slot && theBaby">
+                <li class="list-group-item">{{slot.title}}</li>
+                <li class="list-group-item">Time: {{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</li>
+                <li class="list-group-item">Age: {{slot.ageFrom}} - {{slot.ageTo}}</li>
+                <li class="list-group-item">Gender: {{displayGender(slot.gender)}}</li>
+                <li class="list-group-item" *ngIf="slot.otherCondition">{{slot.otherCondition}}</li>
+                <li class="list-group-item" *ngIf="!slot.price">Free event</li>
+                <li class="list-group-item" *ngIf="slot.price">{{slot.price | currency}}</li>
+                <li class="list-group-item">Baby: {{theBaby.nickName}}</li>
+              </ul>
+        </div>
+        <div *ngSwitchCase="true">
+          <h4>Thank you!</h4>
+          You can find your booking <a href="{{bookingLink}}" target="blank">{{bookingLink}}</a>
+        </div>
       </div>
-      <div *ngSwitchCase="true">
-        <h4>Thank you! You have completed all the steps.</h4>
-      </div>
-    </div>
-  </wizard-step>
-</form-wizard>
+    </wizard-step>
+  </form-wizard>
 </div>

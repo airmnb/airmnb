@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import * as uuid from 'uuid';
 import * as moment from 'moment';
 import { Gender } from '../../types';
+import {DOCUMENT} from '@angular/platform-browser';
 
 @Injectable()
 export class UtilService {
 
-  constructor() { }
+  constructor(
+    @Inject(DOCUMENT) private document
+  ) { }
 
   newGuid() {
     return uuid.v4();
@@ -43,5 +46,15 @@ export class UtilService {
     }
     const ret = m.toDate();
     return ret;
+  }
+
+  getBookingDeepLinkUrl(bookingId: string): string {
+    let port = document.location.port;
+    if(port && port === "80") {
+      port = "";
+    }else{
+      port = ":" + port;
+    }
+    return `${document.location.protocol}//${document.location.hostname}${port}/bookings/${bookingId}`;
   }
 }
