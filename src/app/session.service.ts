@@ -16,7 +16,6 @@ export class SessionService {
   public get role(): string{
     return this._role;
   }
-  public databag: any = {};
 
   constructor(
     private cookieService: CookieService,

@@ -52,6 +52,7 @@ import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { BookingComponent } from './booking/booking.component';
 import { FormWizardModule } from 'angular2-wizard';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
+import { BookingViewComponent } from './booking-view/booking-view.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { SlotDisplayComponent } from './slot-display/slot-display.component';
     SlotEditComponent,
     ImageUploadComponent,
     BookingComponent,
-    SlotDisplayComponent
+    SlotDisplayComponent,
+    BookingViewComponent
   ],
   imports: [
     BrowserModule,

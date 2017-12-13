@@ -33,8 +33,7 @@ export class SlotEditComponent implements OnInit {
   }
 
   edit(slot: ServiceSlot) {
-    this.session.databag.editingSlot = slot;
-    this.router.navigate(['slots/edit']);
+    this.router.navigate(['slots/edit', slot.id]);
     return false;
   }
 

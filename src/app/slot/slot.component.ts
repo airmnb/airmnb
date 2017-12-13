@@ -73,13 +73,31 @@ export class SlotComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(x => {
-      this.isNew = x.isNew;
+    // this.activatedRoute.data.subscribe(x => {
+    //   this.isNew = x.isNew;
+    //   if(!this.isNew) {
+    //     this.theSlot = this.sessionService.databag.editingSlot;
+    //     this.model = this.slotToModel(this.theSlot);
+    //   }
+    // });
+
+    this.activatedRoute.params.subscribe(p => {
+      const slotId = p.id;
+      this.isNew = !slotId;
       if(!this.isNew) {
-        this.theSlot = this.sessionService.databag.editingSlot;
-        this.model = this.slotToModel(this.theSlot);
+        // Edit mode
+        this.api.slotApi.getOne(slotId)
+        .then(
+          s => {
+            this.theSlot = s;
+            this.model = this.slotToModel(this.theSlot);
+          }
+        ).catch(
+          e => this.notificationService.error(e)
+        );
       }
     });
+
   }
 
   private slotToModel(slot: ServiceSlot) {
@@ -139,7 +157,6 @@ export class SlotComponent implements OnInit {
   }
 
   public async onUploadFinished(event): Promise<void> {
-    console.log('uploaded <<<<');
     const resp = event.serverResponse;
     const filename = resp.text();
     if(resp.status === 200) {

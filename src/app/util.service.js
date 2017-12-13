@@ -8,13 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var uuid = require("uuid");
 var moment = require("moment");
 var types_1 = require("../../types");
+var platform_browser_1 = require("@angular/platform-browser");
 var UtilService = (function () {
-    function UtilService() {
+    function UtilService(document) {
+        this.document = document;
     }
     UtilService.prototype.newGuid = function () {
         return uuid.v4();
@@ -48,9 +53,20 @@ var UtilService = (function () {
         var ret = m.toDate();
         return ret;
     };
+    UtilService.prototype.getBookingDeepLinkUrl = function (bookingId) {
+        var port = document.location.port;
+        if (port && port === "80") {
+            port = "";
+        }
+        else {
+            port = ":" + port;
+        }
+        return document.location.protocol + "//" + document.location.hostname + port + "/bookings/" + bookingId;
+    };
     UtilService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [])
+        __param(0, core_1.Inject(platform_browser_1.DOCUMENT)),
+        __metadata("design:paramtypes", [Object])
     ], UtilService);
     return UtilService;
 }());

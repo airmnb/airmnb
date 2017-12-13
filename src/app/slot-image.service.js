@@ -81,6 +81,9 @@ var ImageService = (function () {
             });
         });
     };
+    ImageService.prototype.getImageUrls = function (imageNames) {
+        return (imageNames || []).map(function (x) { return '/image/' + x; });
+    };
     ImageService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [apiFacade_1.ApiFacade])

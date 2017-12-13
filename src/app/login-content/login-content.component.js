@@ -80,8 +80,7 @@ var LoginContentComponent = (function () {
                             })];
                     case 2:
                         account = _a.sent();
-                        this.sessionService.login(account);
-                        this.sessionService.role = this.role;
+                        this.sessionService.login(account, this.role);
                         // this.modalService.dismissModal();
                         // const routeUrl = this.role === 'provider' ? 'provider' :
                         //       this.role === 'consumer' ? 'consumer' :

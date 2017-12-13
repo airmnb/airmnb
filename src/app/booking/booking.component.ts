@@ -4,6 +4,7 @@ import { SessionService } from '../session.service';
 import { ApiFacade } from '../apiFacade';
 import { NotificationService } from '../notification.service';
 import { UtilService } from '../util.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'amb-booking',
@@ -23,14 +24,19 @@ export class BookingComponent implements OnInit {
     private session: SessionService,
     private api: ApiFacade,
     private notificationService: NotificationService,
-    private util: UtilService
+    private util: UtilService,
+    private activatedRouter: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.slot = this.session.databag.bookingSlot;
-    this.api.babyProfileApi.list({consumerId: this.session.account.id})
-    .then(babies => this.babies = babies)
-    .catch(e => this.notificationService.error(e) );
+    this.activatedRouter.params.subscribe(p => {
+      this.loadData(p.slotId).catch(e => this.notificationService.error(e));
+    });
+  }
+
+  private async loadData(slotId: string): Promise<void> {
+    this.slot = await this.api.slotApi.getOne(slotId);
+    this.babies = await this.api.babyProfileApi.list({consumerId: this.session.account.id});
   }
 
   displayGender(gender: Gender){
@@ -51,10 +57,6 @@ export class BookingComponent implements OnInit {
     )
     .catch(e => this.notificationService.error(e));
     console.log(event);
-  }
-
-  private getBookingDeepLink(bookingId: string): string {
-    return "/bookings/" + bookingId;
   }
 
   private async createBooking(): Promise<string> {

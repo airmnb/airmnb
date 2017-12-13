@@ -33,8 +33,7 @@ var SlotEditComponent = (function () {
         return Observable_1.Observable.fromPromise(p);
     };
     SlotEditComponent.prototype.edit = function (slot) {
-        this.session.databag.editingSlot = slot;
-        this.router.navigate(['slots/edit']);
+        this.router.navigate(['slots/edit', slot.id]);
         return false;
     };
     SlotEditComponent.prototype.delete = function (slot) {

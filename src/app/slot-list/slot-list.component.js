@@ -109,8 +109,7 @@ var SlotListComponent = (function () {
         return Math.floor(Math.random() * 3) + 3; // 3,4,5
     };
     SlotListComponent.prototype.book = function (slot) {
-        this.session.databag.bookingSlot = slot;
-        this.router.navigate(['booking']);
+        this.router.navigate(['bookings/add', slot.id]);
         return false;
     };
     __decorate([

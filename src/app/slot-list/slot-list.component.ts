@@ -68,8 +68,7 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   book(slot: ServiceSlot) {
-    this.session.databag.bookingSlot = slot;
-    this.router.navigate(['booking']);
+    this.router.navigate(['bookings/add', slot.id]);
     return false;
   }
 }

@@ -92,7 +92,7 @@ var SignupContentComponent = (function () {
                         return [4 /*yield*/, this.api.accountApi.getOne(id)];
                     case 4:
                         account = _a.sent();
-                        this.sessionService.login(account);
+                        this.sessionService.login(account, 'consumer');
                         this.modalService.dismissModal();
                         routeUrl = account.type === 'provider' ? 'provider' :
                             account.type === 'consumer' ? 'consumer' :

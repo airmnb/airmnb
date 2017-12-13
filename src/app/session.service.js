@@ -21,8 +21,14 @@ var SessionService = (function () {
         this.cookieService = cookieService;
         this.api = api;
         this.accountSubject = new Subject_1.Subject();
-        this.databag = {};
     }
+    Object.defineProperty(SessionService.prototype, "role", {
+        get: function () {
+            return this._role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(SessionService.prototype, "account", {
         get: function () {
             return this._account;
@@ -37,12 +43,14 @@ var SessionService = (function () {
         enumerable: true,
         configurable: true
     });
-    SessionService.prototype.login = function (account) {
+    SessionService.prototype.login = function (account, role) {
         this._account = account;
         this.accountSubject.next(account);
         var cookieValue = {
-            account: account
+            account: account,
+            role: role
         };
+        this._role = role;
         var json = JSON.stringify(cookieValue);
         this.cookieService.set(cookieKey, json);
     };
@@ -61,7 +69,7 @@ var SessionService = (function () {
             if (obj) {
                 var account = obj.account;
                 if (account) {
-                    this.login(account);
+                    this.login(account, obj.role);
                     return;
                 }
             }

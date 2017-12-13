@@ -59,6 +59,7 @@ var image_upload_component_1 = require("./image-upload/image-upload.component");
 var booking_component_1 = require("./booking/booking.component");
 var angular2_wizard_1 = require("angular2-wizard");
 var slot_display_component_1 = require("./slot-display/slot-display.component");
+var booking_view_component_1 = require("./booking-view/booking-view.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -91,7 +92,8 @@ var AppModule = (function () {
                 slot_edit_component_1.SlotEditComponent,
                 image_upload_component_1.ImageUploadComponent,
                 booking_component_1.BookingComponent,
-                slot_display_component_1.SlotDisplayComponent
+                slot_display_component_1.SlotDisplayComponent,
+                booking_view_component_1.BookingViewComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,

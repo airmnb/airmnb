@@ -53,8 +53,9 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var router_1 = require("@angular/router");
+var slot_image_service_1 = require("../slot-image.service");
 var SlotComponent = (function () {
-    function SlotComponent(api, sessionService, notificationService, modalService, activeModal, util, router, activatedRoute) {
+    function SlotComponent(api, sessionService, notificationService, modalService, activeModal, util, router, activatedRoute, imageServcie) {
         this.api = api;
         this.sessionService = sessionService;
         this.notificationService = notificationService;
@@ -63,6 +64,8 @@ var SlotComponent = (function () {
         this.util = util;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.imageServcie = imageServcie;
+        this.uploadApiUrl = "/api/image/";
         this.model = {
             title: null,
             date: null,
@@ -73,7 +76,8 @@ var SlotComponent = (function () {
             description: null,
             capping: null,
             vacancy: null,
-            price: null
+            price: null,
+            imageNames: []
         };
         this.theSlot = {
             id: this.util.newGuid(),
@@ -88,7 +92,8 @@ var SlotComponent = (function () {
             ageFrom: 2,
             ageTo: 6,
             start: new Date(),
-            end: null
+            end: null,
+            imageNames: null
         };
     }
     Object.defineProperty(SlotComponent.prototype, "slot", {
@@ -102,12 +107,24 @@ var SlotComponent = (function () {
         configurable: true
     });
     SlotComponent.prototype.ngOnInit = function () {
+        // this.activatedRoute.data.subscribe(x => {
+        //   this.isNew = x.isNew;
+        //   if(!this.isNew) {
+        //     this.theSlot = this.sessionService.databag.editingSlot;
+        //     this.model = this.slotToModel(this.theSlot);
+        //   }
+        // });
         var _this = this;
-        this.activatedRoute.data.subscribe(function (x) {
-            _this.isNew = x.isNew;
+        this.activatedRoute.params.subscribe(function (p) {
+            var slotId = p.id;
+            _this.isNew = !slotId;
             if (!_this.isNew) {
-                _this.theSlot = _this.sessionService.databag.editingSlot;
-                _this.model = _this.slotToModel(_this.theSlot);
+                // Edit mode
+                _this.api.slotApi.getOne(slotId)
+                    .then(function (s) {
+                    _this.theSlot = s;
+                    _this.model = _this.slotToModel(_this.theSlot);
+                }).catch(function (e) { return _this.notificationService.error(e); });
             }
         });
     };
@@ -122,7 +139,8 @@ var SlotComponent = (function () {
             description: slot.otherCondition,
             capping: slot.capping,
             vacancy: slot.capping - slot.bookingCount,
-            price: slot.price
+            price: slot.price,
+            imageNames: slot.imageNames
         };
         return m;
     };
@@ -135,7 +153,8 @@ var SlotComponent = (function () {
             ageFrom: this.model.ageFrom,
             ageTo: this.model.ageTo,
             price: this.model.price,
-            otherCondition: this.model.description
+            otherCondition: this.model.description,
+            imageNames: this.model.imageNames
         });
         return this.theSlot;
     };
@@ -173,6 +192,27 @@ var SlotComponent = (function () {
             });
         });
     };
+    SlotComponent.prototype.getUploadedImages = function () {
+        return this.imageServcie.getImageUrls(this.model.imageNames);
+    };
+    SlotComponent.prototype.onUploadFinished = function (event) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp, filename;
+            return __generator(this, function (_a) {
+                resp = event.serverResponse;
+                filename = resp.text();
+                if (resp.status === 200) {
+                    // await this.tieImageToAccount(filename);
+                    this.model.imageNames = this.model.imageNames || [];
+                    this.model.imageNames.push(filename);
+                }
+                else {
+                    this.notificationService.error(resp);
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object),
@@ -191,7 +231,8 @@ var SlotComponent = (function () {
             ng_bootstrap_1.NgbActiveModal,
             util_service_1.UtilService,
             router_1.Router,
-            router_1.ActivatedRoute])
+            router_1.ActivatedRoute,
+            slot_image_service_1.ImageService])
     ], SlotComponent);
     return SlotComponent;
 }());

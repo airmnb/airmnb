@@ -15,6 +15,7 @@ import { SlotListComponent } from '../slot-list/slot-list.component';
 import { SlotEditComponent } from '../slot-edit/slot-edit.component';
 import { SlotComponent } from '../slot/slot.component';
 import { BookingComponent } from '../booking/booking.component';
+import { BookingViewComponent } from '../booking-view/booking-view.component';
 const routes: Routes = [
   {
     path: '',
@@ -42,18 +43,20 @@ const routes: Routes = [
   },
   {
     path: 'slots/add',
-    component: SlotComponent,
-    data: {isNew: true}
+    component: SlotComponent
 
   },
   {
-    path: 'slots/edit',
-    component: SlotComponent,
-    data: {isNew: false}
+    path: 'slots/edit/:id',
+    component: SlotComponent
   },
   {
-    path: 'booking',
+    path: 'bookings/add/:slotId',
     component: BookingComponent
+  },
+  {
+    path: 'bookings/:id',
+    component: BookingViewComponent
   },
   {
     path: 'provider',
