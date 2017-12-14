@@ -73,17 +73,24 @@ export interface Order {
 }
 
 export interface Transaction {
-	transactionId: string;
-	cancelledReason?: string;
-	orderId: string;
-	startAt: Date;
-	endAt: Date;
-	startConfirmByProvider: string;
-	startConfirmByConsumer: string;
-	endConfirmByProvider: string;
-	endConfirmByConsumer: string;
-	roundUnits: number;
-	totalFee: number;
+  id: string;
+  bookingId: string;
+  createdAt: Date;
+  startedAt?: Date;
+  terminatedAt?: Date;
+  finishedAt?: Date;
+  startedImageIdByProvider?: string;
+  startedImageIdByConsumer?: string;
+  doneImageIdByProvider?: string;
+  doneImageIdByConsumer?: string;
+}
+
+export enum TransactionStatus {
+  Launched,
+  Started,
+  Ending,
+  Finished,
+  Terminated
 }
 
 export interface ServiceSlot {
@@ -170,19 +177,6 @@ export interface Booking {
   cancelledAt: Date;
   expiredAt: Date;
   open: boolean;
-}
-
-export interface Transaction {
-  id: string;
-  bookingId: string;
-  startedAt: Date;
-  startedImageIdByProvider: string;
-  startedImageIdByConsumer: string;
-  cancelledAt?: Date;
-  terminatedAt?: Date;
-  finishedAt?: Date;
-  doneImageIdByProvider?: string;
-  doneImageIdByConsumer?: string;
 }
 
 

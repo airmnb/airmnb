@@ -9,16 +9,20 @@
           <i class="fa fa-star text-warning" *ngFor="let x of slot.stars"></i>
           </div>
         </div>
-        <img class="card-img-top img-thumbnail" [src]="slot.avatarUrl | async" alt="Slot photo">
+        <img class="card-img-top img-thumbnail" [src]="getImageUrl(slot)" alt="Slot photo">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let imageName of slot.imageNames">
+            <img [src]="getImageUrl(imageName)" class="img-thumbnail" alt="Slot image">
+          </ng-template>
+        </ngb-carousel>
         <div class="card-block" *ngIf="slot.text">
           <p class="card-text">{{slot.text}}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Time: {{slot.start | date:'short'}} - {{slot.end | date:'short'}}</li>
-          <li class="list-group-item">Age: {{slot.ageFrom}} - {{slot.ageTo}}</li>
-          <li class="list-group-item">Gender: {{displayGender(slot.gender)}}</li>
+          <li class="list-group-item">{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</li>
+          <li class="list-group-item">Age: {{slot.ageFrom}} - {{slot.ageTo}} Gender: {{displayGender(slot.gender)}}</li>
           <li class="list-group-item" *ngIf="slot.otherCondition">{{slot.otherCondition}}</li>
-          <li class="list-group-item">Price: {{slot.price | currency}} per unit</li>
+          <li class="list-group-item">Price: <strong>{{slot.price | currency}}</strong></li>
         </ul>
         <div class="card-block">
           <a href class="btn btn-primary" (click)="book(slot)">Book</a>

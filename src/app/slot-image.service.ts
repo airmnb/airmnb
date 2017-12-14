@@ -25,6 +25,10 @@ export class ImageService {
   }
 
   public getImageUrls(imageNames: string[]): string[] {
-    return (imageNames || []).map(x => '/image/' + x);
+    return (imageNames || []).map(x => this.getImageUrl(x));
+  }
+
+  public getImageUrl(imageName: string): string {
+    return imageName ? '/image/' + imageName : null;
   }
 }

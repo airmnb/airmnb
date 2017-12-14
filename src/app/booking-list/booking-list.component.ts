@@ -106,7 +106,12 @@ export class BookingListComponent implements OnInit {
     this.setModel(slots, bookings, babies);
   }
 
-  public async cancel(booking: Booking): Promise<void> {
+  cancel(booking: Booking) {
+    this.cancelImpl(booking).catch(this.notificationService.error);
+    return false;
+  }
+
+  private async cancelImpl(booking: Booking): Promise<void> {
     await this.api.bookingApi.delete(booking.id);
     await this.api.slotApi.updateFunc(booking.slotId, s => {
       s.bookingCount--;

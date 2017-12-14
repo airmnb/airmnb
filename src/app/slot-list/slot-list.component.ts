@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
+import { UtilService } from '../util.service';
 
 @Component({
   selector: 'amb-slot-list',
@@ -21,7 +22,6 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
     if(this._slots) {
       this._slots.forEach(s => {
         Object.assign(s, {
-          avatarUrl: this.getSlotAvatar(s),
           stars: Array(this.getSlotRate(s)).fill(null)
         });
       });
@@ -35,7 +35,9 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
   constructor(
     private slotImageService: ImageService,
     private session: SessionService,
-    private router: Router
+    private router: Router,
+    private util: UtilService,
+    private imageService: ImageService
   ) { }
 
   ngOnInit() {
@@ -53,14 +55,8 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
       'Both';
   }
 
-  private async getSlotAvatar(slot: ServiceSlot): Promise<string> {
-    const providerId = slot.providerId;
-    const imageNames = await this.slotImageService.getImageNamesForProvider(providerId);
-    if(imageNames.length) {
-      const index = Math.floor(Math.random() * imageNames.length);
-      return '/image/' + imageNames[index];
-    }
-    return null;
+  getImageUrl(imageName: string): string {
+      return this.imageService.getImageUrl(imageName);
   }
 
   private getSlotRate(slot: ServiceSlot): number {

@@ -19,6 +19,7 @@
         <th>Time</th>
         <th>Price</th>
         <th>Notice</th>
+        <th>Bookings</th>
         <th>Action</th>
       </thead>
       <tbody>
@@ -30,6 +31,7 @@
           <td>{{displayTime(slot)}}</td>
           <td>{{slot.price | currency}}</td>
           <td>{{slot.otherCondition}}</td>
+          <td>{{slot.bookingCount}} / {{slot.capping}}</td>
           <td>
             <a href (click)="edit(slot)">
               <i class="fa fa-pencil fa-lg text-primary" aria-hidden="true"></i>
