@@ -49,7 +49,7 @@ var session_service_1 = require("../session.service");
 var apiFacade_1 = require("../apiFacade");
 var notification_service_1 = require("../notification.service");
 var util_service_1 = require("../util.service");
-var router_state_1 = require("@angular/router/src/router_state");
+var router_1 = require("@angular/router");
 var BookingComponent = (function () {
     function BookingComponent(session, api, notificationService, util, activatedRouter) {
         this.session = session;
@@ -144,7 +144,7 @@ var BookingComponent = (function () {
             apiFacade_1.ApiFacade,
             notification_service_1.NotificationService,
             util_service_1.UtilService,
-            router_state_1.ActivatedRoute])
+            router_1.ActivatedRoute])
     ], BookingComponent);
     return BookingComponent;
 }());

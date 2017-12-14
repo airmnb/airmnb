@@ -102,6 +102,21 @@ exports.router.get('/data/:typeName/list', function (req, res) {
     });
 });
 /**
+ * For complex queries.
+ */
+exports.router.post('/data/:typeName/list', function (req, res) {
+    var typeName = req.params.typeName;
+    var query = req.body || {};
+    var gateway = gateway_1.dataGatewayFactory.produce(typeName);
+    gateway.query(query)
+        .then(function (list) {
+        res.json(list);
+    })
+        .catch(function (e) {
+        res.status(500).json(e);
+    });
+});
+/**
  * Generic get one object by id
  */
 exports.router.get('/data/:typeName/:id', function (req, res) {

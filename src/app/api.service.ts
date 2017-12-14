@@ -79,7 +79,7 @@ export class ApiService<T> {
   }
 
   public async list(query: any): Promise<T[]> {
-    const resp = await this.http.get(this.apiUrl + '/list', {params: query}).toPromise();
+    const resp = await this.http.post(this.apiUrl + '/list', query).toPromise();
     const body = resp.json();
     if (resp.status === 200) {
       return body;

@@ -34,7 +34,7 @@ var core_2 = require("@agm/core");
 var address_input_component_1 = require("./address-input/address-input.component");
 var environment_1 = require("../environments/environment");
 var slot_list_component_1 = require("./slot-list/slot-list.component");
-var slot_search_service_service_1 = require("./slot-search-service.service");
+var slot_service_1 = require("./slot.service");
 var angular2_image_upload_1 = require("angular2-image-upload");
 var slot_image_service_1 = require("./slot-image.service");
 var login_content_component_1 = require("./login-content/login-content.component");
@@ -60,6 +60,8 @@ var booking_component_1 = require("./booking/booking.component");
 var angular2_wizard_1 = require("angular2-wizard");
 var slot_display_component_1 = require("./slot-display/slot-display.component");
 var booking_view_component_1 = require("./booking-view/booking-view.component");
+var booking_list_component_1 = require("./booking-list/booking-list.component");
+var baby_service_1 = require("./baby.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -93,7 +95,8 @@ var AppModule = (function () {
                 image_upload_component_1.ImageUploadComponent,
                 booking_component_1.BookingComponent,
                 slot_display_component_1.SlotDisplayComponent,
-                booking_view_component_1.BookingViewComponent
+                booking_view_component_1.BookingViewComponent,
+                booking_list_component_1.BookingListComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -124,14 +127,15 @@ var AppModule = (function () {
                 ngx_cookie_service_1.CookieService,
                 ng_bootstrap_1.NgbTimepickerConfig,
                 notification_service_1.NotificationService,
-                slot_search_service_service_1.SlotSearchServiceService,
+                slot_service_1.SlotService,
                 slot_image_service_1.ImageService,
                 modal_service_1.ModalService,
                 ng_bootstrap_1.NgbActiveModal,
                 booking_service_1.BookingService,
                 apiFacade_1.ApiFacade,
                 util_service_1.UtilService,
-                transaction_service_1.TransactionService
+                transaction_service_1.TransactionService,
+                baby_service_1.BabyService
             ],
             entryComponents: [
                 register_modal_component_1.RegisterModalComponent

@@ -54,12 +54,28 @@ router.get('/data/:typeName', (req, res) => {
   });
 });
 
+// /**
+//  * Generic list objects by query
+//  */
+// router.get('/data/:typeName/list', (req, res) => {
+//   const typeName = req.params.typeName;
+//   const query = req.query || {};
+//   const gateway = dataGatewayFactory.produce(typeName);
+//   gateway.query(query)
+//   .then(list => {
+//     res.json(list);
+//   })
+//   .catch(e => {
+//     res.status(500).json(e);
+//   });
+// });
+
 /**
- * Generic list objects by query
+ * For complex queries.
  */
-router.get('/data/:typeName/list', (req, res) => {
+router.post('/data/:typeName/list', (req, res) => {
   const typeName = req.params.typeName;
-  const query = req.query || {};
+  const query = req.body || {};
   const gateway = dataGatewayFactory.produce(typeName);
   gateway.query(query)
   .then(list => {

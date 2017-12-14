@@ -193,7 +193,7 @@ var ApiService = (function () {
             var resp, body;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.http.get(this.apiUrl + '/list', { params: query }).toPromise()];
+                    case 0: return [4 /*yield*/, this.http.post(this.apiUrl + '/list', query).toPromise()];
                     case 1:
                         resp = _a.sent();
                         body = resp.json();

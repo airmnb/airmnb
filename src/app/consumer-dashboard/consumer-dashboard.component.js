@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var slot_search_service_service_1 = require("../slot-search-service.service");
+var slot_service_1 = require("../slot.service");
 var modal_service_1 = require("../modal.service");
 var session_service_1 = require("../session.service");
 var uuid = require("uuid");
@@ -168,7 +168,7 @@ var ConsumerDashboardComponent = (function () {
         __metadata("design:paramtypes", [router_1.ActivatedRoute,
             router_1.Router,
             session_service_1.SessionService,
-            slot_search_service_service_1.SlotSearchServiceService,
+            slot_service_1.SlotService,
             modal_service_1.ModalService,
             apiFacade_1.ApiFacade])
     ], ConsumerDashboardComponent);

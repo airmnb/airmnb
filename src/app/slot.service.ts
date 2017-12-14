@@ -9,11 +9,18 @@ import { ApiService, ApiServiceFactory } from './api.service';
 import { ApiFacade } from './apiFacade';
 
 @Injectable()
-export class SlotSearchServiceService {
+export class SlotService {
   constructor(private notificationService: NotificationService,
     private sessionService: SessionService,
     private api: ApiFacade
   ) {
+  }
+
+  public async listSlots(slotIds?: string[]): Promise<ServiceSlot[]> {
+    const query = slotIds && slotIds.length ? {id: {
+      $in: slotIds
+    }} : null;
+    return await this.api.slotApi.list(query);
   }
 
   public search(query: SearchQuery): Observable<ServiceSlot[]> {

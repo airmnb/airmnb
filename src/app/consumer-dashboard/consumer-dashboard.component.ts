@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SlotSearchServiceService } from '../slot-search-service.service';
+import { SlotService } from '../slot.service';
 import { ServiceSlot, BabyProfile } from '../../../types';
 import { ModalService } from '../modal.service';
 import { SessionService } from '../session.service';
@@ -86,7 +86,7 @@ export class ConsumerDashboardComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private sessionService: SessionService,
-    private searchService: SlotSearchServiceService,
+    private searchService: SlotService,
     private modalService: ModalService,
     private api: ApiFacade
   ) {

@@ -4,7 +4,7 @@ import { ServiceSlot, Account, BabyProfile, Transaction, Booking, Image, Account
 import { SessionService } from './session.service';
 import { NotificationService } from './notification.service';
 import { ImageService } from './slot-image.service';
-import { SlotSearchServiceService } from './slot-search-service.service';
+import { SlotService } from './slot.service';
 
 @Injectable()
 export class ApiFacade {

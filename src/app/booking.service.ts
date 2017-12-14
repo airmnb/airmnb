@@ -20,7 +20,7 @@ export class BookingService {
 
   }
 
-  listAliveBookingsForConsumer(accountId: string): Observable<Booking[]>{
+  async listAliveBookingsForConsumer(accountId: string): Promise<Booking[]>{
     const query = {
       consumerId: accountId,
       cancelledAt: null,
@@ -29,16 +29,14 @@ export class BookingService {
       },
       open: true
     };
-    const p = this.api.bookingApi.list(query);
-    return Observable.fromPromise(p);
+    return await this.api.bookingApi.list(query);
   }
 
-  listBookingsForProvider(accountId: string): Observable<Booking[]>{
+  async listBookingsForProvider(accountId: string): Promise<Booking[]>{
     const query = {
       providerId: accountId
     };
-    const p = this.api.bookingApi.list(query);
-    return Observable.fromPromise(p);
+    return await this.api.bookingApi.list(query);
   }
 
   async create(slotId: string, providerId: string, consumerId: string, babyId: string): Promise<void> {
@@ -64,8 +62,23 @@ export class BookingService {
     await this.api.bookingApi.add(booking);
   }
 
-  delete(bookingId: string): Observable<void> {
-    const p = this.api.bookingApi.delete(bookingId);
-    return Observable.fromPromise(p);
+  async delete(booking: Booking): Promise<void> {
+    await this.api.bookingApi.delete(booking.id);
+    await this.api.slotApi.updateFunc(booking.slotId, x => {
+      x.bookingCount--;
+      return x;
+    });
+  }
+
+  async cancel(booking: Booking): Promise<void> {
+    await this.api.bookingApi.updateFunc(booking.id, b => {
+      b.cancelledAt = new Date();
+      b.open = false;
+      return b;
+    });
+    await this.api.slotApi.updateFunc(booking.slotId, x => {
+      x.bookingCount--;
+      return x;
+    });
   }
 }

@@ -27,7 +27,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { environment } from '../environments/environment';
 import { SlotListComponent } from './slot-list/slot-list.component';
-import { SlotSearchServiceService } from './slot-search-service.service';
+import { SlotService } from './slot.service';
 import { ImageUploadModule } from "angular2-image-upload";
 import { ImageService } from './slot-image.service';
 import { LoginContentComponent } from './login-content/login-content.component';
@@ -53,6 +53,8 @@ import { BookingComponent } from './booking/booking.component';
 import { FormWizardModule } from 'angular2-wizard';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
 import { BookingViewComponent } from './booking-view/booking-view.component';
+import { BookingListComponent } from './booking-list/booking-list.component';
+import { BabyService } from './baby.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,8 @@ import { BookingViewComponent } from './booking-view/booking-view.component';
     ImageUploadComponent,
     BookingComponent,
     SlotDisplayComponent,
-    BookingViewComponent
+    BookingViewComponent,
+    BookingListComponent
   ],
   imports: [
     BrowserModule,
@@ -114,14 +117,15 @@ import { BookingViewComponent } from './booking-view/booking-view.component';
     CookieService,
     NgbTimepickerConfig,
     NotificationService,
-    SlotSearchServiceService,
+    SlotService,
     ImageService,
     ModalService,
     NgbActiveModal,
     BookingService,
     ApiFacade,
     UtilService,
-    TransactionService
+    TransactionService,
+    BabyService
   ],
   entryComponents: [
     RegisterModalComponent

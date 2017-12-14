@@ -47,7 +47,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var apiFacade_1 = require("./apiFacade");
 var util_service_1 = require("./util.service");
-var Observable_1 = require("rxjs/Observable");
 var BookingService = (function () {
     function BookingService(api, util) {
         this.api = api;
@@ -56,23 +55,39 @@ var BookingService = (function () {
     BookingService.prototype.getReviewContent = function () {
     };
     BookingService.prototype.listAliveBookingsForConsumer = function (accountId) {
-        var query = {
-            consumerId: accountId,
-            cancelledAt: null,
-            expiredAt: {
-                $gt: new Date
-            },
-            open: true
-        };
-        var p = this.api.bookingApi.list(query);
-        return Observable_1.Observable.fromPromise(p);
+        return __awaiter(this, void 0, void 0, function () {
+            var query;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        query = {
+                            consumerId: accountId,
+                            cancelledAt: null,
+                            expiredAt: {
+                                $gt: new Date
+                            },
+                            open: true
+                        };
+                        return [4 /*yield*/, this.api.bookingApi.list(query)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
     };
     BookingService.prototype.listBookingsForProvider = function (accountId) {
-        var query = {
-            providerId: accountId
-        };
-        var p = this.api.bookingApi.list(query);
-        return Observable_1.Observable.fromPromise(p);
+        return __awaiter(this, void 0, void 0, function () {
+            var query;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        query = {
+                            providerId: accountId
+                        };
+                        return [4 /*yield*/, this.api.bookingApi.list(query)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
     };
     BookingService.prototype.create = function (slotId, providerId, consumerId, babyId) {
         return __awaiter(this, void 0, void 0, function () {
@@ -110,9 +125,45 @@ var BookingService = (function () {
             });
         });
     };
-    BookingService.prototype.delete = function (bookingId) {
-        var p = this.api.bookingApi.delete(bookingId);
-        return Observable_1.Observable.fromPromise(p);
+    BookingService.prototype.delete = function (booking) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.bookingApi.delete(booking.id)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.api.slotApi.updateFunc(booking.slotId, function (x) {
+                                x.bookingCount--;
+                                return x;
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    BookingService.prototype.cancel = function (booking) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (b) {
+                            b.cancelledAt = new Date();
+                            b.open = false;
+                            return b;
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.api.slotApi.updateFunc(booking.slotId, function (x) {
+                                x.bookingCount--;
+                                return x;
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     BookingService = __decorate([
         core_1.Injectable(),

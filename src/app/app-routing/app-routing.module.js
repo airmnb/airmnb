@@ -22,6 +22,7 @@ var slot_edit_component_1 = require("../slot-edit/slot-edit.component");
 var slot_component_1 = require("../slot/slot.component");
 var booking_component_1 = require("../booking/booking.component");
 var booking_view_component_1 = require("../booking-view/booking-view.component");
+var booking_list_component_1 = require("../booking-list/booking-list.component");
 var routes = [
     {
         path: '',
@@ -48,6 +49,14 @@ var routes = [
         component: slot_edit_component_1.SlotEditComponent,
     },
     {
+        path: 'slots/bookings',
+        component: booking_list_component_1.BookingListComponent,
+    },
+    {
+        path: 'slots/bookings/:slotId',
+        component: booking_list_component_1.BookingListComponent,
+    },
+    {
         path: 'slots/add',
         component: slot_component_1.SlotComponent
     },
@@ -58,6 +67,10 @@ var routes = [
     {
         path: 'bookings/add/:slotId',
         component: booking_component_1.BookingComponent
+    },
+    {
+        path: 'bookings',
+        component: booking_list_component_1.BookingListComponent
     },
     {
         path: 'bookings/:id',
