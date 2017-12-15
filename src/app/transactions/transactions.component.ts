@@ -40,6 +40,15 @@ export class TransactionsComponent implements OnInit {
       consumerId
     });
     this.items = _.union(potentialTrans, ongoingTrans);
+
+    // Add extra properties on items for view
+    this.items.forEach(async x => {
+      x = Object.assign(x, {
+        status: this.tranService.getTransactionStatus(x).toString(),
+        nickName: await this.getBabyNickName(x),
+        cost: await this.getCost(x),
+      });
+    });
   }
 
   getTransactionStatus(tran: Transaction): string {
@@ -57,7 +66,7 @@ export class TransactionsComponent implements OnInit {
     return this.imageService.getImageUrl(imageName);
   }
 
-  getCost(tran: Transaction): Promise<number>{
-    return this.tranService.getCost(tran);
+  async getCost(tran: Transaction): Promise<number>{
+    return await this.tranService.getCost(tran);
   }
 }
