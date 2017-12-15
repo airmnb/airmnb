@@ -86,21 +86,21 @@ exports.router.get('/data/:typeName', function (req, res) {
         res.status(500).json(e);
     });
 });
-/**
- * Generic list objects by query
- */
-exports.router.get('/data/:typeName/list', function (req, res) {
-    var typeName = req.params.typeName;
-    var query = req.query || {};
-    var gateway = gateway_1.dataGatewayFactory.produce(typeName);
-    gateway.query(query)
-        .then(function (list) {
-        res.json(list);
-    })
-        .catch(function (e) {
-        res.status(500).json(e);
-    });
-});
+// /**
+//  * Generic list objects by query
+//  */
+// router.get('/data/:typeName/list', (req, res) => {
+//   const typeName = req.params.typeName;
+//   const query = req.query || {};
+//   const gateway = dataGatewayFactory.produce(typeName);
+//   gateway.query(query)
+//   .then(list => {
+//     res.json(list);
+//   })
+//   .catch(e => {
+//     res.status(500).json(e);
+//   });
+// });
 /**
  * For complex queries.
  */

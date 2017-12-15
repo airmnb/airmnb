@@ -24,9 +24,6 @@ export class BookingService {
     const query = {
       consumerId: accountId,
       cancelledAt: null,
-      expiredAt: {
-        $gt: new Date
-      },
       open: true
     };
     return await this.api.bookingApi.list(query);

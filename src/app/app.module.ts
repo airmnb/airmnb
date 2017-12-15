@@ -55,6 +55,7 @@ import { SlotDisplayComponent } from './slot-display/slot-display.component';
 import { BookingViewComponent } from './booking-view/booking-view.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { BabyService } from './baby.service';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { BabyService } from './baby.service';
     BookingComponent,
     SlotDisplayComponent,
     BookingViewComponent,
-    BookingListComponent
+    BookingListComponent,
+    TransactionsComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,7 @@
           <a class="nav-item nav-link" routerLink="/slots" *ngIf="isProvider">Slots</a>
           <a class="nav-item nav-link" routerLink="/slots/bookings" *ngIf="isProvider">Bookings</a>
           <a class="nav-item nav-link" routerLink="/bookings" *ngIf="isConsumer">Bookings</a>
-          <a class="nav-item nav-link" routerLink="/transaction" *ngIf="hasLoggedIn">Transactions</a>
+          <a class="nav-item nav-link" routerLink="/transactions" *ngIf="hasLoggedIn">Transactions</a>
           <a class="nav-item nav-link" routerLink="/profile" *ngIf="hasLoggedIn">Profile</a>
           <a class="nav-item nav-link" (click)="logout()" *ngIf="hasLoggedIn">Log out</a>
           <select class="custom-select" [(ngModel)]="language">

@@ -63,9 +63,6 @@ var BookingService = (function () {
                         query = {
                             consumerId: accountId,
                             cancelledAt: null,
-                            expiredAt: {
-                                $gt: new Date
-                            },
                             open: true
                         };
                         return [4 /*yield*/, this.api.bookingApi.list(query)];

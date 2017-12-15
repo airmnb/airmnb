@@ -53,8 +53,9 @@ var slot_service_1 = require("../slot.service");
 var notification_service_1 = require("../notification.service");
 var baby_service_1 = require("../baby.service");
 var _ = require("underscore");
+var util_service_1 = require("../util.service");
 var BookingListComponent = (function () {
-    function BookingListComponent(activatedRouter, session, api, bookingService, slotSevice, notificationService, babyService) {
+    function BookingListComponent(activatedRouter, session, api, bookingService, slotSevice, notificationService, babyService, util) {
         this.activatedRouter = activatedRouter;
         this.session = session;
         this.api = api;
@@ -62,6 +63,7 @@ var BookingListComponent = (function () {
         this.slotSevice = slotSevice;
         this.notificationService = notificationService;
         this.babyService = babyService;
+        this.util = util;
         this.items = [];
     }
     BookingListComponent.prototype.ngOnInit = function () {
@@ -84,14 +86,13 @@ var BookingListComponent = (function () {
             else {
                 throw new Error('Impossible code block');
             }
-            console.log('items>>>', _this.items);
             task.catch(_this.notificationService.error);
         });
     };
+    BookingListComponent.prototype.displayGender = function (gender) {
+        return this.util.displayGender(gender);
+    };
     BookingListComponent.prototype.setModel = function (slots, bookings, babies) {
-        console.log('slots', slots);
-        console.log('bookings', bookings);
-        console.log('babies', babies);
         var slotDic = new Map();
         var babyDic = new Map();
         slots.forEach(function (s) { return slotDic.set(s.id, s); });
@@ -191,6 +192,29 @@ var BookingListComponent = (function () {
             });
         });
     };
+    BookingListComponent.prototype.cancel = function (booking) {
+        this.cancelImpl(booking).catch(this.notificationService.error);
+        return false;
+    };
+    BookingListComponent.prototype.cancelImpl = function (booking) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.bookingApi.delete(booking.id)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.api.slotApi.updateFunc(booking.slotId, function (s) {
+                                s.bookingCount--;
+                                return s;
+                            })];
+                    case 2:
+                        _a.sent();
+                        this.items = this.items.filter(function (x) { return x.booking !== booking; });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     BookingListComponent = __decorate([
         core_1.Component({
             selector: 'amb-booking-list',
@@ -203,7 +227,8 @@ var BookingListComponent = (function () {
             booking_service_1.BookingService,
             slot_service_1.SlotService,
             notification_service_1.NotificationService,
-            baby_service_1.BabyService])
+            baby_service_1.BabyService,
+            util_service_1.UtilService])
     ], BookingListComponent);
     return BookingListComponent;
 }());

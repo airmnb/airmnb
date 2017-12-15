@@ -75,17 +75,22 @@ export interface Order {
 export interface Transaction {
   id: string;
   bookingId: string;
+  slotId: string;
+  providerId: string;
+  consumerId: string;
+  babyId: string;
   createdAt: Date;
   startedAt?: Date;
   terminatedAt?: Date;
   finishedAt?: Date;
-  startedImageIdByProvider?: string;
-  startedImageIdByConsumer?: string;
-  doneImageIdByProvider?: string;
-  doneImageIdByConsumer?: string;
+  startedImageNameByProvider?: string;
+  startedImageNameByConsumer?: string;
+  doneImageNameByProvider?: string;
+  doneImageNameByConsumer?: string;
 }
 
 export enum TransactionStatus {
+  ReadToLaunch,
   Launched,
   Started,
   Ending,

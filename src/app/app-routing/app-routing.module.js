@@ -23,6 +23,7 @@ var slot_component_1 = require("../slot/slot.component");
 var booking_component_1 = require("../booking/booking.component");
 var booking_view_component_1 = require("../booking-view/booking-view.component");
 var booking_list_component_1 = require("../booking-list/booking-list.component");
+var transactions_component_1 = require("../transactions/transactions.component");
 var routes = [
     {
         path: '',
@@ -91,6 +92,10 @@ var routes = [
     {
         path: 'aboutus',
         component: aboutus_component_1.AboutusComponent
+    },
+    {
+        path: 'transactions',
+        component: transactions_component_1.TransactionsComponent
     }
 ];
 var AppRoutingModule = (function () {

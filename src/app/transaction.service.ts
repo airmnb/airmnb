@@ -11,6 +11,26 @@ export class TransactionService {
     private util: UtilService
   ) { }
 
+  async getTransactionsConvertableFromBookings(consumerId: string): Promise<Transaction[]> {
+    const bookings = await this.api.bookingApi.list({
+      consumerId,
+      open: true
+    });
+    const trans = bookings.map(b => {
+      const t: Transaction = {
+        id: this.util.newGuid(),
+        bookingId: b.id,
+        slotId: b.slotId,
+        providerId: b.providerId,
+        consumerId: consumerId,
+        babyId: b.babyId,
+        createdAt: new Date()
+      };
+      return t;
+    });
+    return trans;
+  }
+
   getTransactionStatus(tran: Transaction): TransactionStatus {
     if(tran.terminatedAt) {
       return TransactionStatus.Terminated;
@@ -18,30 +38,29 @@ export class TransactionService {
     if(tran.finishedAt) {
       return TransactionStatus.Finished;
     }
-    if(tran.doneImageIdByProvider) {
+    if(tran.doneImageNameByProvider) {
       return TransactionStatus.Ending;
     }
     if(tran.startedAt) {
       return TransactionStatus.Started;
     }
-    if(tran.doneImageIdByConsumer) {
+    if(tran.doneImageNameByConsumer) {
       return TransactionStatus.Launched;
+    }
+    if(tran.createdAt) {
+      return TransactionStatus.ReadToLaunch;
     }
     throw new Error('Invalid status of this transaction');
   }
 
-  async launch(bookingId: string, startImageNameByConsumer: string): Promise<Transaction>{
-    const booking = await this.api.bookingApi.getOne(bookingId);
+  async launch(tran: Transaction, startImageNameByConsumer: string): Promise<Transaction>{
+    const booking = await this.api.bookingApi.getOne(tran.bookingId);
+
     if(booking.expiredAt && booking.expiredAt < new Date()) {
       throw new Error('Booking was expired.');
     }
+    tran.doneImageNameByConsumer = startImageNameByConsumer;
 
-    const tran: Transaction = {
-      id: this.util.newGuid(),
-      bookingId: bookingId,
-      createdAt: new Date(),
-      startedImageIdByConsumer: startImageNameByConsumer
-    };
     const tranId = await this.api.tranApi.add(tran);
     booking.open = false;
     await this.api.bookingApi.update(booking);
@@ -50,7 +69,7 @@ export class TransactionService {
 
   async start(tranId: string, startImageNameByProvider: string): Promise<Transaction> {
     const tran = await this.api.tranApi.getOne(tranId);
-    tran.startedImageIdByProvider = startImageNameByProvider;
+    tran.startedImageNameByProvider = startImageNameByProvider;
     tran.startedAt = new Date();
     await this.api.tranApi.update(tran);
     return tran;
@@ -58,17 +77,22 @@ export class TransactionService {
 
   async ending(tranId: string, endImageNameByProvider: string): Promise<Transaction> {
     const tran = await this.api.tranApi.getOne(tranId);
-    tran.doneImageIdByProvider = endImageNameByProvider;
+    tran.doneImageNameByProvider = endImageNameByProvider;
     await this.api.tranApi.update(tran);
     return tran;
   }
 
   async finish(tranId: string, endImageNameByConsumer: string): Promise<Transaction> {
     const tran = await this.api.tranApi.getOne(tranId);
-    tran.doneImageIdByConsumer = endImageNameByConsumer;
+    tran.doneImageNameByConsumer = endImageNameByConsumer;
     tran.finishedAt = new Date();
     await this.api.tranApi.update(tran);
     return tran;
+  }
+
+  async getCost(tran: Transaction): Promise<number> {
+    const slot = await this.api.slotApi.getOne(tran.slotId);
+    return slot ? slot.price : 0;
   }
 
 }

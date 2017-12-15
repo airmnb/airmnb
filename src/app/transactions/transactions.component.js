@@ -45,54 +45,80 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var apiFacade_1 = require("./apiFacade");
-var ImageService = (function () {
-    function ImageService(api) {
+var apiFacade_1 = require("../apiFacade");
+var util_service_1 = require("../util.service");
+var notification_service_1 = require("../notification.service");
+var session_service_1 = require("../session.service");
+var transaction_service_1 = require("../transaction.service");
+var slot_image_service_1 = require("../slot-image.service");
+var TransactionsComponent = (function () {
+    function TransactionsComponent(api, util, notification, session, tranService, imageService) {
         this.api = api;
+        this.util = util;
+        this.notification = notification;
+        this.session = session;
+        this.tranService = tranService;
+        this.imageService = imageService;
     }
-    ImageService.prototype.getImageNamesForProvider = function (accountId) {
-        return __awaiter(this, void 0, void 0, function () {
-            var providerProfile;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: accountId })];
-                    case 1:
-                        providerProfile = _a.sent();
-                        return [2 /*return*/, providerProfile ? providerProfile.imageNames || [] : []];
-                }
-            });
-        });
+    TransactionsComponent.prototype.ngOnInit = function () {
     };
-    ImageService.prototype.saveImageNameForProvider = function (imageName, accountId) {
+    TransactionsComponent.prototype.loadTransactionForConsumer = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var providerProfile;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: accountId })];
+            var consumerId, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!this.session.hasLoggedIn || this.session.role !== 'consumer') {
+                            return [2 /*return*/];
+                        }
+                        consumerId = this.session.account.id;
+                        _a = this;
+                        return [4 /*yield*/, this.api.tranApi.list({
+                                consumerId: consumerId
+                            })];
                     case 1:
-                        providerProfile = _a.sent();
-                        providerProfile.imageNames = providerProfile ? providerProfile.imageNames || [] : [];
-                        providerProfile.imageNames.push(imageName);
-                        return [4 /*yield*/, this.api.accountProfileApi.update(providerProfile, providerProfile.id)];
-                    case 2:
-                        _a.sent();
+                        _a.items = _b.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    ImageService.prototype.getImageUrls = function (imageNames) {
-        var _this = this;
-        return (imageNames || []).map(function (x) { return _this.getImageUrl(x); });
+    TransactionsComponent.prototype.getTransactionStatus = function (tran) {
+        var status = this.tranService.getTransactionStatus(tran);
+        return status.toString();
     };
-    ImageService.prototype.getImageUrl = function (imageName) {
-        return imageName ? '/image/' + imageName : null;
+    TransactionsComponent.prototype.getBabyNickName = function (tran) {
+        return __awaiter(this, void 0, void 0, function () {
+            var babyId, baby;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        babyId = tran.babyId;
+                        return [4 /*yield*/, this.api.babyProfileApi.getOne(babyId)];
+                    case 1:
+                        baby = _a.sent();
+                        return [2 /*return*/, baby.nickName];
+                }
+            });
+        });
     };
-    ImageService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [apiFacade_1.ApiFacade])
-    ], ImageService);
-    return ImageService;
+    TransactionsComponent.prototype.getImageUrl = function (imageName) {
+        return this.imageService.getImageUrl(imageName);
+    };
+    TransactionsComponent = __decorate([
+        core_1.Component({
+            selector: 'amb-transactions',
+            templateUrl: './transactions.component.html',
+            styleUrls: ['./transactions.component.css']
+        }),
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
+            util_service_1.UtilService,
+            notification_service_1.NotificationService,
+            session_service_1.SessionService,
+            transaction_service_1.TransactionService,
+            slot_image_service_1.ImageService])
+    ], TransactionsComponent);
+    return TransactionsComponent;
 }());
-exports.ImageService = ImageService;
-//# sourceMappingURL=slot-image.service.js.map
+exports.TransactionsComponent = TransactionsComponent;
+//# sourceMappingURL=transactions.component.js.map

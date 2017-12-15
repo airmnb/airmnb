@@ -1,0 +1,34 @@
+<amb-header></amb-header>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Baby</th>
+        <th>Started at</th>
+        <th>Photo at started by provider</th>
+        <th>Photo at started by consumer</th>
+        <th>Ended at</th>
+        <th>Photo at ended by provider</th>
+        <th>Photo at ended by consumer</th>
+        <!-- <th>Cost</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{getTransactionStatus(item)}}</td>
+        <td>{{getBabyNickName(item) | async}}</td>
+        <td>{{item.startedAt | date:'medium'}}</td>
+        <td><img [src]="getImageUrl(item.startedImageNameByProvider)" class="img-thumbnail" alt="image"></td>
+        <td><img [src]="getImageUrl(item.startedImageNameByConsumer)" class="img-thumbnail" alt="image"></td>
+        <td>{{(item.finishedAt || item.terminatedAt) | date:'medium'}}</td>
+        <td><img [src]="getImageUrl(item.doneImageNameByProvider)" class="img-thumbnail" alt="image"></td>
+        <td><img [src]="getImageUrl(item.doneImageNameByConsumer)" class="img-thumbnail" alt="image"></td>
+        <!-- <td *ngIf="!(getCost(item) | async)">Free event</td>
+        <td *ngIf="getCost(item) | async">{{getCost(item) | async | currency}}</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<pre>{{items | json}}</pre>

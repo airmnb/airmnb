@@ -62,6 +62,7 @@ var slot_display_component_1 = require("./slot-display/slot-display.component");
 var booking_view_component_1 = require("./booking-view/booking-view.component");
 var booking_list_component_1 = require("./booking-list/booking-list.component");
 var baby_service_1 = require("./baby.service");
+var transactions_component_1 = require("./transactions/transactions.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -96,7 +97,8 @@ var AppModule = (function () {
                 booking_component_1.BookingComponent,
                 slot_display_component_1.SlotDisplayComponent,
                 booking_view_component_1.BookingViewComponent,
-                booking_list_component_1.BookingListComponent
+                booking_list_component_1.BookingListComponent,
+                transactions_component_1.TransactionsComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
