@@ -2,31 +2,22 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 
-## Development server
-Run `npm run watch` to start a server. It will watch both express site and angular site whenever source code change is detected. You need to refresh browser to get the new page. The default site is `http://localhost:3000` and express site (for webapi) is `http://localhost:3000/api`
+## Development
+1. If choose local MongoDB follow below. Otherwise prepare the connection string of the remote MongoDB.
+    1. install MongoDB 3.6 on your local.
+    2. Launch `npm run mongodb`, which will execute shell command `/Users/mac/github/mongodb3.6.0/bin/mongod`
+2. Git check out the `master` branch
+3. Run `npm install`
+4. Modify `.env` file to configure the `AMB_MONGO_DB_CONNECTION_STRING=$YourMongoDbConnectionString`
+5. Run `npm run watch` to launch the express web site on `http://localhost:3000`. It will serve both Rest API and angular site. The angular site base is `http://localhost:3000` (the whole site) and API route is `http://localhost:3000/api`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## TODO:
 
 * Google SSO
 * Wechat SSO
 * Google Map API
-* NativeScript project for OS X
+* NativeScript project for OS X, Android
 * UX polish
 * Transaction workflow + camera feature
-* Photo upload
+* Server end push (Web Socket)
