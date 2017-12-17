@@ -21,3 +21,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * UX polish
 * Transaction workflow + camera feature
 * Server end push (Web Socket)
+* i18n
