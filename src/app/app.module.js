@@ -63,6 +63,8 @@ var booking_view_component_1 = require("./booking-view/booking-view.component");
 var booking_list_component_1 = require("./booking-list/booking-list.component");
 var baby_service_1 = require("./baby.service");
 var transactions_component_1 = require("./transactions/transactions.component");
+var map_search_component_1 = require("./map-search/map-search.component");
+var marker_manager_1 = require("@agm/core/services/managers/marker-manager");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -98,7 +100,8 @@ var AppModule = (function () {
                 slot_display_component_1.SlotDisplayComponent,
                 booking_view_component_1.BookingViewComponent,
                 booking_list_component_1.BookingListComponent,
-                transactions_component_1.TransactionsComponent
+                transactions_component_1.TransactionsComponent,
+                map_search_component_1.MapSearchComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -137,7 +140,9 @@ var AppModule = (function () {
                 apiFacade_1.ApiFacade,
                 util_service_1.UtilService,
                 transaction_service_1.TransactionService,
-                baby_service_1.BabyService
+                baby_service_1.BabyService,
+                core_2.GoogleMapsAPIWrapper,
+                marker_manager_1.MarkerManager
             ],
             entryComponents: [
                 register_modal_component_1.RegisterModalComponent

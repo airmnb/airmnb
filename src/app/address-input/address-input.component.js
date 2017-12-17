@@ -42,8 +42,10 @@ var AddressInputComponent = (function () {
                     }
                     _this.address = {
                         address: place.formatted_address,
-                        longitude: place.geometry.location.lng(),
-                        latitude: place.geometry.location.lat()
+                        location: {
+                            type: "Point",
+                            coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
+                        }
                     };
                     _this.addressChange.next(_this.address);
                     // // set latitude, longitude and zoom
@@ -62,8 +64,10 @@ var AddressInputComponent = (function () {
                 _this.longitude = position.coords.longitude;
                 _this.address = {
                     address: "",
-                    longitude: position.coords.longitude,
-                    latitude: position.coords.latitude
+                    location: {
+                        type: "Point",
+                        coordinates: [position.coords.longitude, position.coords.latitude]
+                    }
                 };
                 _this.zoom = 12;
             });

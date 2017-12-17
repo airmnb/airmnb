@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var TransactionStatus;
 (function (TransactionStatus) {
-    TransactionStatus[TransactionStatus["Launched"] = 0] = "Launched";
-    TransactionStatus[TransactionStatus["Started"] = 1] = "Started";
-    TransactionStatus[TransactionStatus["Ending"] = 2] = "Ending";
-    TransactionStatus[TransactionStatus["Finished"] = 3] = "Finished";
-    TransactionStatus[TransactionStatus["Terminated"] = 4] = "Terminated";
+    TransactionStatus[TransactionStatus["ReadToLaunch"] = 0] = "ReadToLaunch";
+    TransactionStatus[TransactionStatus["Launched"] = 1] = "Launched";
+    TransactionStatus[TransactionStatus["Started"] = 2] = "Started";
+    TransactionStatus[TransactionStatus["Ending"] = 3] = "Ending";
+    TransactionStatus[TransactionStatus["Finished"] = 4] = "Finished";
+    TransactionStatus[TransactionStatus["Terminated"] = 5] = "Terminated";
 })(TransactionStatus = exports.TransactionStatus || (exports.TransactionStatus = {}));
 var Gender;
 (function (Gender) {

@@ -23,11 +23,7 @@ var ProfileComponent = (function () {
             firstName: '',
             lastName: '',
             email: '',
-            address: {
-                address: null,
-                longitude: null,
-                latitude: null
-            },
+            address: null,
             gender: null,
             age: {
                 a23: false,

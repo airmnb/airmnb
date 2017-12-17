@@ -53,6 +53,35 @@ var TransactionService = (function () {
         this.api = api;
         this.util = util;
     }
+    TransactionService.prototype.getTransactionsConvertableFromBookings = function (consumerId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var bookings, trans;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.bookingApi.list({
+                            consumerId: consumerId,
+                            open: true
+                        })];
+                    case 1:
+                        bookings = _a.sent();
+                        trans = bookings.map(function (b) {
+                            var t = {
+                                id: _this.util.newGuid(),
+                                bookingId: b.id,
+                                slotId: b.slotId,
+                                providerId: b.providerId,
+                                consumerId: consumerId,
+                                babyId: b.babyId,
+                                createdAt: new Date()
+                            };
+                            return t;
+                        });
+                        return [2 /*return*/, trans];
+                }
+            });
+        });
+    };
     TransactionService.prototype.getTransactionStatus = function (tran) {
         if (tran.terminatedAt) {
             return types_1.TransactionStatus.Terminated;
@@ -69,38 +98,29 @@ var TransactionService = (function () {
         if (tran.doneImageNameByConsumer) {
             return types_1.TransactionStatus.Launched;
         }
+        if (tran.createdAt) {
+            return types_1.TransactionStatus.ReadToLaunch;
+        }
         throw new Error('Invalid status of this transaction');
     };
-    TransactionService.prototype.launch = function (bookingId, startImageNameByConsumer) {
+    TransactionService.prototype.launch = function (tran, startImageNameByConsumer) {
         return __awaiter(this, void 0, void 0, function () {
-            var booking, slot, tran, tranId;
+            var booking, tranId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.bookingApi.getOne(bookingId)];
+                    case 0: return [4 /*yield*/, this.api.bookingApi.getOne(tran.bookingId)];
                     case 1:
                         booking = _a.sent();
-                        return [4 /*yield*/, this.api.slotApi.getOne(booking.slotId)];
-                    case 2:
-                        slot = _a.sent();
                         if (booking.expiredAt && booking.expiredAt < new Date()) {
                             throw new Error('Booking was expired.');
                         }
-                        tran = {
-                            id: this.util.newGuid(),
-                            bookingId: bookingId,
-                            slotId: booking.slotId,
-                            providerId: slot.providerId,
-                            consumerId: booking.consumerId,
-                            babyId: booking.babyId,
-                            createdAt: new Date(),
-                            startedImageNameByConsumer: startImageNameByConsumer
-                        };
+                        tran.doneImageNameByConsumer = startImageNameByConsumer;
                         return [4 /*yield*/, this.api.tranApi.add(tran)];
-                    case 3:
+                    case 2:
                         tranId = _a.sent();
                         booking.open = false;
                         return [4 /*yield*/, this.api.bookingApi.update(booking)];
-                    case 4:
+                    case 3:
                         _a.sent();
                         return [2 /*return*/, tran];
                 }

@@ -52,7 +52,7 @@ var MapServiceService = (function () {
     }
     MapServiceService.prototype.getAddress = function (coordinate) {
         return __awaiter(this, void 0, void 0, function () {
-            var googleMapApi, queryString, resp, obj;
+            var googleMapApi, queryString, resp, obj, firstAddress;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -65,7 +65,14 @@ var MapServiceService = (function () {
                         resp = _a.sent();
                         if (resp.status === 200) {
                             obj = resp.json();
-                            return [2 /*return*/, obj.results[0].formatted_address];
+                            firstAddress = obj.results[0];
+                            return [2 /*return*/, {
+                                    address: firstAddress.formatted_address,
+                                    location: {
+                                        type: "Point",
+                                        coordinates: [firstAddress.geometry.location.lng, firstAddress.geometry.location.lat]
+                                    }
+                                }];
                         }
                         return [2 /*return*/, null];
                 }

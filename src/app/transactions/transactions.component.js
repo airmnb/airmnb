@@ -51,6 +51,7 @@ var notification_service_1 = require("../notification.service");
 var session_service_1 = require("../session.service");
 var transaction_service_1 = require("../transaction.service");
 var slot_image_service_1 = require("../slot-image.service");
+var _ = require("underscore");
 var TransactionsComponent = (function () {
     function TransactionsComponent(api, util, notification, session, tranService, imageService) {
         this.api = api;
@@ -61,23 +62,50 @@ var TransactionsComponent = (function () {
         this.imageService = imageService;
     }
     TransactionsComponent.prototype.ngOnInit = function () {
+        this.loadTransactionForConsumer().catch(this.notification.error);
     };
     TransactionsComponent.prototype.loadTransactionForConsumer = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var consumerId, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _this = this;
+            var consumerId, potentialTrans, ongoingTrans;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         if (!this.session.hasLoggedIn || this.session.role !== 'consumer') {
                             return [2 /*return*/];
                         }
                         consumerId = this.session.account.id;
-                        _a = this;
+                        return [4 /*yield*/, this.tranService.getTransactionsConvertableFromBookings(consumerId)];
+                    case 1:
+                        potentialTrans = _a.sent();
                         return [4 /*yield*/, this.api.tranApi.list({
                                 consumerId: consumerId
                             })];
-                    case 1:
-                        _a.items = _b.sent();
+                    case 2:
+                        ongoingTrans = _a.sent();
+                        this.items = _.union(potentialTrans, ongoingTrans);
+                        // Add extra properties on items for view
+                        this.items.forEach(function (x) { return __awaiter(_this, void 0, void 0, function () {
+                            var _a, _b, _c, _d;
+                            return __generator(this, function (_e) {
+                                switch (_e.label) {
+                                    case 0:
+                                        _b = (_a = Object).assign;
+                                        _c = [x];
+                                        _d = {
+                                            status: this.tranService.getTransactionStatus(x).toString()
+                                        };
+                                        return [4 /*yield*/, this.getBabyNickName(x)];
+                                    case 1:
+                                        _d.nickName = _e.sent();
+                                        return [4 /*yield*/, this.getCost(x)];
+                                    case 2:
+                                        x = _b.apply(_a, _c.concat([(_d.cost = _e.sent(),
+                                                _d)]));
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
                         return [2 /*return*/];
                 }
             });
@@ -104,6 +132,16 @@ var TransactionsComponent = (function () {
     };
     TransactionsComponent.prototype.getImageUrl = function (imageName) {
         return this.imageService.getImageUrl(imageName);
+    };
+    TransactionsComponent.prototype.getCost = function (tran) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.tranService.getCost(tran)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
     };
     TransactionsComponent = __decorate([
         core_1.Component({

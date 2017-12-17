@@ -72,6 +72,7 @@ var SlotService = (function () {
     };
     SlotService.prototype.search = function (query) {
         var _this = this;
+        console.log('Search query:', query);
         var consumerId = this.getConsumerId();
         var subject = new Subject_1.Subject();
         var q = this.convertToMongoQuery(query);

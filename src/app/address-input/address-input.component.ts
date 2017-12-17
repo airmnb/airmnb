@@ -55,8 +55,10 @@ export class AddressInputComponent implements OnInit {
 
           this.address = {
             address: place.formatted_address,
-            longitude: place.geometry.location.lng(),
-            latitude: place.geometry.location.lat()
+            location: {
+              type: "Point",
+              coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
+            }
           };
 
           this.addressChange.next(this.address);
@@ -77,8 +79,10 @@ export class AddressInputComponent implements OnInit {
         this.longitude = position.coords.longitude;
         this.address = {
           address: "",
-          longitude: position.coords.longitude,
-          latitude: position.coords.latitude
+          location: {
+            type: "Point",
+            coordinates: [position.coords.longitude, position.coords.latitude]
+          }
         };
         this.zoom = 12;
       });

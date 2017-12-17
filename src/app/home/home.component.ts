@@ -17,7 +17,11 @@ export class HomeComponent implements OnInit {
   public submitted = false;
   public model = {
     location: {
-      address: null
+      address: <string>null,
+      location: {
+        type: "Point",
+        coordinates: <number[]>[]
+      }
     },
     age: -1,
     gender: -1,
@@ -54,7 +58,7 @@ export class HomeComponent implements OnInit {
     const coords = position.coords;
     this.mapService.getAddress(coords)
       .then(x => {
-        this.model.location = Object.assign(this.model.location, x);
+        this.model.location = x;
       })
       .catch(e => null);
   }
@@ -93,7 +97,13 @@ export class HomeComponent implements OnInit {
       start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
       end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
       gender: this.model.gender >= 0 ? this.model.gender : null,
-      location: this.model.location
+      location: {
+        address: this.model.location.address,
+        location: {
+          type: "Point",
+          coordinates: this.model.location.location.coordinates
+        }
+      }
     };
   }
 

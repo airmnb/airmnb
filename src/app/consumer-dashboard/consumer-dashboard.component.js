@@ -95,9 +95,9 @@ var ConsumerDashboardComponent = (function () {
     ConsumerDashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.queryParams.subscribe(function (params) {
-            var q = {};
-            Object.keys(params).forEach(function (k) { return q[k] = +params[k]; });
-            _this.searchService.search(q)
+            var queryJson = params['q'];
+            var query = JSON.parse(queryJson);
+            _this.searchService.search(query)
                 .subscribe(function (slots) { return _this.slots = slots; });
         });
         this.loadBabyProfiles();

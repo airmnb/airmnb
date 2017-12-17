@@ -137,11 +137,7 @@ export interface AccountProfile  {
   dob: Date;
   gender: Gender;
   // For provider
-  address?: {
-    address: null,
-    longitude: null,
-    latitude: null
-  };
+  address?: MapLocation;
   imageNames?: string[];
   ageFrom?: number;
   ageTo?: number;
@@ -168,8 +164,10 @@ export interface BabyProfile {
 
 export interface MapLocation {
   address: string;
-  longitude?: number;
-  latitude?: number;
+  location: {
+    type: "Point",
+    coordinates: number[]
+  };
 }
 
 export interface Booking {

@@ -55,12 +55,12 @@ var baby_service_1 = require("../baby.service");
 var _ = require("underscore");
 var util_service_1 = require("../util.service");
 var BookingListComponent = (function () {
-    function BookingListComponent(activatedRouter, session, api, bookingService, slotSevice, notificationService, babyService, util) {
+    function BookingListComponent(activatedRouter, session, api, bookingService, slotService, notificationService, babyService, util) {
         this.activatedRouter = activatedRouter;
         this.session = session;
         this.api = api;
         this.bookingService = bookingService;
-        this.slotSevice = slotSevice;
+        this.slotService = slotService;
         this.notificationService = notificationService;
         this.babyService = babyService;
         this.util = util;
@@ -154,7 +154,7 @@ var BookingListComponent = (function () {
                     case 1:
                         bookings = _a.sent();
                         slotIds = bookings.map(function (b) { return b.slotId; });
-                        return [4 /*yield*/, this.slotSevice.listSlots(slotIds)];
+                        return [4 /*yield*/, this.slotService.listSlots(slotIds)];
                     case 2:
                         slots = _a.sent();
                         return [4 /*yield*/, this.getUniqueBookingsBabies(bookings)];
@@ -180,7 +180,7 @@ var BookingListComponent = (function () {
                     case 1:
                         bookings = _a.sent();
                         slotIds = bookings.map(function (b) { return b.slotId; });
-                        return [4 /*yield*/, this.slotSevice.listSlots(slotIds)];
+                        return [4 /*yield*/, this.slotService.listSlots(slotIds)];
                     case 2:
                         slots = _a.sent();
                         return [4 /*yield*/, this.getUniqueBookingsBabies(bookings)];

@@ -61,7 +61,13 @@ var HomeComponent = (function () {
         this.notificationService = notificationService;
         this.submitted = false;
         this.model = {
-            location: '',
+            location: {
+                address: null,
+                location: {
+                    type: "Point",
+                    coordinates: []
+                }
+            },
             age: -1,
             gender: -1,
             date: null,
@@ -87,7 +93,9 @@ var HomeComponent = (function () {
         var _this = this;
         var coords = position.coords;
         this.mapService.getAddress(coords)
-            .then(function (x) { return _this.model.location = _this.model.location || x; })
+            .then(function (x) {
+            _this.model.location = x;
+        })
             .catch(function (e) { return null; });
     };
     HomeComponent.prototype.signup = function () {
@@ -109,11 +117,12 @@ var HomeComponent = (function () {
     });
     HomeComponent.prototype.search = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var queryParams;
+            var queryObj, queryParams;
             return __generator(this, function (_a) {
                 this.submitted = true;
                 try {
-                    queryParams = this.composeQuery();
+                    queryObj = this.composeQuery();
+                    queryParams = { q: JSON.stringify(queryObj) };
                     this.router.navigate(['/consumer'], { queryParams: queryParams });
                 }
                 catch (e) {
@@ -129,7 +138,14 @@ var HomeComponent = (function () {
             age: this.model.age >= 0 ? this.model.age : null,
             start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
             end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
-            gender: this.model.gender >= 0 ? this.model.gender : null
+            gender: this.model.gender >= 0 ? this.model.gender : null,
+            location: {
+                address: this.model.location.address,
+                location: {
+                    type: "Point",
+                    coordinates: this.model.location.location.coordinates
+                }
+            }
         };
     };
     HomeComponent.prototype.getDate = function (date, hour, minute) {

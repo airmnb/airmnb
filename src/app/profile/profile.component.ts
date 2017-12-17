@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceFactory, ApiService } from '../api.service';
-import { AccountProfile } from '../../../types';
+import { AccountProfile, MapLocation } from '../../../types';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
 import { ApiFacade } from '../apiFacade';
@@ -17,11 +17,7 @@ export class ProfileComponent implements OnInit {
     firstName: '',
     lastName: '',
     email: '',
-    address: {
-      address: null,
-      longitude: null,
-      latitude: null
-    },
+    address: <MapLocation>null,
     gender: null,
     age: {
       a23: false,

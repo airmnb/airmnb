@@ -33,8 +33,10 @@ export class MapSearchComponent implements OnInit {
     this.mapService.getAddress(coords)
       .then(x => {
         this.address = x.address;
-        this.lat = x.latitude;
-        this.lng = x.longitude;
+        if(x.location) {
+          this.lat = x.location.coordinates[1];
+          this.lng = x.location.coordinates[0];
+        }
 
         this.addMarkers(x);
       })
@@ -45,8 +47,8 @@ export class MapSearchComponent implements OnInit {
     this.markers = [];
     for(let i = 0; i < 10; i++) {
       this.markers.push({
-        longitude: center.longitude - i * 0.001,
-        latitude: center.latitude - i * 0.001
+        longitude: center.location.coordinates[0] - i * 0.001,
+        latitude: center.location.coordinates[1] - i * 0.001
       });
     }
 
