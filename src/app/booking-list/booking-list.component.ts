@@ -23,7 +23,7 @@ export class BookingListComponent implements OnInit {
     private session: SessionService,
     private api: ApiFacade,
     private bookingService: BookingService,
-    private slotSevice: SlotService,
+    private slotService: SlotService,
     private notificationService: NotificationService,
     private babyService: BabyService,
     private util: UtilService
@@ -89,7 +89,7 @@ export class BookingListComponent implements OnInit {
     const accountId = this.session.account.id;
     const bookings = await this.bookingService.listBookingsForProvider(accountId);
     const slotIds = bookings.map(b => b.slotId);
-    const slots = await this.slotSevice.listSlots(slotIds);
+    const slots = await this.slotService.listSlots(slotIds);
     const babies = await this.getUniqueBookingsBabies(bookings);
     this.setModel(slots, bookings, babies);
   }
@@ -101,7 +101,7 @@ export class BookingListComponent implements OnInit {
     const accountId = this.session.account.id;
     const bookings = await this.bookingService.listAliveBookingsForConsumer(accountId);
     const slotIds = bookings.map(b => b.slotId);
-    const slots = await this.slotSevice.listSlots(slotIds);
+    const slots = await this.slotService.listSlots(slotIds);
     const babies = await this.getUniqueBookingsBabies(bookings);
     this.setModel(slots, bookings, babies);
   }

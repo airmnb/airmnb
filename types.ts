@@ -122,7 +122,7 @@ export enum Gender {
 }
 
 export interface SearchQuery {
-  location?: string;
+  location?: MapLocation;
   age?: number;
   start?: number;
   end?: number;

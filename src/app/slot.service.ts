@@ -24,6 +24,7 @@ export class SlotService {
   }
 
   public search(query: SearchQuery): Observable<ServiceSlot[]> {
+    console.log('Search query:', query);
     const consumerId = this.getConsumerId();
     const subject = new Subject<ServiceSlot[]>();
     const q = this.convertToMongoQuery(query);

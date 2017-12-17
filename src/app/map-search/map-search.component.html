@@ -1,0 +1,3 @@
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="8">
+  <agm-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
+</agm-map>

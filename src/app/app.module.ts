@@ -23,7 +23,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './notification.service';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { environment } from '../environments/environment';
 import { SlotListComponent } from './slot-list/slot-list.component';
@@ -56,6 +56,8 @@ import { BookingViewComponent } from './booking-view/booking-view.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { BabyService } from './baby.service';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { MapSearchComponent } from './map-search/map-search.component';
+import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
     SlotDisplayComponent,
     BookingViewComponent,
     BookingListComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    MapSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +130,9 @@ import { TransactionsComponent } from './transactions/transactions.component';
     ApiFacade,
     UtilService,
     TransactionService,
-    BabyService
+    BabyService,
+    GoogleMapsAPIWrapper,
+    MarkerManager
   ],
   entryComponents: [
     RegisterModalComponent

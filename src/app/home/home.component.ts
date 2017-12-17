@@ -16,7 +16,9 @@ import { NotificationService } from '../notification.service';
 export class HomeComponent implements OnInit {
   public submitted = false;
   public model = {
-    location: '',
+    location: {
+      address: null
+    },
     age: -1,
     gender: -1,
     date: null,
@@ -51,7 +53,9 @@ export class HomeComponent implements OnInit {
   private setPosition(position){
     const coords = position.coords;
     this.mapService.getAddress(coords)
-      .then(x => this.model.location = this.model.location || x)
+      .then(x => {
+        this.model.location = Object.assign(this.model.location, x);
+      })
       .catch(e => null);
   }
 
@@ -74,7 +78,8 @@ export class HomeComponent implements OnInit {
   async search() {
     this.submitted = true;
     try{
-      const queryParams = this.composeQuery();
+      const queryObj = this.composeQuery();
+      const queryParams = {q: JSON.stringify(queryObj)};
       this.router.navigate(['/consumer'], {queryParams});
     }catch (e){
       this.notificationService.error(e);
@@ -87,7 +92,8 @@ export class HomeComponent implements OnInit {
       age: this.model.age >= 0 ? this.model.age : null,
       start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
       end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
-      gender: this.model.gender >= 0 ? this.model.gender : null
+      gender: this.model.gender >= 0 ? this.model.gender : null,
+      location: this.model.location
     };
   }
 

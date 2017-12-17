@@ -94,9 +94,9 @@ export class ConsumerDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const q = {};
-      Object.keys(params).forEach(k => q[k] = +params[k]);
-      this.searchService.search(q)
+      const queryJson = params['q'];
+      const query = JSON.parse(queryJson);
+      this.searchService.search(query)
         .subscribe(slots => this.slots = slots);
     });
 
