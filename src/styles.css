@@ -2,7 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .jumbotron {
-  background-image: url("./assets/mainbg.png");
+  /* background-image: url("./assets/mainbg.png"); */
   background-size: cover;
 }
 
@@ -27,4 +27,14 @@ option {
 
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }

@@ -1,34 +1,27 @@
-<div class="container-fuid bg-success">
-  <div class="container">
-    <nav class="navbar navbar-toggleable-md navbar-light">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" routerLink="/">Air Mom & Baby</a>
-      <!-- <pre *ngIf="hasLoggedIn" class="float-right">Welcome {{accountName}}</pre> -->
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" routerLink="/aboutus">About Us</a>
-          <a class="nav-item nav-link" routerLink="/signup" *ngIf="!hasLoggedIn">Sign up</a>
-          <a class="nav-item nav-link" routerLink="/login" *ngIf="!hasLoggedIn">Log in</a>
-          <a class="nav-item nav-link" routerLink="/slots" *ngIf="isProvider">Slots</a>
-          <a class="nav-item nav-link" routerLink="/slots/bookings" *ngIf="isProvider">Bookings</a>
-          <a class="nav-item nav-link" routerLink="/bookings" *ngIf="isConsumer">Bookings</a>
-          <a class="nav-item nav-link" routerLink="/transactions" *ngIf="hasLoggedIn">Transactions</a>
-          <a class="nav-item nav-link" routerLink="/profile" *ngIf="hasLoggedIn">Profile</a>
-          <a class="nav-item nav-link" (click)="logout()" *ngIf="hasLoggedIn">Log out</a>
-          <select class="custom-select" *ngIf="hasLoggedIn" (change)="changeRole($event.target.value)">
-              <option [ngValue]="consumer" [selected]="role === 'consumer'">Consumer</option>
-              <option [ngValue]="provider" [selected]="role === 'provider'">Provider</option>
-            </select>
-          <select class="custom-select" [(ngModel)]="language">
-            <option [value]="en">English</option>
-            <option [value]="ch">中文（简体）</option>
-            <option [value]="jp">日本語</option>
-          </select>
-        </div>
-      </div>
-    </nav>
-  </div>
-</div>
+<header>
+  <nav>
+    <div class="nav-wrapper container">
+      <a routerLink="/" class="brand-logo">Air Mom & Baby</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a routerLink="/aboutus">About us</a></li>
+        <li><a routerLink="/signup" *ngIf="!hasLoggedIn">Sign up</a></li>
+        <li><a routerLink="/login" *ngIf="!hasLoggedIn">Log in</a></li>
+        <li><a routerLink="/slots" *ngIf="isProvider">Slots</a></li>
+        <li><a routerLink="/slots/bookings" *ngIf="isProvider">Bookings</a></li>
+        <li><a routerLink="/bookings" *ngIf="isConsumer">Bookings</a></li>
+        <li><a routerLink="/transactions" *ngIf="hasLoggedIn">Transactions</a></li>
+        <li><a routerLink="/profile" *ngIf="hasLoggedIn">Profile</a></li>
+        <li><a (click)="logout()" *ngIf="hasLoggedIn">Sign out</a></li>
+        <li><a (click)="changeRole('provider')" *ngIf="isConsumer">Switch to provider</a></li>
+        <li><a (click)="changeRole('consumer')" *ngIf="isProvider">Switch to consumer</a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdownLanguage">Language<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul id="dropdownLanguage" class="dropdown-content">
+      <li><a href="#!">English</a></li>
+      <li><a href="#!">中文（简体）</a></li>
+      <li><a href="#!">日本語</a></li>
+    </ul>
+</header>

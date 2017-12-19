@@ -2,49 +2,39 @@
 <amb-header></amb-header>
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3 text-white">Air Mom & Baby</h1>
-    <p *ngIf="!hasLoggedIn" class="text-white">Discover flexible and lovely childcare services for your baby!
-      <a href (click)="signup()">Register as an Air Mom</a> or
-      <a href (click)="login()">Log in</a> to find a service for your babies.
-    </p>
     <div class="row">
       <div class="card transparent-card">
         <div class="card-block">
           <fieldset [disabled]="submitted">
             <div class="container">
-              <div class="row form-group">
+              <div class="row">
                 <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
               </div>
-              <div class="row form-group">
-                <div class="col-md-3">
-                  <select class="custom-select" [(ngModel)]="model.distance" name="distance">
-                    <option value="-1" disabled selected>Distance</option>
-                    <option value="1">1 km</option>
-                    <option value="2">2 km</option>
-                    <option value="5">5 km</option>
-                    <option value="10">10 km</option>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <select class="custom-select input-group" [(ngModel)]="model.age" name="age">
-                    <option value="-1" disabled selected>Age</option>
-                    <option value="0">0-1</option>
-                    <option value="1">1-2</option>
-                    <option value="2">2-3</option>
-                    <option value="3">3-4</option>
-                    <option value="4">4-5</option>
-                    <option value="5">5-6</option>
-                    <option value="6">&gt; 6</option>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <select class="custom-select" [(ngModel)]="model.gender" name="gender">
-                    <option value="-1" disabled selected>Gender</option>
-                    <option value="0">Girl</option>
-                    <option value="1">Boy</option>
-                  </select>
-                </div>
-<pre>{{model | json}}</pre>
+              <div class="row">
+
+                <mat-form-field>
+                  <mat-select placeholder="Distance" [(ngModel)]="model.distance" name="distance">
+                    <mat-option value="0">--</mat-option>
+                    <mat-option value="1">1 km</mat-option>
+                    <mat-option value="2">2 km</mat-option>
+                    <mat-option value="5">5 km</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-checkbox>2 years old</mat-checkbox>
+                <mat-checkbox>3 years old</mat-checkbox>
+                <mat-checkbox>4 years old</mat-checkbox>
+                <mat-checkbox>5 years old</mat-checkbox>
+                <mat-checkbox>6 years old</mat-checkbox>
+                <mat-checkbox>7+ years old</mat-checkbox>
+
+                <mat-form-field>
+                  <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender">
+                    <mat-option value="-1">--</mat-option>
+                    <mat-option value="0">Girl</mat-option>
+                    <mat-option value="1">Boy</mat-option>
+                  </mat-select>
+                </mat-form-field>
 
                 <mat-form-field>
                   <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.date">
@@ -52,19 +42,47 @@
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
+                <mat-form-field>
+                  <mat-select placeholder="Starting time" [(ngModel)]="model.timeFrom" name="timeFrom">
+                    <mat-option value="-1">--</mat-option>
+                    <mat-option value="6">06:00</mat-option>
+                    <mat-option value="7">07:00</mat-option>
+                    <mat-option value="8">08:00</mat-option>
+                    <mat-option value="9">09:00</mat-option>
+                    <mat-option value="10">10:00</mat-option>
+                    <mat-option value="11">11:00</mat-option>
+                    <mat-option value="12">12:00</mat-option>
+                    <mat-option value="13">13:00</mat-option>
+                    <mat-option value="14">14:00</mat-option>
+                    <mat-option value="15">15:00</mat-option>
+                    <mat-option value="16">16:00</mat-option>
+                    <mat-option value="17">17:00</mat-option>
+                    <mat-option value="18">18:00</mat-option>
+                    <mat-option value="19">19:00</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Ending time" [(ngModel)]="model.timeTo" name="timeTo">
+                    <mat-option value="-1">--</mat-option>
+                    <mat-option value="8">08:00</mat-option>
+                    <mat-option value="9">09:00</mat-option>
+                    <mat-option value="10">10:00</mat-option>
+                    <mat-option value="11">11:00</mat-option>
+                    <mat-option value="12">12:00</mat-option>
+                    <mat-option value="13">13:00</mat-option>
+                    <mat-option value="14">14:00</mat-option>
+                    <mat-option value="15">15:00</mat-option>
+                    <mat-option value="16">16:00</mat-option>
+                    <mat-option value="17">17:00</mat-option>
+                    <mat-option value="18">18:00</mat-option>
+                    <mat-option value="19">19:00</mat-option>
+                    <mat-option value="20">20:00</mat-option>
+                    <mat-option value="21">21:00</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
-              <div class="row form-group">
-                <label for="timeFrom" class="col-md-2 col-form-label">From</label>
-                <div class="col-md-4">
-                  <ngb-timepicker [(ngModel)]="model.timeFrom" name="timeFrom"></ngb-timepicker>
-                </div>
-                <label for="timeTo" class="col-md-2 col-form-label">To</label>
-                <div class="col-md-4">
-                  <ngb-timepicker [(ngModel)]="model.timeTo" name="timeTo"></ngb-timepicker>
-                </div>
-              </div>
-              <div class="row form-group">
-                <button class="btn btn-success col-md-12 btn-block" (click)="search()">Search</button>
+              <div class="row">
+                <button class="btn waves-effect waves-light" (click)="search()">Search</button>
               </div>
             </div>
           </fieldset>
