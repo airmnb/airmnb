@@ -38,7 +38,7 @@ export class LoginContentComponent implements OnInit {
         password: this.password,
         role: this.role
       });
-      this.sessionService.login(account, this.role);
+      await this.sessionService.login(account, this.role);
       // this.modalService.dismissModal();
       // const routeUrl = this.role === 'provider' ? 'provider' :
       //       this.role === 'consumer' ? 'consumer' :

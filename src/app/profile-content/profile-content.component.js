@@ -61,11 +61,18 @@ var ProfileContentComponent = (function () {
         this.router = router;
         this.uploadApiUrl = "/api/image/";
         this.model = {
+            id: null,
             firstName: null,
             lastName: null,
             dob: null,
             gender: null,
-            address: null,
+            location: {
+                address: null,
+                location: {
+                    type: "Point",
+                    coordinates: [0, 0]
+                }
+            },
             imageNames: [],
             description: null,
             language: {
@@ -76,9 +83,31 @@ var ProfileContentComponent = (function () {
         };
     }
     ProfileContentComponent.prototype.ngOnInit = function () {
+        var _this = this;
         // this.getUploadedImages()
         // .then(images => this.images = images)
         // .catch(e => this.notificationService.error(e));
+        var accountId = this.sessionService.account.id;
+        console.log('accountId', accountId);
+        this.api.accountProfileApi.get({ accountId: accountId })
+            .then(function (p) { return _this.setModel(p); })
+            .catch(function (e) { return _this.notificationService.error(e); });
+    };
+    ProfileContentComponent.prototype.setModel = function (p) {
+        if (!p) {
+            return;
+        }
+        this.model.id = p.id,
+            this.model.firstName = p.firstName;
+        this.model.lastName = p.lastName;
+        this.model.location = Object.assign(this.model.location, p.location);
+        // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
+        // this.model.age.a34 = p.ageFrom <= 3 && 4 < p.ageTo;
+        // this.model.age.a45 = p.ageFrom <= 4 && 5 < p.ageTo;
+        // this.model.age.a56 = p.ageFrom <= 5 && 6 <= p.ageTo;
+        // this.model.language.english = p.languages.includes('en');
+        // this.model.language.chinese = p.languages.includes('ch');
+        // this.model.language.japanese = p.languages.includes('jp');
     };
     ProfileContentComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -92,18 +121,18 @@ var ProfileContentComponent = (function () {
         // };
         // this.api.providerProfileApi.add(profile);
         var p = {
-            id: this.util.newGuid(),
+            id: this.model.id || this.util.newGuid(),
             firstName: this.model.firstName,
             lastName: this.model.lastName,
-            dob: this.util.getDate(this.model.dob),
-            address: this.model.address,
+            dob: this.model.dob ? this.util.getDate(this.model.dob) : null,
+            location: this.model.location,
             accountId: this.sessionService.account.id,
             gender: this.model.gender,
-            imageNames: this.model.imageNames
+            imageNames: this.model.imageNames,
         };
         this.api.accountProfileApi.add(p)
             .then(function (x) {
-            _this.router.navigate([]);
+            _this.router.navigate(['']);
         })
             .catch(function (e) { return _this.notificationService.error(e); });
     };
@@ -114,7 +143,7 @@ var ProfileContentComponent = (function () {
                 resp = event.serverResponse;
                 filename = resp.text();
                 if (resp.status === 200) {
-                    // await this.tieImageToAccount(filename);
+                    this.model.imageNames.push(filename);
                 }
                 else {
                     this.notificationService.error(resp);

@@ -29,7 +29,6 @@ var add_slot_component_1 = require("./add-slot/add-slot.component");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var notification_service_1 = require("./notification.service");
 var notification_component_1 = require("./notification/notification.component");
-var profile_component_1 = require("./profile/profile.component");
 var core_2 = require("@agm/core");
 var address_input_component_1 = require("./address-input/address-input.component");
 var environment_1 = require("../environments/environment");
@@ -79,7 +78,6 @@ var AppModule = (function () {
                 date_time_picker_component_1.DateTimePickerComponent,
                 add_slot_component_1.AddSlotComponent,
                 notification_component_1.NotificationComponent,
-                profile_component_1.ProfileComponent,
                 address_input_component_1.AddressInputComponent,
                 slot_list_component_1.SlotListComponent,
                 login_content_component_1.LoginContentComponent,

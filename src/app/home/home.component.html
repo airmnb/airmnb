@@ -1,6 +1,5 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <amb-header></amb-header>
-<pre>{{model | json}}</pre>
 <div class="jumbotron">
   <div class="container">
     <h1 class="display-3 text-white">Air Mom & Baby</h1>
@@ -11,22 +10,33 @@
     <div class="row">
       <div class="card transparent-card">
         <div class="card-block">
-            <fieldset [disabled]="submitted">
-          <div class="container">
+          <fieldset [disabled]="submitted">
+            <div class="container">
               <div class="row form-group">
-                  <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
+                <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
               </div>
               <div class="row form-group">
-                <select class="custom-select input-group col-md-3" [(ngModel)]="model.age" name="age">
-                  <option value="-1" disabled selected>Age</option>
-                  <option value="0">0-1</option>
-                  <option value="1">1-2</option>
-                  <option value="2">2-3</option>
-                  <option value="3">3-4</option>
-                  <option value="4">4-5</option>
-                  <option value="5">5-6</option>
-                  <option value="6">&gt; 6</option>
-                </select>
+                <div class="col-md-3">
+                  <select class="custom-select" [(ngModel)]="model.distance" name="distance">
+                    <option value="-1" disabled selected>Distance</option>
+                    <option value="1">1 km</option>
+                    <option value="2">2 km</option>
+                    <option value="5">5 km</option>
+                    <option value="10">10 km</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select class="custom-select input-group" [(ngModel)]="model.age" name="age">
+                    <option value="-1" disabled selected>Age</option>
+                    <option value="0">0-1</option>
+                    <option value="1">1-2</option>
+                    <option value="2">2-3</option>
+                    <option value="3">3-4</option>
+                    <option value="4">4-5</option>
+                    <option value="5">5-6</option>
+                    <option value="6">&gt; 6</option>
+                  </select>
+                </div>
                 <div class="col-md-3">
                   <select class="custom-select" [(ngModel)]="model.gender" name="gender">
                     <option value="-1" disabled selected>Gender</option>
@@ -34,7 +44,7 @@
                     <option value="1">Boy</option>
                   </select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <div class="input-group">
                     <input class="form-control" placeholder="Date" required name="dp" [(ngModel)]="model.date" ngbDatepicker #d="ngbDatepicker">
                     <button class="input-group-addon" (click)="d.toggle()" type="button">
@@ -56,8 +66,8 @@
               <div class="row form-group">
                 <button class="btn btn-success col-md-12 btn-block" (click)="search()">Search</button>
               </div>
-          </div>
-        </fieldset>
+            </div>
+          </fieldset>
         </div>
       </div>
     </div>

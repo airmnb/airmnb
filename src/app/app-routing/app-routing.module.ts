@@ -6,7 +6,6 @@ import { ProviderDashboardComponent } from '../provider-dashboard/provider-dashb
 import { ConsumerDashboardComponent } from '../consumer-dashboard/consumer-dashboard.component';
 import { AboutusComponent } from '../aboutus/aboutus.component';
 import { AddSlotComponent } from '../add-slot/add-slot.component';
-import { ProfileComponent } from '../profile/profile.component';
 import { ProviderMainComponent } from '../provider-main/provider-main.component';
 import { LoginComponent } from '../login/login.component';
 import { SignupComponent } from '../signup/signup.component';
@@ -33,6 +32,10 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    component: AccountProfileComponent
+  },
+  {
+    path: 'profile/:id',
     component: AccountProfileComponent
   },
   {

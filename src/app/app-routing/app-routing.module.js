@@ -42,6 +42,10 @@ var routes = [
         component: account_profile_component_1.AccountProfileComponent
     },
     {
+        path: 'profile/:id',
+        component: account_profile_component_1.AccountProfileComponent
+    },
+    {
         path: 'slotlist',
         component: slot_list_component_1.SlotListComponent
     },

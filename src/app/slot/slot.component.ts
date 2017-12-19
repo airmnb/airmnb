@@ -39,7 +39,8 @@ export class SlotComponent implements OnInit {
     capping: null,
     vacancy: null,
     price: null,
-    imageNames: []
+    imageNames: [],
+    uploadedImageUrls: []
   };
 
   theSlot: ServiceSlot = {
@@ -56,7 +57,8 @@ export class SlotComponent implements OnInit {
     ageTo: 6,
     start: new Date(),
     end: null,
-    imageNames: null
+    imageNames: null,
+    location: this.sessionService.profile.location
   };
 
   constructor(
@@ -73,14 +75,6 @@ export class SlotComponent implements OnInit {
    }
 
   ngOnInit() {
-    // this.activatedRoute.data.subscribe(x => {
-    //   this.isNew = x.isNew;
-    //   if(!this.isNew) {
-    //     this.theSlot = this.sessionService.databag.editingSlot;
-    //     this.model = this.slotToModel(this.theSlot);
-    //   }
-    // });
-
     this.activatedRoute.params.subscribe(p => {
       const slotId = p.id;
       this.isNew = !slotId;
@@ -112,7 +106,8 @@ export class SlotComponent implements OnInit {
       capping: slot.capping,
       vacancy: slot.capping - slot.bookingCount,
       price: slot.price,
-      imageNames: slot.imageNames
+      imageNames: slot.imageNames,
+      uploadedImageUrls: slot.imageNames.map(x => this.imageServcie.getImageUrl(x))
     };
     return m;
   }
@@ -152,10 +147,6 @@ export class SlotComponent implements OnInit {
     await this.api.slotApi.update(slot);
   }
 
-  public getUploadedImages(): string[] {
-    return this.imageServcie.getImageUrls(this.model.imageNames);
-  }
-
   public async onUploadFinished(event): Promise<void> {
     const resp = event.serverResponse;
     const filename = resp.text();
@@ -163,6 +154,7 @@ export class SlotComponent implements OnInit {
       // await this.tieImageToAccount(filename);
       this.model.imageNames = this.model.imageNames || [];
       this.model.imageNames.push(filename);
+      this.model.uploadedImageUrls = this.model.imageNames.map(x => this.imageServcie.getImageUrl(x));
     } else {
       this.notificationService.error(resp);
     }

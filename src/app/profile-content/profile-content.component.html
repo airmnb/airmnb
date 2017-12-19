@@ -1,6 +1,7 @@
 <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
   {{errorMessage}}
 </div>
+<pre> blah {{model | json}} bb</pre>
 <form #theForm="ngForm" (ngSubmit)="onSubmit()">
   <fieldset [disabled]="submitted">
     <div class="form-group">
@@ -33,7 +34,7 @@
     <!-- Provider specific starts -->
     <div class="form-group" *ngIf="profileRole==='provider'">
         <label for="address">Address</label>
-        <amb-address-input [(address)]="model.address" [showsMap]="true"></amb-address-input>
+        <amb-address-input [(address)]="model.location" [showsMap]="false"></amb-address-input>
     </div>
     <div class="form-group" *ngIf="profileRole==='provider'">
         <label for="description">Description</label>

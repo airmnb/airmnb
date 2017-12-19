@@ -93,7 +93,8 @@ var SlotComponent = (function () {
             ageTo: 6,
             start: new Date(),
             end: null,
-            imageNames: null
+            imageNames: null,
+            location: this.sessionService.profile.location
         };
     }
     Object.defineProperty(SlotComponent.prototype, "slot", {
@@ -107,13 +108,6 @@ var SlotComponent = (function () {
         configurable: true
     });
     SlotComponent.prototype.ngOnInit = function () {
-        // this.activatedRoute.data.subscribe(x => {
-        //   this.isNew = x.isNew;
-        //   if(!this.isNew) {
-        //     this.theSlot = this.sessionService.databag.editingSlot;
-        //     this.model = this.slotToModel(this.theSlot);
-        //   }
-        // });
         var _this = this;
         this.activatedRoute.params.subscribe(function (p) {
             var slotId = p.id;

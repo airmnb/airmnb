@@ -49,17 +49,14 @@ var router_1 = require("@angular/router");
 var uuid = require("uuid");
 var session_service_1 = require("../session.service");
 var moment = require("moment");
-var api_service_1 = require("../api.service");
 var notification_service_1 = require("../notification.service");
+var apiFacade_1 = require("../apiFacade");
 var AddSlotComponent = (function () {
-    function AddSlotComponent(router, session, apiFactory, notificationService) {
-        var _this = this;
+    function AddSlotComponent(router, session, api, notificationService) {
         this.router = router;
         this.session = session;
-        this.apiFactory = apiFactory;
+        this.api = api;
         this.notificationService = notificationService;
-        this.model = this.createNewModel();
-        this.session.getAccount().subscribe(function (account) { return _this.model.providerId = account.id; });
     }
     AddSlotComponent.prototype.createNewModel = function () {
         var now = moment();
@@ -75,10 +72,14 @@ var AddSlotComponent = (function () {
             otherCondition: null,
             capping: 5,
             bookingCount: 0,
-            price: 50
+            price: 50,
+            location: this.session.profile.location
         };
     };
     AddSlotComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.model = this.createNewModel();
+        this.session.getAccount().subscribe(function (account) { return _this.model.providerId = account.id; });
     };
     AddSlotComponent.prototype.create = function (navigateOut) {
         return __awaiter(this, void 0, void 0, function () {
@@ -86,7 +87,7 @@ var AddSlotComponent = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        api = this.apiFactory.produce('slot');
+                        api = this.api.slotApi;
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
@@ -120,7 +121,7 @@ var AddSlotComponent = (function () {
         }),
         __metadata("design:paramtypes", [router_1.Router,
             session_service_1.SessionService,
-            api_service_1.ApiServiceFactory,
+            apiFacade_1.ApiFacade,
             notification_service_1.NotificationService])
     ], AddSlotComponent);
     return AddSlotComponent;

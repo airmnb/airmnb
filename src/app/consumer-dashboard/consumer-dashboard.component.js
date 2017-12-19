@@ -97,6 +97,7 @@ var ConsumerDashboardComponent = (function () {
         this.route.queryParams.subscribe(function (params) {
             var queryJson = params['q'];
             var query = JSON.parse(queryJson);
+            console.log('Search query', query);
             _this.searchService.search(query)
                 .subscribe(function (slots) { return _this.slots = slots; });
         });

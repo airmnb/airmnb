@@ -68,6 +68,7 @@ var HomeComponent = (function () {
                     coordinates: []
                 }
             },
+            distance: 1,
             age: -1,
             gender: -1,
             date: null,
@@ -139,6 +140,7 @@ var HomeComponent = (function () {
             start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
             end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
             gender: this.model.gender >= 0 ? this.model.gender : null,
+            distance: this.model.distance,
             location: {
                 address: this.model.location.address,
                 location: {

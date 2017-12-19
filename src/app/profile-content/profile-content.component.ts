@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiServiceFactory, ApiService } from '../api.service';
-import { AccountProfile, ServiceSlot } from '../../../types';
+import { AccountProfile, ServiceSlot, MapLocation } from '../../../types';
 import * as uuid from 'uuid';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
@@ -20,11 +20,18 @@ export class ProfileContentComponent implements OnInit {
   @Input() profileRole: string;
 
   model = {
+    id: null,
     firstName: null,
     lastName: null,
     dob: null,
     gender: null,
-    address: null,
+    location: {
+      address: null,
+      location: {
+        type: "Point",
+        coordinates: [0, 0]
+      }
+    },
     imageNames: [],
     description: null,
     language: {
@@ -46,6 +53,28 @@ export class ProfileContentComponent implements OnInit {
     // this.getUploadedImages()
     // .then(images => this.images = images)
     // .catch(e => this.notificationService.error(e));
+    const accountId = this.sessionService.account.id;
+    console.log('accountId', accountId);
+    this.api.accountProfileApi.get({accountId})
+      .then(p => this.setModel(p))
+      .catch(e => this.notificationService.error(e));
+  }
+
+  private setModel(p: AccountProfile){
+    if(!p){
+      return;
+    }
+    this.model.id = p.id,
+    this.model.firstName = p.firstName;
+    this.model.lastName = p.lastName;
+    this.model.location = Object.assign(this.model.location, p.location);
+    // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
+    // this.model.age.a34 = p.ageFrom <= 3 && 4 < p.ageTo;
+    // this.model.age.a45 = p.ageFrom <= 4 && 5 < p.ageTo;
+    // this.model.age.a56 = p.ageFrom <= 5 && 6 <= p.ageTo;
+    // this.model.language.english = p.languages.includes('en');
+    // this.model.language.chinese = p.languages.includes('ch');
+    // this.model.language.japanese = p.languages.includes('jp');
   }
 
   onSubmit() {
@@ -59,18 +88,18 @@ export class ProfileContentComponent implements OnInit {
     // };
     // this.api.providerProfileApi.add(profile);
     const p: AccountProfile = {
-      id: this.util.newGuid(),
+      id: this.model.id || this.util.newGuid(),
       firstName: this.model.firstName,
       lastName: this.model.lastName,
-      dob: this.util.getDate(this.model.dob),
-      address: this.model.address,
+      dob: this.model.dob ? this.util.getDate(this.model.dob) : null,
+      location: this.model.location,
       accountId: this.sessionService.account.id,
       gender: this.model.gender,
-      imageNames: this.model.imageNames
+      imageNames: this.model.imageNames,
     };
     this.api.accountProfileApi.add(p)
     .then(x => {
-      this.router.navigate([]);
+      this.router.navigate(['']);
     })
     .catch(e => this.notificationService.error(e));
   }
@@ -79,8 +108,7 @@ export class ProfileContentComponent implements OnInit {
     const resp = event.serverResponse;
     const filename = resp.text();
     if(resp.status === 200) {
-      // await this.tieImageToAccount(filename);
-
+      this.model.imageNames.push(filename);
     } else {
       this.notificationService.error(resp);
     }

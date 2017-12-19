@@ -96,6 +96,7 @@ export class ConsumerDashboardComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const queryJson = params['q'];
       const query = JSON.parse(queryJson);
+      console.log('Search query', query);
       this.searchService.search(query)
         .subscribe(slots => this.slots = slots);
     });

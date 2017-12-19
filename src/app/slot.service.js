@@ -113,6 +113,14 @@ var SlotService = (function () {
                 $eq: query.gender
             };
         }
+        if (query.location && query.location.location && query.location.location.coordinates) {
+            q.location = {
+                $near: {
+                    $geometry: { type: "Point", coordinates: query.location.location.coordinates },
+                    $maxDistance: (query.distance || 1) * 1000
+                }
+            };
+        }
         return {} || q; // Always return all slots for demo.
     };
     SlotService = __decorate([

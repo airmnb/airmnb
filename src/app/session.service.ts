@@ -13,6 +13,7 @@ export class SessionService {
   private accountSubject = new Subject<Account>();
   private _account: Account;
   private _role: string;
+  private _profile: AccountProfile;
   public get role(): string{
     return this._role;
   }
@@ -30,8 +31,17 @@ export class SessionService {
     return !!this.account;
   }
 
-  login(account: Account, role: string): void {
+  get profile(): AccountProfile {
+    return this._profile;
+  }
+
+  changeRole(role: string) {
+    this._role = role.toLocaleLowerCase();
+  }
+
+  async login(account: Account, role: string): Promise<void> {
     this._account = account;
+    this._profile = await this.api.accountProfileApi.get({accountId: account.id});
     this.accountSubject.next(account);
     const cookieValue = {
       account,

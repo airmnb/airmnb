@@ -6,6 +6,7 @@ import { SessionService } from '../session.service';
 import * as moment from "moment";
 import { ApiService, ApiServiceFactory } from '../api.service';
 import { NotificationService } from '../notification.service';
+import { ApiFacade } from '../apiFacade';
 
 @Component({
   selector: 'amb-add-slot',
@@ -18,10 +19,9 @@ export class AddSlotComponent implements OnInit {
 
   constructor(private router: Router,
     private session: SessionService,
-    private apiFactory: ApiServiceFactory,
+    private api: ApiFacade,
     private notificationService: NotificationService) {
-    this.model = this.createNewModel();
-    this.session.getAccount().subscribe(account => this.model.providerId = account.id);
+
   }
 
   private createNewModel(): ServiceSlot {
@@ -38,15 +38,19 @@ export class AddSlotComponent implements OnInit {
       otherCondition: null,
       capping: 5,
       bookingCount: 0,
-      price: 50
+      price: 50,
+      location: this.session.profile.location
     };
   }
 
   ngOnInit() {
+    this.model = this.createNewModel();
+    this.session.getAccount().subscribe(account => this.model.providerId = account.id);
+
   }
 
   async create(navigateOut: boolean) {
-    const api = this.apiFactory.produce('slot');
+    const api = this.api.slotApi;
     try{
       await api.add(this.model);
       if(navigateOut) {

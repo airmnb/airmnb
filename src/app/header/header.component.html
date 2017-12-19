@@ -18,6 +18,10 @@
           <a class="nav-item nav-link" routerLink="/transactions" *ngIf="hasLoggedIn">Transactions</a>
           <a class="nav-item nav-link" routerLink="/profile" *ngIf="hasLoggedIn">Profile</a>
           <a class="nav-item nav-link" (click)="logout()" *ngIf="hasLoggedIn">Log out</a>
+          <select class="custom-select" *ngIf="hasLoggedIn" (change)="changeRole($event.target.value)">
+              <option [ngValue]="consumer" [selected]="role === 'consumer'">Consumer</option>
+              <option [ngValue]="provider" [selected]="role === 'provider'">Provider</option>
+            </select>
           <select class="custom-select" [(ngModel)]="language">
             <option [value]="en">English</option>
             <option [value]="ch">中文（简体）</option>

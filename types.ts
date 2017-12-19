@@ -113,6 +113,7 @@ export interface ServiceSlot {
   capping: number;
   bookingCount: number;
   imageNames?: string[];
+  location: MapLocation;
 }
 
 export enum Gender {
@@ -123,6 +124,7 @@ export enum Gender {
 
 export interface SearchQuery {
   location?: MapLocation;
+  distance?: number;
   age?: number;
   start?: number;
   end?: number;
@@ -137,7 +139,7 @@ export interface AccountProfile  {
   dob: Date;
   gender: Gender;
   // For provider
-  address?: MapLocation;
+  location?: MapLocation;
   imageNames?: string[];
   ageFrom?: number;
   ageTo?: number;
@@ -165,7 +167,7 @@ export interface BabyProfile {
 export interface MapLocation {
   address: string;
   location: {
-    type: "Point",
+    type: string,
     coordinates: number[]
   };
 }

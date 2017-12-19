@@ -27,6 +27,10 @@ export class HeaderComponent implements OnInit {
     return this.sessionService.role;
   }
 
+  changeRole(value: string) {
+    this.sessionService.changeRole(value);
+  }
+
   get isConsumer(): boolean {
     return this.hasLoggedIn && this.sessionService.role === 'consumer';
   }

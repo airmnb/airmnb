@@ -10,18 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var session_service_1 = require("../session.service");
 var AccountProfileComponent = (function () {
-    function AccountProfileComponent() {
+    function AccountProfileComponent(session) {
+        this.session = session;
     }
     AccountProfileComponent.prototype.ngOnInit = function () {
     };
+    Object.defineProperty(AccountProfileComponent.prototype, "profileRole", {
+        get: function () {
+            return this.session.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     AccountProfileComponent = __decorate([
         core_1.Component({
             selector: 'amb-account-profile',
             templateUrl: './account-profile.component.html',
             styleUrls: ['./account-profile.component.css']
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [session_service_1.SessionService])
     ], AccountProfileComponent);
     return AccountProfileComponent;
 }());
