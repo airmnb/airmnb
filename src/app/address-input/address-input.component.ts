@@ -14,9 +14,10 @@ export class AddressInputComponent implements OnInit {
   public longitude: number;
   // public searchControl: FormControl;
   public zoom: number;
-  @Input() public address: MapLocation;
-  @Input() public showsMap: boolean;
-  @Output() public addressChange = new EventEmitter<MapLocation>();
+  @Input() address: MapLocation;
+  @Input() showsMap: boolean;
+  @Input() useCurrentLocation: boolean;
+  @Output() addressChange = new EventEmitter<MapLocation>();
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
@@ -36,7 +37,9 @@ export class AddressInputComponent implements OnInit {
     // this.searchControl = new FormControl(this.address);
 
     // set current position
-    this.setCurrentPosition();
+    if(this.useCurrentLocation) {
+      this.setCurrentPosition();
+    }
 
     // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -61,7 +64,7 @@ export class AddressInputComponent implements OnInit {
             }
           };
 
-          this.addressChange.next(this.address);
+          this.addressChange.emit(this.address);
 
           // // set latitude, longitude and zoom
           // this.latitude = place.geometry.location.lat();
@@ -75,6 +78,10 @@ export class AddressInputComponent implements OnInit {
   private setCurrentPosition() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        if(this.address) {
+          // Already input some thing
+          return;
+        }
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.address = {

@@ -1,0 +1,6 @@
+<image-upload [max]="10"
+  [url]="uploadApiUrl"
+  [preview]="true"
+  [uploadedFiles]="imageUrls"
+  (uploadFinished)="onUploadFinishedCallback($event)">
+</image-upload>

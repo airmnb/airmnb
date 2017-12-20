@@ -47,7 +47,6 @@ import { AccountProfileComponent } from './account-profile/account-profile.compo
 import { UtilService } from './util.service';
 import { SlotEditComponent } from './slot-edit/slot-edit.component';
 import { TransactionService } from './transaction.service';
-import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { BookingComponent } from './booking/booking.component';
 import { FormWizardModule } from 'angular2-wizard';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
@@ -94,6 +93,7 @@ import {
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {  MatMomentDateModule} from "@angular/material-moment-adapter";
 import { TimepickerComponent } from './timepicker/timepicker.component';
+import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 
 @NgModule({
   declarations: [
@@ -120,14 +120,14 @@ import { TimepickerComponent } from './timepicker/timepicker.component';
     SignupComponent,
     AccountProfileComponent,
     SlotEditComponent,
-    ImageUploadComponent,
     BookingComponent,
     SlotDisplayComponent,
     BookingViewComponent,
     BookingListComponent,
     TransactionsComponent,
     MapSearchComponent,
-    TimepickerComponent
+    TimepickerComponent,
+    ImageUploaderComponent
   ],
   imports: [
     MatMomentDateModule,

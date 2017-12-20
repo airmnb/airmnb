@@ -3,59 +3,56 @@
 </div>
 <form #theForm="ngForm" (ngSubmit)="onSubmit()">
   <fieldset [disabled]="submitted">
-
-
-    <mat-form-field>
-      <input matInput placeholder="First name" [(ngModel)]="model.firstName" name="firstName">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Last name" [(ngModel)]="model.lastName" name="lastName">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Date of birth" [(ngModel)]="model.dob" name="dob">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <div class="form-group">
-      <label for="gender">Gender</label>
-      <select class="custom-select input-group" [(ngModel)]="model.gender" name="gender">
-        <option value="-1" disabled selected>Age</option>
-        <option value="0">Female</option>
-        <option value="1">Male</option>
-      </select>
+    <div class="col s12 m6">
+      <mat-form-field>
+        <input matInput placeholder="First name" [(ngModel)]="model.firstName" name="firstName">
+      </mat-form-field>
     </div>
+    <div class="col s12 m6">
+      <mat-form-field>
+        <input matInput placeholder="Last name" [(ngModel)]="model.lastName" name="lastName">
+      </mat-form-field>
+    </div>
+
+    <div class="col s12 m6">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Date of birth" [(ngModel)]="model.dob" name="dob">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col s12 m6">
+      <mat-form-field>
+        <mat-select placeholder="Gender" [(ngModel)]="model.gender" name="gender">
+          <mat-option value="-1">--</mat-option>
+          <mat-option value="0">Female</mat-option>
+          <mat-option value="1">Male</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <!-- Provider specific starts -->
     <div class="form-group" *ngIf="profileRole==='provider'">
       <label for="address">Address</label>
-      <amb-address-input [(address)]="model.location" [showsMap]="false"></amb-address-input>
+      <amb-address-input [(address)]="model.location" [showsMap]="false" [useCurrentLocation]="false"></amb-address-input>
     </div>
-    <div class="form-group" *ngIf="profileRole==='provider'">
-      <label for="description">Description</label>
-      <input type="text" class="form-control form-group" placeholder="Description" id="description" required [(ngModel)]="model.description"
-        name="description">
-    </div>
+    <div class="col s12">
+        <mat-form-field>
+          <textarea matInput placeholder="Description" [(ngModel)]="model.description" name="description"></textarea>
+        </mat-form-field>
+      </div>
     <div class="form-group" *ngIf="profileRole==='provider'">
       <label for="photos">Photos</label>
-      <!-- https://aberezkin.github.io/ng2-image-upload/#/readme -->
-      <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="model.imageNames" (uploadFinished)="onUploadFinished($event)">
-      </image-upload>
-      {{model.imageNames}}
+      <amb-image-uploader [(imageNames)]="model.imageNames" (uploadFinished)="onUploadFinishedForLoader($event)"></amb-image-uploader>
     </div>
     <!-- Provider specific ends -->
-    <div class="form-group">
+    <div class="row">
       <label class="col-sm-2">Languages I speak</label>
-      <div class="col-sm-10">
-        <label class="form-check-label">
-          <input class="form-check-input" name="language" type="checkbox" [checked]="model.language.english" (change)="model.language.english = !model.language.english"> English
-        </label>
-        <label class="form-check-label">
-          <input class="form-check-input" name="language" type="checkbox" [checked]="model.language.chinese" (change)="model.language.chinese = !model.language.chinese"> 中文
-        </label>
-        <label class="form-check-label">
-          <input class="form-check-input" name="language" type="checkbox" [checked]="model.language.japanese" (change)="model.language.japanese = !model.language.japanese"> 日本語
-        </label>
+      <div class="col s12">
+          <mat-checkbox>English</mat-checkbox>
+          <mat-checkbox>中文</mat-checkbox>
+          <mat-checkbox>日本語</mat-checkbox>
       </div>
     </div>
     <div>

@@ -33,6 +33,7 @@ export class ProfileContentComponent implements OnInit {
       }
     },
     imageNames: [],
+    imageUrls: [],
     description: null,
     language: {
       english: null,
@@ -40,6 +41,7 @@ export class ProfileContentComponent implements OnInit {
       japanese: null
     }
   };
+
   constructor(private api: ApiFacade,
   private sessionService: SessionService,
   private notificationService: NotificationService,
@@ -68,6 +70,9 @@ export class ProfileContentComponent implements OnInit {
     this.model.firstName = p.firstName;
     this.model.lastName = p.lastName;
     this.model.location = Object.assign(this.model.location, p.location);
+    this.model.dob = p.dob;
+    this.model.gender = p.gender;
+    this.model.imageNames = p.imageNames;
     // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
     // this.model.age.a34 = p.ageFrom <= 3 && 4 < p.ageTo;
     // this.model.age.a45 = p.ageFrom <= 4 && 5 < p.ageTo;
@@ -91,7 +96,7 @@ export class ProfileContentComponent implements OnInit {
       id: this.model.id || this.util.newGuid(),
       firstName: this.model.firstName,
       lastName: this.model.lastName,
-      dob: this.model.dob ? this.util.getDate(this.model.dob) : null,
+      dob: this.model.dob,
       location: this.model.location,
       accountId: this.sessionService.account.id,
       gender: this.model.gender,
@@ -125,5 +130,9 @@ export class ProfileContentComponent implements OnInit {
     return names.map(x => "/image/" + x);
   }
 
+  onUploadFinishedForLoader(err) {
+    console.log('image loader', err);
+    console.log('image names', this.model.imageNames);
+  }
 
 }

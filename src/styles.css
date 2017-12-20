@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-.jumbotron {
-  /* background-image: url("./assets/mainbg.png"); */
+/* .jumbotron {
+  background-image: url("./assets/mainbg.png");
+  background-size: cover;
+} */
+
+.amb-home-content {
+  background-image: url("./assets/mainbg.png");
   background-size: cover;
 }
 
@@ -18,16 +23,16 @@ option {
 
 .transparent-card {
   /* background-color: rgba(92, 184, 92, 0.4) !important;  */
-  background-color: rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
-.ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid #42A948; /* green */
+/* .ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948;
 }
 
 .ng-invalid:not(form)  {
-  border-left: 5px solid #a94442; /* red */
-}
+  border-left: 5px solid #a94442;
+} */
 
 body {
   display: flex;
@@ -39,6 +44,7 @@ main {
   flex: 1 0 auto;
 }
 
+/* Below two are to fix MaterialAngular & Materializecss conflict around datepicker */
 mat-form-field input {
   margin-bottom: 0 !important;
   border-bottom: none !important;
