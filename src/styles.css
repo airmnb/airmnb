@@ -38,3 +38,14 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+mat-form-field input {
+  margin-bottom: 0 !important;
+  border-bottom: none !important;
+  height: auto !important;
+}
+
+mat-form-field input:focus {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}

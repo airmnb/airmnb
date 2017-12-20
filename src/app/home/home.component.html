@@ -3,9 +3,9 @@
 <div class="jumbotron">
   <div class="container">
     <div class="row">
-      <div class="card transparent-card">
-        <div class="card-block">
-          <fieldset [disabled]="submitted">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
             <div class="container">
               <div class="row">
                 <div class="col s12">
@@ -15,7 +15,7 @@
 
               <div class="row">
 
-                <div class="col s6 m4">
+                <div class="col s12 m4">
                   <mat-form-field>
                     <mat-select placeholder="Distance" [(ngModel)]="model.distance" name="distance">
                       <mat-option value="0">--</mat-option>
@@ -25,7 +25,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col s6 m4">
+                <div class="col s12 m4">
                   <mat-form-field>
                     <mat-select placeholder="Baby age" [(ngModel)]="model.age" name="age">
                       <mat-option value="-1">--</mat-option>
@@ -37,7 +37,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col s6 m4">
+                <div class="col s12 m4">
                   <mat-form-field>
                     <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender">
                       <mat-option value="-1">--</mat-option>
@@ -48,7 +48,7 @@
                 </div>
 
 
-                <div class="col s6 m4">
+                <div class="col s12 m4">
 
                   <mat-form-field>
                     <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.date">
@@ -57,10 +57,10 @@
                   </mat-form-field>
 
                 </div>
-                <div class="col s6 m4">
+                <div class="col s12 m4">
                   <amb-timepicker [min]="6" [max]="18" placeholder="Starting time" [(value)]="model.timeFrom"></amb-timepicker>
                 </div>
-                <div class="col s6 m4">
+                <div class="col s12 m4">
                   <amb-timepicker [min]="8" [max]="20" placeholder="Ending time" [(value)]="model.timeTo"></amb-timepicker>
                 </div>
               </div>
@@ -71,7 +71,7 @@
                 </div>
               </div>
             </div>
-          </fieldset>
+          </div>
         </div>
       </div>
     </div>
