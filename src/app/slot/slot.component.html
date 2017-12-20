@@ -3,72 +3,77 @@
   <div class="row">
     <div class="col-sm-12 col-md-6 offset-md-3">
       <form #theForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="title" required>Title</label>
-          <div>
-            <input type="text" class="form-control" name="title" placeholder="Title" [(ngModel)]="model.title">
-          </div>
+        <div class="col s12 m4">
+          <mat-form-field>
+            <input matInput placeholder="Title" [(ngModel)]="model.title" name="title">
+          </mat-form-field>
         </div>
-        <div class="form-group">
-          <label for="date" required>Date</label>
-          <div class="input-group">
-            <input class="form-control" placeholder="Date" required name="dp" [(ngModel)]="model.date" ngbDatepicker #d="ngbDatepicker">
-            <button class="input-group-addon" (click)="d.toggle()" type="button">
-              <i class="fa fa-calendar"></i>
-            </button>
-          </div>
+        <div class="col s12 m4">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.date" name="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
         </div>
-        <div class="form-group">
-          <label for="timeFrom">From</label>
-          <div>
-            <ngb-timepicker [(ngModel)]="model.timeFrom" [minuteStep]="30" name="timeFrom"></ngb-timepicker>
-          </div>
+        <div class="col s12 m4">
+          <amb-timepicker [min]="6" [max]="18" placeholder="Starting time" [(value)]="model.timeFrom"></amb-timepicker>
         </div>
-        <div class="form-group">
-          <label for="timeTo">To</label>
-          <div>
-            <ngb-timepicker [(ngModel)]="model.timeTo" [minuteStep]="30" name="timeTo"></ngb-timepicker>
-          </div>
+        <div class="col s12 m4">
+          <amb-timepicker [min]="8" [max]="20" placeholder="Ending time" [(value)]="model.timeTo"></amb-timepicker>
         </div>
-        <div class="form-group">
-          <label for="ageFrom" required>Age from</label>
-          <div>
-            <input type="text" class="form-control" name="ageFrom" placeholder="Age from" [(ngModel)]="model.ageFrom">
-          </div>
+        <div class="col s12 m4">
+          <mat-form-field>
+            <mat-select placeholder="Age from" [(ngModel)]="model.ageFrom" name="ageFrom">
+              <mat-option value="-1">--</mat-option>
+              <mat-option value="2">2 years old</mat-option>
+              <mat-option value="3">3 years old</mat-option>
+              <mat-option value="4">4 years old</mat-option>
+              <mat-option value="5">5 years old</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <div class="form-group">
-          <label for="ageTo" required>Age to</label>
-          <div>
-            <input type="text" class="form-control" name="ageTo" placeholder="Age to" [(ngModel)]="model.ageTo">
-          </div>
+        <div class="col s12 m4">
+          <mat-form-field>
+            <mat-select placeholder="Age to" [(ngModel)]="model.ageTo" name="ageTo">
+              <mat-option value="-1">--</mat-option>
+              <mat-option value="2">2 years old</mat-option>
+              <mat-option value="3">3 years old</mat-option>
+              <mat-option value="4">4 years old</mat-option>
+              <mat-option value="5">5 years old</mat-option>
+              <mat-option value="6">>= 6 years old</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <div>
-            <input type="text" class="form-control" name="description" placeholder="Description" [(ngModel)]="model.description">
-          </div>
+
+        <div class="col s12">
+          <label>Description</label>
+          <textarea placeholder="Description" [(ngModel)]="model.description" name="description"></textarea>
         </div>
-        <div class="form-group">
-          <label for="capping" required>Capping</label>
-          <div>
-            <input type="text" class="form-control" name="capping" placeholder="Capping" [(ngModel)]="model.capping">
-          </div>
+
+        <div class="col s12 m4">
+          <mat-form-field>
+            <mat-select placeholder="Capping" [(ngModel)]="model.capping" name="capping">
+              <mat-option value="-1">--</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <div class="form-group">
-          <label for="price" required>Price per hour</label>
-          <div>
-            <input type="text" class="form-control" name="price" placeholder="Price per hour" [(ngModel)]="model.price">
-          </div>
+        <div class="col s12 m4">
+          <mat-form-field>
+            <input matInput placeholder="Price" [(ngModel)]="model.price" name="price">
+          </mat-form-field>
         </div>
-        <div class="form-group">
-          <label for="price" required>Images</label>
-          <div>
-            <image-upload [max]="10" [url]="uploadApiUrl" [preview]="true" [uploadedFiles]="model.uploadedImageUrls" (uploadFinished)="onUploadFinished($event)">
-            </image-upload>
-          </div>
+        <div class="col s12">
+          <label>Images</label>
+          <amb-image-uploader [(imageNames)]="model.imageNames" (uploadFinished)="onUploadFinished($event)"></amb-image-uploader>
         </div>
-        <hr>
-        <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
+        <div class="row">
+          <hr>
+          <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
+        </div>
       </form>
     </div>
   </div>

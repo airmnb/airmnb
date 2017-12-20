@@ -38,7 +38,6 @@ export class ImageUploaderComponent implements OnInit {
     if(resp.status === 200) {
       this._imageNames.push(filename);
       this.imageNamesChange.emit(this._imageNames);
-      console.log('Outputing', this._imageNames);
       this.imageUrls.push(this.imageService.getImageUrl(filename));
     } else {
       err = new Error(resp);

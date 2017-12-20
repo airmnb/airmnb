@@ -12,6 +12,7 @@
   <div class="row mt-3">
     <table class="table table-striped">
       <thead>
+        <th>Image</th>
         <th>Title</th>
         <th>Time</th>
         <th>Gender</th>
@@ -24,6 +25,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let slot of slots">
+          <td><img class="z-depth-3" width="200" [src]="getImageUrl(slot)"></td>
           <td>{{slot.title}}</td>
           <td>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</td>
           <td>{{displayGender(slot.gender)}}</td>
@@ -34,10 +36,10 @@
           <td>{{slot.bookingCount}} / {{slot.capping}}</td>
           <td>
             <a href (click)="edit(slot)">
-              <i class="fa fa-pencil fa-lg text-primary" aria-hidden="true"></i>
+              <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
             </a>
             <a href (click)="delete(slot)">
-              <i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i>
+              <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
             </a>
           </td>
         </tr>

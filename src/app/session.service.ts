@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { ApiFacade } from './apiFacade';
+import { Router } from '@angular/router';
 
 const cookieKey = 'c';
 const langKey = 'lang';
@@ -20,7 +21,8 @@ export class SessionService {
 
   constructor(
     private cookieService: CookieService,
-    private api: ApiFacade
+    private api: ApiFacade,
+    private router: Router
   ) { }
 
   get account(): Account {
@@ -37,6 +39,13 @@ export class SessionService {
 
   changeRole(role: string) {
     this._role = role.toLocaleLowerCase();
+  }
+
+  assureRole(role: string) {
+    console.log(role, this.role);
+    if(role !== this.role) {
+      this.router.navigateByUrl('/');
+    }
   }
 
   async login(account: Account, role: string): Promise<void> {

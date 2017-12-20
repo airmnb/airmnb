@@ -21,31 +21,21 @@ export class UtilService {
       'Either';
   }
 
-  getHourAndMinute(date: Date): {hour: number, minute: number} {
+  getHour(date: Date): number {
     const m = moment(date);
-    return {
-      hour: m.hour(),
-      minute: m.minute()
-    };
+    return m.hour();
   }
 
-  getYearMonthDate(d: Date): {year: number, month: number, day: number} {
+  getYearMonthDate(d: Date): Date {
     const m = moment(d);
-    return {
-      year: m.year(),
-      month: m.month() + 1,
-      day: m.date()
-    };
+    m.hour(0).minute(0).second(0);
+    return m.toDate();
   }
 
-  getDate(d: {year: number, month: number, day: number}, t?: {hour: number, minute: number}): Date {
-    const m = moment();
-    m.year(d.year).month(d.month - 1).date(d.day);
-    if (t) {
-      m.hour(t.hour).minute(t.minute);
-    }
-    const ret = m.toDate();
-    return ret;
+  getDate(date: Date, hour: number): Date {
+    const m = moment(date);
+    m.hour(hour).minute(0).second(0).millisecond(0);
+    return m.toDate();
   }
 
   getBookingDeepLinkUrl(bookingId: string): string {

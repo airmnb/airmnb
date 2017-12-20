@@ -10,7 +10,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ImageService } from '../slot-image.service';
 
 @Component({
   selector: 'amb-slot',
@@ -19,7 +18,6 @@ import { ImageService } from '../slot-image.service';
 })
 export class SlotComponent implements OnInit {
   isNew: boolean;
-  public uploadApiUrl = "/api/image/";
 
   @Input() set slot(value: ServiceSlot) {
     if(value) {
@@ -30,17 +28,16 @@ export class SlotComponent implements OnInit {
 
   model = {
     title: null,
-    date: null,
-    timeFrom: null,
-    timeTo: null,
-    ageFrom: null,
-    ageTo: null,
+    date: new Date(),
+    timeFrom: 9,
+    timeTo: 12,
+    ageFrom: 2,
+    ageTo: 6,
     description: null,
     capping: null,
     vacancy: null,
     price: null,
     imageNames: [],
-    uploadedImageUrls: []
   };
 
   theSlot: ServiceSlot = {
@@ -69,8 +66,7 @@ export class SlotComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private util: UtilService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private imageServcie: ImageService
+    private activatedRoute: ActivatedRoute
   ) {
    }
 
@@ -98,16 +94,15 @@ export class SlotComponent implements OnInit {
     const m = {
       title: slot.title,
       date: this.util.getYearMonthDate(slot.start),
-      timeFrom: this.util.getHourAndMinute(slot.start),
-      timeTo: this.util.getHourAndMinute(slot.end),
+      timeFrom: this.util.getHour(slot.start),
+      timeTo: this.util.getHour(slot.end),
       ageFrom: slot.ageFrom,
       ageTo: slot.ageTo,
       description: slot.otherCondition,
       capping: slot.capping,
       vacancy: slot.capping - slot.bookingCount,
       price: slot.price,
-      imageNames: slot.imageNames,
-      uploadedImageUrls: slot.imageNames.map(x => this.imageServcie.getImageUrl(x))
+      imageNames: slot.imageNames
     };
     return m;
   }
@@ -147,36 +142,6 @@ export class SlotComponent implements OnInit {
     await this.api.slotApi.update(slot);
   }
 
-  public async onUploadFinished(event): Promise<void> {
-    const resp = event.serverResponse;
-    const filename = resp.text();
-    if(resp.status === 200) {
-      // await this.tieImageToAccount(filename);
-      this.model.imageNames = this.model.imageNames || [];
-      this.model.imageNames.push(filename);
-      this.model.uploadedImageUrls = this.model.imageNames.map(x => this.imageServcie.getImageUrl(x));
-    } else {
-      this.notificationService.error(resp);
-    }
+  public onUploadFinished(error) {
   }
-
-  // onSubmit() {
-  //   if(!this.sessionService.hasLoggedIn) {
-  //     // this.notificationService.error('Please log in first');
-  //     this.modalService.openLoginModal();
-  //     return false;
-  //   }
-  //   const producerId = this.sessionService.account.id;
-  //   const slot = this.ConvertToSlot();
-  //   this.api.slotApi.add(slot)
-  //   .then(
-  //     x => {this.notificationService.info(`Added slot ${x}`);
-  //       this.activeModal.dismiss();
-  //       window.location.reload();
-  //     }
-  //   )
-  //   .catch(
-  //     e => this.notificationService.error(e)
-  //   );
-  // }
 }
