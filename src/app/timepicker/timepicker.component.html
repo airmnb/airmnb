@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-select [placeholder]="placeholder" [(ngModel)]="value" name="time">
+      <mat-option value="-1">--</mat-option>
+      <mat-option [value]="option" *ngFor="let option of options">
+          {{ ("0" + option).slice(-2) + ":00" }}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>

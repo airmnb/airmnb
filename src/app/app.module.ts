@@ -93,6 +93,7 @@ import {
 } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {  MatMomentDateModule} from "@angular/material-moment-adapter";
+import { TimepickerComponent } from './timepicker/timepicker.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import {  MatMomentDateModule} from "@angular/material-moment-adapter";
     BookingViewComponent,
     BookingListComponent,
     TransactionsComponent,
-    MapSearchComponent
+    MapSearchComponent,
+    TimepickerComponent
   ],
   imports: [
     MatMomentDateModule,
