@@ -18,6 +18,7 @@ import { BookingViewComponent } from '../booking-view/booking-view.component';
 import { BookingListComponent } from '../booking-list/booking-list.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { EventPlaceComponent } from '../event-place/event-place.component';
+import { LoginContentComponent } from '../login-content/login-content.component';
 const routes: Routes = [
   {
     path: '',
@@ -25,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginContentComponent
   },
   {
     path: 'signup',
