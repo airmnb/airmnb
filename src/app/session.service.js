@@ -49,12 +49,14 @@ var ngx_cookie_service_1 = require("ngx-cookie-service");
 var Subject_1 = require("rxjs/Subject");
 var Observable_1 = require("rxjs/Observable");
 var apiFacade_1 = require("./apiFacade");
+var router_1 = require("@angular/router");
 var cookieKey = 'c';
 var langKey = 'lang';
-var SessionService = (function () {
-    function SessionService(cookieService, api) {
+var SessionService = /** @class */ (function () {
+    function SessionService(cookieService, api, router) {
         this.cookieService = cookieService;
         this.api = api;
+        this.router = router;
         this.accountSubject = new Subject_1.Subject();
     }
     Object.defineProperty(SessionService.prototype, "role", {
@@ -85,6 +87,16 @@ var SessionService = (function () {
         enumerable: true,
         configurable: true
     });
+    SessionService.prototype.changeRole = function (role) {
+        this._role = role;
+        this.router.navigateByUrl('/');
+    };
+    SessionService.prototype.assureRole = function (role) {
+        console.log(role, this.role);
+        if (role !== this.role) {
+            this.router.navigateByUrl('/');
+        }
+    };
     SessionService.prototype.login = function (account, role) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, cookieValue, json;
@@ -144,7 +156,8 @@ var SessionService = (function () {
     SessionService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [ngx_cookie_service_1.CookieService,
-            apiFacade_1.ApiFacade])
+            apiFacade_1.ApiFacade,
+            router_1.Router])
     ], SessionService);
     return SessionService;
 }());

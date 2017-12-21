@@ -16,7 +16,7 @@ var modal_service_1 = require("../modal.service");
 var session_service_1 = require("../session.service");
 var uuid = require("uuid");
 var apiFacade_1 = require("../apiFacade");
-var ConsumerDashboardComponent = (function () {
+var ConsumerDashboardComponent = /** @class */ (function () {
     function ConsumerDashboardComponent(route, router, sessionService, searchService, modalService, api) {
         this.route = route;
         this.router = router;

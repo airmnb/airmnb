@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var DataGateway_1 = require("./DataGateway");
-var AccountGateway = (function (_super) {
+var AccountGateway = /** @class */ (function (_super) {
     __extends(AccountGateway, _super);
     function AccountGateway() {
         return _super.call(this, 'users') || this;

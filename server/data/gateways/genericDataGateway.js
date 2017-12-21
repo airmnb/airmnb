@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var uuid = require("uuid");
-var GenericRepoFactory = (function () {
+var GenericRepoFactory = /** @class */ (function () {
     function GenericRepoFactory(dbPromise) {
         this.dbPromise = dbPromise;
     }
@@ -46,7 +46,7 @@ var GenericRepoFactory = (function () {
     return GenericRepoFactory;
 }());
 exports.GenericRepoFactory = GenericRepoFactory;
-var GenericDataGateway = (function () {
+var GenericDataGateway = /** @class */ (function () {
     function GenericDataGateway(dbPromise, collectionName) {
         this.dbPromise = dbPromise;
         this.collectionName = collectionName;

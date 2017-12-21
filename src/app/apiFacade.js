@@ -11,11 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
-var ApiFacade = (function () {
+var ApiFacade = /** @class */ (function () {
     function ApiFacade(apiFactory) {
         this.tranApi = apiFactory.produce('transaction');
         this.bookingApi = apiFactory.produce('booking');
         this.slotApi = apiFactory.produce('slot');
+        this.placeApi = apiFactory.produce('place');
         this.accountApi = apiFactory.produce('account');
         this.accountProfileApi = apiFactory.produce('account_profile');
         this.babyProfileApi = apiFactory.produce('baby_profile');

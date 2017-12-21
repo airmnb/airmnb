@@ -52,7 +52,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var moment = require("moment");
 var modal_service_1 = require("../modal.service");
 var notification_service_1 = require("../notification.service");
-var HomeComponent = (function () {
+var HomeComponent = /** @class */ (function () {
     function HomeComponent(modalService, ngbTimerConfig, sessionService, router, mapService, notificationService) {
         this.modalService = modalService;
         this.sessionService = sessionService;

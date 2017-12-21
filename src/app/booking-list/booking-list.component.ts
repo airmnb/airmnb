@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SessionService } from '../session.service';
-import { ServiceSlot, Booking, BabyProfile, Gender } from '../../../types';
+import { ServiceSlot, Booking, BabyProfile, Gender, Role } from '../../../types';
 import { ApiFacade } from '../apiFacade';
 import { BookingService } from '../booking.service';
 import { SlotService } from '../slot.service';
@@ -36,10 +36,10 @@ export class BookingListComponent implements OnInit {
       if(slotId) {
         // List for this slot
         task = this.loadForSlot(slotId);
-      } else if(this.session.role === 'provider') {
+      } else if(this.session.role === Role.Provider) {
         // List all for provider
         task = this.loadAllForProvider();
-      } else if(this.session.role === 'consumer') {
+      } else if(this.session.role === Role.Consumer) {
         // List all for provider
         task = this.loadAllForConsumer();
       } else {
@@ -83,7 +83,7 @@ export class BookingListComponent implements OnInit {
   }
 
   private async loadAllForProvider(): Promise<void> {
-    if(this.session.role !== 'provider') {
+    if(this.session.role !== Role.Provider) {
       throw new Error("Not a provider");
     }
     const accountId = this.session.account.id;
@@ -95,7 +95,7 @@ export class BookingListComponent implements OnInit {
   }
 
   private async loadAllForConsumer(): Promise<void> {
-    if(this.session.role !== 'consumer') {
+    if(this.session.role !== Role.Consumer) {
       throw new Error("Not a consumer");
     }
     const accountId = this.session.account.id;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction } from '../../../types';
+import { Transaction, Role } from '../../../types';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { NotificationService } from '../notification.service';
@@ -31,7 +31,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   private async loadTransactionForConsumer(): Promise<void> {
-    if(!this.session.hasLoggedIn || this.session.role !== 'consumer') {
+    if(!this.session.hasLoggedIn || this.session.role !== Role.Consumer) {
       return;
     }
     const consumerId = this.session.account.id;

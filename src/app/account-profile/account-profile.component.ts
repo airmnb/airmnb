@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SessionService } from '../session.service';
+import { Role } from '../../../types';
 
 @Component({
   selector: 'amb-account-profile',
@@ -14,7 +15,7 @@ export class AccountProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  get profileRole(): string {
+  get profileRole(): Role {
     return this.session.role;
   }
 }

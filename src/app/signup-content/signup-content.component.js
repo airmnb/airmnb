@@ -46,12 +46,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var types_1 = require("../../../types");
 var uuid = require("uuid");
 var router_1 = require("@angular/router");
 var session_service_1 = require("../session.service");
 var modal_service_1 = require("../modal.service");
 var apiFacade_1 = require("../apiFacade");
-var SignupContentComponent = (function () {
+var SignupContentComponent = /** @class */ (function () {
     function SignupContentComponent(api, modalService, activeModal, sessionService, router) {
         this.api = api;
         this.modalService = modalService;
@@ -64,21 +65,20 @@ var SignupContentComponent = (function () {
     };
     SignupContentComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var model, dup, id, account, routeUrl, e_1;
+            var model, dup, id, account, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.submitted = true;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 5, , 6]);
+                        _a.trys.push([1, 6, , 7]);
                         model = {
                             id: uuid.v4(),
                             name: this.accountName,
                             email: this.email,
                             enabled: true,
-                            secret: this.password,
-                            type: null
+                            secret: this.password
                         };
                         return [4 /*yield*/, this.api.accountApi.get({ name: model.name })];
                     case 2:
@@ -92,21 +92,20 @@ var SignupContentComponent = (function () {
                         return [4 /*yield*/, this.api.accountApi.getOne(id)];
                     case 4:
                         account = _a.sent();
-                        this.sessionService.login(account, 'consumer');
+                        return [4 /*yield*/, this.sessionService.login(account, types_1.Role.Consumer)];
+                    case 5:
+                        _a.sent();
                         this.modalService.dismissModal();
-                        routeUrl = account.type === 'provider' ? 'provider' :
-                            account.type === 'consumer' ? 'consumer' :
-                                '';
-                        this.router.navigateByUrl(routeUrl);
+                        this.router.navigateByUrl("/");
                         this.errorMessage = null;
                         this.activeModal.dismiss();
-                        return [3 /*break*/, 6];
-                    case 5:
+                        return [3 /*break*/, 7];
+                    case 6:
                         e_1 = _a.sent();
                         this.errorMessage = e_1.message;
                         this.submitted = false;
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         });

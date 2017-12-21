@@ -17,6 +17,7 @@ import { BookingComponent } from '../booking/booking.component';
 import { BookingViewComponent } from '../booking-view/booking-view.component';
 import { BookingListComponent } from '../booking-list/booking-list.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
+import { EventPlaceComponent } from '../event-place/event-place.component';
 const routes: Routes = [
   {
     path: '',
@@ -37,6 +38,14 @@ const routes: Routes = [
   {
     path: 'profile/:id',
     component: AccountProfileComponent
+  },
+  {
+    path: 'place',
+    component: EventPlaceComponent
+  },
+  {
+    path: 'place/:id',
+    component: EventPlaceComponent
   },
   {
     path: 'slotlist',

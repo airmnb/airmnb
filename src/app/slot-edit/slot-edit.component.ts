@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { SessionService } from '../session.service';
-import { ServiceSlot, Gender } from '../../../types';
+import { ServiceSlot, Gender, Role } from '../../../types';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -25,7 +25,7 @@ export class SlotEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.session.assureRole('provider');
+    this.session.assureRole(Role.Provider);
     const accountId = this.session.account.id;
     this.loadSlots(accountId).subscribe(x => this.slots = x);
   }

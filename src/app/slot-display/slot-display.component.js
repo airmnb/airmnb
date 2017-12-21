@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var types_1 = require("../../../types");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var slot_image_service_1 = require("../slot-image.service");
-var SlotDisplayComponent = (function () {
+var SlotDisplayComponent = /** @class */ (function () {
     function SlotDisplayComponent(config, imageService) {
         this.imageService = imageService;
         config.interval = 10000;

@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var core_2 = require("@agm/core");
-var AddressInputComponent = (function () {
+var AddressInputComponent = /** @class */ (function () {
     function AddressInputComponent(mapsAPILoader, ngZone) {
         this.mapsAPILoader = mapsAPILoader;
         this.ngZone = ngZone;
@@ -26,7 +26,9 @@ var AddressInputComponent = (function () {
         // create search FormControl
         // this.searchControl = new FormControl(this.address);
         // set current position
-        this.setCurrentPosition();
+        if (this.useCurrentLocation) {
+            this.setCurrentPosition();
+        }
         // load Places Autocomplete
         this.mapsAPILoader.load().then(function () {
             var autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
@@ -47,7 +49,7 @@ var AddressInputComponent = (function () {
                             coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
                         }
                     };
-                    _this.addressChange.next(_this.address);
+                    _this.addressChange.emit(_this.address);
                     // // set latitude, longitude and zoom
                     // this.latitude = place.geometry.location.lat();
                     // this.longitude = place.geometry.location.lng();
@@ -60,6 +62,10 @@ var AddressInputComponent = (function () {
         var _this = this;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function (position) {
+                if (_this.address) {
+                    // Already input some thing
+                    return;
+                }
                 _this.latitude = position.coords.latitude;
                 _this.longitude = position.coords.longitude;
                 _this.address = {
@@ -81,6 +87,10 @@ var AddressInputComponent = (function () {
         core_1.Input(),
         __metadata("design:type", Boolean)
     ], AddressInputComponent.prototype, "showsMap", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], AddressInputComponent.prototype, "useCurrentLocation", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)

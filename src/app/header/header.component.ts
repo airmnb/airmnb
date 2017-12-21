@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ApiFacade } from '../apiFacade';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
+import { Role } from '../../../types';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'amb-header',
@@ -9,9 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
   constructor(
-    private sessionService: SessionService,
+    private session: SessionService,
     private router: Router
   ) { }
 
@@ -20,34 +21,38 @@ export class HeaderComponent implements OnInit {
   }
 
   get isProvider(): boolean {
-    return this.hasLoggedIn && this.sessionService.role === 'provider';
+    return this.hasLoggedIn && this.session.role === Role.Provider;
   }
 
-  get role(): string {
-    return this.sessionService.role;
-  }
-
-  changeRole(value: string) {
-    this.sessionService.changeRole(value);
+  get role(): Role {
+    return this.session.role;
   }
 
   get isConsumer(): boolean {
-    return this.hasLoggedIn && this.sessionService.role === 'consumer';
+    return this.hasLoggedIn && this.session.role === Role.Consumer;
   }
 
   get accountName(): string {
-    return this.sessionService.account ? this.sessionService.account.name : null;
+    return this.session.account ? this.session.account.name : null;
   }
 
   selectLanguage(lang: string) {
-    this.sessionService.setLanguage(lang);
+    this.session.setLanguage(lang);
   }
 
   ngOnInit() {
   }
 
   logout(): void {
-    this.sessionService.logout();
+    this.session.logout();
     this.router.navigateByUrl('/');
+  }
+
+  switchToProvider() {
+    this.session.changeRole(Role.Provider);
+  }
+
+  switchToConsumer() {
+    this.session.changeRole(Role.Consumer);
   }
 }

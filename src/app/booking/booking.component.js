@@ -50,7 +50,7 @@ var apiFacade_1 = require("../apiFacade");
 var notification_service_1 = require("../notification.service");
 var util_service_1 = require("../util.service");
 var router_1 = require("@angular/router");
-var BookingComponent = (function () {
+var BookingComponent = /** @class */ (function () {
     function BookingComponent(session, api, notificationService, util, activatedRouter) {
         this.session = session;
         this.api = api;

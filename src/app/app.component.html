@@ -1,4 +1,37 @@
-<main flex>
+<ng-container class="amb-outer-container">
+  <mat-toolbar color="primary" class="amb-header green darken-1 white-text">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="/" class="white-text">Air Mom & Baby</a>
+  </mat-toolbar>
+
+
+  <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #sidenav opened="false" class="amb-sidenav grey lighten-3"
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
+    [fixedTopGap]="56" [fixedBottomGap]="0">
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <amb-header (click)="sidenav.close()"></amb-header>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content [formGroup]="options" class="amb-sidenav-content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <!-- <mat-toolbar class="amb-footer green darken-1 white-text">Copyright 2018</mat-toolbar> -->
+</ng-container>
+
+
+
+<!-- <main flex>
   <amb-notification></amb-notification>
   <router-outlet></router-outlet>
 </main>
@@ -39,4 +72,4 @@
       </div>
     </div>
   </div>
-</footer>
+</footer> -->

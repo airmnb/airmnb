@@ -53,9 +53,8 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var router_1 = require("@angular/router");
-var slot_image_service_1 = require("../slot-image.service");
-var SlotComponent = (function () {
-    function SlotComponent(api, sessionService, notificationService, modalService, activeModal, util, router, activatedRoute, imageServcie) {
+var SlotComponent = /** @class */ (function () {
+    function SlotComponent(api, sessionService, notificationService, modalService, activeModal, util, router, activatedRoute) {
         this.api = api;
         this.sessionService = sessionService;
         this.notificationService = notificationService;
@@ -64,20 +63,18 @@ var SlotComponent = (function () {
         this.util = util;
         this.router = router;
         this.activatedRoute = activatedRoute;
-        this.imageServcie = imageServcie;
-        this.uploadApiUrl = "/api/image/";
         this.model = {
             title: null,
-            date: null,
-            timeFrom: null,
-            timeTo: null,
-            ageFrom: null,
-            ageTo: null,
+            date: new Date(),
+            timeFrom: 9,
+            timeTo: 12,
+            ageFrom: 2,
+            ageTo: 6,
             description: null,
             capping: null,
             vacancy: null,
             price: null,
-            imageNames: []
+            imageNames: [],
         };
         this.theSlot = {
             id: this.util.newGuid(),
@@ -94,7 +91,7 @@ var SlotComponent = (function () {
             start: new Date(),
             end: null,
             imageNames: null,
-            location: this.sessionService.profile.location
+            eventPlaceId: null
         };
     }
     Object.defineProperty(SlotComponent.prototype, "slot", {
@@ -126,8 +123,8 @@ var SlotComponent = (function () {
         var m = {
             title: slot.title,
             date: this.util.getYearMonthDate(slot.start),
-            timeFrom: this.util.getHourAndMinute(slot.start),
-            timeTo: this.util.getHourAndMinute(slot.end),
+            timeFrom: this.util.getHour(slot.start),
+            timeTo: this.util.getHour(slot.end),
             ageFrom: slot.ageFrom,
             ageTo: slot.ageTo,
             description: slot.otherCondition,
@@ -186,26 +183,7 @@ var SlotComponent = (function () {
             });
         });
     };
-    SlotComponent.prototype.getUploadedImages = function () {
-        return this.imageServcie.getImageUrls(this.model.imageNames);
-    };
-    SlotComponent.prototype.onUploadFinished = function (event) {
-        return __awaiter(this, void 0, void 0, function () {
-            var resp, filename;
-            return __generator(this, function (_a) {
-                resp = event.serverResponse;
-                filename = resp.text();
-                if (resp.status === 200) {
-                    // await this.tieImageToAccount(filename);
-                    this.model.imageNames = this.model.imageNames || [];
-                    this.model.imageNames.push(filename);
-                }
-                else {
-                    this.notificationService.error(resp);
-                }
-                return [2 /*return*/];
-            });
-        });
+    SlotComponent.prototype.onUploadFinished = function (error) {
     };
     __decorate([
         core_1.Input(),
@@ -225,8 +203,7 @@ var SlotComponent = (function () {
             ng_bootstrap_1.NgbActiveModal,
             util_service_1.UtilService,
             router_1.Router,
-            router_1.ActivatedRoute,
-            slot_image_service_1.ImageService])
+            router_1.ActivatedRoute])
     ], SlotComponent);
     return SlotComponent;
 }());

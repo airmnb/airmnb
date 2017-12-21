@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Account } from '../../../types';
+import { Account, Role } from '../../../types';
 import * as uuid from 'uuid';
 
 import { ApiService, ApiServiceFactory } from "../api.service";
@@ -41,8 +41,8 @@ export class SignupContentComponent implements OnInit {
         name: this.accountName,
         email: this.email,
         enabled: true,
-        secret: this.password,
-        type: null};
+        secret: this.password
+      };
 
       const dup = await this.api.accountApi.get({name: model.name});
       if (dup){
@@ -50,12 +50,9 @@ export class SignupContentComponent implements OnInit {
       }
       const id = await this.api.accountApi.add(model);
       const account : Account = await this.api.accountApi.getOne(id);
-      await this.sessionService.login(account, 'consumer');
+      await this.sessionService.login(account, Role.Consumer);
       this.modalService.dismissModal();
-      const routeUrl = account.type === 'provider' ? 'provider' :
-                      account.type === 'consumer' ? 'consumer' :
-                      '';
-      this.router.navigateByUrl(routeUrl);
+      this.router.navigateByUrl("/");
       this.errorMessage = null;
       this.activeModal.dismiss();
     }catch (e){

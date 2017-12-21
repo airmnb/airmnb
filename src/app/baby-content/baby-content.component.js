@@ -49,7 +49,7 @@ var session_service_1 = require("../session.service");
 var uuid = require("uuid");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var apiFacade_1 = require("../apiFacade");
-var BabyContentComponent = (function () {
+var BabyContentComponent = /** @class */ (function () {
     function BabyContentComponent(sessionService, api, activeModal) {
         this.sessionService = sessionService;
         this.api = api;

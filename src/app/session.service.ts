@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Account, AccountProfile } from "../../types";
+import { Account, AccountProfile, Role } from "../../types";
 import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -13,9 +13,9 @@ const langKey = 'lang';
 export class SessionService {
   private accountSubject = new Subject<Account>();
   private _account: Account;
-  private _role: string;
+  private _role: Role;
   private _profile: AccountProfile;
-  public get role(): string{
+  public get role(): Role{
     return this._role;
   }
 
@@ -37,18 +37,19 @@ export class SessionService {
     return this._profile;
   }
 
-  changeRole(role: string) {
-    this._role = role.toLocaleLowerCase();
+  changeRole(role: Role) {
+    this._role = role;
+    this.router.navigateByUrl('/');
   }
 
-  assureRole(role: string) {
+  assureRole(role: Role) {
     console.log(role, this.role);
     if(role !== this.role) {
       this.router.navigateByUrl('/');
     }
   }
 
-  async login(account: Account, role: string): Promise<void> {
+  async login(account: Account, role: Role): Promise<void> {
     this._account = account;
     this._profile = await this.api.accountProfileApi.get({accountId: account.id});
     this.accountSubject.next(account);

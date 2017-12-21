@@ -49,7 +49,7 @@ var environment_1 = require("../environments/environment");
 var http_1 = require("@angular/http");
 // environment.apiUrl is like http://localhost:3000/api/
 var API_URL_BASE = environment_1.environment.apiUrl.replace(/\/$/, "");
-var ApiService = (function () {
+var ApiService = /** @class */ (function () {
     function ApiService(name, http) {
         this.name = name;
         this.http = http;
@@ -215,7 +215,7 @@ var ApiService = (function () {
     return ApiService;
 }());
 exports.ApiService = ApiService;
-var ApiServiceFactory = (function () {
+var ApiServiceFactory = /** @class */ (function () {
     function ApiServiceFactory(http) {
         this.http = http;
         this.pool = new Map();
@@ -235,7 +235,7 @@ var ApiServiceFactory = (function () {
     return ApiServiceFactory;
 }());
 exports.ApiServiceFactory = ApiServiceFactory;
-var LoginService = (function () {
+var LoginService = /** @class */ (function () {
     function LoginService(http) {
         this.http = http;
         this.apiUrl = API_URL_BASE + '/login';

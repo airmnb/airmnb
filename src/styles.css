@@ -11,6 +11,10 @@
   background-size: cover;
 }
 
+.amb-block {
+  width: 100% !important;
+}
+
 select:required:invalid {
   color: gray;
 }
@@ -54,4 +58,8 @@ mat-form-field input {
 mat-form-field input:focus {
   border-bottom: none !important;
   box-shadow: none !important;
+}
+
+mat-form-field {
+  width: 100%;
 }

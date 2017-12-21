@@ -45,13 +45,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var types_1 = require("../../../types");
 var session_service_1 = require("../session.service");
 var notification_service_1 = require("../notification.service");
 var slot_image_service_1 = require("../slot-image.service");
 var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var router_1 = require("@angular/router");
-var ProfileContentComponent = (function () {
+var ProfileContentComponent = /** @class */ (function () {
     function ProfileContentComponent(api, sessionService, notificationService, slotImageService, util, router) {
         this.api = api;
         this.sessionService = sessionService;
@@ -74,6 +75,7 @@ var ProfileContentComponent = (function () {
                 }
             },
             imageNames: [],
+            imageUrls: [],
             description: null,
             language: {
                 english: null,
@@ -101,6 +103,9 @@ var ProfileContentComponent = (function () {
             this.model.firstName = p.firstName;
         this.model.lastName = p.lastName;
         this.model.location = Object.assign(this.model.location, p.location);
+        this.model.dob = p.dob;
+        this.model.gender = p.gender;
+        this.model.imageNames = p.imageNames;
         // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
         // this.model.age.a34 = p.ageFrom <= 3 && 4 < p.ageTo;
         // this.model.age.a45 = p.ageFrom <= 4 && 5 < p.ageTo;
@@ -124,7 +129,7 @@ var ProfileContentComponent = (function () {
             id: this.model.id || this.util.newGuid(),
             firstName: this.model.firstName,
             lastName: this.model.lastName,
-            dob: this.model.dob ? this.util.getDate(this.model.dob) : null,
+            dob: this.model.dob,
             location: this.model.location,
             accountId: this.sessionService.account.id,
             gender: this.model.gender,
@@ -182,9 +187,13 @@ var ProfileContentComponent = (function () {
             });
         });
     };
+    ProfileContentComponent.prototype.onUploadFinishedForLoader = function (err) {
+        console.log('image loader', err);
+        console.log('image names', this.model.imageNames);
+    };
     __decorate([
         core_1.Input(),
-        __metadata("design:type", String)
+        __metadata("design:type", Number)
     ], ProfileContentComponent.prototype, "profileRole", void 0);
     ProfileContentComponent = __decorate([
         core_1.Component({

@@ -16,7 +16,7 @@ require("rxjs/add/observable/fromPromise");
 var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
 var util_service_1 = require("../util.service");
-var SlotListComponent = (function () {
+var SlotListComponent = /** @class */ (function () {
     function SlotListComponent(slotImageService, session, router, util, imageService) {
         this.slotImageService = slotImageService;
         this.session = session;

@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Subject_1 = require("rxjs/Subject");
-var NotificationService = (function () {
+var NotificationService = /** @class */ (function () {
     function NotificationService() {
         this.infoSubject = new Subject_1.Subject();
         this.errorSubject = new Subject_1.Subject();

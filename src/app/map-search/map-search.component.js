@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var map_service_service_1 = require("../map-service.service");
 var marker_manager_1 = require("@agm/core/services/managers/marker-manager");
-var MapSearchComponent = (function () {
+var MapSearchComponent = /** @class */ (function () {
     function MapSearchComponent(mapService, markerManager) {
         this.mapService = mapService;
         this.markerManager = markerManager;

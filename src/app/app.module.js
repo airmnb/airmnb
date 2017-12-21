@@ -54,7 +54,6 @@ var account_profile_component_1 = require("./account-profile/account-profile.com
 var util_service_1 = require("./util.service");
 var slot_edit_component_1 = require("./slot-edit/slot-edit.component");
 var transaction_service_1 = require("./transaction.service");
-var image_upload_component_1 = require("./image-upload/image-upload.component");
 var booking_component_1 = require("./booking/booking.component");
 var angular2_wizard_1 = require("angular2-wizard");
 var slot_display_component_1 = require("./slot-display/slot-display.component");
@@ -64,7 +63,14 @@ var baby_service_1 = require("./baby.service");
 var transactions_component_1 = require("./transactions/transactions.component");
 var map_search_component_1 = require("./map-search/map-search.component");
 var marker_manager_1 = require("@agm/core/services/managers/marker-manager");
-var AppModule = (function () {
+var animations_2 = require("@angular/platform-browser/animations");
+var material_1 = require("@angular/material");
+var form_field_1 = require("@angular/material/form-field");
+var material_moment_adapter_1 = require("@angular/material-moment-adapter");
+var timepicker_component_1 = require("./timepicker/timepicker.component");
+var image_uploader_component_1 = require("./image-uploader/image-uploader.component");
+var event_place_component_1 = require("./event-place/event-place.component");
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -93,15 +99,51 @@ var AppModule = (function () {
                 signup_component_1.SignupComponent,
                 account_profile_component_1.AccountProfileComponent,
                 slot_edit_component_1.SlotEditComponent,
-                image_upload_component_1.ImageUploadComponent,
                 booking_component_1.BookingComponent,
                 slot_display_component_1.SlotDisplayComponent,
                 booking_view_component_1.BookingViewComponent,
                 booking_list_component_1.BookingListComponent,
                 transactions_component_1.TransactionsComponent,
-                map_search_component_1.MapSearchComponent
+                map_search_component_1.MapSearchComponent,
+                timepicker_component_1.TimepickerComponent,
+                image_uploader_component_1.ImageUploaderComponent,
+                event_place_component_1.EventPlaceComponent
             ],
             imports: [
+                material_moment_adapter_1.MatMomentDateModule,
+                form_field_1.MatFormFieldModule,
+                material_1.MatAutocompleteModule,
+                material_1.MatButtonModule,
+                material_1.MatButtonToggleModule,
+                material_1.MatCardModule,
+                material_1.MatCheckboxModule,
+                material_1.MatChipsModule,
+                material_1.MatDatepickerModule,
+                material_1.MatDialogModule,
+                material_1.MatExpansionModule,
+                material_1.MatGridListModule,
+                material_1.MatIconModule,
+                material_1.MatInputModule,
+                material_1.MatListModule,
+                material_1.MatMenuModule,
+                material_1.MatNativeDateModule,
+                material_1.MatPaginatorModule,
+                material_1.MatProgressBarModule,
+                material_1.MatProgressSpinnerModule,
+                material_1.MatRadioModule,
+                material_1.MatRippleModule,
+                material_1.MatSelectModule,
+                material_1.MatSidenavModule,
+                material_1.MatSliderModule,
+                material_1.MatSlideToggleModule,
+                material_1.MatSnackBarModule,
+                material_1.MatSortModule,
+                material_1.MatTableModule,
+                material_1.MatTabsModule,
+                material_1.MatToolbarModule,
+                material_1.MatTooltipModule,
+                material_1.MatStepperModule,
+                animations_2.NoopAnimationsModule,
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,

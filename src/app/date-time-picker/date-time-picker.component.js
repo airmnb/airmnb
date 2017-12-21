@@ -17,7 +17,7 @@ exports.DATE_TIME_PICKER_CONTROL_VALUE_ACCESSOR = {
     useExisting: core_1.forwardRef(function () { return DateTimePickerComponent; }),
     multi: true
 };
-var DateTimePickerComponent = (function () {
+var DateTimePickerComponent = /** @class */ (function () {
     function DateTimePickerComponent(cdr) {
         this.cdr = cdr;
         this.onChangeCallback = function () { };

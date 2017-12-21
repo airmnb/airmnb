@@ -4,7 +4,7 @@ import { LoginService } from '../api.service';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
 import { ModalService } from '../modal.service';
-import { AccountProfile } from '../../../types';
+import { AccountProfile, Role } from '../../../types';
 import { NotificationService } from '../notification.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginContentComponent implements OnInit {
 
   @Input() accountName: string;
   password: string;
-  role: string;
+  role: Role;
   errorMessage: string;
   private submitted: boolean;
 
@@ -39,13 +39,6 @@ export class LoginContentComponent implements OnInit {
         role: this.role
       });
       await this.sessionService.login(account, this.role);
-      // this.modalService.dismissModal();
-      // const routeUrl = this.role === 'provider' ? 'provider' :
-      //       this.role === 'consumer' ? 'consumer' :
-      //       '';
-      // this.router.navigateByUrl(routeUrl);
-      // this.errorMessage = null;
-      // this.activeModal.dismiss();
       this.sessionService.getProfile().subscribe(p => this.routeByProfile(p));
     }catch (e){
       this.errorMessage = e.message;

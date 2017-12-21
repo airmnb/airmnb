@@ -39,7 +39,7 @@ export class AddSlotComponent implements OnInit {
       capping: 5,
       bookingCount: 0,
       price: 50,
-      location: this.session.profile.location
+      eventPlaceId: null
     };
   }
 

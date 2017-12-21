@@ -51,7 +51,7 @@ var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
 var modal_service_1 = require("../modal.service");
 var notification_service_1 = require("../notification.service");
-var LoginContentComponent = (function () {
+var LoginContentComponent = /** @class */ (function () {
     function LoginContentComponent(modalService, activeModal, loginService, sessionService, notificationService, router) {
         this.modalService = modalService;
         this.activeModal = activeModal;
@@ -72,7 +72,7 @@ var LoginContentComponent = (function () {
                         this.submitted = true;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 4, , 5]);
                         return [4 /*yield*/, this.loginService.login({
                                 name: this.accountName,
                                 password: this.password,
@@ -80,22 +80,17 @@ var LoginContentComponent = (function () {
                             })];
                     case 2:
                         account = _a.sent();
-                        this.sessionService.login(account, this.role);
-                        // this.modalService.dismissModal();
-                        // const routeUrl = this.role === 'provider' ? 'provider' :
-                        //       this.role === 'consumer' ? 'consumer' :
-                        //       '';
-                        // this.router.navigateByUrl(routeUrl);
-                        // this.errorMessage = null;
-                        // this.activeModal.dismiss();
-                        this.sessionService.getProfile().subscribe(function (p) { return _this.routeByProfile(p); });
-                        return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.sessionService.login(account, this.role)];
                     case 3:
+                        _a.sent();
+                        this.sessionService.getProfile().subscribe(function (p) { return _this.routeByProfile(p); });
+                        return [3 /*break*/, 5];
+                    case 4:
                         e_1 = _a.sent();
                         this.errorMessage = e_1.message;
                         this.submitted = false;
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });

@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var session_service_1 = require("./session.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var register_modal_component_1 = require("./register-modal/register-modal.component");
-var ModalService = (function () {
+var ModalService = /** @class */ (function () {
     function ModalService(modalService, activeModal, sessionService) {
         this.modalService = modalService;
         this.activeModal = activeModal;

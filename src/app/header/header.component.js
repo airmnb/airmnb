@@ -12,9 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
-var HeaderComponent = (function () {
-    function HeaderComponent(sessionService, router) {
-        this.sessionService = sessionService;
+var types_1 = require("../../../types");
+var HeaderComponent = /** @class */ (function () {
+    function HeaderComponent(session, router) {
+        this.session = session;
         this.router = router;
     }
     Object.defineProperty(HeaderComponent.prototype, "hasLoggedIn", {
@@ -26,40 +27,46 @@ var HeaderComponent = (function () {
     });
     Object.defineProperty(HeaderComponent.prototype, "isProvider", {
         get: function () {
-            return this.hasLoggedIn && this.sessionService.role === 'provider';
+            return this.hasLoggedIn && this.session.role === types_1.Role.Provider;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(HeaderComponent.prototype, "role", {
         get: function () {
-            return this.sessionService.role;
+            return this.session.role;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(HeaderComponent.prototype, "isConsumer", {
         get: function () {
-            return this.hasLoggedIn && this.sessionService.role === 'consumer';
+            return this.hasLoggedIn && this.session.role === types_1.Role.Consumer;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(HeaderComponent.prototype, "accountName", {
         get: function () {
-            return this.sessionService.account ? this.sessionService.account.name : null;
+            return this.session.account ? this.session.account.name : null;
         },
         enumerable: true,
         configurable: true
     });
     HeaderComponent.prototype.selectLanguage = function (lang) {
-        this.sessionService.setLanguage(lang);
+        this.session.setLanguage(lang);
     };
     HeaderComponent.prototype.ngOnInit = function () {
     };
     HeaderComponent.prototype.logout = function () {
-        this.sessionService.logout();
+        this.session.logout();
         this.router.navigateByUrl('/');
+    };
+    HeaderComponent.prototype.switchToProvider = function () {
+        this.session.changeRole(types_1.Role.Provider);
+    };
+    HeaderComponent.prototype.switchToConsumer = function () {
+        this.session.changeRole(types_1.Role.Consumer);
     };
     HeaderComponent = __decorate([
         core_1.Component({

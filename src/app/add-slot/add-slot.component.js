@@ -51,7 +51,7 @@ var session_service_1 = require("../session.service");
 var moment = require("moment");
 var notification_service_1 = require("../notification.service");
 var apiFacade_1 = require("../apiFacade");
-var AddSlotComponent = (function () {
+var AddSlotComponent = /** @class */ (function () {
     function AddSlotComponent(router, session, api, notificationService) {
         this.router = router;
         this.session = session;
@@ -73,7 +73,7 @@ var AddSlotComponent = (function () {
             capping: 5,
             bookingCount: 0,
             price: 50,
-            location: this.session.profile.location
+            eventPlaceId: null
         };
     };
     AddSlotComponent.prototype.ngOnInit = function () {

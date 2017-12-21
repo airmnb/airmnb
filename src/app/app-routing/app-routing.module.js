@@ -24,6 +24,7 @@ var booking_component_1 = require("../booking/booking.component");
 var booking_view_component_1 = require("../booking-view/booking-view.component");
 var booking_list_component_1 = require("../booking-list/booking-list.component");
 var transactions_component_1 = require("../transactions/transactions.component");
+var event_place_component_1 = require("../event-place/event-place.component");
 var routes = [
     {
         path: '',
@@ -44,6 +45,14 @@ var routes = [
     {
         path: 'profile/:id',
         component: account_profile_component_1.AccountProfileComponent
+    },
+    {
+        path: 'place',
+        component: event_place_component_1.EventPlaceComponent
+    },
+    {
+        path: 'place/:id',
+        component: event_place_component_1.EventPlaceComponent
     },
     {
         path: 'slotlist',
@@ -102,7 +111,7 @@ var routes = [
         component: transactions_component_1.TransactionsComponent
     }
 ];
-var AppRoutingModule = (function () {
+var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = __decorate([

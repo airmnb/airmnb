@@ -52,7 +52,7 @@ var router_1 = require("@angular/router");
 var modal_service_1 = require("../modal.service");
 var notification_service_1 = require("../notification.service");
 var apiFacade_1 = require("../apiFacade");
-var ProviderMainComponent = (function () {
+var ProviderMainComponent = /** @class */ (function () {
     function ProviderMainComponent(api, slotImageService, modal, sessionService, router, modalservice, notificationService) {
         this.api = api;
         this.slotImageService = slotImageService;

@@ -69,7 +69,7 @@ var colors = {
         secondary: '#FDF1BA'
     }
 };
-var ProviderDashboardComponent = (function () {
+var ProviderDashboardComponent = /** @class */ (function () {
     function ProviderDashboardComponent(api, slotImageService, modal, sessionService, router, modalservice, notificationService) {
         var _this = this;
         this.api = api;

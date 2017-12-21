@@ -45,45 +45,88 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var MapServiceService = /** @class */ (function () {
-    function MapServiceService(http) {
-        this.http = http;
+var apiFacade_1 = require("../apiFacade");
+var slot_image_service_1 = require("../slot-image.service");
+var router_1 = require("@angular/router");
+var types_1 = require("../../../types");
+var notification_service_1 = require("../notification.service");
+var util_service_1 = require("../util.service");
+var session_service_1 = require("../session.service");
+var EventPlaceComponent = /** @class */ (function () {
+    function EventPlaceComponent(api, imageService, activatedRoute, notification, router, util, session) {
+        this.api = api;
+        this.imageService = imageService;
+        this.activatedRoute = activatedRoute;
+        this.notification = notification;
+        this.router = router;
+        this.util = util;
+        this.session = session;
+        this.model = {
+            id: this.util.newGuid(),
+            providerId: null,
+            name: null,
+            description: null,
+            location: null,
+            imageNames: []
+        };
     }
-    MapServiceService.prototype.getAddress = function (coordinate) {
+    EventPlaceComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.session.assureRole(types_1.Role.Provider);
+        this.activatedRoute.params.subscribe(function (p) {
+            var placeId = p.id;
+            _this.isNew = !placeId;
+            if (!_this.isNew) {
+                // Edit mode
+                _this.api.placeApi.getOne(placeId)
+                    .then(function (s) {
+                    _this.model = s;
+                }).catch(function (e) { return _this.notification.error(e); });
+            }
+            _this.model.providerId = _this.session.account.id;
+        });
+    };
+    EventPlaceComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var googleMapApi, queryString, resp, obj, firstAddress;
+            var e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        googleMapApi = 'http://maps.googleapis.com/maps/api/geocode/json';
-                        queryString = {
-                            latlng: coordinate.latitude + ',' + coordinate.longitude
-                        };
-                        return [4 /*yield*/, this.http.get(googleMapApi, { params: queryString }).toPromise()];
+                        _a.trys.push([0, 5, , 6]);
+                        if (!this.isNew) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.api.placeApi.add(this.model)];
                     case 1:
-                        resp = _a.sent();
-                        if (resp.status === 200) {
-                            obj = resp.json();
-                            firstAddress = obj.results[0];
-                            return [2 /*return*/, {
-                                    address: firstAddress.formatted_address,
-                                    location: {
-                                        type: "Point",
-                                        coordinates: [firstAddress.geometry.location.lng, firstAddress.geometry.location.lat]
-                                    }
-                                }];
-                        }
-                        return [2 /*return*/, null];
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.api.placeApi.update(this.model)];
+                    case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        e_1 = _a.sent();
+                        this.notification.error(e_1);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
-    MapServiceService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
-    ], MapServiceService);
-    return MapServiceService;
+    EventPlaceComponent = __decorate([
+        core_1.Component({
+            selector: 'amb-event-place',
+            templateUrl: './event-place.component.html',
+            styleUrls: ['./event-place.component.css']
+        }),
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
+            slot_image_service_1.ImageService,
+            router_1.ActivatedRoute,
+            notification_service_1.NotificationService,
+            router_1.Router,
+            util_service_1.UtilService,
+            session_service_1.SessionService])
+    ], EventPlaceComponent);
+    return EventPlaceComponent;
 }());
-exports.MapServiceService = MapServiceService;
-//# sourceMappingURL=map-service.service.js.map
+exports.EventPlaceComponent = EventPlaceComponent;
+//# sourceMappingURL=event-place.component.js.map

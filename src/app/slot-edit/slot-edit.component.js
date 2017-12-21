@@ -13,18 +13,22 @@ var core_1 = require("@angular/core");
 var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var session_service_1 = require("../session.service");
+var types_1 = require("../../../types");
 var Observable_1 = require("rxjs/Observable");
 var router_1 = require("@angular/router");
 var moment = require("moment");
-var SlotEditComponent = (function () {
-    function SlotEditComponent(api, util, session, router) {
+var slot_image_service_1 = require("../slot-image.service");
+var SlotEditComponent = /** @class */ (function () {
+    function SlotEditComponent(api, util, session, router, imageService) {
         this.api = api;
         this.util = util;
         this.session = session;
         this.router = router;
+        this.imageService = imageService;
     }
     SlotEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.session.assureRole(types_1.Role.Provider);
         var accountId = this.session.account.id;
         this.loadSlots(accountId).subscribe(function (x) { return _this.slots = x; });
     };
@@ -52,6 +56,14 @@ var SlotEditComponent = (function () {
         var diff = end.diff(start, 'minutes') / 60;
         return diff + " hours";
     };
+    SlotEditComponent.prototype.getImageUrl = function (slot) {
+        if (slot.imageNames && slot.imageNames.length) {
+            return this.imageService.getImageUrl(slot.imageNames[0]);
+        }
+        else {
+            return "";
+        }
+    };
     SlotEditComponent = __decorate([
         core_1.Component({
             selector: 'amb-slot-edit',
@@ -61,7 +73,8 @@ var SlotEditComponent = (function () {
         __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
             util_service_1.UtilService,
             session_service_1.SessionService,
-            router_1.Router])
+            router_1.Router,
+            slot_image_service_1.ImageService])
     ], SlotEditComponent);
     return SlotEditComponent;
 }());

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService, ApiServiceFactory } from './api.service';
-import { ServiceSlot, Account, BabyProfile, Transaction, Booking, Image, AccountProfile } from '../../types';
+import { ServiceSlot, Account, BabyProfile, Transaction, Booking, Image, AccountProfile, EventPlace } from '../../types';
 import { SessionService } from './session.service';
 import { NotificationService } from './notification.service';
 import { ImageService } from './slot-image.service';
@@ -12,6 +12,7 @@ export class ApiFacade {
   bookingApi: ApiService<Booking>;
   imageApi: ApiService<Image>;
   slotApi: ApiService<ServiceSlot>;
+  placeApi: ApiService<EventPlace>;
   accountApi: ApiService<Account>;
   accountProfileApi: ApiService<AccountProfile>;
   babyProfileApi: ApiService<BabyProfile>;
@@ -24,6 +25,7 @@ export class ApiFacade {
     this.tranApi = apiFactory.produce('transaction');
     this.bookingApi = apiFactory.produce('booking');
     this.slotApi = apiFactory.produce('slot');
+    this.placeApi = apiFactory.produce('place');
     this.accountApi = apiFactory.produce('account');
     this.accountProfileApi = apiFactory.produce('account_profile');
     this.babyProfileApi = apiFactory.produce('baby_profile');

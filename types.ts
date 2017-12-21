@@ -30,7 +30,7 @@ export interface Baby extends HumanBio {
 export interface LoginInfo {
   name: string;
   password: string;
-  role: string;
+  role: Role;
 }
 
 export interface Account {
@@ -38,7 +38,6 @@ export interface Account {
   name: string;
 	secret: string;
 	enabled: boolean;
-	type: "provider" | "consumer";
 	email: string;
 	wechat?: string;
 }
@@ -113,13 +112,27 @@ export interface ServiceSlot {
   capping: number;
   bookingCount: number;
   imageNames?: string[];
+  eventPlaceId: string;
+}
+
+export interface EventPlace {
+  id: string;
+  providerId: string;
+  name: string;
+  description?: string;
   location: MapLocation;
+  imageNames?: string[];
 }
 
 export enum Gender {
   Girl = 0,
   Boy = 1,
   Either = 2
+}
+
+export enum Role {
+  Consumer = 0,
+  Provider = 1
 }
 
 export interface SearchQuery {

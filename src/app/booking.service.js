@@ -47,7 +47,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var apiFacade_1 = require("./apiFacade");
 var util_service_1 = require("./util.service");
-var BookingService = (function () {
+var BookingService = /** @class */ (function () {
     function BookingService(api, util) {
         this.api = api;
         this.util = util;

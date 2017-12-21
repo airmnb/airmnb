@@ -17,7 +17,7 @@ var uuid = require("uuid");
 var moment = require("moment");
 var types_1 = require("../../types");
 var platform_browser_1 = require("@angular/platform-browser");
-var UtilService = (function () {
+var UtilService = /** @class */ (function () {
     function UtilService(document) {
         this.document = document;
     }
@@ -29,29 +29,19 @@ var UtilService = (function () {
             gender === types_1.Gender.Girl ? 'Girl' :
                 'Either';
     };
-    UtilService.prototype.getHourAndMinute = function (date) {
+    UtilService.prototype.getHour = function (date) {
         var m = moment(date);
-        return {
-            hour: m.hour(),
-            minute: m.minute()
-        };
+        return m.hour();
     };
     UtilService.prototype.getYearMonthDate = function (d) {
         var m = moment(d);
-        return {
-            year: m.year(),
-            month: m.month() + 1,
-            day: m.date()
-        };
+        m.hour(0).minute(0).second(0);
+        return m.toDate();
     };
-    UtilService.prototype.getDate = function (d, t) {
-        var m = moment();
-        m.year(d.year).month(d.month - 1).date(d.day);
-        if (t) {
-            m.hour(t.hour).minute(t.minute);
-        }
-        var ret = m.toDate();
-        return ret;
+    UtilService.prototype.getDate = function (date, hour) {
+        var m = moment(date);
+        m.hour(hour).minute(0).second(0).millisecond(0);
+        return m.toDate();
     };
     UtilService.prototype.getBookingDeepLinkUrl = function (bookingId) {
         var port = document.location.port;

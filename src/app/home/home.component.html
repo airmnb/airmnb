@@ -1,81 +1,66 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<amb-header></amb-header>
-<div class="amb-home-content">
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <div class="card transparent-card">
-          <div class="card-content">
-            <div class="container">
-              <div class="row">
-                <div class="col s12">
-                  <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
-                </div>
-              </div>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
+    </div>
+  </div>
 
-              <div class="row">
+  <div class="row">
 
-                <div class="col s12 m4">
-                  <mat-form-field>
-                    <mat-select placeholder="Distance" [(ngModel)]="model.distance" name="distance">
-                      <mat-option value="0">--</mat-option>
-                      <mat-option value="1">1 km</mat-option>
-                      <mat-option value="2">2 km</mat-option>
-                      <mat-option value="5">5 km</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col s12 m4">
-                  <mat-form-field>
-                    <mat-select placeholder="Baby age" [(ngModel)]="model.age" name="age">
-                      <mat-option value="-1">--</mat-option>
-                      <mat-option value="2">2 years old</mat-option>
-                      <mat-option value="3">3 years old</mat-option>
-                      <mat-option value="4">4 years old</mat-option>
-                      <mat-option value="5">5 years old</mat-option>
-                      <mat-option value="6">6 or 6+ years old</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col s12 m4">
-                  <mat-form-field>
-                    <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender">
-                      <mat-option value="-1">--</mat-option>
-                      <mat-option value="0">Girl</mat-option>
-                      <mat-option value="1">Boy</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+    <div class="col s12 m4">
+      <mat-form-field>
+        <mat-select placeholder="Distance" [(ngModel)]="model.distance" name="distance">
+          <mat-option value="0">--</mat-option>
+          <mat-option value="1">1 km</mat-option>
+          <mat-option value="2">2 km</mat-option>
+          <mat-option value="5">5 km</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col s12 m4">
+      <mat-form-field>
+        <mat-select placeholder="Baby age" [(ngModel)]="model.age" name="age">
+          <mat-option value="-1">--</mat-option>
+          <mat-option value="2">2 years old</mat-option>
+          <mat-option value="3">3 years old</mat-option>
+          <mat-option value="4">4 years old</mat-option>
+          <mat-option value="5">5 years old</mat-option>
+          <mat-option value="6">6 or 6+ years old</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col s12 m4">
+      <mat-form-field>
+        <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender">
+          <mat-option value="-1">--</mat-option>
+          <mat-option value="0">Girl</mat-option>
+          <mat-option value="1">Boy</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
+    <div class="col s12 m4">
 
-                <div class="col s12 m4">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.date" name="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.date" name="date">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
+    </div>
+    <div class="col s12 m4">
+      <amb-timepicker [min]="6" [max]="18" placeholder="Starting time" [(value)]="model.timeFrom"></amb-timepicker>
+    </div>
+    <div class="col s12 m4">
+      <amb-timepicker [min]="8" [max]="20" placeholder="Ending time" [(value)]="model.timeTo"></amb-timepicker>
+    </div>
+  </div>
 
-                </div>
-                <div class="col s12 m4">
-                  <amb-timepicker [min]="6" [max]="18" placeholder="Starting time" [(value)]="model.timeFrom"></amb-timepicker>
-                </div>
-                <div class="col s12 m4">
-                  <amb-timepicker [min]="8" [max]="20" placeholder="Ending time" [(value)]="model.timeTo"></amb-timepicker>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col s12 right-align">
-                  <button class="btn waves-effect waves-light" (click)="search()">Search</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col s12 right-align">
+      <button class="btn waves-effect waves-light amb-block" (click)="search()">Search</button>
     </div>
   </div>
 </div>
 <!-- <amb-map-search></amb-map-search> -->
-

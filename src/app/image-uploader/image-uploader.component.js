@@ -45,45 +45,78 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var MapServiceService = /** @class */ (function () {
-    function MapServiceService(http) {
-        this.http = http;
+var slot_image_service_1 = require("../slot-image.service");
+var util_service_1 = require("../util.service");
+var ImageUploaderComponent = /** @class */ (function () {
+    function ImageUploaderComponent(imageService, util) {
+        this.imageService = imageService;
+        this.util = util;
+        this.uploadApiUrl = "/api/image/";
+        this.readUrl = "/image/";
+        this._imageNames = [];
+        this.imageUrls = [];
+        this.preview = true;
+        this.imageNamesChange = new core_1.EventEmitter();
+        this.uploadFinished = new core_1.EventEmitter();
     }
-    MapServiceService.prototype.getAddress = function (coordinate) {
+    Object.defineProperty(ImageUploaderComponent.prototype, "imageNames", {
+        set: function (names) {
+            var _this = this;
+            this._imageNames = names || [];
+            this.imageUrls = this._imageNames.map(function (x) { return _this.imageService.getImageUrl(x); });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ImageUploaderComponent.prototype.ngOnInit = function () {
+    };
+    ImageUploaderComponent.prototype.onUploadFinishedCallback = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            var googleMapApi, queryString, resp, obj, firstAddress;
+            var resp, filename, err;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        googleMapApi = 'http://maps.googleapis.com/maps/api/geocode/json';
-                        queryString = {
-                            latlng: coordinate.latitude + ',' + coordinate.longitude
-                        };
-                        return [4 /*yield*/, this.http.get(googleMapApi, { params: queryString }).toPromise()];
-                    case 1:
-                        resp = _a.sent();
-                        if (resp.status === 200) {
-                            obj = resp.json();
-                            firstAddress = obj.results[0];
-                            return [2 /*return*/, {
-                                    address: firstAddress.formatted_address,
-                                    location: {
-                                        type: "Point",
-                                        coordinates: [firstAddress.geometry.location.lng, firstAddress.geometry.location.lat]
-                                    }
-                                }];
-                        }
-                        return [2 /*return*/, null];
+                resp = event.serverResponse;
+                filename = resp.text();
+                err = null;
+                if (resp.status === 200) {
+                    this._imageNames.push(filename);
+                    this.imageNamesChange.emit(this._imageNames);
+                    this.imageUrls.push(this.imageService.getImageUrl(filename));
                 }
+                else {
+                    err = new Error(resp);
+                }
+                this.uploadFinished.emit(err);
+                return [2 /*return*/];
             });
         });
     };
-    MapServiceService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
-    ], MapServiceService);
-    return MapServiceService;
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], ImageUploaderComponent.prototype, "preview", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Array),
+        __metadata("design:paramtypes", [Array])
+    ], ImageUploaderComponent.prototype, "imageNames", null);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ImageUploaderComponent.prototype, "imageNamesChange", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ImageUploaderComponent.prototype, "uploadFinished", void 0);
+    ImageUploaderComponent = __decorate([
+        core_1.Component({
+            selector: 'amb-image-uploader',
+            templateUrl: './image-uploader.component.html',
+            styleUrls: ['./image-uploader.component.css']
+        }),
+        __metadata("design:paramtypes", [slot_image_service_1.ImageService,
+            util_service_1.UtilService])
+    ], ImageUploaderComponent);
+    return ImageUploaderComponent;
 }());
-exports.MapServiceService = MapServiceService;
-//# sourceMappingURL=map-service.service.js.map
+exports.ImageUploaderComponent = ImageUploaderComponent;
+//# sourceMappingURL=image-uploader.component.js.map

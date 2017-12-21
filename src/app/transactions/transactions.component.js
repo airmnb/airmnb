@@ -45,6 +45,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var types_1 = require("../../../types");
 var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var notification_service_1 = require("../notification.service");
@@ -52,7 +53,7 @@ var session_service_1 = require("../session.service");
 var transaction_service_1 = require("../transaction.service");
 var slot_image_service_1 = require("../slot-image.service");
 var _ = require("underscore");
-var TransactionsComponent = (function () {
+var TransactionsComponent = /** @class */ (function () {
     function TransactionsComponent(api, util, notification, session, tranService, imageService) {
         this.api = api;
         this.util = util;
@@ -71,7 +72,7 @@ var TransactionsComponent = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.session.hasLoggedIn || this.session.role !== 'consumer') {
+                        if (!this.session.hasLoggedIn || this.session.role !== types_1.Role.Consumer) {
                             return [2 /*return*/];
                         }
                         consumerId = this.session.account.id;

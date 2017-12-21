@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var apiFacade_1 = require("./apiFacade");
-var ImageService = (function () {
+var ImageService = /** @class */ (function () {
     function ImageService(api) {
         this.api = api;
     }

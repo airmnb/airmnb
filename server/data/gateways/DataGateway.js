@@ -39,7 +39,7 @@ var mongo = require("mongodb");
 var uuid = require("uuid");
 var connectionString = process.env.AMB_MONGO_DB_CONNECTION_STRING;
 var dbPromise = mongo.MongoClient.connect(connectionString);
-var DataGateway = (function () {
+var DataGateway = /** @class */ (function () {
     function DataGateway(collectionName) {
         this.collectionName = collectionName;
     }
@@ -164,7 +164,7 @@ var DataGateway = (function () {
     return DataGateway;
 }());
 exports.DataGateway = DataGateway;
-var DataGatewayBase = (function () {
+var DataGatewayBase = /** @class */ (function () {
     function DataGatewayBase(collectionName) {
         this.repoInternal = new DataGateway(collectionName);
     }

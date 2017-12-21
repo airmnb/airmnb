@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var session_service_1 = require("./session.service");
 var router_1 = require("@angular/router");
 var modal_service_1 = require("./modal.service");
-var AppComponent = (function () {
+var AppComponent = /** @class */ (function () {
     function AppComponent(modalService, sessionService, router) {
         this.modalService = modalService;
         this.sessionService = sessionService;
@@ -21,18 +21,6 @@ var AppComponent = (function () {
         this.title = 'Air Mom & Baby';
         this.language = 'en';
         this.accountName = null;
-        // this.sessionService.getAccount().subscribe(account => {
-        //   if(account) {
-        //     this.accountName = account.name;
-        //     if (account.type === 'provider'){
-        //       this.router.navigateByUrl('provider');
-        //     }else if (account.type === 'consumer'){
-        //       this.router.navigateByUrl('consumer');
-        //     }
-        //   } else {
-        //     this.accountName = null;
-        //   }
-        // });
     }
     AppComponent.prototype.ngOnInit = function () {
         this.sessionService.loadCookie();

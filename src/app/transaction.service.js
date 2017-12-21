@@ -48,7 +48,7 @@ var core_1 = require("@angular/core");
 var apiFacade_1 = require("./apiFacade");
 var util_service_1 = require("./util.service");
 var types_1 = require("../../types");
-var TransactionService = (function () {
+var TransactionService = /** @class */ (function () {
     function TransactionService(api, util) {
         this.api = api;
         this.util = util;

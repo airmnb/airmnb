@@ -47,6 +47,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var session_service_1 = require("../session.service");
+var types_1 = require("../../../types");
 var apiFacade_1 = require("../apiFacade");
 var booking_service_1 = require("../booking.service");
 var slot_service_1 = require("../slot.service");
@@ -54,7 +55,7 @@ var notification_service_1 = require("../notification.service");
 var baby_service_1 = require("../baby.service");
 var _ = require("underscore");
 var util_service_1 = require("../util.service");
-var BookingListComponent = (function () {
+var BookingListComponent = /** @class */ (function () {
     function BookingListComponent(activatedRouter, session, api, bookingService, slotService, notificationService, babyService, util) {
         this.activatedRouter = activatedRouter;
         this.session = session;
@@ -75,11 +76,11 @@ var BookingListComponent = (function () {
                 // List for this slot
                 task = _this.loadForSlot(slotId);
             }
-            else if (_this.session.role === 'provider') {
+            else if (_this.session.role === types_1.Role.Provider) {
                 // List all for provider
                 task = _this.loadAllForProvider();
             }
-            else if (_this.session.role === 'consumer') {
+            else if (_this.session.role === types_1.Role.Consumer) {
                 // List all for provider
                 task = _this.loadAllForConsumer();
             }
@@ -146,7 +147,7 @@ var BookingListComponent = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (this.session.role !== 'provider') {
+                        if (this.session.role !== types_1.Role.Provider) {
                             throw new Error("Not a provider");
                         }
                         accountId = this.session.account.id;
@@ -172,7 +173,7 @@ var BookingListComponent = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (this.session.role !== 'consumer') {
+                        if (this.session.role !== types_1.Role.Consumer) {
                             throw new Error("Not a consumer");
                         }
                         accountId = this.session.account.id;

@@ -1,0 +1,33 @@
+<h3>
+  Event place
+</h3>
+<form #theForm="ngForm" (ngSubmit)="onSubmit()">
+    <fieldset [disabled]="submitted">
+      <div class="col s12 m6">
+        <mat-form-field>
+          <input matInput placeholder="Place name" [(ngModel)]="model.name" name="name">
+        </mat-form-field>
+      </div>
+      <div class="col s12">
+          <mat-form-field>
+            <textarea matInput placeholder="Description" [(ngModel)]="model.description" name="description"></textarea>
+          </mat-form-field>
+        </div>
+
+      <div class="col s12">
+        <label for="address">Address</label>
+        <amb-address-input [(address)]="model.location" [showsMap]="false" [useCurrentLocation]="false"></amb-address-input>
+      </div>
+
+      <div class="col s12">
+        <label for="photos">Photos</label>
+        <amb-image-uploader [(imageNames)]="model.imageNames"></amb-image-uploader>
+      </div>
+      <!-- Provider specific ends -->
+      <div class="row">
+          <div class="col">
+              <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">Save</button>
+            </div>
+      </div>
+    </fieldset>
+  </form>

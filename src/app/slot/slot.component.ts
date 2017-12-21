@@ -55,7 +55,7 @@ export class SlotComponent implements OnInit {
     start: new Date(),
     end: null,
     imageNames: null,
-    location: this.sessionService.profile.location
+    eventPlaceId: null
   };
 
   constructor(
@@ -87,7 +87,6 @@ export class SlotComponent implements OnInit {
         );
       }
     });
-
   }
 
   private slotToModel(slot: ServiceSlot) {

@@ -49,7 +49,7 @@ var notification_service_1 = require("./notification.service");
 var session_service_1 = require("./session.service");
 var Subject_1 = require("rxjs/Subject");
 var apiFacade_1 = require("./apiFacade");
-var SlotService = (function () {
+var SlotService = /** @class */ (function () {
     function SlotService(notificationService, sessionService, api) {
         this.notificationService = notificationService;
         this.sessionService = sessionService;

@@ -94,6 +94,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {  MatMomentDateModule} from "@angular/material-moment-adapter";
 import { TimepickerComponent } from './timepicker/timepicker.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import { EventPlaceComponent } from './event-place/event-place.component';
+import { EventPlaceListComponent } from './event-place-list/event-place-list.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +129,9 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
     TransactionsComponent,
     MapSearchComponent,
     TimepickerComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    EventPlaceComponent,
+    EventPlaceListComponent
   ],
   imports: [
     MatMomentDateModule,
