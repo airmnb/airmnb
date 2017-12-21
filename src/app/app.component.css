@@ -21,11 +21,13 @@
   /* align-items: center; */
   /* justify-content: center; */
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
 }
 
 .amb-sidenav-content {
   flex: 1;
+  top: 56px;
+  bottom: 56px;
 }
 
 .amb-header {

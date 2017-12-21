@@ -7,7 +7,7 @@
   </mat-toolbar>
 
 
-  <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 56">
     <mat-sidenav #sidenav opened="false" class="amb-sidenav grey lighten-3"
     [mode]="mobileQuery.matches ? 'over' : 'side'"
     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
@@ -22,13 +22,16 @@
     </mat-sidenav>
 
     <mat-sidenav-content [formGroup]="options" class="amb-sidenav-content">
+        <div color="primary">
+            <amb-notification></amb-notification>
+          </div>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-  <mat-toolbar class="amb-footer green darken-1 white-text">
+  <!-- <mat-toolbar class="amb-footer green darken-1 white-text">
     <p><small>Copyright 2018</small></p>
-  </mat-toolbar>
+  </mat-toolbar> -->
 </ng-container>
 
 

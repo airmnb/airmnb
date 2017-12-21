@@ -41,7 +41,7 @@ export class LoginContentComponent implements OnInit {
       await this.sessionService.login(account, this.role);
       this.sessionService.getProfile().subscribe(p => this.routeByProfile(p));
     }catch (e){
-      this.errorMessage = e.message;
+      this.notificationService.error(e);
       this.submitted = false;
     }
   }

@@ -19,6 +19,7 @@ import { BookingListComponent } from '../booking-list/booking-list.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { EventPlaceComponent } from '../event-place/event-place.component';
 import { LoginContentComponent } from '../login-content/login-content.component';
+import { SignupContentComponent } from '../signup-content/signup-content.component';
 const routes: Routes = [
   {
     path: '',
@@ -30,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    component: SignupComponent
+    component: SignupContentComponent
   },
   {
     path: 'profile',
