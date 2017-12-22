@@ -16,8 +16,10 @@ export class UtilService {
   }
 
   displayGender(gender: Gender): string {
-    return gender === Gender.Boy ? 'Boy' :
-      gender === Gender.Girl ? 'Girl' :
+    // tslint:disable-next-line:triple-equals
+    return gender == Gender.Boy ? 'Boy' :
+      // tslint:disable-next-line:triple-equals
+      gender == Gender.Girl ? 'Girl' :
       'Either';
   }
 

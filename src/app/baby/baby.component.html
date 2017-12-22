@@ -6,42 +6,48 @@
 <form #theForm="ngForm" (ngSubmit)="onSubmit()">
   <fieldset [disabled]="submitted">
     <div class="container">
-      <div class="col s12 l4">
-        <mat-form-field>
-          <input matInput placeholder="Nick name" [(ngModel)]="model.nickName" name="nickName" required>
-        </mat-form-field>
-      </div>
-      <div class="col s12 l4">
-        <amb-datepicker placeholder="Date of birth" [(value)]="model.dob" [required]="true"></amb-datepicker>
-      </div>
+      <div class="row">
+        <div class="col s12 l4">
+          <mat-form-field>
+            <input matInput placeholder="Nick name" [(ngModel)]="model.nickName" name="nickName" required>
+          </mat-form-field>
+        </div>
+        <div class="col s12 l4">
+          <amb-datepicker placeholder="Date of birth" [(value)]="model.dob" [required]="true"></amb-datepicker>
+        </div>
 
-      <div class="col s12 l4">
-        <mat-form-field>
-          <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender" required>
-            <mat-option value="-1">--</mat-option>
-            <mat-option value="0">Girl</mat-option>
-            <mat-option value="1">Boy</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+        <div class="col s12 l4">
+          <mat-form-field>
+            <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender" required>
+              <mat-option value="-1">--</mat-option>
+              <mat-option value="0">Girl</mat-option>
+              <mat-option value="1">Boy</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-      <div class="col s12 l6">
-        <mat-form-field>
-          <textarea matInput placeholder="Hobby" [(ngModel)]="model.hobby" name="hobby"></textarea>
-        </mat-form-field>
-      </div>
-      <div class="col s12 l6">
-        <mat-form-field>
-          <textarea matInput placeholder="Additional information" [(ngModel)]="model.info" name="info"></textarea>
-        </mat-form-field>
-      </div>
-      <div class="col s12">
+        <div class="col s12 l6">
+          <mat-form-field>
+            <textarea matInput placeholder="Hobby" [(ngModel)]="model.hobby" name="hobby"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col s12 l6">
+          <mat-form-field>
+            <textarea matInput placeholder="Additional information" [(ngModel)]="model.info" name="info"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col s12">
           <label for="photos">Photos</label>
           <amb-image-uploader [(imageNames)]="imageNames"></amb-image-uploader>
+        </div>
       </div>
-
-      <div class="col s12 l4">
-        <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
+      <div class="row">
+        <div class="col s12 m6">
+          <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
+        </div>
+        <div class="col s12 m6">
+          <button class="btn amb-block" routerLink="/babies">Cancel</button>
+        </div>
       </div>
     </div>
   </fieldset>

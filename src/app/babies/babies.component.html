@@ -9,13 +9,20 @@
   </div>
 
   <div class="row">
-    <div class="col s12 l6" *ngFor="let baby of babies">
+    <div class="col s12 m6" *ngFor="let baby of babies">
       <mat-card>
         <mat-card-header>
           <mat-card-title>{{baby.nickName}}</mat-card-title>
           <mat-card-subtitle>{{baby.dob | date:'mediumDate' }} {{displayGender(baby)}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image *ngIf="baby.imageName" [src]="getImageUrl(baby)" alt="Baby's photo">
+        <mat-card-actions>
+            <button mat-button (click)="edit(baby)">
+              <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Edit
+            </button>
+            <button mat-button (click)="delete(baby)">
+              <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete
+            </button>
+          </mat-card-actions>
         <mat-card-content>
           <p *ngIf="baby.hobby">
             {{baby.hobby}}
@@ -24,14 +31,7 @@
             {{baby.info}}
           </p>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="edit(baby)">
-            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Edit
-          </button>
-          <button mat-button (click)="delete(baby)">
-            <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete
-          </button>
-        </mat-card-actions>
+        <img mat-card-image *ngIf="baby.imageName" [src]="getImageUrl(baby)" alt="Baby's photo">
       </mat-card>
     </div>
   </div>

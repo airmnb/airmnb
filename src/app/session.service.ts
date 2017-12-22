@@ -49,6 +49,7 @@ export class SessionService {
 
   changeRole(role: Role) {
     this._role = role;
+    this.saveCookie();
     this.router.navigateByUrl('/');
   }
 
@@ -64,13 +65,8 @@ export class SessionService {
     this._account = account;
     this._profile = await this.api.accountProfileApi.get({accountId: account.id});
     this.accountSubject.next(account);
-    const cookieValue = {
-      account,
-      role
-    };
     this._role = role;
-    const json = JSON.stringify(cookieValue);
-    this.cookieService.set(cookieKey, json);
+    this.saveCookie();
   }
 
   logout(): void {
@@ -97,6 +93,14 @@ export class SessionService {
     }
 
     this.logout();
+  }
+
+  saveCookie() {
+    const value = {
+      account: this.account,
+      role: this._role
+    };
+    this.cookieService.set(cookieKey, JSON.stringify(value));
   }
 
   getProfile(): Observable<AccountProfile> {
