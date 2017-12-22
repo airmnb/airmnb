@@ -20,6 +20,7 @@ import { TransactionsComponent } from '../transactions/transactions.component';
 import { EventPlaceComponent } from '../event-place/event-place.component';
 import { LoginContentComponent } from '../login-content/login-content.component';
 import { SignupContentComponent } from '../signup-content/signup-content.component';
+import { ProfileContentComponent } from '../profile-content/profile-content.component';
 const routes: Routes = [
   {
     path: '',
@@ -35,11 +36,11 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: AccountProfileComponent
+    component: ProfileContentComponent
   },
   {
     path: 'profile/:id',
-    component: AccountProfileComponent
+    component: ProfileContentComponent
   },
   {
     path: 'place',

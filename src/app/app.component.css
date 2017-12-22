@@ -26,8 +26,8 @@
 
 .amb-sidenav-content {
   flex: 1;
-  top: 56px;
-  bottom: 56px;
+  /* top: 56px; */
+  /* bottom: 56px; */
 }
 
 .amb-header {

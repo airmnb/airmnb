@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { MapServiceService } from '../map-service.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { SearchQuery } from '../../../types';
+import { SearchQuery, SelectOption } from '../../../types';
 import * as moment from "moment";
 import { ModalService } from '../modal.service';
 import { NotificationService } from '../notification.service';
+import { SelectOptionService } from '../select-option.service';
 
 @Component({
   selector: 'amb-home',
@@ -14,6 +15,10 @@ import { NotificationService } from '../notification.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  get ageOptions(): SelectOption[] {
+    return this.selectOptionService.ageFromOptions;
+  }
+
   public submitted = false;
   public model = {
     location: {
@@ -42,7 +47,8 @@ export class HomeComponent implements OnInit {
     private sessionService: SessionService,
     private router: Router,
     private mapService: MapServiceService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private selectOptionService: SelectOptionService
   ) {
     ngbTimerConfig.seconds = false;
     ngbTimerConfig.spinners = false;

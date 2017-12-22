@@ -96,6 +96,9 @@ import { TimepickerComponent } from './timepicker/timepicker.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { EventPlaceComponent } from './event-place/event-place.component';
 import { EventPlaceListComponent } from './event-place-list/event-place-list.component';
+import { SelectComponent } from './select/select.component';
+import { SelectOptionService } from './select-option.service';
+import { DatepickerComponent } from './datepicker/datepicker.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +134,9 @@ import { EventPlaceListComponent } from './event-place-list/event-place-list.com
     TimepickerComponent,
     ImageUploaderComponent,
     EventPlaceComponent,
-    EventPlaceListComponent
+    EventPlaceListComponent,
+    SelectComponent,
+    DatepickerComponent
   ],
   imports: [
     MatMomentDateModule,
@@ -206,7 +211,8 @@ import { EventPlaceListComponent } from './event-place-list/event-place-list.com
     TransactionService,
     BabyService,
     GoogleMapsAPIWrapper,
-    MarkerManager
+    MarkerManager,
+    SelectOptionService
   ],
   entryComponents: [
     RegisterModalComponent

@@ -37,13 +37,22 @@ export class SessionService {
     return this._profile;
   }
 
+  get isProvider(): boolean {
+    // tslint:disable-next-line:triple-equals
+    return this.role == Role.Provider;
+  }
+
+  get isConsumer(): boolean {
+    // tslint:disable-next-line:triple-equals
+    return this.role == Role.Consumer;
+  }
+
   changeRole(role: Role) {
     this._role = role;
     this.router.navigateByUrl('/');
   }
 
   assureRole(role: Role) {
-    console.log(role, this.role);
     if(role !== this.role) {
       this.router.navigateByUrl('/');
     }

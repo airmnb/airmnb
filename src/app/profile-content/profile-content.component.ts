@@ -42,8 +42,12 @@ export class ProfileContentComponent implements OnInit {
     }
   };
 
+  get isProvider(): boolean {
+    return this.session.isProvider;
+  }
+
   constructor(private api: ApiFacade,
-  private sessionService: SessionService,
+  private session: SessionService,
   private notificationService: NotificationService,
   private slotImageService: ImageService,
   private util: UtilService,
@@ -55,8 +59,7 @@ export class ProfileContentComponent implements OnInit {
     // this.getUploadedImages()
     // .then(images => this.images = images)
     // .catch(e => this.notificationService.error(e));
-    const accountId = this.sessionService.account.id;
-    console.log('accountId', accountId);
+    const accountId = this.session.account.id;
     this.api.accountProfileApi.get({accountId})
       .then(p => this.setModel(p))
       .catch(e => this.notificationService.error(e));
@@ -73,6 +76,7 @@ export class ProfileContentComponent implements OnInit {
     this.model.dob = p.dob;
     this.model.gender = p.gender;
     this.model.imageNames = p.imageNames;
+    this.model.description = p.description;
     // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
     // this.model.age.a34 = p.ageFrom <= 3 && 4 < p.ageTo;
     // this.model.age.a45 = p.ageFrom <= 4 && 5 < p.ageTo;
@@ -98,9 +102,10 @@ export class ProfileContentComponent implements OnInit {
       lastName: this.model.lastName,
       dob: this.model.dob,
       location: this.model.location,
-      accountId: this.sessionService.account.id,
+      accountId: this.session.account.id,
       gender: this.model.gender,
       imageNames: this.model.imageNames,
+      description: this.model.description
     };
     this.api.accountProfileApi.add(p)
     .then(x => {
@@ -120,12 +125,12 @@ export class ProfileContentComponent implements OnInit {
   }
 
   private async tieImageToAccount(imageName: string) {
-    const providerId = this.sessionService.account.id;
+    const providerId = this.session.account.id;
     await this.slotImageService.saveImageNameForProvider(imageName, providerId);
   }
 
   async getUploadedImages(): Promise<string[]> {
-    const providerId = this.sessionService.account.id;
+    const providerId = this.session.account.id;
     const names = await this.slotImageService.getImageNamesForProvider(providerId);
     return names.map(x => "/image/" + x);
   }

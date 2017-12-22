@@ -10,7 +10,7 @@
   <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 56">
     <mat-sidenav #sidenav opened="false" class="amb-sidenav"
     [mode]="mobileQuery.matches ? 'over' : 'side'"
-    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
+    [fixedInViewport]="mobileQuery.matches"
     [fixedTopGap]="56" [fixedBottomGap]="0">
       <div class="container">
         <div class="row">
@@ -29,7 +29,7 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-  <!-- <mat-toolbar class="amb-footer">
+  <!-- <mat-toolbar color="primary" class="amb-footer">
     <p><small>Copyright 2018</small></p>
   </mat-toolbar> -->
 </ng-container>

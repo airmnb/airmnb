@@ -157,6 +157,7 @@ export interface AccountProfile  {
   ageFrom?: number;
   ageTo?: number;
   languages?: string[];
+  description?: string;
   // For consumer
   babies?: string[];
   emergencyContact?: string;
@@ -197,6 +198,8 @@ export interface Booking {
   open: boolean;
 }
 
-
-// 936,706,490
-// 1.09:56:04
+export interface SelectOption {
+  value: any;
+  label?: string;
+  disabled?: boolean;
+}
