@@ -121,16 +121,19 @@ export class SlotComponent implements OnInit {
     return this.theSlot;
   }
 
-  onSubmit() {
+  async onSubmit() {
     const slot = this.modelToSlot();
-    const p = this.isNew ? this.add(slot) : this.update(slot);
-    p
-    .then(
-      () => {
-        this.router.navigate(['/slots']);
+    try {
+      if(this.isNew) {
+        await this.add(slot);
+      }else {
+        await this.update(slot);
       }
-    )
-    .catch(e => this.notificationService.error(e));
+      this.router.navigate(['/slots']);
+
+    }catch(e) {
+      this.notificationService.error(e);
+    }
   }
 
   private async add(slot: ServiceSlot): Promise<void>{

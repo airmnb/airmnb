@@ -50,10 +50,10 @@ const routes: Routes = [
     path: 'place/:id',
     component: EventPlaceComponent
   },
-  {
-    path: 'slotlist',
-    component: SlotListComponent
-  },
+  // {
+  //   path: 'slotlist',
+  //   component: SlotListComponent
+  // },
   {
     path: 'slots',
     component: SlotEditComponent,

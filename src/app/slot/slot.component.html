@@ -1,3 +1,5 @@
+<h1>{{isNew ? 'Add event' : 'Edit event'}}</h1>
+
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-6 offset-md-3">
@@ -8,11 +10,7 @@
           </mat-form-field>
         </div>
         <div class="col s12 m4">
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.date" name="date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+          <amb-datepicker placeholder="Choose a date" [(value)]="model.date"></amb-datepicker>
         </div>
         <div class="col s12 m4">
           <amb-timepicker [min]="6" [max]="18" placeholder="Starting time" [(value)]="model.timeFrom"></amb-timepicker>
@@ -21,32 +19,16 @@
           <amb-timepicker [min]="8" [max]="20" placeholder="Ending time" [(value)]="model.timeTo"></amb-timepicker>
         </div>
         <div class="col s12 m4">
-          <mat-form-field>
-            <mat-select placeholder="Age from" [(ngModel)]="model.ageFrom" name="ageFrom">
-              <mat-option value="-1">--</mat-option>
-              <mat-option value="2">2 years old</mat-option>
-              <mat-option value="3">3 years old</mat-option>
-              <mat-option value="4">4 years old</mat-option>
-              <mat-option value="5">5 years old</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <amb-agepicker [min]="2" [max]="5" placeholder="Age from" [(value)]="model.ageFrom"></amb-agepicker>
         </div>
         <div class="col s12 m4">
-          <mat-form-field>
-            <mat-select placeholder="Age to" [(ngModel)]="model.ageTo" name="ageTo">
-              <mat-option value="-1">--</mat-option>
-              <mat-option value="2">2 years old</mat-option>
-              <mat-option value="3">3 years old</mat-option>
-              <mat-option value="4">4 years old</mat-option>
-              <mat-option value="5">5 years old</mat-option>
-              <mat-option value="6">>= 6 years old</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <amb-agepicker [min]="2" [max]="6" placeholder="Age to" [(value)]="model.ageTo"></amb-agepicker>
         </div>
 
         <div class="col s12">
-          <label>Description</label>
-          <textarea placeholder="Description" [(ngModel)]="model.description" name="description"></textarea>
+          <mat-form-field>
+            <textarea matInput placeholder="Description" [(ngModel)]="model.description" name="description"></textarea>
+          </mat-form-field>
         </div>
 
         <div class="col s12 m4">
@@ -70,11 +52,12 @@
           <amb-image-uploader [(imageNames)]="model.imageNames" (uploadFinished)="onUploadFinished($event)"></amb-image-uploader>
         </div>
         <div class="row">
-          <hr>
-          <button type="submit" class="btn btn-success form-group btn-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
+        <div class="col s12">
+
+          <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
         </div>
+      </div>
       </form>
     </div>
   </div>
 </div>
-{{model | json}}

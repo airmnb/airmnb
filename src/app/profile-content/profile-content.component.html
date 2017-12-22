@@ -1,6 +1,7 @@
 <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
   {{errorMessage}}
 </div>
+<h1>{{isProvider ? "Provider" : "Consumer"}} profile</h1>
 <div class="container">
 
   <form #theForm="ngForm" (ngSubmit)="onSubmit()">

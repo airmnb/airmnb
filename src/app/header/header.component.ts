@@ -50,6 +50,8 @@ export class HeaderComponent implements OnInit {
 
   switchToProvider() {
     this.session.changeRole(Role.Provider);
+    this.router.navigateByUrl('/slots');
+
   }
 
   switchToConsumer() {

@@ -16,8 +16,11 @@ export class AppComponent implements OnInit  {
 
   title = 'Air Mom & Baby';
   language = 'en';
-  accountName = null;
   private _mobileQueryListener: () => void;
+
+  get accountName(): string {
+    return this.sessionService.account ? this.sessionService.account.name : null;
+  }
 
   constructor(
     private modalService: ModalService,
@@ -27,7 +30,7 @@ export class AppComponent implements OnInit  {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher){
 
-      this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 

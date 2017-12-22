@@ -99,6 +99,7 @@ import { EventPlaceListComponent } from './event-place-list/event-place-list.com
 import { SelectComponent } from './select/select.component';
 import { SelectOptionService } from './select-option.service';
 import { DatepickerComponent } from './datepicker/datepicker.component';
+import { AgepickerComponent } from './agepicker/agepicker.component';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
     EventPlaceComponent,
     EventPlaceListComponent,
     SelectComponent,
-    DatepickerComponent
+    DatepickerComponent,
+    AgepickerComponent
   ],
   imports: [
     MatMomentDateModule,
