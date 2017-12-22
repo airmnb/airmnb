@@ -70,6 +70,13 @@ var material_moment_adapter_1 = require("@angular/material-moment-adapter");
 var timepicker_component_1 = require("./timepicker/timepicker.component");
 var image_uploader_component_1 = require("./image-uploader/image-uploader.component");
 var event_place_component_1 = require("./event-place/event-place.component");
+var event_place_list_component_1 = require("./event-place-list/event-place-list.component");
+var select_component_1 = require("./select/select.component");
+var select_option_service_1 = require("./select-option.service");
+var datepicker_component_1 = require("./datepicker/datepicker.component");
+var agepicker_component_1 = require("./agepicker/agepicker.component");
+var babies_component_1 = require("./babies/babies.component");
+var baby_component_1 = require("./baby/baby.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -107,7 +114,13 @@ var AppModule = /** @class */ (function () {
                 map_search_component_1.MapSearchComponent,
                 timepicker_component_1.TimepickerComponent,
                 image_uploader_component_1.ImageUploaderComponent,
-                event_place_component_1.EventPlaceComponent
+                event_place_component_1.EventPlaceComponent,
+                event_place_list_component_1.EventPlaceListComponent,
+                select_component_1.SelectComponent,
+                datepicker_component_1.DatepickerComponent,
+                agepicker_component_1.AgepickerComponent,
+                babies_component_1.BabiesComponent,
+                baby_component_1.BabyComponent
             ],
             imports: [
                 material_moment_adapter_1.MatMomentDateModule,
@@ -182,7 +195,8 @@ var AppModule = /** @class */ (function () {
                 transaction_service_1.TransactionService,
                 baby_service_1.BabyService,
                 core_2.GoogleMapsAPIWrapper,
-                marker_manager_1.MarkerManager
+                marker_manager_1.MarkerManager,
+                select_option_service_1.SelectOptionService
             ],
             entryComponents: [
                 register_modal_component_1.RegisterModalComponent

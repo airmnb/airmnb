@@ -172,10 +172,11 @@ export interface BabyProfile {
   id: string;
   consumerId: string;
   nickName: string;
-  age: number;
+  dob: Date;
   gender: Gender;
   hobby?: string;
   info?: string;
+  imageName?: string;
 }
 
 export interface MapLocation {

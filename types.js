@@ -20,6 +20,4 @@ var Role;
     Role[Role["Consumer"] = 0] = "Consumer";
     Role[Role["Provider"] = 1] = "Provider";
 })(Role = exports.Role || (exports.Role = {}));
-// 936,706,490
-// 1.09:56:04
 //# sourceMappingURL=types.js.map

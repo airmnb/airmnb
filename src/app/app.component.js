@@ -13,15 +13,31 @@ var core_1 = require("@angular/core");
 var session_service_1 = require("./session.service");
 var router_1 = require("@angular/router");
 var modal_service_1 = require("./modal.service");
+var forms_1 = require("@angular/forms");
+var layout_1 = require("@angular/cdk/layout");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(modalService, sessionService, router) {
+    function AppComponent(modalService, sessionService, router, fb, changeDetectorRef, media) {
         this.modalService = modalService;
         this.sessionService = sessionService;
         this.router = router;
         this.title = 'Air Mom & Baby';
         this.language = 'en';
-        this.accountName = null;
+        this.mobileQuery = media.matchMedia('(max-width: 600px)');
+        this._mobileQueryListener = function () { return changeDetectorRef.detectChanges(); };
+        this.mobileQuery.addListener(this._mobileQueryListener);
+        this.options = fb.group({
+            'fixed': false,
+            'top': 0,
+            'bottom': 0,
+        });
     }
+    Object.defineProperty(AppComponent.prototype, "accountName", {
+        get: function () {
+            return this.sessionService.account ? this.sessionService.account.name : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
     AppComponent.prototype.ngOnInit = function () {
         this.sessionService.loadCookie();
     };
@@ -62,7 +78,10 @@ var AppComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [modal_service_1.ModalService,
             session_service_1.SessionService,
-            router_1.Router])
+            router_1.Router,
+            forms_1.FormBuilder,
+            core_1.ChangeDetectorRef,
+            layout_1.MediaMatcher])
     ], AppComponent);
     return AppComponent;
 }());

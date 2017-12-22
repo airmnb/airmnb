@@ -15,7 +15,7 @@ export class BabyContentComponent implements OnInit {
 
   model = {
     nickName: null,
-    age: null,
+    dob: null,
     gender: null,
     hobby: null,
     info: null
@@ -38,7 +38,7 @@ export class BabyContentComponent implements OnInit {
       id: uuid.v4(),
       nickName: this.model.nickName,
       consumerId: consumerId,
-      age: this.model.age,
+      dob: this.model.dob,
       gender: this.model.gender,
       hobby: this.model.hobby,
       info: this.model.info

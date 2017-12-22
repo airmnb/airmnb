@@ -1,7 +1,7 @@
 <h1>Event management</h1>
 <div class="container">
   <div class="row">
-    <div class="col-12">
+    <div class="col s12 l3">
       <button class="btn amb-block" routerLink="/slots/add">
         Add new
       </button>
@@ -35,41 +35,3 @@
     </div>
   </div>
 </div>
-<!-- <div class="row">
-    <table class="table table-striped">
-      <thead>
-        <th>Image</th>
-        <th>Title</th>
-        <th>Time</th>
-        <th>Gender</th>
-        <th>Age</th>
-        <th>Time</th>
-        <th>Price</th>
-        <th>Notice</th>
-        <th>Bookings</th>
-        <th>Action</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let slot of slots">
-          <td><img class="z-depth-3" width="200" [src]="getImageUrl(slot)"></td>
-          <td>{{slot.title}}</td>
-          <td>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</td>
-          <td>{{displayGender(slot.gender)}}</td>
-          <td>{{slot.ageFrom}} - {{slot.ageTo}}</td>
-          <td>{{displayTime(slot)}}</td>
-          <td>{{slot.price | currency}}</td>
-          <td>{{slot.otherCondition}}</td>
-          <td>{{slot.bookingCount}} / {{slot.capping}}</td>
-          <td>
-            <a href (click)="edit(slot)">
-
-            </a>
-            <a href (click)="delete(slot)">
-              <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div> -->

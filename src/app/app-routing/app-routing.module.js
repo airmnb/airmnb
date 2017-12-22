@@ -14,10 +14,6 @@ var consumer_dashboard_component_1 = require("../consumer-dashboard/consumer-das
 var aboutus_component_1 = require("../aboutus/aboutus.component");
 var add_slot_component_1 = require("../add-slot/add-slot.component");
 var provider_main_component_1 = require("../provider-main/provider-main.component");
-var login_component_1 = require("../login/login.component");
-var signup_component_1 = require("../signup/signup.component");
-var account_profile_component_1 = require("../account-profile/account-profile.component");
-var slot_list_component_1 = require("../slot-list/slot-list.component");
 var slot_edit_component_1 = require("../slot-edit/slot-edit.component");
 var slot_component_1 = require("../slot/slot.component");
 var booking_component_1 = require("../booking/booking.component");
@@ -25,6 +21,11 @@ var booking_view_component_1 = require("../booking-view/booking-view.component")
 var booking_list_component_1 = require("../booking-list/booking-list.component");
 var transactions_component_1 = require("../transactions/transactions.component");
 var event_place_component_1 = require("../event-place/event-place.component");
+var login_content_component_1 = require("../login-content/login-content.component");
+var signup_content_component_1 = require("../signup-content/signup-content.component");
+var profile_content_component_1 = require("../profile-content/profile-content.component");
+var babies_component_1 = require("../babies/babies.component");
+var baby_component_1 = require("../baby/baby.component");
 var routes = [
     {
         path: '',
@@ -32,19 +33,19 @@ var routes = [
     },
     {
         path: 'login',
-        component: login_component_1.LoginComponent
+        component: login_content_component_1.LoginContentComponent
     },
     {
         path: 'signup',
-        component: signup_component_1.SignupComponent
+        component: signup_content_component_1.SignupContentComponent
     },
     {
         path: 'profile',
-        component: account_profile_component_1.AccountProfileComponent
+        component: profile_content_component_1.ProfileContentComponent
     },
     {
         path: 'profile/:id',
-        component: account_profile_component_1.AccountProfileComponent
+        component: profile_content_component_1.ProfileContentComponent
     },
     {
         path: 'place',
@@ -54,10 +55,10 @@ var routes = [
         path: 'place/:id',
         component: event_place_component_1.EventPlaceComponent
     },
-    {
-        path: 'slotlist',
-        component: slot_list_component_1.SlotListComponent
-    },
+    // {
+    //   path: 'slotlist',
+    //   component: SlotListComponent
+    // },
     {
         path: 'slots',
         component: slot_edit_component_1.SlotEditComponent,
@@ -109,7 +110,19 @@ var routes = [
     {
         path: 'transactions',
         component: transactions_component_1.TransactionsComponent
-    }
+    },
+    {
+        path: 'babies',
+        component: babies_component_1.BabiesComponent
+    },
+    {
+        path: 'babies/add',
+        component: baby_component_1.BabyComponent
+    },
+    {
+        path: 'babies/:id',
+        component: baby_component_1.BabyComponent
+    },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

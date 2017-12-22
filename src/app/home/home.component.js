@@ -52,13 +52,15 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var moment = require("moment");
 var modal_service_1 = require("../modal.service");
 var notification_service_1 = require("../notification.service");
+var select_option_service_1 = require("../select-option.service");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(modalService, ngbTimerConfig, sessionService, router, mapService, notificationService) {
+    function HomeComponent(modalService, ngbTimerConfig, sessionService, router, mapService, notificationService, selectOptionService) {
         this.modalService = modalService;
         this.sessionService = sessionService;
         this.router = router;
         this.mapService = mapService;
         this.notificationService = notificationService;
+        this.selectOptionService = selectOptionService;
         this.submitted = false;
         this.model = {
             location: {
@@ -84,6 +86,13 @@ var HomeComponent = /** @class */ (function () {
         ngbTimerConfig.seconds = false;
         ngbTimerConfig.spinners = false;
     }
+    Object.defineProperty(HomeComponent.prototype, "ageOptions", {
+        get: function () {
+            return this.selectOptionService.ageFromOptions;
+        },
+        enumerable: true,
+        configurable: true
+    });
     HomeComponent.prototype.ngOnInit = function () {
         // Get the current geolocation
         if (navigator.geolocation) {
@@ -176,7 +185,8 @@ var HomeComponent = /** @class */ (function () {
             session_service_1.SessionService,
             router_1.Router,
             map_service_service_1.MapServiceService,
-            notification_service_1.NotificationService])
+            notification_service_1.NotificationService,
+            select_option_service_1.SelectOptionService])
     ], HomeComponent);
     return HomeComponent;
 }());

@@ -150,14 +150,35 @@ var SlotComponent = /** @class */ (function () {
         return this.theSlot;
     };
     SlotComponent.prototype.onSubmit = function () {
-        var _this = this;
-        var slot = this.modelToSlot();
-        var p = this.isNew ? this.add(slot) : this.update(slot);
-        p
-            .then(function () {
-            _this.router.navigate(['/slots']);
-        })
-            .catch(function (e) { return _this.notificationService.error(e); });
+        return __awaiter(this, void 0, void 0, function () {
+            var slot, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        slot = this.modelToSlot();
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 6, , 7]);
+                        if (!this.isNew) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.add(slot)];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, this.update(slot)];
+                    case 4:
+                        _a.sent();
+                        _a.label = 5;
+                    case 5:
+                        this.router.navigate(['/slots']);
+                        return [3 /*break*/, 7];
+                    case 6:
+                        e_1 = _a.sent();
+                        this.notificationService.error(e_1);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
+                }
+            });
+        });
     };
     SlotComponent.prototype.add = function (slot) {
         return __awaiter(this, void 0, void 0, function () {

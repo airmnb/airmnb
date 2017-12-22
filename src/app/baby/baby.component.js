@@ -45,88 +45,88 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var api_service_1 = require("../api.service");
+var apiFacade_1 = require("../apiFacade");
 var session_service_1 = require("../session.service");
-var router_1 = require("@angular/router");
-var modal_service_1 = require("../modal.service");
+var util_service_1 = require("../util.service");
 var notification_service_1 = require("../notification.service");
-var LoginContentComponent = /** @class */ (function () {
-    function LoginContentComponent(modalService, activeModal, loginService, sessionService, notificationService, router) {
-        this.modalService = modalService;
-        this.activeModal = activeModal;
-        this.loginService = loginService;
-        this.sessionService = sessionService;
-        this.notificationService = notificationService;
-        this.router = router;
+var router_state_1 = require("@angular/router/src/router_state");
+var BabyComponent = /** @class */ (function () {
+    function BabyComponent(session, api, util, notification, activatedRoute) {
+        this.session = session;
+        this.api = api;
+        this.util = util;
+        this.notification = notification;
+        this.activatedRoute = activatedRoute;
+        this.model = {
+            id: this.util.newGuid(),
+            consumerId: null,
+            nickName: null,
+            age: null,
+            gender: null,
+            hobby: null,
+            info: null,
+            imageName: null
+        };
     }
-    LoginContentComponent.prototype.ngOnInit = function () {
+    BabyComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activatedRoute.params.subscribe(function (p) {
+            var slotId = p.id;
+            _this.isNew = !slotId;
+            if (!_this.isNew) {
+                // Edit mode
+                _this.api.babyProfileApi.getOne(slotId)
+                    .then(function (s) {
+                    _this.model = s;
+                }).catch(_this.notification.error);
+            }
+        });
     };
-    LoginContentComponent.prototype.onSubmit = function () {
+    BabyComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            var account, e_1;
+            var consumerId, babyProfile, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.submitted = true;
+                        consumerId = this.session.account.id;
+                        babyProfile = {
+                            id: this.util.newGuid(),
+                            nickName: this.model.nickName,
+                            consumerId: consumerId,
+                            age: this.model.age,
+                            gender: this.model.gender,
+                            hobby: this.model.hobby,
+                            info: this.model.info
+                        };
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, this.loginService.login({
-                                name: this.accountName,
-                                password: this.password,
-                                role: this.role
-                            })];
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.api.babyProfileApi.add(babyProfile)];
                     case 2:
-                        account = _a.sent();
-                        return [4 /*yield*/, this.sessionService.login(account, this.role)];
-                    case 3:
                         _a.sent();
-                        this.sessionService.getProfile().subscribe(function (p) { return _this.routeByProfile(p); });
-                        return [3 /*break*/, 5];
-                    case 4:
+                        return [3 /*break*/, 4];
+                    case 3:
                         e_1 = _a.sent();
-                        this.notificationService.error(e_1);
-                        this.submitted = false;
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        this.notification.error(e_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    LoginContentComponent.prototype.routeByProfile = function (p) {
-        if (p) {
-            this.router.navigateByUrl("/");
-        }
-        else {
-            this.notificationService.info("Please input your profile to continue the journey.");
-            this.router.navigate(['/profile']);
-        }
-    };
-    LoginContentComponent.prototype.signup = function () {
-        this.activeModal.dismiss();
-        this.modalService.openSignupModal();
-        return false;
-    };
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", String)
-    ], LoginContentComponent.prototype, "accountName", void 0);
-    LoginContentComponent = __decorate([
+    BabyComponent = __decorate([
         core_1.Component({
-            selector: 'amb-login-content',
-            templateUrl: './login-content.component.html',
-            styleUrls: ['./login-content.component.css']
+            selector: 'amb-baby',
+            templateUrl: './baby.component.html',
+            styleUrls: ['./baby.component.scss']
         }),
-        __metadata("design:paramtypes", [modal_service_1.ModalService,
-            ng_bootstrap_1.NgbActiveModal,
-            api_service_1.LoginService,
-            session_service_1.SessionService,
+        __metadata("design:paramtypes", [session_service_1.SessionService,
+            apiFacade_1.ApiFacade,
+            util_service_1.UtilService,
             notification_service_1.NotificationService,
-            router_1.Router])
-    ], LoginContentComponent);
-    return LoginContentComponent;
+            router_state_1.ActivatedRoute])
+    ], BabyComponent);
+    return BabyComponent;
 }());
-exports.LoginContentComponent = LoginContentComponent;
-//# sourceMappingURL=login-content.component.js.map
+exports.BabyComponent = BabyComponent;
+//# sourceMappingURL=baby.component.js.map

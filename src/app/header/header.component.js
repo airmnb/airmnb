@@ -27,7 +27,7 @@ var HeaderComponent = /** @class */ (function () {
     });
     Object.defineProperty(HeaderComponent.prototype, "isProvider", {
         get: function () {
-            return this.hasLoggedIn && this.session.role === types_1.Role.Provider;
+            return this.session.isProvider;
         },
         enumerable: true,
         configurable: true
@@ -41,7 +41,7 @@ var HeaderComponent = /** @class */ (function () {
     });
     Object.defineProperty(HeaderComponent.prototype, "isConsumer", {
         get: function () {
-            return this.hasLoggedIn && this.session.role === types_1.Role.Consumer;
+            return this.session.isConsumer;
         },
         enumerable: true,
         configurable: true
@@ -64,6 +64,7 @@ var HeaderComponent = /** @class */ (function () {
     };
     HeaderComponent.prototype.switchToProvider = function () {
         this.session.changeRole(types_1.Role.Provider);
+        this.router.navigateByUrl('/slots');
     };
     HeaderComponent.prototype.switchToConsumer = function () {
         this.session.changeRole(types_1.Role.Consumer);

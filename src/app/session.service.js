@@ -45,6 +45,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var types_1 = require("../../types");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var Subject_1 = require("rxjs/Subject");
 var Observable_1 = require("rxjs/Observable");
@@ -87,14 +88,31 @@ var SessionService = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(SessionService.prototype, "isProvider", {
+        get: function () {
+            // tslint:disable-next-line:triple-equals
+            return this.role == types_1.Role.Provider;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SessionService.prototype, "isConsumer", {
+        get: function () {
+            // tslint:disable-next-line:triple-equals
+            return this.role == types_1.Role.Consumer;
+        },
+        enumerable: true,
+        configurable: true
+    });
     SessionService.prototype.changeRole = function (role) {
         this._role = role;
         this.router.navigateByUrl('/');
     };
     SessionService.prototype.assureRole = function (role) {
-        console.log(role, this.role);
-        if (role !== this.role) {
-            this.router.navigateByUrl('/');
+        // tslint:disable-next-line:triple-equals
+        if (role != this.role) {
+            console.log("Expected " + JSON.stringify(role) + ", but you are " + JSON.stringify(this.role));
+            // this.router.navigateByUrl('/');
         }
     };
     SessionService.prototype.login = function (account, role) {

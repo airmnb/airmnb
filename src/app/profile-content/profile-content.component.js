@@ -53,9 +53,9 @@ var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var router_1 = require("@angular/router");
 var ProfileContentComponent = /** @class */ (function () {
-    function ProfileContentComponent(api, sessionService, notificationService, slotImageService, util, router) {
+    function ProfileContentComponent(api, session, notificationService, slotImageService, util, router) {
         this.api = api;
-        this.sessionService = sessionService;
+        this.session = session;
         this.notificationService = notificationService;
         this.slotImageService = slotImageService;
         this.util = util;
@@ -84,13 +84,19 @@ var ProfileContentComponent = /** @class */ (function () {
             }
         };
     }
+    Object.defineProperty(ProfileContentComponent.prototype, "isProvider", {
+        get: function () {
+            return this.session.isProvider;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ProfileContentComponent.prototype.ngOnInit = function () {
         var _this = this;
         // this.getUploadedImages()
         // .then(images => this.images = images)
         // .catch(e => this.notificationService.error(e));
-        var accountId = this.sessionService.account.id;
-        console.log('accountId', accountId);
+        var accountId = this.session.account.id;
         this.api.accountProfileApi.get({ accountId: accountId })
             .then(function (p) { return _this.setModel(p); })
             .catch(function (e) { return _this.notificationService.error(e); });
@@ -106,6 +112,7 @@ var ProfileContentComponent = /** @class */ (function () {
         this.model.dob = p.dob;
         this.model.gender = p.gender;
         this.model.imageNames = p.imageNames;
+        this.model.description = p.description;
         // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
         // this.model.age.a34 = p.ageFrom <= 3 && 4 < p.ageTo;
         // this.model.age.a45 = p.ageFrom <= 4 && 5 < p.ageTo;
@@ -131,9 +138,10 @@ var ProfileContentComponent = /** @class */ (function () {
             lastName: this.model.lastName,
             dob: this.model.dob,
             location: this.model.location,
-            accountId: this.sessionService.account.id,
+            accountId: this.session.account.id,
             gender: this.model.gender,
             imageNames: this.model.imageNames,
+            description: this.model.description
         };
         this.api.accountProfileApi.add(p)
             .then(function (x) {
@@ -163,7 +171,7 @@ var ProfileContentComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        providerId = this.sessionService.account.id;
+                        providerId = this.session.account.id;
                         return [4 /*yield*/, this.slotImageService.saveImageNameForProvider(imageName, providerId)];
                     case 1:
                         _a.sent();
@@ -178,7 +186,7 @@ var ProfileContentComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        providerId = this.sessionService.account.id;
+                        providerId = this.session.account.id;
                         return [4 /*yield*/, this.slotImageService.getImageNamesForProvider(providerId)];
                     case 1:
                         names = _a.sent();

@@ -30,6 +30,9 @@
     <a matLine routerLink="/profile">Profile</a>
   </mat-list-item>
   <mat-list-item *ngIf="isConsumer">
+      <a matLine routerLink="/babies">Babies</a>
+  </mat-list-item>
+  <mat-list-item *ngIf="isConsumer">
     <a matLine (click)="switchToProvider()">Switch to provider</a>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">

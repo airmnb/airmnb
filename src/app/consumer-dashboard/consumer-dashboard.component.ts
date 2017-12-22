@@ -130,7 +130,7 @@ export class ConsumerDashboardComponent implements OnInit {
     const data = event.newData;
     const babyProfile: BabyProfile = {
       nickName: data.nickName,
-      age: data.age,
+      dob: data.dob,
       consumerId: this.sessionService.account.id,
       gender: data.gender,
       id: uuid.v4(),
@@ -145,7 +145,7 @@ export class ConsumerDashboardComponent implements OnInit {
     const data = event.newData;
     const babyProfile: BabyProfile = {
       nickName: data.nickName,
-      age: data.age,
+      dob: data.dob,
       id: data.id,
       consumerId: this.sessionService.account.id,
       gender: data.gender,

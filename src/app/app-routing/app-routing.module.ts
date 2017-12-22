@@ -21,6 +21,8 @@ import { EventPlaceComponent } from '../event-place/event-place.component';
 import { LoginContentComponent } from '../login-content/login-content.component';
 import { SignupContentComponent } from '../signup-content/signup-content.component';
 import { ProfileContentComponent } from '../profile-content/profile-content.component';
+import { BabiesComponent } from '../babies/babies.component';
+import { BabyComponent } from '../baby/baby.component';
 const routes: Routes = [
   {
     path: '',
@@ -106,7 +108,19 @@ const routes: Routes = [
   {
     path: 'transactions',
     component: TransactionsComponent
-  }
+  },
+  {
+    path: 'babies',
+    component: BabiesComponent
+  },
+  {
+    path: 'babies/add',
+    component: BabyComponent
+  },
+  {
+    path: 'babies/:id',
+    component: BabyComponent
+  },
 ];
 
 @NgModule({
