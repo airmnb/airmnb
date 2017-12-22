@@ -1,5 +1,5 @@
 <ng-container class="amb-outer-container">
-  <mat-toolbar color="primary" class="amb-header green darken-1 white-text">
+  <mat-toolbar color="primary" class="amb-header">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -8,7 +8,7 @@
 
 
   <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 56">
-    <mat-sidenav #sidenav opened="false" class="amb-sidenav grey lighten-3"
+    <mat-sidenav #sidenav opened="false" class="amb-sidenav"
     [mode]="mobileQuery.matches ? 'over' : 'side'"
     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
     [fixedTopGap]="56" [fixedBottomGap]="0">
@@ -29,7 +29,7 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-  <!-- <mat-toolbar class="amb-footer green darken-1 white-text">
+  <!-- <mat-toolbar class="amb-footer">
     <p><small>Copyright 2018</small></p>
   </mat-toolbar> -->
 </ng-container>
