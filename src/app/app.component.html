@@ -1,11 +1,12 @@
 <ng-container class="amb-outer-container">
-  <mat-toolbar color="primary" class="amb-header">
+  <mat-toolbar color="primary" [ngClass]="{'red': isProvider, 'lighten-2': isProvider}" class="amb-header">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <a routerLink="/" class="white-text">Air Mom & Baby</a>
+    <a routerLink="/" class="white-text" (click)="sidenav.close()">Air Mom & Baby</a>
     <div style="width:100%">
-      <small class="right">{{accountName}}</small>
+      <small class="right" *ngIf="accountName">{{accountName}}</small>
+      <small class="right" *ngIf="!accountName"><a routerLink="/login" class="white-text"  (click)="sidenav.close()">Log in</a></small>
     </div>
   </mat-toolbar>
 

@@ -28,8 +28,22 @@
         </mat-select>
       </mat-form-field>
     </div>
-
     <div class="col s12 m4">
+        <mat-form-field>
+          <input matInput type="date" placeholder="Choose a date" [(ngModel)]="model.date" name="date">
+        </mat-form-field>
+      </div>
+      <div class="col s12 m4">
+          <mat-form-field>
+            <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="Choose starting time" [(ngModel)]="model.timeFrom" name="timeFrom">
+          </mat-form-field>
+        </div>
+        <div class="col s12 m4">
+            <mat-form-field>
+              <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="Choose ending time" [(ngModel)]="model.timeTo" name="timeTo">
+            </mat-form-field>
+          </div>
+    <!-- <div class="col s12 m4">
         <amb-datepicker placeholder="Choose a date" [(value)]="model.date"></amb-datepicker>
     </div>
     <div class="col s12 m4">
@@ -38,7 +52,7 @@
     <div class="col s12 m4">
       <amb-timepicker [min]="8" [max]="20" placeholder="Ending time" [(value)]="model.timeTo"></amb-timepicker>
     </div>
-  </div>
+  </div> -->
 
   <div class="row">
     <div class="col s12 right-align">

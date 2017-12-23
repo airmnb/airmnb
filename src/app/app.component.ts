@@ -19,12 +19,16 @@ export class AppComponent implements OnInit  {
   private _mobileQueryListener: () => void;
 
   get accountName(): string {
-    return this.sessionService.account ? this.sessionService.account.name : null;
+    return this.session.account ? this.session.account.name : null;
+  }
+
+  get isProvider(): boolean {
+    return this.session.isProvider;
   }
 
   constructor(
     private modalService: ModalService,
-    private sessionService: SessionService,
+    private session: SessionService,
     private router: Router,
     fb: FormBuilder,
     changeDetectorRef: ChangeDetectorRef,
@@ -45,7 +49,7 @@ export class AppComponent implements OnInit  {
 
 
   ngOnInit(): void {
-    this.sessionService.loadCookie();
+    this.session.loadCookie();
   }
 
 
@@ -55,7 +59,7 @@ export class AppComponent implements OnInit  {
   }
 
   get hasLoggedIn(): boolean {
-    return !!this.sessionService.account;
+    return !!this.session.account;
   }
 
   login() {
