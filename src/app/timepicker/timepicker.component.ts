@@ -17,6 +17,7 @@ export class TimepickerComponent implements OnInit {
     this._max = value;
     this.setOptions();
   }
+  @Input() required: boolean;
 
   @Input() placeholder: string;
 

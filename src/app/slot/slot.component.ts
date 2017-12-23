@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ServiceSlot, Gender } from '../../../types';
+import { ServiceSlot, Gender, EventSite, SelectOption, MapLocation } from '../../../types';
 import * as uuid from "uuid";
 import { ApiServiceFactory, ApiService } from '../api.service';
 import { SessionService } from '../session.service';
@@ -21,33 +21,34 @@ export class SlotComponent implements OnInit {
 
   @Input() set slot(value: ServiceSlot) {
     if(value) {
-      this.theSlot = value;
+      this.model = value;
       this.isNew = false;
     }
   }
 
-  model = {
-    title: null,
-    date: new Date(),
-    timeFrom: 9,
-    timeTo: 12,
-    ageFrom: 2,
-    ageTo: 6,
-    description: null,
-    capping: null,
-    vacancy: null,
-    price: null,
-    imageNames: [],
-  };
+  private _siteId: string;
+  get siteId(): string {
+    return this._siteId;
+  }
+  set siteId(siteId: string) {
+    this._siteId = siteId;
+    this.model.siteId = siteId;
+    const site = this.sites.find(x => x.id === siteId);
+    if(site) {
+      this.model.location = site.location;
+    } else {
+      this.model.location = null;
+    }
+  }
 
-  theSlot: ServiceSlot = {
+  model: ServiceSlot = {
     id: this.util.newGuid(),
     capping: 5,
     bookingCount: 0,
     gender: Gender.Either,
     otherCondition: null,
     price: 8,
-    providerId: this.sessionService.account.id,
+    providerId: this.session.account.id,
     text: null,
     title: null,
     ageFrom: 2,
@@ -55,12 +56,17 @@ export class SlotComponent implements OnInit {
     start: new Date(),
     end: null,
     imageNames: null,
-    eventPlaceId: null
+    eventPlaceId: null,
+    siteId: null,
+    location: <MapLocation>null
   };
+
+  sites: EventSite[];
+  siteOptions: SelectOption[];
 
   constructor(
     private api: ApiFacade,
-    private sessionService: SessionService,
+    private session: SessionService,
     private notificationService: NotificationService,
     private modalService: ModalService,
     public activeModal: NgbActiveModal,
@@ -79,55 +85,65 @@ export class SlotComponent implements OnInit {
         this.api.slotApi.getOne(slotId)
         .then(
           s => {
-            this.theSlot = s;
-            this.model = this.slotToModel(this.theSlot);
+            this.model = s;
+            this._siteId = s.siteId;
           }
         ).catch(
           e => this.notificationService.error(e)
         );
       }
     });
+    this.loadSiteOptions();
   }
 
-  private slotToModel(slot: ServiceSlot) {
-    const m = {
-      title: slot.title,
-      date: this.util.getYearMonthDate(slot.start),
-      timeFrom: this.util.getHour(slot.start),
-      timeTo: this.util.getHour(slot.end),
-      ageFrom: slot.ageFrom,
-      ageTo: slot.ageTo,
-      description: slot.otherCondition,
-      capping: slot.capping,
-      vacancy: slot.capping - slot.bookingCount,
-      price: slot.price,
-      imageNames: slot.imageNames
-    };
-    return m;
+  private async loadSiteOptions() {
+    const providerId = this.session.account.id;
+    const sites = await this.api.eventSiteApi.list({providerId});
+    this.sites = sites;
+    this.siteOptions = sites.map(s => ({
+      label: `${s.name} - ${s.location.address}`,
+      value: s.location
+    }));
   }
 
-  private modelToSlot(): ServiceSlot {
-    this.theSlot = Object.assign(this.theSlot, {
-      title: this.model.title,
-      start: this.util.getDate(this.model.date, this.model.timeFrom),
-      end: this.util.getDate(this.model.date, this.model.timeTo),
-      capping: this.model.capping,
-      ageFrom: this.model.ageFrom,
-      ageTo: this.model.ageTo,
-      price: this.model.price,
-      otherCondition: this.model.description,
-      imageNames: this.model.imageNames
-    });
-    return this.theSlot;
-  }
+  // private slotToModel(slot: ServiceSlot) {
+  //   const m = {
+  //     title: slot.title,
+  //     date: this.util.getYearMonthDate(slot.start),
+  //     timeFrom: this.util.getHour(slot.start),
+  //     timeTo: this.util.getHour(slot.end),
+  //     ageFrom: slot.ageFrom,
+  //     ageTo: slot.ageTo,
+  //     description: slot.otherCondition,
+  //     capping: slot.capping,
+  //     vacancy: slot.capping - slot.bookingCount,
+  //     price: slot.price,
+  //     imageNames: slot.imageNames
+  //   };
+  //   return m;
+  // }
+
+  // private modelToSlot(): ServiceSlot {
+  //   this.theSlot = Object.assign(this.theSlot, {
+  //     title: this.model.title,
+  //     start: this.util.getDate(this.model.date, this.model.timeFrom),
+  //     end: this.util.getDate(this.model.date, this.model.timeTo),
+  //     capping: this.model.capping,
+  //     ageFrom: this.model.ageFrom,
+  //     ageTo: this.model.ageTo,
+  //     price: this.model.price,
+  //     otherCondition: this.model.description,
+  //     imageNames: this.model.imageNames
+  //   });
+  //   return this.theSlot;
+  // }
 
   async onSubmit() {
-    const slot = this.modelToSlot();
     try {
       if(this.isNew) {
-        await this.add(slot);
+        await this.add(this.model);
       }else {
-        await this.update(slot);
+        await this.update(this.model);
       }
       this.router.navigate(['/slots']);
 

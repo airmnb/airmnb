@@ -113,6 +113,8 @@ export interface ServiceSlot {
   bookingCount: number;
   imageNames?: string[];
   eventPlaceId: string;
+  siteId: string;
+  location: MapLocation;
 }
 
 export interface EventPlace {

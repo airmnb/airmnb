@@ -30,23 +30,23 @@ export class BookingListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRouter.params.subscribe(p => {
-      const slotId = p.slotId;
-      let task: Promise<void>;
-      if(slotId) {
-        // List for this slot
-        task = this.loadForSlot(slotId);
-      } else if(this.session.role === Role.Provider) {
-        // List all for provider
-        task = this.loadAllForProvider();
-      } else if(this.session.role === Role.Consumer) {
-        // List all for provider
-        task = this.loadAllForConsumer();
-      } else {
-        throw new Error('Impossible code block');
-      }
-      task.catch(this.notificationService.error);
-    });
+    // this.activatedRouter.params.subscribe(p => {
+    //   const slotId = p.slotId;
+    //   let task: Promise<void>;
+    //   if(slotId) {
+    //     // List for this slot
+    //     task = this.loadForSlot(slotId);
+    //   } else if(this.session.role === Role.Provider) {
+    //     // List all for provider
+    //     task = this.loadAllForProvider();
+    //   } else if(this.session.role === Role.Consumer) {
+    //     // List all for provider
+    //     task = this.loadAllForConsumer();
+    //   } else {
+    //     throw new Error('Impossible code block');
+    //   }
+    //   task.catch(this.notificationService.error);
+    // });
   }
 
   displayGender(gender: Gender): string {

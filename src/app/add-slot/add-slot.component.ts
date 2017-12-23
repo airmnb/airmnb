@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceSlot } from '../../../types';
+import { ServiceSlot, MapLocation } from '../../../types';
 import * as uuid from "uuid";
 import { SessionService } from '../session.service';
 import * as moment from "moment";
@@ -39,7 +39,9 @@ export class AddSlotComponent implements OnInit {
       capping: 5,
       bookingCount: 0,
       price: 50,
-      eventPlaceId: null
+      eventPlaceId: null,
+      siteId: null,
+      location: <MapLocation>null
     };
   }
 

@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get isProvider(): boolean {
-    return this.session.isProvider;
+    return this.hasLoggedIn && this.session.isProvider;
   }
 
   get role(): Role {
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get isConsumer(): boolean {
-    return this.session.isConsumer;
+    return this.hasLoggedIn && this.session.isConsumer;
   }
 
   get accountName(): string {

@@ -8,20 +8,20 @@
   right: 0;
 }
 
-/* .amb-container {
+.amb-container {
   position: absolute;
-  top: 60px;
-  bottom: 60px;
+  top: 56px;
+  bottom: 0px;
   left: 0;
   right: 0;
-} */
+}
 
 .amb-sidenav {
   display: flex;
   /* align-items: center; */
   /* justify-content: center; */
   width: 100%;
-  max-width: 300px;
+  max-width: 250px;
 }
 
 .amb-sidenav-content {
@@ -36,6 +36,7 @@
   left: 0;
   right: 0;
   z-index: 2;
+  height: 56px;
 }
 
 .amb-footer {
@@ -44,4 +45,5 @@
   left: 0;
   right: 0;
   z-index: 2;
+  height: 56px;
 }

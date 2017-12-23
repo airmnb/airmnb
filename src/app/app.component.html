@@ -10,18 +10,12 @@
   </mat-toolbar>
 
 
-  <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 56">
+  <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
     <mat-sidenav #sidenav opened="false" class="amb-sidenav"
     [mode]="mobileQuery.matches ? 'over' : 'side'"
     [fixedInViewport]="mobileQuery.matches"
     [fixedTopGap]="56" [fixedBottomGap]="0">
-      <div class="container">
-        <div class="row">
-          <div class="col s12">
-            <amb-header (click)="sidenav.close()"></amb-header>
-          </div>
-        </div>
-      </div>
+            <amb-header style="width:100%;" (click)="sidenav.close()"></amb-header>
     </mat-sidenav>
 
     <mat-sidenav-content [formGroup]="options" class="amb-sidenav-content">
