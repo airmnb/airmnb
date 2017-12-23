@@ -23,6 +23,8 @@ import { SignupContentComponent } from '../signup-content/signup-content.compone
 import { ProfileContentComponent } from '../profile-content/profile-content.component';
 import { BabiesComponent } from '../babies/babies.component';
 import { BabyComponent } from '../baby/baby.component';
+import { SitesComponent } from '../sites/sites.component';
+import { SiteComponent } from '../site/site.component';
 const routes: Routes = [
   {
     path: '',
@@ -56,6 +58,18 @@ const routes: Routes = [
   //   path: 'slotlist',
   //   component: SlotListComponent
   // },
+  {
+    path: 'sites',
+    component: SitesComponent
+  },
+  {
+    path: 'sites/add',
+    component: SiteComponent
+  },
+  {
+    path: 'sites/:id',
+    component: SiteComponent
+  },
   {
     path: 'slots',
     component: SlotEditComponent,

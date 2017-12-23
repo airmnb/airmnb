@@ -15,7 +15,10 @@
     <a matLine routerLink="/login">Log in</a>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">
-    <a matLine routerLink="/slots">Slots</a>
+      <a matLine routerLink="/sites">Sites</a>
+    </mat-list-item>
+  <mat-list-item *ngIf="isProvider">
+    <a matLine routerLink="/slots">Events</a>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">
     <a matLine routerLink="/slots/bookings">Bookings</a>

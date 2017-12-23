@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService, ApiServiceFactory } from './api.service';
-import { ServiceSlot, Account, BabyProfile, Transaction, Booking, Image, AccountProfile, EventPlace } from '../../types';
+import { ServiceSlot, Account, BabyProfile, Transaction, Booking, Image, AccountProfile, EventPlace, EventSite } from '../../types';
 import { SessionService } from './session.service';
 import { NotificationService } from './notification.service';
 import { ImageService } from './slot-image.service';
@@ -16,6 +16,7 @@ export class ApiFacade {
   accountApi: ApiService<Account>;
   accountProfileApi: ApiService<AccountProfile>;
   babyProfileApi: ApiService<BabyProfile>;
+  eventSiteApi: ApiService<EventSite>;
 
   reviewModel: {};
 
@@ -29,6 +30,7 @@ export class ApiFacade {
     this.accountApi = apiFactory.produce('account');
     this.accountProfileApi = apiFactory.produce('account_profile');
     this.babyProfileApi = apiFactory.produce('baby_profile');
+    this.eventSiteApi = apiFactory.produce('event_site');
   }
 
   getReviewContent() {

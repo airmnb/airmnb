@@ -102,6 +102,8 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
 import { AgepickerComponent } from './agepicker/agepicker.component';
 import { BabiesComponent } from './babies/babies.component';
 import { BabyComponent } from './baby/baby.component';
+import { SitesComponent } from './sites/sites.component';
+import { SiteComponent } from './site/site.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +144,9 @@ import { BabyComponent } from './baby/baby.component';
     DatepickerComponent,
     AgepickerComponent,
     BabiesComponent,
-    BabyComponent
+    BabyComponent,
+    SitesComponent,
+    SiteComponent
   ],
   imports: [
     MatMomentDateModule,

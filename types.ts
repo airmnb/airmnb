@@ -168,6 +168,15 @@ export interface Image {
   imageName: string;
 }
 
+export interface EventSite {
+  id: string;
+  providerId: string;
+  name: string;
+  location: MapLocation;
+  info?: string;
+  imageNames: string[];
+}
+
 export interface BabyProfile {
   id: string;
   consumerId: string;
