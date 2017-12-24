@@ -1,4 +1,36 @@
+<h1>Booking management</h1>
+
 <div class="container">
+    <div class="row">
+        <div class="col s12 m6 l3" *ngFor="let item of items">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{item.slot.title}}</mat-card-title>
+              <mat-card-subtitle>{{item.slot.start | date:'medium'}} - {{item.slot.end | date:'shortTime'}}</mat-card-subtitle>
+              <mat-card-subtitle>{{item.baby.nickName}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+            <mat-card-content>
+                <p>{{item.slot.ageFrom}} - {{item.slot.ageTo}}</p>
+                <p>{{displayGender(item.slot.gender)}}</p>
+              <p>
+                  {{item.slot.otherCondition}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <span *ngIf="!item.slot.price">Free event</span>
+                <span *ngIf="item.slot.price">{{item.slot.price | currency}}</span>
+
+              <button mat-button (click)="cancel(item.booking)" class="right">
+                <i class="fa fa-trash fa-lg" aria-hidden="true"></i>Delete
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+
+<!--
   <table class="table table-striped">
     <thead>
       <tr>
@@ -29,5 +61,5 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 </div>

@@ -104,6 +104,7 @@ import { BabiesComponent } from './babies/babies.component';
 import { BabyComponent } from './baby/baby.component';
 import { SitesComponent } from './sites/sites.component';
 import { SiteComponent } from './site/site.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,8 @@ import { SiteComponent } from './site/site.component';
     BabiesComponent,
     BabyComponent,
     SitesComponent,
-    SiteComponent
+    SiteComponent,
+    SearchResultComponent
   ],
   imports: [
     MatMomentDateModule,

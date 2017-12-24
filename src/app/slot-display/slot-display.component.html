@@ -1,4 +1,4 @@
-<div class="contianer">
+<!-- <div class="contianer">
   <div class="row">
     <div class="col-12">
       <div class="d-inline float-right">
@@ -11,10 +11,10 @@
       <ngb-carousel>
         <ng-template ngbSlide *ngFor="let imageName of slot.imageNames">
           <img [src]="getImageUrl(imageName)" class="img-thumbnail" alt="Slot image">
-          <!-- <div class="carousel-caption">
+          <div class="carousel-caption">
             <h3>10 seconds between slides...</h3>
             <p>This carousel uses customized default values.</p>
-          </div> -->
+          </div>
         </ng-template>
       </ngb-carousel>
   </div>
@@ -29,6 +29,22 @@
   <div class="row">
     <h2>Choose your baby</h2>
   </div>
-</div>
+</div> -->
 
-
+<mat-card *ngIf="slot">
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>{{slot.title}}</mat-card-title>
+    <mat-card-subtitle>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+  <mat-card-content>
+    <p>
+      {{displayGender(slot.gender)}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}}
+    </p>
+    <p>
+      {{slot.otherCondition}}
+    </p>
+    <p>{{slot.bookingCount}} / {{slot.capping}}</p>
+  </mat-card-content>
+</mat-card>

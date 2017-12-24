@@ -5,6 +5,10 @@
 </ul> -->
 
 <mat-nav-list>
+  <mat-list-item *ngIf="isConsumer">
+    <a matLine routerLink="/">Search events</a>
+    <i class="fa fa-flag right" aria-hidden="true"></i>
+  </mat-list-item>
   <mat-list-item>
     <a matLine routerLink="/aboutus">About us</a>
     <i class="fa fa-home right" aria-hidden="true"></i>

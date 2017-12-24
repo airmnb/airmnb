@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
     try{
       const queryObj = this.composeQuery();
       const queryParams = {q: JSON.stringify(queryObj)};
-      this.router.navigate(['/consumer'], {queryParams});
+      this.router.navigate(['/search'], {queryParams});
     }catch (e){
       this.notificationService.error(e);
       this.submitted = false;

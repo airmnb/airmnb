@@ -31,7 +31,11 @@ export class SlotDisplayComponent implements OnInit {
       'Both';
   }
 
-  getImageUrl(imageName: string): string {
-    return this.imageService.getImageUrls([imageName])[0];
+  getImageUrl(slot: ServiceSlot): string {
+    const imageNames = slot.imageNames;
+    if (imageNames && imageNames.length) {
+      return this.imageService.getImageUrl(imageNames[0]);
+    }
+    return null;
   }
 }

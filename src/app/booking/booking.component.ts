@@ -5,6 +5,7 @@ import { ApiFacade } from '../apiFacade';
 import { NotificationService } from '../notification.service';
 import { UtilService } from '../util.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatStepper } from '@angular/material';
 
 @Component({
   selector: 'amb-booking',
@@ -17,7 +18,7 @@ export class BookingComponent implements OnInit {
   slot: ServiceSlot;
   babies: BabyProfile[];
   theBaby: BabyProfile;
-  isCompleted: boolean;
+  isComplete: boolean;
   bookingLink: string;
 
   constructor(
@@ -28,10 +29,22 @@ export class BookingComponent implements OnInit {
     private activatedRouter: ActivatedRoute
   ) { }
 
+  get isFreeEvent(): boolean {
+    return this.slot && !this.slot.price;
+  }
+
   ngOnInit() {
     this.activatedRouter.params.subscribe(p => {
       this.loadData(p.slotId).catch(e => this.notificationService.error(e));
     });
+  }
+
+  goBack(stepper: MatStepper){
+    stepper.previous();
+  }
+
+  goForward(stepper: MatStepper){
+    stepper.next();
   }
 
   private async loadData(slotId: string): Promise<void> {
@@ -49,14 +62,14 @@ export class BookingComponent implements OnInit {
   onPaymentNext(event) {
   }
 
-  onComplete(event){
-    this.createBooking().then(bookingId => {
-        this.bookingLink = this.util.getBookingDeepLinkUrl(bookingId);
-        this.isCompleted = true;
-      }
-    )
-    .catch(e => this.notificationService.error(e));
-    console.log(event);
+  async onSubmit(event){
+    try {
+      const bookingId = await this.createBooking();
+      this.bookingLink = this.util.getBookingDeepLinkUrl(bookingId);
+      this.isComplete = true;
+    } catch(e) {
+      this.notificationService.error(e);
+    }
   }
 
   private async createBooking(): Promise<string> {

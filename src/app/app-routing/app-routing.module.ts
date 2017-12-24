@@ -25,6 +25,7 @@ import { BabiesComponent } from '../babies/babies.component';
 import { BabyComponent } from '../baby/baby.component';
 import { SitesComponent } from '../sites/sites.component';
 import { SiteComponent } from '../site/site.component';
+import { SearchResultComponent } from '../search-result/search-result.component';
 const routes: Routes = [
   {
     path: '',
@@ -114,6 +115,10 @@ const routes: Routes = [
   {
     path: 'consumer',
     component: ConsumerDashboardComponent
+  },
+  {
+    path: 'search',
+    component: SearchResultComponent
   },
   {
     path: 'aboutus',

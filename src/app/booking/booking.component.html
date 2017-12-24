@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <form-wizard *ngIf="slot">
     <wizard-step [title]="'Choose baby'" [isValid]="theBaby" (onNext)="onChooseBabyNext($event)">
       <amb-slot-display [slot]="slot"></amb-slot-display>
@@ -8,7 +8,7 @@
         <option *ngFor="let baby of babies" [ngValue]="baby">{{baby.nickName}}</option>
       </select>
     </wizard-step>
-    <wizard-step [title]="'Payment Information'" (onNext)="onPaymentNext($event)">
+    <wizard-step *ngIf="!isFreeEvent" [title]="'Payment Information'" (onNext)="onPaymentNext($event)">
       <p>fake payment method - Credit card/PayPal/Weixin</p>
     </wizard-step>
     <wizard-step [title]="'Completed'" (onComplete)="onComplete($event)">
@@ -32,4 +32,67 @@
       </div>
     </wizard-step>
   </form-wizard>
+</div> -->
+
+<div *ngIf="!isComplete">
+  <h1>Booking</h1>
+  <mat-vertical-stepper #stepper [linear]="true">
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>
+          <i class="fa fa-child" aria-hidden="true"></i> Choose baby
+        </ng-template>
+        <mat-form-field>
+          <mat-select placeholder="Select baby" [(ngModel)]="theBaby" name="baby" required (ngModelChange)="goForward(stepper)">
+            <mat-option *ngFor="let baby of babies" [value]="baby">
+              {{baby.nickName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step *ngIf="!isFreeEvent">
+      <form>
+        <ng-template matStepLabel>
+          <i class="fa fa-credit-card" aria-hidden="true"></i> Payment method
+        </ng-template>
+        <p>Fake payment</p>
+        <mat-form-field>
+          <input matInput placeholder="Card number" required>
+        </mat-form-field>
+        <div>
+          <button class="btn waves-effect waves-light amb-block" (click)="goForward(stepper)">OK</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Confirm booking
+      </ng-template>
+      <div>
+        <p *ngIf="slot">Price: {{slot.price}}</p>
+        <p *ngIf="baby">For: {{baby.nickName}}</p>
+        <p>
+          <strong>You sure?</strong>
+        </p>
+      </div>
+
+      <div>
+        <amb-slot-display [slot]="slot"></amb-slot-display>
+      </div>
+      <div>
+        <button class="btn waves-effect waves-light amb-block" (click)="onSubmit()">Submit</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>
+
+<div class="container" *ngIf="isComplete">
+  <h1>Thank you for your booking!</h1>
+  <p>You can find your booking
+    <a href="{{bookingLink}}" target="blank">{{bookingLink}}</a>
+  </p>
+  <div>
+    <a matButton class="btn waves-effect waves-light amb-block" routerLink="/">OK</a>
+  </div>
 </div>
