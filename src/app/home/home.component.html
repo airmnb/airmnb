@@ -1,49 +1,51 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <h1>Search events</h1>
 <div class="amb-home-content">
-<div class="container">
-  <div class="row">
-    <div class="col s12">
-      <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
-    </div>
-    <div class="col s12 m4">
-      <mat-form-field>
-        <mat-select placeholder="Distance" [(ngModel)]="model.distance" name="distance">
-          <mat-option value="0">--</mat-option>
-          <mat-option value="1">1 km</mat-option>
-          <mat-option value="2">2 km</mat-option>
-          <mat-option value="5">5 km</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col s12 m4">
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
+      </div>
+      <div class="col s4">
+        <mat-form-field>
+          <mat-select placeholder="Distance" [(ngModel)]="model.distance" name="distance">
+            <mat-option value="0">--</mat-option>
+            <mat-option value="1">1 km</mat-option>
+            <mat-option value="2">2 km</mat-option>
+            <mat-option value="5">5 km</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col s4">
         <amb-select placeholder="Baby age" [(value)]="model.age" [options]="ageOptions"></amb-select>
-    </div>
-    <div class="col s12 m4">
-      <mat-form-field>
-        <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender">
-          <mat-option value="-1">--</mat-option>
-          <mat-option value="0">Girl</mat-option>
-          <mat-option value="1">Boy</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col s12 m4">
+      </div>
+      <div class="col s4">
+        <mat-form-field>
+          <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender">
+            <mat-option value="-1">--</mat-option>
+            <mat-option value="0">Girl</mat-option>
+            <mat-option value="1">Boy</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col s4">
         <mat-form-field>
           <input matInput type="date" placeholder="Choose a date" [(ngModel)]="model.date" name="date">
         </mat-form-field>
       </div>
-      <div class="col s12 m4">
-          <mat-form-field>
-            <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="Choose starting time" [(ngModel)]="model.timeFrom" name="timeFrom">
-          </mat-form-field>
-        </div>
-        <div class="col s12 m4">
-            <mat-form-field>
-              <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="Choose ending time" [(ngModel)]="model.timeTo" name="timeTo">
-            </mat-form-field>
-          </div>
-    <!-- <div class="col s12 m4">
+      <div class="col s4">
+        <mat-form-field>
+          <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="Choose starting time" [(ngModel)]="model.timeFrom"
+            name="timeFrom">
+        </mat-form-field>
+      </div>
+      <div class="col s4">
+        <mat-form-field>
+          <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="Choose ending time" [(ngModel)]="model.timeTo"
+            name="timeTo">
+        </mat-form-field>
+      </div>
+      <!-- <div class="col s12 m4">
         <amb-datepicker placeholder="Choose a date" [(value)]="model.date"></amb-datepicker>
     </div>
     <div class="col s12 m4">
@@ -54,11 +56,36 @@
     </div>
   </div> -->
 
-  <div class="row">
-    <div class="col s12 right-align">
-      <button class="btn waves-effect waves-light amb-block" (click)="search()">Search</button>
+      <div class="row">
+        <div class="col s12">
+          <button class="btn waves-effect waves-light amb-block" (click)="search()">Search</button>
+        </div>
+      </div>
     </div>
+
   </div>
+  <div class="container" *ngIf="slots">
+      <div class="row">
+          <div class="col s6 m4 l3" *ngFor="let slot of slots">
+              <mat-card (click)="book(slot)">
+                  <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+
+                <mat-card-header>
+                  <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                  <mat-card-title>{{slot.title}}</mat-card-title>
+                  <mat-card-subtitle><small>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</small></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    {{displayGender(slot.gender)}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}} {{slot.otherCondition}}
+                  </p>
+                  <p>
+                      {{slot.bookingCount}} / {{slot.capping}}
+                  </p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+      </div>
+    </div>
 </div>
-</div>
-<!-- <amb-map-search></amb-map-search> -->
+  <!-- <amb-map-search></amb-map-search> -->

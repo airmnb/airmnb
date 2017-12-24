@@ -8,11 +8,17 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col s12" *ngFor="let site of sites">
-      <mat-card>
+  <div class="row" *ngFor="let site of sites">
+    <div class="col s12">
+      <mat-card (click)="edit(site)">
+          <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="delete(site)">
+              <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+            </button>
         <mat-card-header>
-          <mat-card-title>{{site.name}}</mat-card-title>
+          <mat-card-title>
+            {{site.name}}
+
+          </mat-card-title>
           <mat-card-subtitle>{{site.location.address }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
@@ -20,14 +26,7 @@
             {{site.info}}
           </p>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="edit(site)">
-            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Edit
-          </button>
-          <button mat-button (click)="delete(site)">
-            <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete
-          </button>
-        </mat-card-actions>
+
 
         <!-- <img mat-card-image *ngIf="site.imageNames" [src]="getImageUrl(site)" alt="Site's photo"> -->
       </mat-card>

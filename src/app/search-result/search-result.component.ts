@@ -55,7 +55,6 @@ export class SearchResultComponent implements OnInit {
             list: [{value: 0, title: 'Girl'}, {value: 1, title: 'Boy'}]
           }
         },
-        valuePrepareFunction: this.displayGender
       },
       hobby: {
         title: 'Hobby',
@@ -110,12 +109,6 @@ export class SearchResultComponent implements OnInit {
     }
   }
 
-  private displayGender(cell, row){
-    const gender = cell === '1' ? 'Boy' :
-        cell === '0' ? 'Girl' : '';
-    return gender;
-  }
-
   private loadBabyProfiles(){
     if(!this.hasLoggedIn) {
       return;
@@ -128,4 +121,10 @@ export class SearchResultComponent implements OnInit {
     .catch(console.log);
   }
 
+  book(slot: ServiceSlot) {
+    if(!slot) {
+      return;
+    }
+    this.router.navigate(['/bookings/add/', slot.id]);
+  }
 }

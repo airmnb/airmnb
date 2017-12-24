@@ -52,7 +52,9 @@ export class SiteComponent implements OnInit {
         this.api.eventSiteApi.getOne(slotId)
         .then(
           s => {
-            this.model = s;
+            if(s) {
+              this.model = s;
+            }
           }
         ).catch(this.notification.error);
       }

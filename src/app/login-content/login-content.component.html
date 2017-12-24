@@ -1,28 +1,7 @@
 <form #theForm="ngForm" (ngSubmit)="onSubmit()">
   <fieldset [disabled]="submitted">
     <div class="container">
-      <div class="row">
-        <div class="col s12">
-          <button mat-raised-button color="primary" class="amb-block" disabled>
-            <i class="fa fa-facebook" aria-hidden="true"></i> Log in with Facebook
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          <button mat-raised-button color="primary" class="amb-block" disabled>
-            <i class="fa fa-google" aria-hidden="true"></i> Log in with Google
-          </button>
-        </div>
-      </div>
-      <pre>{{errorMessage | json}}</pre>
-      <div class="row">
-        <div class="col s12">
-          <button mat-raised-button color="primary" class="amb-block" disabled>
-            <i class="fa fa-weixin" aria-hidden="true"></i> Log in with Wechat
-          </button>
-        </div>
-      </div>
+
       <!-- <button class="btn btn-secondary form-group btn-block">
         <i class="fa fa-qq" aria-hidden="true"></i> Log in with QQ
       </button> -->
@@ -58,6 +37,28 @@
           </a>
         </div>
       </div>
+      <hr>
+      <div class="row">
+          <div class="col s12">
+            <button mat-raised-button color="primary" class="amb-block" disabled>
+              <i class="fa fa-facebook" aria-hidden="true"></i> Log in with Facebook
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <button mat-raised-button color="primary" class="amb-block" disabled>
+              <i class="fa fa-google" aria-hidden="true"></i> Log in with Google
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <button mat-raised-button color="primary" class="amb-block" disabled>
+              <i class="fa fa-weixin" aria-hidden="true"></i> Log in with Wechat
+            </button>
+          </div>
+        </div>
       <hr>
       <div class="row">
         <div class="col s12">

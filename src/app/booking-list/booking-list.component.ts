@@ -9,6 +9,7 @@ import { NotificationService } from '../notification.service';
 import { BabyService } from '../baby.service';
 import * as _ from 'underscore';
 import { UtilService } from '../util.service';
+import { ImageService } from '../slot-image.service';
 
 @Component({
   selector: 'amb-booking-list',
@@ -26,31 +27,45 @@ export class BookingListComponent implements OnInit {
     private slotService: SlotService,
     private notificationService: NotificationService,
     private babyService: BabyService,
-    private util: UtilService
+    private util: UtilService,
+    private imageService: ImageService
   ) { }
 
   ngOnInit() {
-    // this.activatedRouter.params.subscribe(p => {
-    //   const slotId = p.slotId;
-    //   let task: Promise<void>;
-    //   if(slotId) {
-    //     // List for this slot
-    //     task = this.loadForSlot(slotId);
-    //   } else if(this.session.role === Role.Provider) {
-    //     // List all for provider
-    //     task = this.loadAllForProvider();
-    //   } else if(this.session.role === Role.Consumer) {
-    //     // List all for provider
-    //     task = this.loadAllForConsumer();
-    //   } else {
-    //     throw new Error('Impossible code block');
-    //   }
-    //   task.catch(this.notificationService.error);
-    // });
+    this.activatedRouter.params.subscribe(p => {
+      const slotId = p.slotId;
+      let task: Promise<void>;
+      if(slotId) {
+        // List for this slot
+        task = this.loadForSlot(slotId);
+      } else if(this.session.isProvider) {
+        // List all for provider
+        task = this.loadAllForProvider();
+      } else if(this.session.isConsumer) {
+        // List all for consumer
+        task = this.loadAllForConsumer();
+      } else {
+        alert('Impossible code block');
+        throw new Error('Impossible code block');
+      }
+      task.catch(this.notificationService.error);
+    });
   }
 
   displayGender(gender: Gender): string {
     return this.util.displayGender(gender);
+  }
+
+  getImageUrl(slot: ServiceSlot) : string {
+    if(slot.imageNames && slot.imageNames.length) {
+      return this.imageService.getImageUrl(slot.imageNames[0]);
+    } else {
+      return "";
+    }
+  }
+
+  getBabyImageUrl(baby: BabyProfile): string {
+    return baby.imageName ? this.imageService.getImageUrl(baby.imageName) : '';
   }
 
   private setModel(slots: ServiceSlot[], bookings: Booking[], babies: BabyProfile[]) {
@@ -83,9 +98,6 @@ export class BookingListComponent implements OnInit {
   }
 
   private async loadAllForProvider(): Promise<void> {
-    if(this.session.role !== Role.Provider) {
-      throw new Error("Not a provider");
-    }
     const accountId = this.session.account.id;
     const bookings = await this.bookingService.listBookingsForProvider(accountId);
     const slotIds = bookings.map(b => b.slotId);
@@ -95,9 +107,6 @@ export class BookingListComponent implements OnInit {
   }
 
   private async loadAllForConsumer(): Promise<void> {
-    if(this.session.role !== Role.Consumer) {
-      throw new Error("Not a consumer");
-    }
     const accountId = this.session.account.id;
     const bookings = await this.bookingService.listAliveBookingsForConsumer(accountId);
     const slotIds = bookings.map(b => b.slotId);

@@ -24,7 +24,7 @@ export class BabiesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.session.assureRole(Role.Provider);
+    this.session.assureRole(Role.Consumer);
     const accountId = this.session.account.id;
     this.loadBabies(accountId).subscribe(x => this.babies = x);
   }

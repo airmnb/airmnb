@@ -6,22 +6,22 @@
 
   <form #theForm="ngForm" (ngSubmit)="onSubmit()">
     <fieldset [disabled]="submitted">
-      <div class="col s12 m6">
+      <div class="row">
+      <div class="col s6">
         <mat-form-field>
           <input matInput placeholder="First name" [(ngModel)]="model.firstName" name="firstName">
         </mat-form-field>
       </div>
-      <div class="col s12 m6">
+      <div class="col s6">
         <mat-form-field>
           <input matInput placeholder="Last name" [(ngModel)]="model.lastName" name="lastName">
         </mat-form-field>
       </div>
-
-      <div class="col s12 m6">
+      <div class="col s6">
         <amb-datepicker placeholder="Date of birth" [(value)]="model.dob"></amb-datepicker>
       </div>
 
-      <div class="col s12 m6">
+      <div class="col s6">
         <mat-form-field>
           <mat-select placeholder="Gender" [(ngModel)]="model.gender" name="gender">
             <mat-option value="-1">--</mat-option>
@@ -30,7 +30,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-
+    </div>
       <!-- Provider specific starts -->
       <div class="form-group" *ngIf="isProvider">
         <label for="address">Address</label>

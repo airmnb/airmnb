@@ -8,8 +8,8 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col s12 m6" *ngFor="let baby of babies">
+  <!-- <div class="row">
+    <div class="col s6 m4" *ngFor="let baby of babies">
       <mat-card>
         <mat-card-actions class="right">
           <button mat-button (click)="edit(baby)">
@@ -32,44 +32,43 @@
             {{baby.info}}
           </p>
         </mat-card-content>
-        <img mat-card-image *ngIf="baby.imageName" [src]="getImageUrl(baby)" alt="Baby's photo">
       </mat-card>
     </div>
-  </div>
+  </div> -->
 
   <div class="row">
     <div class="col s12 m6" *ngFor="let baby of babies">
-      <div class="card horizontal">
-        <div class="card-image waves-effect waves-block waves-light" style="max-width:150px;">
-          <img class="activator" [src]="getImageUrl(baby)" alt="Baby's photo">
-        </div>
+      <div class="card small" (click)="edit(baby)">
         <div class="card-stacked">
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">{{baby.nickName}}
-              <small class="right">{{baby.dob | date:'mediumDate' }} {{displayGender(baby)}}</small>
-            </span>
+            <div>
+              <img class="amb-baby-avatar" [src]="getImageUrl(baby)" alt="Baby's photo">
+              <p class="card-title activator grey-text text-darken-4 right">{{baby.nickName}}
+              <br><small class="right">{{baby.dob | date:'mediumDate' }} {{displayGender(baby)}}</small></p>
+            </div>
+
             <div *ngIf="baby.hobby">
               <label>Hobby</label>
               <p>
                 {{baby.hobby}}
               </p>
+            </div>
+            <div *ngIf="baby.info">
+              <label>Additional information</label>
+              <p>
+                {{baby.info}}
+              </p>
+            </div>
           </div>
-          <div *ngIf="baby.info">
-            <label>Additional information</label>
-            <p>
-              {{baby.info}}
-            </p>
+          <div class="card-action">
+            <button mat-button (click)="edit(baby)">
+              <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Edit
+            </button>
+            <button mat-button (click)="delete(baby)">
+              <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete
+            </button>
           </div>
-        </div>
-        <div class="card-action">
-          <button mat-button (click)="edit(baby)">
-            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Edit
-          </button>
-          <button mat-button (click)="delete(baby)">
-            <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete
-          </button>
         </div>
       </div>
     </div>
   </div>
-</div>

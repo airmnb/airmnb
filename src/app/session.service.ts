@@ -57,7 +57,7 @@ export class SessionService {
     // tslint:disable-next-line:triple-equals
     if(role != this.role) {
       console.log(`Expected ${JSON.stringify(role)}, but you are ${JSON.stringify(this.role)}`);
-      // this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/');
     }
   }
 

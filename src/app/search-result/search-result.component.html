@@ -9,8 +9,8 @@
   </div>
 
   <div class="row">
-    <div class="col s12 m6 l3" *ngFor="let slot of slots">
-      <mat-card>
+    <div class="col s6 m4 l3" *ngFor="let slot of slots">
+      <mat-card (click)="book(slot)">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title>{{slot.title}}</mat-card-title>
@@ -23,11 +23,6 @@
             {{slot.bookingCount}} / {{slot.capping}}
           </p>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button [routerLink]="'/bookings/add/' + slot.id">
-            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Book
-          </button>
-        </mat-card-actions>
       </mat-card>
     </div>
   </div>

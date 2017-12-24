@@ -9,10 +9,13 @@
   </div>
 
   <div class="row">
-    <div class="col s12 m6 l3" *ngFor="let slot of slots">
-      <mat-card>
+    <div class="col s6 m4 l3" *ngFor="let slot of slots">
+      <mat-card (click)="edit(slot)">
+          <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="delete(slot)">
+              <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+            </button>
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
           <mat-card-title>{{slot.title}}</mat-card-title>
           <mat-card-subtitle>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</mat-card-subtitle>
         </mat-card-header>
@@ -23,14 +26,6 @@
             {{slot.bookingCount}} / {{slot.capping}}
           </p>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="edit(slot)">
-            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Edit
-          </button>
-          <button mat-button (click)="delete(slot)">
-            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>Delete
-          </button>
-        </mat-card-actions>
       </mat-card>
     </div>
   </div>

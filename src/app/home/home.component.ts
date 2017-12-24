@@ -3,11 +3,15 @@ import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { MapServiceService } from '../map-service.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { SearchQuery, SelectOption } from '../../../types';
+import { SearchQuery, SelectOption, ServiceSlot, Gender } from '../../../types';
 import * as moment from "moment";
 import { ModalService } from '../modal.service';
 import { NotificationService } from '../notification.service';
 import { SelectOptionService } from '../select-option.service';
+import { ApiService } from '../api.service';
+import { ApiFacade } from '../apiFacade';
+import { ImageService } from '../slot-image.service';
+import { UtilService } from '../util.service';
 
 @Component({
   selector: 'amb-home',
@@ -18,6 +22,8 @@ export class HomeComponent implements OnInit {
   get ageOptions(): SelectOption[] {
     return this.selectOptionService.ageFromOptions;
   }
+
+  public slots: ServiceSlot[];
 
   public submitted = false;
   public model = {
@@ -44,20 +50,45 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     ngbTimerConfig: NgbTimepickerConfig,
-    private sessionService: SessionService,
+    private session: SessionService,
     private router: Router,
     private mapService: MapServiceService,
     private notificationService: NotificationService,
-    private selectOptionService: SelectOptionService
+    private selectOptionService: SelectOptionService,
+    private api: ApiFacade,
+    private imageService: ImageService,
+    private util: UtilService
   ) {
     ngbTimerConfig.seconds = false;
     ngbTimerConfig.spinners = false;
   }
 
   ngOnInit(){
+    console.log('isProvider', this.session.isProvider);
+    if(this.session.isProvider) {
+      this.router.navigate(['slots']);
+      return;
+    }
     // Get the current geolocation
     if (navigator.geolocation){
        navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
+    }
+    this.loadSlots();
+  }
+
+  private async loadSlots() {
+    this.slots = await this.api.slotApi.list({$where: "this.bookingCount < this.capping"});
+  }
+
+  displayGender(gender: Gender): string {
+    return this.util.displayGender(gender);
+  }
+
+  getImageUrl(slot: ServiceSlot) : string {
+    if(slot.imageNames && slot.imageNames.length) {
+      return this.imageService.getImageUrl(slot.imageNames[0]);
+    } else {
+      return "";
     }
   }
 
@@ -68,6 +99,13 @@ export class HomeComponent implements OnInit {
         this.model.location = x;
       })
       .catch(e => null);
+  }
+
+  book(slot: ServiceSlot) {
+    if(!slot) {
+      return;
+    }
+    this.router.navigate(['/bookings/add/', slot.id]);
   }
 
   signup() {
@@ -83,7 +121,7 @@ export class HomeComponent implements OnInit {
   }
 
   get hasLoggedIn(): boolean{
-    return !!this.sessionService.account;
+    return !!this.session.account;
   }
 
   async search() {

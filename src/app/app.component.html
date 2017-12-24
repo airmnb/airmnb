@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <a routerLink="/" class="white-text" (click)="sidenav.close()">Air Mom & Baby</a>
+    <a routerLink="/" class="white-text" (click)="sidenav.close()">Air Mom & Baby{{isProvider ? " - provider" : ""}}</a>
     <div style="width:100%">
       <small class="right" *ngIf="accountName">{{accountName}}</small>
       <small class="right" *ngIf="!accountName"><a routerLink="/login" class="white-text"  (click)="sidenav.close()">Log in</a></small>
@@ -13,7 +13,7 @@
 
   <mat-sidenav-container class="amb-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
     <mat-sidenav #sidenav opened="false" class="amb-sidenav"
-    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [mode]="mobileQuery.matches ? 'over' : 'push'"
     [fixedInViewport]="mobileQuery.matches"
     [fixedTopGap]="56" [fixedBottomGap]="0">
             <amb-header style="width:100%;" (click)="sidenav.close()"></amb-header>

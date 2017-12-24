@@ -56,8 +56,7 @@ export class ConsumerDashboardComponent implements OnInit {
           config: {
             list: [{value: 0, title: 'Girl'}, {value: 1, title: 'Boy'}]
           }
-        },
-        valuePrepareFunction: this.displayGender
+        }
       },
       hobby: {
         title: 'Hobby',
