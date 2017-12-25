@@ -1,5 +1,5 @@
 <span>
-    <input [accept]="accept" type="file" (change)="onNativeInputFileSelect($event)" #inputFile hidden />
+    <input [accept]="accept" type="file" capture (change)="onNativeInputFileSelect($event)" #inputFile hidden />
     <button class="btn waves-effect waves-light amb-block" md-raised-button (click)="selectFile()">
         <i class="fa fa-camera" aria-hidden="true"></i>
         Take a photo to start
