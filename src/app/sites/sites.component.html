@@ -11,9 +11,9 @@
   <div class="row" *ngFor="let site of sites">
     <div class="col s12">
       <mat-card (click)="edit(site)">
-          <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="delete(site)">
-              <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
-            </button>
+        <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="delete(site);$event.stopPropagation()">
+          <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+        </button>
         <mat-card-header>
           <mat-card-title>
             {{site.name}}

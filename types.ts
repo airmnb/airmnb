@@ -82,10 +82,14 @@ export interface Transaction {
   startedAt?: Date;
   terminatedAt?: Date;
   finishedAt?: Date;
-  startedImageNameByProvider?: string;
-  startedImageNameByConsumer?: string;
-  doneImageNameByProvider?: string;
-  doneImageNameByConsumer?: string;
+  providerCheckInImageName?: string;
+  consumerCheckInImageName?: string;
+  providerCheckOutImageName?: string;
+  consumerCheckOutImageName?: string;
+  consumerCheckInAt?: Date;
+  providerCheckInAt?: Date;
+  consumerCheckOutAt?: Date;
+  providerCheckOutAt?: Date;
 }
 
 export enum TransactionStatus {

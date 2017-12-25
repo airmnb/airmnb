@@ -41,6 +41,9 @@ export class SlotEditComponent implements OnInit {
   }
 
   delete(slot: ServiceSlot) {
+    if(!confirm('Delete this one?')) {
+      return false;
+    }
     this.api.slotApi.delete(slot.id).then(() => {
       this.slots = this.slots.filter(x => x !== slot);
     });

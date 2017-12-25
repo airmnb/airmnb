@@ -60,6 +60,9 @@ export class BookingService {
   }
 
   async delete(booking: Booking): Promise<void> {
+    if(!confirm('Delete this one?')) {
+      return;
+    }
     await this.api.bookingApi.delete(booking.id);
     await this.api.slotApi.updateFunc(booking.slotId, x => {
       x.bookingCount--;

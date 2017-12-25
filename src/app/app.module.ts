@@ -105,6 +105,8 @@ import { BabyComponent } from './baby/baby.component';
 import { SitesComponent } from './sites/sites.component';
 import { SiteComponent } from './site/site.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { TakePhotoComponent } from './take-photo/take-photo.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +150,9 @@ import { SearchResultComponent } from './search-result/search-result.component';
     BabyComponent,
     SitesComponent,
     SiteComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    TakePhotoComponent,
+    TransactionComponent
   ],
   imports: [
     MatMomentDateModule,

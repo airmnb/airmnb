@@ -1,39 +1,3 @@
-<!-- <div class="container">
-  <form-wizard *ngIf="slot">
-    <wizard-step [title]="'Choose baby'" [isValid]="theBaby" (onNext)="onChooseBabyNext($event)">
-      <amb-slot-display [slot]="slot"></amb-slot-display>
-      <br>
-      <select class="custom-select input-group col-md-3" [(ngModel)]="theBaby" name="baby">
-        <option [ngValue]="null" disabled selected>Please select a baby</option>
-        <option *ngFor="let baby of babies" [ngValue]="baby">{{baby.nickName}}</option>
-      </select>
-    </wizard-step>
-    <wizard-step *ngIf="!isFreeEvent" [title]="'Payment Information'" (onNext)="onPaymentNext($event)">
-      <p>fake payment method - Credit card/PayPal/Weixin</p>
-    </wizard-step>
-    <wizard-step [title]="'Completed'" (onComplete)="onComplete($event)">
-      <div [ngSwitch]="isCompleted">
-        <div *ngSwitchDefault>
-            <ul class="list-group list-group-flush" *ngIf="slot && theBaby">
-                <li class="list-group-item">{{slot.title}}</li>
-                <li class="list-group-item">Time: {{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</li>
-                <li class="list-group-item">Age: {{slot.ageFrom}} - {{slot.ageTo}}</li>
-                <li class="list-group-item">Gender: {{displayGender(slot.gender)}}</li>
-                <li class="list-group-item" *ngIf="slot.otherCondition">{{slot.otherCondition}}</li>
-                <li class="list-group-item" *ngIf="!slot.price">Free event</li>
-                <li class="list-group-item" *ngIf="slot.price">{{slot.price | currency}}</li>
-                <li class="list-group-item">Baby: {{theBaby.nickName}}</li>
-              </ul>
-        </div>
-        <div *ngSwitchCase="true">
-          <h4>Thank you!</h4>
-          You can find your booking <a href="{{bookingLink}}" target="blank">{{bookingLink}}</a>
-        </div>
-      </div>
-    </wizard-step>
-  </form-wizard>
-</div> -->
-
 <div *ngIf="!isComplete">
   <h1>Booking</h1>
   <mat-vertical-stepper #stepper [linear]="true">
@@ -90,7 +54,7 @@
 <div class="container" *ngIf="isComplete">
   <h1>Thank you for your booking!</h1>
   <p>You can find your booking
-    <a href="{{bookingLink}}" target="blank">{{bookingLink}}</a>
+      <i class="fa fa-external-link" aria-hidden="true"></i><a href="{{bookingLink}}" target="blank">{{bookingLink}}</a>
   </p>
   <div>
     <a matButton class="btn waves-effect waves-light amb-block" routerLink="/">OK</a>

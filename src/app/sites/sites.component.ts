@@ -41,6 +41,9 @@ export class SitesComponent implements OnInit {
   }
 
   delete(site: EventSite) {
+    if(!confirm('Delete this one?')) {
+      return false;
+    }
     this.api.eventSiteApi.delete(site.id).then(() => {
       this.sites = this.sites.filter(x => x !== site);
     });

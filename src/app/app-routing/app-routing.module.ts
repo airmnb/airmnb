@@ -26,6 +26,7 @@ import { BabyComponent } from '../baby/baby.component';
 import { SitesComponent } from '../sites/sites.component';
 import { SiteComponent } from '../site/site.component';
 import { SearchResultComponent } from '../search-result/search-result.component';
+import { TransactionComponent } from '../transaction/transaction.component';
 const routes: Routes = [
   {
     path: '',
@@ -101,7 +102,11 @@ const routes: Routes = [
     component: BookingListComponent
   },
   {
-    path: 'bookings/:id',
+    path: 'tran/start/:bookingId',
+    component: TransactionComponent
+  },
+  {
+    path: 'booking/:id',
     component: BookingViewComponent
   },
   {

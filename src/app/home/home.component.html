@@ -65,27 +65,29 @@
 
   </div>
   <div class="container" *ngIf="slots">
-      <div class="row">
-          <div class="col s6 m4 l3" *ngFor="let slot of slots">
-              <mat-card (click)="book(slot)">
-                  <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+    <div class="row">
+      <div class="col s6 m4 l3" *ngFor="let slot of slots">
+        <mat-card (click)="book(slot)">
+          <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
 
-                <mat-card-header>
-                  <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                  <mat-card-title>{{slot.title}}</mat-card-title>
-                  <mat-card-subtitle><small>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</small></mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                  <p>
-                    {{displayGender(slot.gender)}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}} {{slot.otherCondition}}
-                  </p>
-                  <p>
-                      {{slot.bookingCount}} / {{slot.capping}}
-                  </p>
-                </mat-card-content>
-              </mat-card>
-            </div>
+          <mat-card-header>
+            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+            <mat-card-title>{{slot.title}}</mat-card-title>
+            <mat-card-subtitle>
+              <small>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</small>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              {{displayGender(slot.gender)}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}} {{slot.otherCondition}}
+            </p>
+            <p>
+              {{slot.bookingCount}} / {{slot.capping}}
+            </p>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
+  </div>
 </div>
-  <!-- <amb-map-search></amb-map-search> -->
+<!-- <amb-map-search></amb-map-search> -->

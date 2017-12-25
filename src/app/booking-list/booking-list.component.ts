@@ -52,6 +52,10 @@ export class BookingListComponent implements OnInit {
     });
   }
 
+  get isConsumer(): boolean {
+    return this.session.isConsumer;
+  }
+
   displayGender(gender: Gender): string {
     return this.util.displayGender(gender);
   }
@@ -116,6 +120,9 @@ export class BookingListComponent implements OnInit {
   }
 
   cancel(booking: Booking) {
+    if(!confirm('Delete this one?')) {
+      return false;
+    }
     this.cancelImpl(booking).catch(this.notificationService.error);
     return false;
   }
@@ -127,5 +134,9 @@ export class BookingListComponent implements OnInit {
       return s;
     });
     this.items = this.items.filter(x => x.booking !== booking);
+  }
+
+  onPhotoTaken(event) {
+    console.log('Photo taken', event);
   }
 }

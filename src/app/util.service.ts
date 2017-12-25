@@ -47,6 +47,6 @@ export class UtilService {
     }else{
       port = ":" + port;
     }
-    return `${document.location.protocol}//${document.location.hostname}${port}/bookings/${bookingId}`;
+    return `${document.location.protocol}//${document.location.hostname}${port}/booking/${bookingId}`;
   }
 }

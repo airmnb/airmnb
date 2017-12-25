@@ -40,6 +40,9 @@ export class BabiesComponent implements OnInit {
   }
 
   delete(baby: BabyProfile) {
+    if(!confirm('Delete this one?')) {
+      return false;
+    }
     this.api.babyProfileApi.delete(baby.id).then(() => {
       this.babies = this.babies.filter(x => x !== baby);
     });

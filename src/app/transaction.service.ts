@@ -38,13 +38,13 @@ export class TransactionService {
     if(tran.finishedAt) {
       return TransactionStatus.Finished;
     }
-    if(tran.doneImageNameByProvider) {
+    if(tran.providerCheckOutImageName) {
       return TransactionStatus.Ending;
     }
     if(tran.startedAt) {
       return TransactionStatus.Started;
     }
-    if(tran.doneImageNameByConsumer) {
+    if(tran.consumerCheckOutImageName) {
       return TransactionStatus.Launched;
     }
     if(tran.createdAt) {
@@ -59,7 +59,7 @@ export class TransactionService {
     if(booking.expiredAt && booking.expiredAt < new Date()) {
       throw new Error('Booking was expired.');
     }
-    tran.doneImageNameByConsumer = startImageNameByConsumer;
+    tran.consumerCheckOutImageName = startImageNameByConsumer;
 
     const tranId = await this.api.tranApi.add(tran);
     booking.open = false;
@@ -69,7 +69,7 @@ export class TransactionService {
 
   async start(tranId: string, startImageNameByProvider: string): Promise<Transaction> {
     const tran = await this.api.tranApi.getOne(tranId);
-    tran.startedImageNameByProvider = startImageNameByProvider;
+    tran.providerCheckInImageName = startImageNameByProvider;
     tran.startedAt = new Date();
     await this.api.tranApi.update(tran);
     return tran;
@@ -77,14 +77,14 @@ export class TransactionService {
 
   async ending(tranId: string, endImageNameByProvider: string): Promise<Transaction> {
     const tran = await this.api.tranApi.getOne(tranId);
-    tran.doneImageNameByProvider = endImageNameByProvider;
+    tran.providerCheckOutImageName = endImageNameByProvider;
     await this.api.tranApi.update(tran);
     return tran;
   }
 
   async finish(tranId: string, endImageNameByConsumer: string): Promise<Transaction> {
     const tran = await this.api.tranApi.getOne(tranId);
-    tran.doneImageNameByConsumer = endImageNameByConsumer;
+    tran.consumerCheckOutImageName = endImageNameByConsumer;
     tran.finishedAt = new Date();
     await this.api.tranApi.update(tran);
     return tran;

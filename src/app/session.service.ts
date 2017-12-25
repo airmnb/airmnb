@@ -23,7 +23,8 @@ export class SessionService {
     private cookieService: CookieService,
     private api: ApiFacade,
     private router: Router
-  ) { }
+  ) {
+  }
 
   get account(): Account {
     return this._account;
@@ -55,7 +56,7 @@ export class SessionService {
 
   assureRole(role: Role) {
     // tslint:disable-next-line:triple-equals
-    if(role != this.role) {
+    if(!this.hasLoggedIn || role != this.role) {
       console.log(`Expected ${JSON.stringify(role)}, but you are ${JSON.stringify(this.role)}`);
       this.router.navigateByUrl('/');
     }
@@ -63,14 +64,17 @@ export class SessionService {
 
   async login(account: Account, role: Role): Promise<void> {
     this._account = account;
+    this._role = role;
     this._profile = await this.api.accountProfileApi.get({accountId: account.id});
     this.accountSubject.next(account);
-    this._role = role;
     this.saveCookie();
   }
 
   logout(): void {
+    console.log('Session login');
     this._account = null;
+    this._role = null;
+    this._profile = null;
     this.accountSubject.next(null);
     this.cookieService.delete(cookieKey);
   }

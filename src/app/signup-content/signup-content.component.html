@@ -5,7 +5,7 @@
   <fieldset [disabled]="submitted">
     <div class="container">
       <div class="row">
-        <div class="col s12">
+        <div class="col s12 offset-m2 m8 offset-l4 l4">
           <mat-form-field>
             <input matInput placeholder="Account name" [(ngModel)]="accountName" name="accountName" required>
           </mat-form-field>
@@ -18,13 +18,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col s12">
+        <div class="col s12 offset-m2 m8 offset-l4 l4">
           <button type="submit" mat-raised-button color="primary" class="amb-block" [disabled]="!theForm.form.valid">Sign up</button>
         </div>
       </div>
-      <hr>
       <div class="row">
-        <div class="col s12">
+        <div class="col s12 offset-m2 m8 offset-l4 l4">
+      <hr>
+
           <p class="center">Already have an account?
             <a routerLink="/login">Login</a>
           </p>

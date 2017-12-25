@@ -2,9 +2,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col s6 m4 l3" *ngFor="let item of items">
+    <div class="col s12 m6 l3" *ngFor="let item of items">
       <mat-card>
-        <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="cancel(item.booking)">
+        <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="cancel(item.booking);$event.stopPropagation()">
           <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
         </button>
         <img mat-card-avatar [src]="getBabyImageUrl(item.baby)" alt="Baby's photo">
@@ -24,7 +24,13 @@
             <span *ngIf="item.slot.price">{{item.slot.price | currency}}</span>
           </p>
         </mat-card-content>
+        <mat-card-actions>
+            <!-- <input class="btn waves-effect waves-light amb-block"
+             type="file" (change)="onPhotoTaken($event)" value="Take a photo to start"/> -->
+             <!-- <amb-take-photo (fileSelect)="onPhotoTaken($event)"></amb-take-photo> -->
+             <button class="btn waves-effect waves-light amb-block" [routerLink]="'/tran/start/' + item.booking.id">Start</button>
 
+          </mat-card-actions>
       </mat-card>
     </div>
   </div>
