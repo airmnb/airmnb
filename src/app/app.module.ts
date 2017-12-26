@@ -46,7 +46,6 @@ import { SignupComponent } from './signup/signup.component';
 import { AccountProfileComponent } from './account-profile/account-profile.component';
 import { UtilService } from './util.service';
 import { SlotEditComponent } from './slot-edit/slot-edit.component';
-import { TransactionService } from './transaction.service';
 import { BookingComponent } from './booking/booking.component';
 import { FormWizardModule } from 'angular2-wizard';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
@@ -112,6 +111,8 @@ import { CtranComponent } from './ctran/ctran.component';
 import { PtranListComponent } from './ptran-list/ptran-list.component';
 import { CtranListComponent } from './ctran-list/ctran-list.component';
 import { BabyAvatarComponent } from './baby-avatar/baby-avatar.component';
+import { BookingCardComponent } from './booking-card/booking-card.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -162,7 +163,9 @@ import { BabyAvatarComponent } from './baby-avatar/baby-avatar.component';
     CtranComponent,
     PtranListComponent,
     CtranListComponent,
-    BabyAvatarComponent
+    BabyAvatarComponent,
+    BookingCardComponent,
+    LoadingComponent
   ],
   imports: [
     MatMomentDateModule,
@@ -234,7 +237,6 @@ import { BabyAvatarComponent } from './baby-avatar/baby-avatar.component';
     BookingService,
     ApiFacade,
     UtilService,
-    TransactionService,
     BabyService,
     GoogleMapsAPIWrapper,
     MarkerManager,

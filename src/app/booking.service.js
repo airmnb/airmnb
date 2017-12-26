@@ -47,6 +47,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var apiFacade_1 = require("./apiFacade");
 var util_service_1 = require("./util.service");
+var types_1 = require("../../types");
 var BookingService = /** @class */ (function () {
     function BookingService(api, util) {
         this.api = api;
@@ -86,6 +87,17 @@ var BookingService = /** @class */ (function () {
             });
         });
     };
+    BookingService.prototype.getStatus = function (booking) {
+        if (booking.terminatedAt)
+            return types_1.BookingStatus.Terminated;
+        if (booking.finishedAt)
+            return types_1.BookingStatus.Finished;
+        if (booking.startedAt)
+            return types_1.BookingStatus.Ongoing;
+        if (booking.cancelledAt)
+            return types_1.BookingStatus.Cancelled;
+        return types_1.BookingStatus.Created;
+    };
     BookingService.prototype.create = function (slotId, providerId, consumerId, babyId) {
         return __awaiter(this, void 0, void 0, function () {
             var slot, booking;
@@ -110,9 +122,6 @@ var BookingService = /** @class */ (function () {
                             slotId: slotId,
                             babyId: babyId,
                             createdAt: new Date(),
-                            cancelledAt: null,
-                            expiredAt: null,
-                            open: true
                         };
                         return [4 /*yield*/, this.api.bookingApi.add(booking)];
                     case 3:
@@ -126,7 +135,11 @@ var BookingService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.bookingApi.delete(booking.id)];
+                    case 0:
+                        if (!confirm('Delete this one?')) {
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.delete(booking.id)];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.api.slotApi.updateFunc(booking.slotId, function (x) {
@@ -144,11 +157,14 @@ var BookingService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (b) {
-                            b.cancelledAt = new Date();
-                            b.open = false;
-                            return b;
-                        })];
+                    case 0:
+                        if (booking.startedAt) {
+                            throw new Error("Booking " + booking.id + " has started and cannot be cancelled.");
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (b) {
+                                b.cancelledAt = new Date();
+                                return b;
+                            })];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.api.slotApi.updateFunc(booking.slotId, function (x) {
@@ -161,6 +177,112 @@ var BookingService = /** @class */ (function () {
                 }
             });
         });
+    };
+    BookingService.prototype.checkIn = function (booking, imageName) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (booking.consumerCheckInAt) {
+                            throw new Error("Booking " + booking.id + " has been requested for checked-in.");
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
+                                x.consumerCheckInImageName = imageName;
+                                x.consumerCheckInAt = new Date();
+                                return x;
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    BookingService.prototype.checkInConfirm = function (booking, imageName) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (booking.providerCheckInAt) {
+                            throw new Error("Booking " + booking.id + " has been confirmed for check-in.");
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
+                                x.providerCheckInImageName = imageName;
+                                x.providerCheckInAt = new Date();
+                                x.startedAt = new Date();
+                                return x;
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    BookingService.prototype.terminate = function (booking) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!booking.startedAt) {
+                            throw new Error("Booking " + booking.id + " has been started so cannot be terminated.");
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
+                                var now = new Date();
+                                x.terminatedAt = now;
+                                x.finishedAt = now;
+                                return x;
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    BookingService.prototype.checkOut = function (booking, imageName) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (booking.consumerCheckOutAt) {
+                            throw new Error("Booking " + booking.id + " has been requested for checked-out.");
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
+                                x.consumerCheckOutImageName = imageName;
+                                x.consumerCheckOutAt = new Date();
+                                return x;
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    BookingService.prototype.checkOutConfirm = function (booking, imageName) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (booking.providerCheckOutAt) {
+                            throw new Error("Booking " + booking.id + " has been confirmed for checked-out.");
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
+                                x.providerCheckOutImageName = imageName;
+                                x.providerCheckOutAt = new Date();
+                                x.finishedAt = new Date();
+                                return x;
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    BookingService.prototype.getCost = function (booking) {
+        return "XXX";
     };
     BookingService = __decorate([
         core_1.Injectable(),

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceSlot, BabyProfile } from '../../../types';
+import { ServiceSlot, BabyProfile, MapLocation, SearchQuery } from '../../../types';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { SlotService } from '../slot.service';
@@ -13,67 +13,10 @@ import { ImageService } from '../slot-image.service';
 })
 export class SearchResultComponent implements OnInit {
 
-  public babyProfileSettings = {
-    edit: {
-      confirmSave: true,
-    },
-    add: {
-      confirmCreate: true,
-      addButtonContent: 'Add new baby'
-    },
-    delete: {
-      confirmDelete: true
-    },
-    columns: {
-      nickName: {
-        title: 'Nick Name',
-        filter: false
-      },
-      age: {
-        title: 'Age',
-        filter: false,
-        editor: {
-          type: 'list',
-          config: {
-            list: [
-              {value: 0, title: '< 2'},
-              {value: 2, title: '2-3'},
-              {value: 3, title: '3-4'},
-              {value: 4, title: '4-5'},
-              {value: 5, title: '5-6'},
-              {value: 6, title: '> 6'}
-            ]
-          }
-        }
-      },
-      gender: {
-        title: 'Gender',
-        filter: false,
-        editor: {
-          type: 'list',
-          config: {
-            list: [{value: 0, title: 'Girl'}, {value: 1, title: 'Boy'}]
-          }
-        },
-      },
-      hobby: {
-        title: 'Hobby',
-        filter: false,
-        editor: {
-          type: 'textarea'
-        }
-      },
-      info: {
-        title: 'Additional information',
-        filter: false,
-        editor: {
-          type: 'textarea'
-        }
-      }
-    }
-  };
   public slots: ServiceSlot[];
-  public babyProfiles: BabyProfile[];
+
+  centerLongitude: number;
+  centerLatitude: number;
 
   get hasLoggedIn(): boolean {
     return this.sessionService.hasLoggedIn;
@@ -90,15 +33,26 @@ export class SearchResultComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
+   }
     this.route.queryParams.subscribe(params => {
       const queryJson = params['q'];
-      const query = JSON.parse(queryJson);
+      const query = <SearchQuery>JSON.parse(queryJson);
       console.log('Search query', query);
-      this.searchService.search(query)
-        .subscribe(slots => this.slots = slots);
-    });
+      this.centerLongitude = query.location.location.coordinates[0];
+      this.centerLatitude = query.location.location.coordinates[1];
+      console.log('centerLongitude', this.centerLongitude);
+      console.log('centerLatitude', this.centerLatitude);
 
-    this.loadBabyProfiles();
+      this.searchService.search(query).subscribe(x => this.slots = x);
+    });
+  }
+
+  private setPosition(position){
+    const coords = position.coords;
+    this.centerLongitude = this.centerLongitude || coords.longitude;
+    this.centerLatitude = this.centerLatitude || coords.latitude;
   }
 
   getImageUrl(slot: ServiceSlot) : string {
@@ -107,18 +61,6 @@ export class SearchResultComponent implements OnInit {
     } else {
       return "";
     }
-  }
-
-  private loadBabyProfiles(){
-    if(!this.hasLoggedIn) {
-      return;
-    }
-
-    this.api.babyProfileApi.list({consumerId: this.sessionService.account.id})
-    .then(x => {
-      this.babyProfiles = x;
-    })
-    .catch(console.log);
   }
 
   book(slot: ServiceSlot) {

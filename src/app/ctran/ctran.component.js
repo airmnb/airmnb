@@ -10,24 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var api_service_1 = require("./api.service");
-var ApiFacade = /** @class */ (function () {
-    function ApiFacade(apiFactory) {
-        this.bookingApi = apiFactory.produce('booking');
-        this.slotApi = apiFactory.produce('slot');
-        this.placeApi = apiFactory.produce('place');
-        this.accountApi = apiFactory.produce('account');
-        this.accountProfileApi = apiFactory.produce('account_profile');
-        this.babyProfileApi = apiFactory.produce('baby_profile');
-        this.eventSiteApi = apiFactory.produce('event_site');
+var CtranComponent = /** @class */ (function () {
+    function CtranComponent() {
     }
-    ApiFacade.prototype.getReviewContent = function () {
+    CtranComponent.prototype.ngOnInit = function () {
     };
-    ApiFacade = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory])
-    ], ApiFacade);
-    return ApiFacade;
+    CtranComponent = __decorate([
+        core_1.Component({
+            selector: 'amb-ctran',
+            templateUrl: './ctran.component.html',
+            styleUrls: ['./ctran.component.scss']
+        }),
+        __metadata("design:paramtypes", [])
+    ], CtranComponent);
+    return CtranComponent;
 }());
-exports.ApiFacade = ApiFacade;
-//# sourceMappingURL=apiFacade.js.map
+exports.CtranComponent = CtranComponent;
+//# sourceMappingURL=ctran.component.js.map

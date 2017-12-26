@@ -45,104 +45,100 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var types_1 = require("../../../types");
 var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var notification_service_1 = require("../notification.service");
 var session_service_1 = require("../session.service");
-var transaction_service_1 = require("../transaction.service");
 var slot_image_service_1 = require("../slot-image.service");
-var _ = require("underscore");
+var booking_service_1 = require("../booking.service");
 var TransactionsComponent = /** @class */ (function () {
-    function TransactionsComponent(api, util, notification, session, tranService, imageService) {
+    function TransactionsComponent(api, util, notification, session, bookingService, imageService) {
         this.api = api;
         this.util = util;
         this.notification = notification;
         this.session = session;
-        this.tranService = tranService;
+        this.bookingService = bookingService;
         this.imageService = imageService;
     }
     TransactionsComponent.prototype.ngOnInit = function () {
-        this.loadTransactionForConsumer().catch(this.notification.error);
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.loadTransactionForConsumer().catch(this.notification.error);
+                return [2 /*return*/];
+            });
+        });
     };
     TransactionsComponent.prototype.loadTransactionForConsumer = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var consumerId, potentialTrans, ongoingTrans;
+            var q, accountId, allBookings;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.session.hasLoggedIn || this.session.role !== types_1.Role.Consumer) {
+                        if (!this.session.hasLoggedIn) {
+                            console.log('Not logged in');
                             return [2 /*return*/];
                         }
-                        consumerId = this.session.account.id;
-                        return [4 /*yield*/, this.tranService.getTransactionsConvertableFromBookings(consumerId)];
+                        accountId = this.session.account.id;
+                        if (this.session.isProvider) {
+                            q = { providerId: accountId };
+                        }
+                        else if (this.session.isConsumer) {
+                            q = { consumerId: accountId };
+                        }
+                        else {
+                            console.log('Invalid code block');
+                        }
+                        return [4 /*yield*/, this.api.bookingApi.list(q)];
                     case 1:
-                        potentialTrans = _a.sent();
-                        return [4 /*yield*/, this.api.tranApi.list({
-                                consumerId: consumerId
-                            })];
-                    case 2:
-                        ongoingTrans = _a.sent();
-                        this.items = _.union(potentialTrans, ongoingTrans);
+                        allBookings = _a.sent();
                         // Add extra properties on items for view
-                        this.items.forEach(function (x) { return __awaiter(_this, void 0, void 0, function () {
-                            var _a, _b, _c, _d;
+                        allBookings.forEach(function (x) { return __awaiter(_this, void 0, void 0, function () {
+                            var slot, _a, _b, _c, _d;
                             return __generator(this, function (_e) {
                                 switch (_e.label) {
-                                    case 0:
+                                    case 0: return [4 /*yield*/, this.api.slotApi.getOne(x.slotId)];
+                                    case 1:
+                                        slot = _e.sent();
                                         _b = (_a = Object).assign;
                                         _c = [x];
                                         _d = {
-                                            status: this.tranService.getTransactionStatus(x).toString()
+                                            status: this.bookingService.getStatus(x).toString()
                                         };
-                                        return [4 /*yield*/, this.getBabyNickName(x)];
-                                    case 1:
-                                        _d.nickName = _e.sent();
-                                        return [4 /*yield*/, this.getCost(x)];
+                                        return [4 /*yield*/, this.api.babyProfileApi.getOne(x.babyId)];
                                     case 2:
-                                        x = _b.apply(_a, _c.concat([(_d.cost = _e.sent(),
+                                        _d.baby = _e.sent();
+                                        return [4 /*yield*/, this.getCost(x)];
+                                    case 3:
+                                        _d.cost = _e.sent(),
+                                            _d.title = slot.title;
+                                        return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: x.providerId })];
+                                    case 4:
+                                        _d.provider = _e.sent();
+                                        return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: x.consumerId })];
+                                    case 5:
+                                        x = _b.apply(_a, _c.concat([(_d.consumer = _e.sent(),
                                                 _d)]));
                                         return [2 /*return*/];
                                 }
                             });
                         }); });
+                        this.ongoingItems = allBookings.filter(function (x) { return !x.finishedAt && !x.terminatedAt; });
+                        this.doneItems = allBookings.filter(function (x) { return x.finishedAt || x.terminatedAt; });
                         return [2 /*return*/];
                 }
             });
         });
     };
-    TransactionsComponent.prototype.getTransactionStatus = function (tran) {
-        var status = this.tranService.getTransactionStatus(tran);
+    TransactionsComponent.prototype.getTransactionStatus = function (booking) {
+        var status = this.bookingService.getStatus(booking);
         return status.toString();
-    };
-    TransactionsComponent.prototype.getBabyNickName = function (tran) {
-        return __awaiter(this, void 0, void 0, function () {
-            var babyId, baby;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        babyId = tran.babyId;
-                        return [4 /*yield*/, this.api.babyProfileApi.getOne(babyId)];
-                    case 1:
-                        baby = _a.sent();
-                        return [2 /*return*/, baby.nickName];
-                }
-            });
-        });
     };
     TransactionsComponent.prototype.getImageUrl = function (imageName) {
         return this.imageService.getImageUrl(imageName);
     };
-    TransactionsComponent.prototype.getCost = function (tran) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.tranService.getCost(tran)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
+    TransactionsComponent.prototype.getCost = function (booking) {
+        return this.bookingService.getCost(booking);
     };
     TransactionsComponent = __decorate([
         core_1.Component({
@@ -154,7 +150,7 @@ var TransactionsComponent = /** @class */ (function () {
             util_service_1.UtilService,
             notification_service_1.NotificationService,
             session_service_1.SessionService,
-            transaction_service_1.TransactionService,
+            booking_service_1.BookingService,
             slot_image_service_1.ImageService])
     ], TransactionsComponent);
     return TransactionsComponent;

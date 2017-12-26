@@ -42,6 +42,9 @@ var SlotEditComponent = /** @class */ (function () {
     };
     SlotEditComponent.prototype.delete = function (slot) {
         var _this = this;
+        if (!confirm('Delete this one?')) {
+            return false;
+        }
         this.api.slotApi.delete(slot.id).then(function () {
             _this.slots = _this.slots.filter(function (x) { return x !== slot; });
         });

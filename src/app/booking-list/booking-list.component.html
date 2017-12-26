@@ -2,71 +2,8 @@
 
 <div class="container">
   <div class="row">
-    <div class="col s12 m6 l3" *ngFor="let item of items">
-      <mat-card [routerLink]="'/booking/' + item.booking.id">
-        <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="cancel(item.booking);$event.stopPropagation()">
-          <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
-        </button>
-        <img mat-card-avatar [src]="getBabyImageUrl(item.baby)" alt="Baby's photo">
-
-        <mat-card-header>
-          <mat-card-title>{{item.baby.nickName}} for {{item.slot.title}}</mat-card-title>
-          <mat-card-subtitle>{{item.slot.start | date:'medium'}} - {{item.slot.end | date:'shortTime'}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{item.slot.ageFrom}} - {{item.slot.ageTo}}</p>
-          <p>{{displayGender(item.slot.gender)}}</p>
-          <p>
-            {{item.slot.otherCondition}}
-          </p>
-          <p>
-            <span *ngIf="!item.slot.price">Free event</span>
-            <span *ngIf="item.slot.price">{{item.slot.price | currency}}</span>
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <!-- <input class="btn waves-effect waves-light amb-block"
-             type="file" (change)="onPhotoTaken($event)" value="Take a photo to start"/> -->
-             <!-- <amb-take-photo (fileSelect)="onPhotoTaken($event)"></amb-take-photo> -->
-             <!-- <button class="btn waves-effect waves-light amb-block" (click) [routerLink]="'/tran/start/' + item.booking.id">Start</button> -->
-             <p>Take a photo to check-in.</p>
-             <amb-take-photo (uploaded)="item.convertToTran($event)"></amb-take-photo>
-
-          </mat-card-actions>
-      </mat-card>
+    <div class="col s12 m6 l4" *ngFor="let item of items">
+      <amb-booking-card [booking]="item"></amb-booking-card>
     </div>
   </div>
-
-  <!--
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Time</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Notice</th>
-        <th>Price</th>
-        <th>Booked by</th>
-        <th>Cancel</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of items">
-        <td>{{item.slot.title}}</td>
-        <td>{{item.slot.start | date:'short'}} - {{item.slot.end | date:'short'}}</td>
-        <td>{{item.slot.ageFrom}} - {{item.slot.ageTo}}</td>
-        <td>{{displayGender(item.slot.gender)}}</td>
-        <td>{{item.slot.otherCondition}}</td>
-        <td *ngIf="!item.slot.price">Free event</td>
-        <td *ngIf="item.slot.price">{{item.slot.price | currency}}</td>
-        <td>{{item.baby.nickName}}</td>
-        <td>
-          <a href (click)="cancel(item.booking)">
-            <i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
 </div>

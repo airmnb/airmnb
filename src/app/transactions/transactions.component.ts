@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction, Role } from '../../../types';
+import { Role, Booking } from '../../../types';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { NotificationService } from '../notification.service';
 import { SessionService } from '../session.service';
-import { TransactionService } from '../transaction.service';
 import { ImageService } from '../slot-image.service';
 import * as _ from 'underscore';
+import { BookingService } from '../booking.service';
 
 @Component({
   selector: 'amb-transactions',
@@ -15,15 +15,15 @@ import * as _ from 'underscore';
 })
 export class TransactionsComponent implements OnInit {
 
-  ongoingItems: Transaction[];
-  doneItems: Transaction[];
+  ongoingItems: Booking[];
+  doneItems: Booking[];
 
   constructor(
     private api: ApiFacade,
     private util: UtilService,
     private notification: NotificationService,
     public session: SessionService,
-    private tranService: TransactionService,
+    private bookingService: BookingService,
     private imageService: ImageService
   ) { }
 
@@ -46,12 +46,12 @@ export class TransactionsComponent implements OnInit {
       console.log('Invalid code block');
     }
 
-    const allTrans = await this.api.tranApi.list(q);
+    const allBookings = await this.api.bookingApi.list(q);
     // Add extra properties on items for view
-    allTrans.forEach(async x => {
+    allBookings.forEach(async x => {
       const slot = await this.api.slotApi.getOne(x.slotId);
       x = Object.assign(x, {
-        status: this.tranService.getTransactionStatus(x).toString(),
+        status: this.bookingService.getStatus(x).toString(),
         baby: await this.api.babyProfileApi.getOne(x.babyId),
         cost: await this.getCost(x),
         title: slot.title,
@@ -60,12 +60,12 @@ export class TransactionsComponent implements OnInit {
       });
     });
 
-    this.ongoingItems = allTrans.filter(x => !x.finishedAt && !x.terminatedAt);
-    this.doneItems = allTrans.filter(x => x.finishedAt || x.terminatedAt);
+    this.ongoingItems = allBookings.filter(x => !x.finishedAt && !x.terminatedAt);
+    this.doneItems = allBookings.filter(x => x.finishedAt || x.terminatedAt);
   }
 
-  getTransactionStatus(tran: Transaction): string {
-    const status = this.tranService.getTransactionStatus(tran);
+  getTransactionStatus(booking: Booking): string {
+    const status = this.bookingService.getStatus(booking);
     return status.toString();
   }
 
@@ -73,7 +73,7 @@ export class TransactionsComponent implements OnInit {
     return this.imageService.getImageUrl(imageName);
   }
 
-  async getCost(tran: Transaction): Promise<number>{
-    return await this.tranService.getCost(tran);
+  getCost(booking: Booking): string{
+    return this.bookingService.getCost(booking);
   }
 }

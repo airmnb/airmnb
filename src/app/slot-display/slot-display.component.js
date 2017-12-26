@@ -27,8 +27,12 @@ var SlotDisplayComponent = /** @class */ (function () {
             gender === types_1.Gender.Girl ? 'Girl' :
                 'Both';
     };
-    SlotDisplayComponent.prototype.getImageUrl = function (imageName) {
-        return this.imageService.getImageUrls([imageName])[0];
+    SlotDisplayComponent.prototype.getImageUrl = function (slot) {
+        var imageNames = slot.imageNames;
+        if (imageNames && imageNames.length) {
+            return this.imageService.getImageUrl(imageNames[0]);
+        }
+        return null;
     };
     __decorate([
         core_1.Input(),

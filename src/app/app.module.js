@@ -53,7 +53,6 @@ var signup_component_1 = require("./signup/signup.component");
 var account_profile_component_1 = require("./account-profile/account-profile.component");
 var util_service_1 = require("./util.service");
 var slot_edit_component_1 = require("./slot-edit/slot-edit.component");
-var transaction_service_1 = require("./transaction.service");
 var booking_component_1 = require("./booking/booking.component");
 var angular2_wizard_1 = require("angular2-wizard");
 var slot_display_component_1 = require("./slot-display/slot-display.component");
@@ -77,6 +76,16 @@ var datepicker_component_1 = require("./datepicker/datepicker.component");
 var agepicker_component_1 = require("./agepicker/agepicker.component");
 var babies_component_1 = require("./babies/babies.component");
 var baby_component_1 = require("./baby/baby.component");
+var sites_component_1 = require("./sites/sites.component");
+var site_component_1 = require("./site/site.component");
+var search_result_component_1 = require("./search-result/search-result.component");
+var take_photo_component_1 = require("./take-photo/take-photo.component");
+var transaction_component_1 = require("./transaction/transaction.component");
+var ptran_component_1 = require("./ptran/ptran.component");
+var ctran_component_1 = require("./ctran/ctran.component");
+var ptran_list_component_1 = require("./ptran-list/ptran-list.component");
+var ctran_list_component_1 = require("./ctran-list/ctran-list.component");
+var baby_avatar_component_1 = require("./baby-avatar/baby-avatar.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -120,7 +129,17 @@ var AppModule = /** @class */ (function () {
                 datepicker_component_1.DatepickerComponent,
                 agepicker_component_1.AgepickerComponent,
                 babies_component_1.BabiesComponent,
-                baby_component_1.BabyComponent
+                baby_component_1.BabyComponent,
+                sites_component_1.SitesComponent,
+                site_component_1.SiteComponent,
+                search_result_component_1.SearchResultComponent,
+                take_photo_component_1.TakePhotoComponent,
+                transaction_component_1.TransactionComponent,
+                ptran_component_1.PtranComponent,
+                ctran_component_1.CtranComponent,
+                ptran_list_component_1.PtranListComponent,
+                ctran_list_component_1.CtranListComponent,
+                baby_avatar_component_1.BabyAvatarComponent
             ],
             imports: [
                 material_moment_adapter_1.MatMomentDateModule,
@@ -192,7 +211,6 @@ var AppModule = /** @class */ (function () {
                 booking_service_1.BookingService,
                 apiFacade_1.ApiFacade,
                 util_service_1.UtilService,
-                transaction_service_1.TransactionService,
                 baby_service_1.BabyService,
                 core_2.GoogleMapsAPIWrapper,
                 marker_manager_1.MarkerManager,

@@ -22,21 +22,13 @@
     <i class="fa fa-heart right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">
-    <a matLine routerLink="/slots/bookings">Bookings</a>
+    <a matLine routerLink="/slots/bookings">Booking Management</a>
     <i class="fa fa-paper-plane right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isConsumer">
-    <a matLine routerLink="/bookings">Bookings</a>
+    <a matLine routerLink="/bookings">My Bookings</a>
     <i class="fa fa-flag right" aria-hidden="true"></i>
   </mat-list-item>
-  <mat-list-item *ngIf="isProvider">
-    <a matLine routerLink="/trans">Transactions</a>
-    <i class="fa fa-usd right" aria-hidden="true"></i>
-  </mat-list-item>
-  <mat-list-item *ngIf="isConsumer">
-      <a matLine routerLink="/trans">Transactions</a>
-      <i class="fa fa-usd right" aria-hidden="true"></i>
-    </mat-list-item>
   <mat-list-item *ngIf="isProvider">
     <a matLine routerLink="/sites">Sites</a>
     <i class="fa fa-map-marker right" aria-hidden="true"></i>

@@ -71,32 +71,10 @@ export interface Order {
 	status: "ordered" | "canceled" | "done" | "expired";
 }
 
-export interface Transaction {
-  id: string;
-  bookingId: string;
-  slotId: string;
-  providerId: string;
-  consumerId: string;
-  babyId: string;
-  createdAt: Date;
-  startedAt?: Date;
-  terminatedAt?: Date;
-  finishedAt?: Date;
-  providerCheckInImageName?: string;
-  consumerCheckInImageName?: string;
-  providerCheckOutImageName?: string;
-  consumerCheckOutImageName?: string;
-  consumerCheckInAt?: Date;
-  providerCheckInAt?: Date;
-  consumerCheckOutAt?: Date;
-  providerCheckOutAt?: Date;
-}
-
-export enum TransactionStatus {
-  ReadToLaunch,
-  Launched,
-  Started,
-  Ending,
+export enum BookingStatus {
+  Created,
+  Cancelled,
+  Ongoing,
   Finished,
   Terminated
 }
@@ -206,9 +184,18 @@ export interface Booking {
   slotId: string;
   babyId: string;
   createdAt: Date;
-  cancelledAt: Date;
-  expiredAt: Date;
-  open: boolean;
+  cancelledAt?: Date;
+  startedAt?: Date;
+  terminatedAt?: Date;
+  finishedAt?: Date;
+  providerCheckInImageName?: string;
+  consumerCheckInImageName?: string;
+  providerCheckOutImageName?: string;
+  consumerCheckOutImageName?: string;
+  consumerCheckInAt?: Date;
+  providerCheckInAt?: Date;
+  consumerCheckOutAt?: Date;
+  providerCheckOutAt?: Date;
 }
 
 export interface SelectOption {

@@ -7,10 +7,27 @@
       </button>
     </div>
   </div>
-
   <div class="row">
-    <div class="col s6 m4 l3" *ngFor="let slot of slots">
+    <div class="col s12">
+      <agm-map [longitude]="centerLongitude" [latitude]="centerLatitude" [zoom]="16">
+        <agm-marker *ngFor="let slot of slots; let i = index"
+        [longitude]="slot.location.location.coordinates[0]"
+        [latitude]="slot.location.location.coordinates[1]"
+        [label]="(i + 1) + ''">
+          <agm-info-window>
+            <strong>{{slot.title}}</strong>
+            <small>Start: {{slot.start | date:'medium'}}</small>
+            <br><a (click)="book(slot);false;">Click to book</a>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s6 m4 l3" *ngFor="let slot of slots; let i = index">
       <mat-card (click)="book(slot)">
+          <div><strong><i class="fa fa-map-marker" aria-hidden="true"></i> {{i + 1}}</strong></div>
+
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title>{{slot.title}}</mat-card-title>

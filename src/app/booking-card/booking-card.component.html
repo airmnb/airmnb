@@ -1,0 +1,35 @@
+<amb-loading *ngIf="!model"></amb-loading>
+
+<mat-card *ngIf="model" [routerLink]="'/booking/' + model.booking.id">
+  <button *ngIf="bookingService.canCancel(model.booking)" class="btn-floating amb-halfway-top-right waves-effect waves-light red"
+    (click)="cancel();$event.stopPropagation()">
+    <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+  </button>
+  <amb-baby-avatar class="left" [baby]="model.baby"></amb-baby-avatar>
+
+  <mat-card-header>
+    <mat-card-title>{{model.baby.nickName}} for {{model.slot.title}}</mat-card-title>
+    <mat-card-subtitle>{{model.slot.start | date:'medium'}} - {{model.slot.end | date:'shortTime'}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{model.slot.ageFrom}} - {{model.slot.ageTo}}</p>
+    <p>{{displayGender(model.slot.gender)}}</p>
+    <p>
+      {{model.slot.otherCondition}}
+    </p>
+    <p>
+      <span *ngIf="!model.slot.price">Free event</span>
+      <span *ngIf="model.slot.price">{{model.slot.price | currency}}</span>
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- <input class="btn waves-effect waves-light amb-block"
+       type="file" (change)="onPhotoTaken($event)" value="Take a photo to start"/> -->
+    <!-- <amb-take-photo (fileSelect)="onPhotoTaken($event)"></amb-take-photo> -->
+    <!-- <button class="btn waves-effect waves-light amb-block" (click) [routerLink]="'/tran/start/' + model.booking.id">Start</button> -->
+    <div *ngIf="canCheckIn">
+      <p>Take a photo to check-in.</p>
+      <amb-take-photo (uploaded)="checkIn($event)"></amb-take-photo>
+    </div>
+  </mat-card-actions>
+</mat-card>

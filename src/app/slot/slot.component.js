@@ -54,9 +54,9 @@ var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var router_1 = require("@angular/router");
 var SlotComponent = /** @class */ (function () {
-    function SlotComponent(api, sessionService, notificationService, modalService, activeModal, util, router, activatedRoute) {
+    function SlotComponent(api, session, notificationService, modalService, activeModal, util, router, activatedRoute) {
         this.api = api;
-        this.sessionService = sessionService;
+        this.session = session;
         this.notificationService = notificationService;
         this.modalService = modalService;
         this.activeModal = activeModal;
@@ -64,26 +64,13 @@ var SlotComponent = /** @class */ (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.model = {
-            title: null,
-            date: new Date(),
-            timeFrom: 9,
-            timeTo: 12,
-            ageFrom: 2,
-            ageTo: 6,
-            description: null,
-            capping: null,
-            vacancy: null,
-            price: null,
-            imageNames: [],
-        };
-        this.theSlot = {
             id: this.util.newGuid(),
             capping: 5,
             bookingCount: 0,
             gender: types_1.Gender.Either,
             otherCondition: null,
             price: 8,
-            providerId: this.sessionService.account.id,
+            providerId: this.session.account.id,
             text: null,
             title: null,
             ageFrom: 2,
@@ -91,14 +78,34 @@ var SlotComponent = /** @class */ (function () {
             start: new Date(),
             end: null,
             imageNames: null,
-            eventPlaceId: null
+            eventPlaceId: null,
+            siteId: null,
+            location: null
         };
     }
     Object.defineProperty(SlotComponent.prototype, "slot", {
         set: function (value) {
             if (value) {
-                this.theSlot = value;
+                this.model = value;
                 this.isNew = false;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SlotComponent.prototype, "siteId", {
+        get: function () {
+            return this._siteId;
+        },
+        set: function (siteId) {
+            this._siteId = siteId;
+            this.model.siteId = siteId;
+            var site = this.sites.find(function (x) { return x.id === siteId; });
+            if (site) {
+                this.model.location = site.location;
+            }
+            else {
+                this.model.location = null;
             }
         },
         enumerable: true,
@@ -113,69 +120,87 @@ var SlotComponent = /** @class */ (function () {
                 // Edit mode
                 _this.api.slotApi.getOne(slotId)
                     .then(function (s) {
-                    _this.theSlot = s;
-                    _this.model = _this.slotToModel(_this.theSlot);
+                    _this.model = s;
+                    _this._siteId = s.siteId;
                 }).catch(function (e) { return _this.notificationService.error(e); });
             }
         });
+        this.loadSiteOptions();
     };
-    SlotComponent.prototype.slotToModel = function (slot) {
-        var m = {
-            title: slot.title,
-            date: this.util.getYearMonthDate(slot.start),
-            timeFrom: this.util.getHour(slot.start),
-            timeTo: this.util.getHour(slot.end),
-            ageFrom: slot.ageFrom,
-            ageTo: slot.ageTo,
-            description: slot.otherCondition,
-            capping: slot.capping,
-            vacancy: slot.capping - slot.bookingCount,
-            price: slot.price,
-            imageNames: slot.imageNames
-        };
-        return m;
-    };
-    SlotComponent.prototype.modelToSlot = function () {
-        this.theSlot = Object.assign(this.theSlot, {
-            title: this.model.title,
-            start: this.util.getDate(this.model.date, this.model.timeFrom),
-            end: this.util.getDate(this.model.date, this.model.timeTo),
-            capping: this.model.capping,
-            ageFrom: this.model.ageFrom,
-            ageTo: this.model.ageTo,
-            price: this.model.price,
-            otherCondition: this.model.description,
-            imageNames: this.model.imageNames
-        });
-        return this.theSlot;
-    };
-    SlotComponent.prototype.onSubmit = function () {
+    SlotComponent.prototype.loadSiteOptions = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var slot, e_1;
+            var providerId, sites;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        slot = this.modelToSlot();
-                        _a.label = 1;
+                        providerId = this.session.account.id;
+                        return [4 /*yield*/, this.api.eventSiteApi.list({ providerId: providerId })];
                     case 1:
-                        _a.trys.push([1, 6, , 7]);
-                        if (!this.isNew) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.add(slot)];
-                    case 2:
+                        sites = _a.sent();
+                        this.sites = sites;
+                        this.siteOptions = sites.map(function (s) { return ({
+                            label: s.name + " - " + s.location.address,
+                            value: s.location
+                        }); });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // private slotToModel(slot: ServiceSlot) {
+    //   const m = {
+    //     title: slot.title,
+    //     date: this.util.getYearMonthDate(slot.start),
+    //     timeFrom: this.util.getHour(slot.start),
+    //     timeTo: this.util.getHour(slot.end),
+    //     ageFrom: slot.ageFrom,
+    //     ageTo: slot.ageTo,
+    //     description: slot.otherCondition,
+    //     capping: slot.capping,
+    //     vacancy: slot.capping - slot.bookingCount,
+    //     price: slot.price,
+    //     imageNames: slot.imageNames
+    //   };
+    //   return m;
+    // }
+    // private modelToSlot(): ServiceSlot {
+    //   this.theSlot = Object.assign(this.theSlot, {
+    //     title: this.model.title,
+    //     start: this.util.getDate(this.model.date, this.model.timeFrom),
+    //     end: this.util.getDate(this.model.date, this.model.timeTo),
+    //     capping: this.model.capping,
+    //     ageFrom: this.model.ageFrom,
+    //     ageTo: this.model.ageTo,
+    //     price: this.model.price,
+    //     otherCondition: this.model.description,
+    //     imageNames: this.model.imageNames
+    //   });
+    //   return this.theSlot;
+    // }
+    SlotComponent.prototype.onSubmit = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        if (!this.isNew) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.add(this.model)];
+                    case 1:
                         _a.sent();
-                        return [3 /*break*/, 5];
-                    case 3: return [4 /*yield*/, this.update(slot)];
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.update(this.model)];
+                    case 3:
+                        _a.sent();
+                        _a.label = 4;
                     case 4:
-                        _a.sent();
-                        _a.label = 5;
-                    case 5:
                         this.router.navigate(['/slots']);
-                        return [3 /*break*/, 7];
-                    case 6:
+                        return [3 /*break*/, 6];
+                    case 5:
                         e_1 = _a.sent();
                         this.notificationService.error(e_1);
-                        return [3 /*break*/, 7];
-                    case 7: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });

@@ -4,7 +4,7 @@
     <p>Take a photo to check-in.</p>
     <amb-take-photo (uploaded)="convertToTran($event)"></amb-take-photo>
   </div>
-  <div *ngIf="!booking.open">
+  <div *ngIf="!booking">
     <p>The booking has been closed or converted to a transaction.</p>
     <a *ngIf="tran" [routerLink]="'/tran/' + tran.id">Go to transaction</a>.
   </div>

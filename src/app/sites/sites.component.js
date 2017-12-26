@@ -17,62 +17,59 @@ var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
 var slot_image_service_1 = require("../slot-image.service");
 var Observable_1 = require("rxjs/Observable");
-var BabiesComponent = /** @class */ (function () {
-    function BabiesComponent(api, util, session, router, imageService) {
+var SitesComponent = /** @class */ (function () {
+    function SitesComponent(api, util, session, router, imageService) {
         this.api = api;
         this.util = util;
         this.session = session;
         this.router = router;
         this.imageService = imageService;
     }
-    BabiesComponent.prototype.ngOnInit = function () {
+    SitesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.session.assureRole(types_1.Role.Consumer);
+        this.session.assureRole(types_1.Role.Provider);
         var accountId = this.session.account.id;
-        this.loadBabies(accountId).subscribe(function (x) { return _this.babies = x; });
+        this.loadEventSites(accountId).subscribe(function (x) { return _this.sites = x; });
     };
-    BabiesComponent.prototype.loadBabies = function (accountId) {
-        var p = this.api.babyProfileApi.list({ consumerId: accountId });
+    SitesComponent.prototype.loadEventSites = function (providerId) {
+        var p = this.api.eventSiteApi.list({ providerId: providerId });
         return Observable_1.Observable.fromPromise(p);
     };
-    BabiesComponent.prototype.edit = function (baby) {
-        this.router.navigate(['babies', baby.id]);
+    SitesComponent.prototype.edit = function (site) {
+        this.router.navigate(['sites', site.id]);
         return false;
     };
-    BabiesComponent.prototype.delete = function (baby) {
+    SitesComponent.prototype.delete = function (site) {
         var _this = this;
         if (!confirm('Delete this one?')) {
             return false;
         }
-        this.api.babyProfileApi.delete(baby.id).then(function () {
-            _this.babies = _this.babies.filter(function (x) { return x !== baby; });
+        this.api.eventSiteApi.delete(site.id).then(function () {
+            _this.sites = _this.sites.filter(function (x) { return x !== site; });
         });
         return false;
     };
-    BabiesComponent.prototype.displayGender = function (baby) {
-        return this.util.displayGender(baby.gender);
-    };
-    BabiesComponent.prototype.getImageUrl = function (baby) {
-        if (baby.imageName) {
-            return this.imageService.getImageUrl(baby.imageName);
+    SitesComponent.prototype.getImageUrl = function (site) {
+        if (site.imageNames && site.imageNames.length) {
+            return this.imageService.getImageUrl(site.imageNames[0]);
         }
         else {
             return "";
         }
     };
-    BabiesComponent = __decorate([
+    SitesComponent = __decorate([
         core_1.Component({
-            selector: 'amb-babies',
-            templateUrl: './babies.component.html',
-            styleUrls: ['./babies.component.scss']
+            selector: 'amb-sites',
+            templateUrl: './sites.component.html',
+            styleUrls: ['./sites.component.scss']
         }),
         __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
             util_service_1.UtilService,
             session_service_1.SessionService,
             router_1.Router,
             slot_image_service_1.ImageService])
-    ], BabiesComponent);
-    return BabiesComponent;
+    ], SitesComponent);
+    return SitesComponent;
 }());
-exports.BabiesComponent = BabiesComponent;
-//# sourceMappingURL=babies.component.js.map
+exports.SitesComponent = SitesComponent;
+//# sourceMappingURL=sites.component.js.map

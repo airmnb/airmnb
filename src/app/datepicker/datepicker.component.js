@@ -29,6 +29,10 @@ var DatepickerComponent = /** @class */ (function () {
     };
     __decorate([
         core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], DatepickerComponent.prototype, "required", void 0);
+    __decorate([
+        core_1.Input(),
         __metadata("design:type", String)
     ], DatepickerComponent.prototype, "placeholder", void 0);
     __decorate([

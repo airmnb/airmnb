@@ -12,13 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var session_service_1 = require("./session.service");
 var router_1 = require("@angular/router");
-var modal_service_1 = require("./modal.service");
 var forms_1 = require("@angular/forms");
 var layout_1 = require("@angular/cdk/layout");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(modalService, sessionService, router, fb, changeDetectorRef, media) {
-        this.modalService = modalService;
-        this.sessionService = sessionService;
+    function AppComponent(session, router, fb, changeDetectorRef, media) {
+        this.session = session;
         this.router = router;
         this.title = 'Air Mom & Baby';
         this.language = 'en';
@@ -30,34 +28,41 @@ var AppComponent = /** @class */ (function () {
             'top': 0,
             'bottom': 0,
         });
+        // this.router.events
+        // .filter(event => event instanceof NavigationStart)
+        // .subscribe(x => {
+        //   console.log('Router', x);
+        //   console.log('Session', {
+        //     account: this.session.account,
+        //     role: this.session.role,
+        //     profile: this.session.profile
+        //   });
+        // });
     }
     Object.defineProperty(AppComponent.prototype, "accountName", {
         get: function () {
-            return this.sessionService.account ? this.sessionService.account.name : null;
+            return this.session.account ? this.session.account.name : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AppComponent.prototype, "isProvider", {
+        get: function () {
+            return this.session.isProvider;
         },
         enumerable: true,
         configurable: true
     });
     AppComponent.prototype.ngOnInit = function () {
-        this.sessionService.loadCookie();
-    };
-    AppComponent.prototype.signup = function () {
-        this.modalService.openSignupModal();
-        return false;
+        this.session.loadCookie();
     };
     Object.defineProperty(AppComponent.prototype, "hasLoggedIn", {
         get: function () {
-            return !!this.sessionService.account;
+            return !!this.session.account;
         },
         enumerable: true,
         configurable: true
     });
-    AppComponent.prototype.login = function () {
-        if (!this.hasLoggedIn) {
-            this.modalService.openLoginModal();
-        }
-        return false;
-    };
     AppComponent.prototype.goTransactions = function () {
         if (!this.hasLoggedIn) {
             return false;
@@ -76,8 +81,7 @@ var AppComponent = /** @class */ (function () {
             templateUrl: './app.component.html',
             styleUrls: ['./app.component.css']
         }),
-        __metadata("design:paramtypes", [modal_service_1.ModalService,
-            session_service_1.SessionService,
+        __metadata("design:paramtypes", [session_service_1.SessionService,
             router_1.Router,
             forms_1.FormBuilder,
             core_1.ChangeDetectorRef,

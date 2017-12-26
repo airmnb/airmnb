@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../session.service';
-import { ServiceSlot, Booking, BabyProfile, Gender, Role, Transaction } from '../../../types';
+import { ServiceSlot, Booking, BabyProfile, Gender, Role } from '../../../types';
 import { ApiFacade } from '../apiFacade';
 import { BookingService } from '../booking.service';
 import { SlotService } from '../slot.service';
@@ -17,7 +17,7 @@ import { ImageService } from '../slot-image.service';
   styleUrls: ['./booking-list.component.css']
 })
 export class BookingListComponent implements OnInit {
-  items: {slot: ServiceSlot, booking: Booking, baby: BabyProfile}[] = [];
+  items: Booking[];
 
   constructor(
     private activatedRouter: ActivatedRoute,
@@ -57,36 +57,6 @@ export class BookingListComponent implements OnInit {
     return this.session.isConsumer;
   }
 
-  displayGender(gender: Gender): string {
-    return this.util.displayGender(gender);
-  }
-
-  getImageUrl(slot: ServiceSlot) : string {
-    if(slot.imageNames && slot.imageNames.length) {
-      return this.imageService.getImageUrl(slot.imageNames[0]);
-    } else {
-      return "";
-    }
-  }
-
-  getBabyImageUrl(baby: BabyProfile): string {
-    return baby.imageName ? this.imageService.getImageUrl(baby.imageName) : '';
-  }
-
-  private setModel(slots: ServiceSlot[], bookings: Booking[], babies: BabyProfile[]) {
-    const slotDic = new Map<string, ServiceSlot>();
-    const babyDic = new Map<string, BabyProfile>();
-    slots.forEach(s => slotDic.set(s.id, s));
-    babies.forEach(b => babyDic.set(b.id, b));
-    this.items = bookings.map(booking => {
-      return {
-        slot: slotDic.get(booking.slotId),
-        booking,
-        baby: babyDic.get(booking.babyId),
-        convertToTran: this.createConvertToTranCallback(booking)
-      };
-    });
-  }
 
   private async getUniqueBookingsBabies(bookings: Booking[]): Promise<BabyProfile[]> {
     const babyIds = _.unique(bookings.map(b => b.babyId));
@@ -94,102 +64,16 @@ export class BookingListComponent implements OnInit {
   }
 
   private async loadForSlot(slotId: string): Promise<void> {
-    const slotTask = this.api.slotApi.getOne(slotId);
-    const bookingsTask = this.api.bookingApi.list({slotId});
-    const result = await Promise.all([slotTask, bookingsTask]);
-    const slot = result[0];
-    const bookings = result[1];
-    const babies = await this.getUniqueBookingsBabies(bookings);
-    this.setModel([slot], bookings, babies);
+    this.items = await this.api.bookingApi.list({slotId});
   }
 
   private async loadAllForProvider(): Promise<void> {
     const accountId = this.session.account.id;
-    const bookings = await this.bookingService.listBookingsForProvider(accountId);
-    const slotIds = bookings.map(b => b.slotId);
-    const slots = await this.slotService.listSlots(slotIds);
-    const babies = await this.getUniqueBookingsBabies(bookings);
-    this.setModel(slots, bookings, babies);
+    this.items = await this.bookingService.listBookingsForProvider(accountId);
   }
 
   private async loadAllForConsumer(): Promise<void> {
     const accountId = this.session.account.id;
-    const bookings = await this.bookingService.listAliveBookingsForConsumer(accountId);
-    const slotIds = bookings.map(b => b.slotId);
-    const slots = await this.slotService.listSlots(slotIds);
-    const babies = await this.getUniqueBookingsBabies(bookings);
-    this.setModel(slots, bookings, babies);
+    this.items = await this.bookingService.listAliveBookingsForConsumer(accountId);
   }
-
-  cancel(booking: Booking) {
-    if(!confirm('Delete this one?')) {
-      return false;
-    }
-    this.cancelImpl(booking).catch(this.notificationService.error);
-    return false;
-  }
-
-  private async cancelImpl(booking: Booking): Promise<void> {
-    await this.api.bookingApi.delete(booking.id);
-    await this.api.slotApi.updateFunc(booking.slotId, s => {
-      s.bookingCount--;
-      return s;
-    });
-    this.items = this.items.filter(x => x.booking !== booking);
-  }
-
-  onPhotoTaken(event) {
-    console.log('Photo taken', event);
-  }
-
-  async convertToTran(imageName: string) {
-    // console.log('callback', imageName, booking);
-
-    // return async (imageName) => {
-    //   tran.consumerCheckInImageName = imageName;
-    //   tran.consumerCheckInAt = new Date();
-    //   // Add a new transaction
-    //   const tranId = await this.api.tranApi.add(tran);
-    //   // await this.api.tranApi.update(this.tran);
-
-    //   // Update the booking to be un-open
-    //   await this.api.bookingApi.updateFunc(tran.bookingId, b => {
-    //     b.open = false;
-    //     return b;
-    //   });
-
-    //   this.router.navigate(['tran', tranId]);
-    // };
-  }
-
-  private createConvertToTranCallback(booking: Booking) {
-    const tran: Transaction = {
-      id: this.util.newGuid(),
-      bookingId: booking.id,
-      babyId: booking.babyId,
-      consumerId: booking.consumerId,
-      providerId: booking.providerId,
-      slotId: booking.slotId,
-      createdAt: new Date()
-    };
-
-    return async (imageName) => {
-      console.log('Callback', imageName, booking);
-      tran.consumerCheckInImageName = imageName;
-      tran.consumerCheckInAt = new Date();
-      // Add a new transaction
-      const tranId = await this.api.tranApi.add(tran);
-      // await this.api.tranApi.update(this.tran);
-
-      // Update the booking to be un-open
-      await this.api.bookingApi.updateFunc(tran.bookingId, b => {
-        b.open = false;
-        return b;
-      });
-
-      this.router.navigate(['tran', tranId]);
-    };
-  }
-
-
 }

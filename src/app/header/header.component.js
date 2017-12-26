@@ -27,7 +27,7 @@ var HeaderComponent = /** @class */ (function () {
     });
     Object.defineProperty(HeaderComponent.prototype, "isProvider", {
         get: function () {
-            return this.session.isProvider;
+            return this.hasLoggedIn && this.session.isProvider;
         },
         enumerable: true,
         configurable: true
@@ -41,7 +41,7 @@ var HeaderComponent = /** @class */ (function () {
     });
     Object.defineProperty(HeaderComponent.prototype, "isConsumer", {
         get: function () {
-            return this.session.isConsumer;
+            return this.hasLoggedIn && this.session.isConsumer;
         },
         enumerable: true,
         configurable: true

@@ -58,11 +58,24 @@ var BookingComponent = /** @class */ (function () {
         this.util = util;
         this.activatedRouter = activatedRouter;
     }
+    Object.defineProperty(BookingComponent.prototype, "isFreeEvent", {
+        get: function () {
+            return this.slot && !this.slot.price;
+        },
+        enumerable: true,
+        configurable: true
+    });
     BookingComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRouter.params.subscribe(function (p) {
             _this.loadData(p.slotId).catch(function (e) { return _this.notificationService.error(e); });
         });
+    };
+    BookingComponent.prototype.goBack = function (stepper) {
+        stepper.previous();
+    };
+    BookingComponent.prototype.goForward = function (stepper) {
+        stepper.next();
     };
     BookingComponent.prototype.loadData = function (slotId) {
         return __awaiter(this, void 0, void 0, function () {
@@ -90,14 +103,27 @@ var BookingComponent = /** @class */ (function () {
     };
     BookingComponent.prototype.onPaymentNext = function (event) {
     };
-    BookingComponent.prototype.onComplete = function (event) {
-        var _this = this;
-        this.createBooking().then(function (bookingId) {
-            _this.bookingLink = _this.util.getBookingDeepLinkUrl(bookingId);
-            _this.isCompleted = true;
-        })
-            .catch(function (e) { return _this.notificationService.error(e); });
-        console.log(event);
+    BookingComponent.prototype.onSubmit = function (event) {
+        return __awaiter(this, void 0, void 0, function () {
+            var bookingId, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.createBooking()];
+                    case 1:
+                        bookingId = _a.sent();
+                        this.bookingLink = this.util.getBookingDeepLinkUrl(bookingId);
+                        this.isComplete = true;
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        this.notificationService.error(e_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
     };
     BookingComponent.prototype.createBooking = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -126,11 +152,8 @@ var BookingComponent = /** @class */ (function () {
             babyId: this.theBaby.id,
             consumerId: this.theBaby.consumerId,
             slotId: this.slot.id,
-            open: true,
-            createdAt: new Date(),
             providerId: this.slot.providerId,
-            cancelledAt: null,
-            expiredAt: null,
+            createdAt: new Date()
         };
         return b;
     };

@@ -62,6 +62,10 @@ var TimepickerComponent = /** @class */ (function () {
     ], TimepickerComponent.prototype, "max", null);
     __decorate([
         core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], TimepickerComponent.prototype, "required", void 0);
+    __decorate([
+        core_1.Input(),
         __metadata("design:type", String)
     ], TimepickerComponent.prototype, "placeholder", void 0);
     __decorate([

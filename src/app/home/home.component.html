@@ -1,7 +1,7 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<h1>Search events</h1>
 <div class="amb-home-content">
   <div class="container">
+    <h5>Search events</h5>
     <div class="row">
       <div class="col s12">
         <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
@@ -65,6 +65,7 @@
 
   </div>
   <div class="container" *ngIf="slots">
+    <h5>Recommended</h5>
     <div class="row">
       <div class="col s6 m4 l3" *ngFor="let slot of slots">
         <mat-card (click)="book(slot)">

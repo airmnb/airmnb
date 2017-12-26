@@ -88,11 +88,8 @@ export class BookingComponent implements OnInit {
       babyId: this.theBaby.id,
       consumerId: this.theBaby.consumerId,
       slotId: this.slot.id,
-      open: true,
-      createdAt: new Date(),
       providerId: this.slot.providerId,
-      cancelledAt: null,
-      expiredAt: null,
+      createdAt: new Date()
     };
     return b;
   }

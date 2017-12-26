@@ -49,19 +49,21 @@ var apiFacade_1 = require("../apiFacade");
 var session_service_1 = require("../session.service");
 var util_service_1 = require("../util.service");
 var notification_service_1 = require("../notification.service");
-var router_state_1 = require("@angular/router/src/router_state");
+var router_1 = require("@angular/router");
 var BabyComponent = /** @class */ (function () {
-    function BabyComponent(session, api, util, notification, activatedRoute) {
+    function BabyComponent(session, api, util, notification, activatedRoute, router) {
         this.session = session;
         this.api = api;
         this.util = util;
         this.notification = notification;
         this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.imageNames = [];
         this.model = {
             id: this.util.newGuid(),
             consumerId: null,
             nickName: null,
-            age: null,
+            dob: null,
             gender: null,
             hobby: null,
             info: null,
@@ -73,43 +75,51 @@ var BabyComponent = /** @class */ (function () {
         this.activatedRoute.params.subscribe(function (p) {
             var slotId = p.id;
             _this.isNew = !slotId;
-            if (!_this.isNew) {
+            if (_this.isNew) {
+                _this.model.consumerId = _this.session.account.id;
+            }
+            else {
                 // Edit mode
                 _this.api.babyProfileApi.getOne(slotId)
                     .then(function (s) {
                     _this.model = s;
+                    if (s.imageName) {
+                        _this.imageNames = [s.imageName];
+                    }
                 }).catch(_this.notification.error);
             }
         });
     };
+    BabyComponent.prototype.setImageName = function () {
+        this.model.imageName = this.imageNames.length ? this.imageNames.pop() : null;
+    };
     BabyComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var consumerId, babyProfile, e_1;
+            var e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        consumerId = this.session.account.id;
-                        babyProfile = {
-                            id: this.util.newGuid(),
-                            nickName: this.model.nickName,
-                            consumerId: consumerId,
-                            age: this.model.age,
-                            gender: this.model.gender,
-                            hobby: this.model.hobby,
-                            info: this.model.info
-                        };
+                        this.setImageName();
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.api.babyProfileApi.add(babyProfile)];
+                        _a.trys.push([1, 6, , 7]);
+                        if (!this.isNew) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.api.babyProfileApi.add(this.model)];
                     case 2:
                         _a.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, this.api.babyProfileApi.update(this.model)];
+                    case 4:
+                        _a.sent();
+                        _a.label = 5;
+                    case 5:
+                        this.router.navigate(['babies']);
+                        return [3 /*break*/, 7];
+                    case 6:
                         e_1 = _a.sent();
                         this.notification.error(e_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         });
@@ -124,7 +134,8 @@ var BabyComponent = /** @class */ (function () {
             apiFacade_1.ApiFacade,
             util_service_1.UtilService,
             notification_service_1.NotificationService,
-            router_state_1.ActivatedRoute])
+            router_1.ActivatedRoute,
+            router_1.Router])
     ], BabyComponent);
     return BabyComponent;
 }());

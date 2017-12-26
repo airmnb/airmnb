@@ -45,88 +45,96 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var uuid = require("uuid");
 var session_service_1 = require("../session.service");
-var moment = require("moment");
-var notification_service_1 = require("../notification.service");
 var apiFacade_1 = require("../apiFacade");
-var AddSlotComponent = /** @class */ (function () {
-    function AddSlotComponent(router, session, api, notificationService) {
-        this.router = router;
+var util_service_1 = require("../util.service");
+var notification_service_1 = require("../notification.service");
+var router_1 = require("@angular/router");
+var SiteComponent = /** @class */ (function () {
+    function SiteComponent(session, api, util, notification, activatedRoute, router) {
         this.session = session;
         this.api = api;
-        this.notificationService = notificationService;
-    }
-    AddSlotComponent.prototype.createNewModel = function () {
-        var now = moment();
-        return {
-            id: uuid.v4(),
+        this.util = util;
+        this.notification = notification;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.imageNames = [];
+        this.model = {
+            id: this.util.newGuid(),
             providerId: null,
-            title: "",
-            start: now.toDate(),
-            end: now.toDate(),
-            ageFrom: 3,
-            ageTo: 6,
-            gender: 2,
-            otherCondition: null,
-            capping: 5,
-            bookingCount: 0,
-            price: 50,
-            eventPlaceId: null,
-            siteId: null,
-            location: null
+            name: null,
+            location: {
+                address: null,
+                location: {
+                    type: "Point",
+                    coordinates: []
+                }
+            },
+            info: null,
+            imageNames: []
         };
-    };
-    AddSlotComponent.prototype.ngOnInit = function () {
+    }
+    SiteComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.model = this.createNewModel();
-        this.session.getAccount().subscribe(function (account) { return _this.model.providerId = account.id; });
+        this.activatedRoute.params.subscribe(function (p) {
+            var slotId = p.id;
+            _this.isNew = !slotId;
+            if (_this.isNew) {
+                _this.model.providerId = _this.session.account.id;
+            }
+            else {
+                // Edit mode
+                _this.api.eventSiteApi.getOne(slotId)
+                    .then(function (s) {
+                    if (s) {
+                        _this.model = s;
+                    }
+                }).catch(_this.notification.error);
+            }
+        });
     };
-    AddSlotComponent.prototype.create = function (navigateOut) {
+    SiteComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var api, e_1;
+            var e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        api = this.api.slotApi;
-                        _a.label = 1;
+                        _a.trys.push([0, 5, , 6]);
+                        if (!this.isNew) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.api.eventSiteApi.add(this.model)];
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, api.add(this.model)];
-                    case 2:
                         _a.sent();
-                        if (navigateOut) {
-                            this.router.navigateByUrl('provider');
-                        }
-                        this.model = this.createNewModel();
-                        this.notificationService.info("Successfully create a slot.");
                         return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.api.eventSiteApi.update(this.model)];
                     case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4:
+                        this.router.navigate(['sites']);
+                        return [3 /*break*/, 6];
+                    case 5:
                         e_1 = _a.sent();
-                        this.notificationService.error(e_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        this.notification.error(e_1);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
-    AddSlotComponent.prototype.cancel = function () {
-        this.router.navigateByUrl('provider');
-        this.model = this.createNewModel();
-    };
-    AddSlotComponent = __decorate([
+    SiteComponent = __decorate([
         core_1.Component({
-            selector: 'amb-add-slot',
-            templateUrl: './add-slot.component.html',
-            styleUrls: ['./add-slot.component.css']
+            selector: 'amb-site',
+            templateUrl: './site.component.html',
+            styleUrls: ['./site.component.scss']
         }),
-        __metadata("design:paramtypes", [router_1.Router,
-            session_service_1.SessionService,
+        __metadata("design:paramtypes", [session_service_1.SessionService,
             apiFacade_1.ApiFacade,
-            notification_service_1.NotificationService])
-    ], AddSlotComponent);
-    return AddSlotComponent;
+            util_service_1.UtilService,
+            notification_service_1.NotificationService,
+            router_1.ActivatedRoute,
+            router_1.Router])
+    ], SiteComponent);
+    return SiteComponent;
 }());
-exports.AddSlotComponent = AddSlotComponent;
-//# sourceMappingURL=add-slot.component.js.map
+exports.SiteComponent = SiteComponent;
+//# sourceMappingURL=site.component.js.map

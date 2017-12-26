@@ -106,7 +106,8 @@ const routes: Routes = [
   },
   {
     path: 'booking/:id',
-    component: BookingViewComponent
+    // component: BookingViewComponent
+    component: TransactionComponent
   },
   {
     path: 'provider',
@@ -128,32 +129,32 @@ const routes: Routes = [
     path: 'aboutus',
     component: AboutusComponent
   },
+  // {
+  //   path: 'ptran',
+  //   component: PtranListComponent
+  // },
+  // {
+  //   path: 'ptran/:tranId',
+  //   component: PtranComponent
+  // },
+  // {
+  //   path: 'ctran',
+  //   component: CtranListComponent
+  // },
+  // {
+  //   path: 'ctran/:tranId',
+  //   component: CtranComponent
+  // },
+  // {
+  //   path: 'trans',
+  //   component: TransactionsComponent
+  // },
+  // {
+  //   path: 'tran/start/:bookingId',
+  //   component: TransactionComponent
+  // },
   {
-    path: 'ptran',
-    component: PtranListComponent
-  },
-  {
-    path: 'ptran/:tranId',
-    component: PtranComponent
-  },
-  {
-    path: 'ctran',
-    component: CtranListComponent
-  },
-  {
-    path: 'ctran/:tranId',
-    component: CtranComponent
-  },
-  {
-    path: 'trans',
-    component: TransactionsComponent
-  },
-  {
-    path: 'tran/start/:bookingId',
-    component: TransactionComponent
-  },
-  {
-    path: 'tran/:id',
+    path: 'booking/tran/:id',
     component: TransactionComponent
   },
   {

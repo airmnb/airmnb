@@ -11,19 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var slot_service_1 = require("../slot.service");
-var modal_service_1 = require("../modal.service");
 var session_service_1 = require("../session.service");
-var uuid = require("uuid");
+var slot_service_1 = require("../slot.service");
 var apiFacade_1 = require("../apiFacade");
-var ConsumerDashboardComponent = /** @class */ (function () {
-    function ConsumerDashboardComponent(route, router, sessionService, searchService, modalService, api) {
+var slot_image_service_1 = require("../slot-image.service");
+var SearchResultComponent = /** @class */ (function () {
+    function SearchResultComponent(route, router, sessionService, searchService, api, imageService) {
         this.route = route;
         this.router = router;
         this.sessionService = sessionService;
         this.searchService = searchService;
-        this.modalService = modalService;
         this.api = api;
+        this.imageService = imageService;
         this.babyProfileSettings = {
             edit: {
                 confirmSave: true,
@@ -65,7 +64,7 @@ var ConsumerDashboardComponent = /** @class */ (function () {
                         config: {
                             list: [{ value: 0, title: 'Girl' }, { value: 1, title: 'Boy' }]
                         }
-                    }
+                    },
                 },
                 hobby: {
                     title: 'Hobby',
@@ -84,14 +83,14 @@ var ConsumerDashboardComponent = /** @class */ (function () {
             }
         };
     }
-    Object.defineProperty(ConsumerDashboardComponent.prototype, "hasLoggedIn", {
+    Object.defineProperty(SearchResultComponent.prototype, "hasLoggedIn", {
         get: function () {
             return this.sessionService.hasLoggedIn;
         },
         enumerable: true,
         configurable: true
     });
-    ConsumerDashboardComponent.prototype.ngOnInit = function () {
+    SearchResultComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.queryParams.subscribe(function (params) {
             var queryJson = params['q'];
@@ -102,15 +101,15 @@ var ConsumerDashboardComponent = /** @class */ (function () {
         });
         this.loadBabyProfiles();
     };
-    ConsumerDashboardComponent.prototype.addBaby = function () {
-        this.modalService.openAddBabyModal();
+    SearchResultComponent.prototype.getImageUrl = function (slot) {
+        if (slot.imageNames && slot.imageNames.length) {
+            return this.imageService.getImageUrl(slot.imageNames[0]);
+        }
+        else {
+            return "";
+        }
     };
-    ConsumerDashboardComponent.prototype.displayGender = function (cell, row) {
-        var gender = cell === '1' ? 'Boy' :
-            cell === '0' ? 'Girl' : '';
-        return gender;
-    };
-    ConsumerDashboardComponent.prototype.loadBabyProfiles = function () {
+    SearchResultComponent.prototype.loadBabyProfiles = function () {
         var _this = this;
         if (!this.hasLoggedIn) {
             return;
@@ -121,58 +120,26 @@ var ConsumerDashboardComponent = /** @class */ (function () {
         })
             .catch(console.log);
     };
-    ConsumerDashboardComponent.prototype.onCreate = function (event) {
-        var data = event.newData;
-        var babyProfile = {
-            nickName: data.nickName,
-            dob: data.dob,
-            consumerId: this.sessionService.account.id,
-            gender: data.gender,
-            id: uuid.v4(),
-            hobby: data.hobby,
-            info: data.info
-        };
-        this.api.babyProfileApi.add(babyProfile)
-            .then(function (x) { return event.confirm.resolve(data); })
-            .catch(function (e) { return event.confirm.reject(e); });
-    };
-    ConsumerDashboardComponent.prototype.onEdit = function (event) {
-        var data = event.newData;
-        var babyProfile = {
-            nickName: data.nickName,
-            dob: data.dob,
-            id: data.id,
-            consumerId: this.sessionService.account.id,
-            gender: data.gender,
-            hobby: data.hobby,
-            info: data.info
-        };
-        this.api.babyProfileApi.update(babyProfile, data.id)
-            .then(function (x) { return event.confirm.resolve(data); })
-            .catch(function (e) { return event.confirm.reject(e); });
-    };
-    ConsumerDashboardComponent.prototype.onDelete = function (event) {
-        var id = event.data.id;
-        if (id) {
-            this.api.babyProfileApi.delete(id)
-                .then(function (x) { return event.confirm.resolve(null); })
-                .catch(function (e) { return event.confirm.reject(e); });
+    SearchResultComponent.prototype.book = function (slot) {
+        if (!slot) {
+            return;
         }
+        this.router.navigate(['/bookings/add/', slot.id]);
     };
-    ConsumerDashboardComponent = __decorate([
+    SearchResultComponent = __decorate([
         core_1.Component({
-            selector: 'amb-consumer-dashboard',
-            templateUrl: './consumer-dashboard.component.html',
-            styleUrls: ['./consumer-dashboard.component.css']
+            selector: 'amb-search-result',
+            templateUrl: './search-result.component.html',
+            styleUrls: ['./search-result.component.scss']
         }),
         __metadata("design:paramtypes", [router_1.ActivatedRoute,
             router_1.Router,
             session_service_1.SessionService,
             slot_service_1.SlotService,
-            modal_service_1.ModalService,
-            apiFacade_1.ApiFacade])
-    ], ConsumerDashboardComponent);
-    return ConsumerDashboardComponent;
+            apiFacade_1.ApiFacade,
+            slot_image_service_1.ImageService])
+    ], SearchResultComponent);
+    return SearchResultComponent;
 }());
-exports.ConsumerDashboardComponent = ConsumerDashboardComponent;
-//# sourceMappingURL=consumer-dashboard.component.js.map
+exports.SearchResultComponent = SearchResultComponent;
+//# sourceMappingURL=search-result.component.js.map

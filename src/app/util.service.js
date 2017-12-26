@@ -25,8 +25,10 @@ var UtilService = /** @class */ (function () {
         return uuid.v4();
     };
     UtilService.prototype.displayGender = function (gender) {
-        return gender === types_1.Gender.Boy ? 'Boy' :
-            gender === types_1.Gender.Girl ? 'Girl' :
+        // tslint:disable-next-line:triple-equals
+        return gender == types_1.Gender.Boy ? 'Boy' :
+            // tslint:disable-next-line:triple-equals
+            gender == types_1.Gender.Girl ? 'Girl' :
                 'Either';
     };
     UtilService.prototype.getHour = function (date) {
@@ -51,7 +53,7 @@ var UtilService = /** @class */ (function () {
         else {
             port = ":" + port;
         }
-        return document.location.protocol + "//" + document.location.hostname + port + "/bookings/" + bookingId;
+        return document.location.protocol + "//" + document.location.hostname + port + "/booking/" + bookingId;
     };
     UtilService = __decorate([
         core_1.Injectable(),

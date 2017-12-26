@@ -10,24 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var api_service_1 = require("./api.service");
-var ApiFacade = /** @class */ (function () {
-    function ApiFacade(apiFactory) {
-        this.bookingApi = apiFactory.produce('booking');
-        this.slotApi = apiFactory.produce('slot');
-        this.placeApi = apiFactory.produce('place');
-        this.accountApi = apiFactory.produce('account');
-        this.accountProfileApi = apiFactory.produce('account_profile');
-        this.babyProfileApi = apiFactory.produce('baby_profile');
-        this.eventSiteApi = apiFactory.produce('event_site');
+var PtranListComponent = /** @class */ (function () {
+    function PtranListComponent() {
     }
-    ApiFacade.prototype.getReviewContent = function () {
+    PtranListComponent.prototype.ngOnInit = function () {
     };
-    ApiFacade = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [api_service_1.ApiServiceFactory])
-    ], ApiFacade);
-    return ApiFacade;
+    PtranListComponent = __decorate([
+        core_1.Component({
+            selector: 'amb-ptran-list',
+            templateUrl: './ptran-list.component.html',
+            styleUrls: ['./ptran-list.component.scss']
+        }),
+        __metadata("design:paramtypes", [])
+    ], PtranListComponent);
+    return PtranListComponent;
 }());
-exports.ApiFacade = ApiFacade;
-//# sourceMappingURL=apiFacade.js.map
+exports.PtranListComponent = PtranListComponent;
+//# sourceMappingURL=ptran-list.component.js.map

@@ -89,13 +89,13 @@ var TransactionService = /** @class */ (function () {
         if (tran.finishedAt) {
             return types_1.TransactionStatus.Finished;
         }
-        if (tran.doneImageNameByProvider) {
+        if (tran.providerCheckOutImageName) {
             return types_1.TransactionStatus.Ending;
         }
         if (tran.startedAt) {
             return types_1.TransactionStatus.Started;
         }
-        if (tran.doneImageNameByConsumer) {
+        if (tran.consumerCheckOutImageName) {
             return types_1.TransactionStatus.Launched;
         }
         if (tran.createdAt) {
@@ -114,7 +114,7 @@ var TransactionService = /** @class */ (function () {
                         if (booking.expiredAt && booking.expiredAt < new Date()) {
                             throw new Error('Booking was expired.');
                         }
-                        tran.doneImageNameByConsumer = startImageNameByConsumer;
+                        tran.consumerCheckOutImageName = startImageNameByConsumer;
                         return [4 /*yield*/, this.api.tranApi.add(tran)];
                     case 2:
                         tranId = _a.sent();
@@ -135,7 +135,7 @@ var TransactionService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.api.tranApi.getOne(tranId)];
                     case 1:
                         tran = _a.sent();
-                        tran.startedImageNameByProvider = startImageNameByProvider;
+                        tran.providerCheckInImageName = startImageNameByProvider;
                         tran.startedAt = new Date();
                         return [4 /*yield*/, this.api.tranApi.update(tran)];
                     case 2:
@@ -153,7 +153,7 @@ var TransactionService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.api.tranApi.getOne(tranId)];
                     case 1:
                         tran = _a.sent();
-                        tran.doneImageNameByProvider = endImageNameByProvider;
+                        tran.providerCheckOutImageName = endImageNameByProvider;
                         return [4 /*yield*/, this.api.tranApi.update(tran)];
                     case 2:
                         _a.sent();
@@ -170,7 +170,7 @@ var TransactionService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.api.tranApi.getOne(tranId)];
                     case 1:
                         tran = _a.sent();
-                        tran.doneImageNameByConsumer = endImageNameByConsumer;
+                        tran.consumerCheckOutImageName = endImageNameByConsumer;
                         tran.finishedAt = new Date();
                         return [4 /*yield*/, this.api.tranApi.update(tran)];
                     case 2:

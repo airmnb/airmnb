@@ -56,7 +56,7 @@ var BabyContentComponent = /** @class */ (function () {
         this.activeModal = activeModal;
         this.model = {
             nickName: null,
-            age: null,
+            dob: null,
             gender: null,
             hobby: null,
             info: null
@@ -75,7 +75,7 @@ var BabyContentComponent = /** @class */ (function () {
                             id: uuid.v4(),
                             nickName: this.model.nickName,
                             consumerId: consumerId,
-                            age: this.model.age,
+                            dob: this.model.dob,
                             gender: this.model.gender,
                             hobby: this.model.hobby,
                             info: this.model.info

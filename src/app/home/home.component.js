@@ -53,14 +53,20 @@ var moment = require("moment");
 var modal_service_1 = require("../modal.service");
 var notification_service_1 = require("../notification.service");
 var select_option_service_1 = require("../select-option.service");
+var apiFacade_1 = require("../apiFacade");
+var slot_image_service_1 = require("../slot-image.service");
+var util_service_1 = require("../util.service");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(modalService, ngbTimerConfig, sessionService, router, mapService, notificationService, selectOptionService) {
+    function HomeComponent(modalService, ngbTimerConfig, session, router, mapService, notificationService, selectOptionService, api, imageService, util) {
         this.modalService = modalService;
-        this.sessionService = sessionService;
+        this.session = session;
         this.router = router;
         this.mapService = mapService;
         this.notificationService = notificationService;
         this.selectOptionService = selectOptionService;
+        this.api = api;
+        this.imageService = imageService;
+        this.util = util;
         this.submitted = false;
         this.model = {
             location: {
@@ -94,9 +100,41 @@ var HomeComponent = /** @class */ (function () {
         configurable: true
     });
     HomeComponent.prototype.ngOnInit = function () {
+        console.log('isProvider', this.session.isProvider);
+        if (this.session.isProvider) {
+            this.router.navigate(['slots']);
+            return;
+        }
         // Get the current geolocation
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
+        }
+        this.loadSlots();
+    };
+    HomeComponent.prototype.loadSlots = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.api.slotApi.list({ $where: "this.bookingCount < this.capping" })];
+                    case 1:
+                        _a.slots = _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    HomeComponent.prototype.displayGender = function (gender) {
+        return this.util.displayGender(gender);
+    };
+    HomeComponent.prototype.getImageUrl = function (slot) {
+        if (slot.imageNames && slot.imageNames.length) {
+            return this.imageService.getImageUrl(slot.imageNames[0]);
+        }
+        else {
+            return "";
         }
     };
     HomeComponent.prototype.setPosition = function (position) {
@@ -107,6 +145,12 @@ var HomeComponent = /** @class */ (function () {
             _this.model.location = x;
         })
             .catch(function (e) { return null; });
+    };
+    HomeComponent.prototype.book = function (slot) {
+        if (!slot) {
+            return;
+        }
+        this.router.navigate(['/bookings/add/', slot.id]);
     };
     HomeComponent.prototype.signup = function () {
         this.modalService.openSignupModal();
@@ -120,7 +164,7 @@ var HomeComponent = /** @class */ (function () {
     };
     Object.defineProperty(HomeComponent.prototype, "hasLoggedIn", {
         get: function () {
-            return !!this.sessionService.account;
+            return !!this.session.account;
         },
         enumerable: true,
         configurable: true
@@ -133,7 +177,7 @@ var HomeComponent = /** @class */ (function () {
                 try {
                     queryObj = this.composeQuery();
                     queryParams = { q: JSON.stringify(queryObj) };
-                    this.router.navigate(['/consumer'], { queryParams: queryParams });
+                    this.router.navigate(['/search'], { queryParams: queryParams });
                 }
                 catch (e) {
                     this.notificationService.error(e);
@@ -186,7 +230,10 @@ var HomeComponent = /** @class */ (function () {
             router_1.Router,
             map_service_service_1.MapServiceService,
             notification_service_1.NotificationService,
-            select_option_service_1.SelectOptionService])
+            select_option_service_1.SelectOptionService,
+            apiFacade_1.ApiFacade,
+            slot_image_service_1.ImageService,
+            util_service_1.UtilService])
     ], HomeComponent);
     return HomeComponent;
 }());

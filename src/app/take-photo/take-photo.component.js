@@ -45,88 +45,87 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var uuid = require("uuid");
-var session_service_1 = require("../session.service");
-var moment = require("moment");
-var notification_service_1 = require("../notification.service");
-var apiFacade_1 = require("../apiFacade");
-var AddSlotComponent = /** @class */ (function () {
-    function AddSlotComponent(router, session, api, notificationService) {
-        this.router = router;
-        this.session = session;
-        this.api = api;
-        this.notificationService = notificationService;
+var http_1 = require("@angular/http");
+var TakePhotoComponent = /** @class */ (function () {
+    function TakePhotoComponent(http) {
+        this.http = http;
+        this.accept = 'image/*';
+        this.uploaded = new core_1.EventEmitter();
     }
-    AddSlotComponent.prototype.createNewModel = function () {
-        var now = moment();
-        return {
-            id: uuid.v4(),
-            providerId: null,
-            title: "",
-            start: now.toDate(),
-            end: now.toDate(),
-            ageFrom: 3,
-            ageTo: 6,
-            gender: 2,
-            otherCondition: null,
-            capping: 5,
-            bookingCount: 0,
-            price: 50,
-            eventPlaceId: null,
-            siteId: null,
-            location: null
-        };
+    Object.defineProperty(TakePhotoComponent.prototype, "autoPopup", {
+        set: function (value) {
+            if (value) {
+                this.selectFile();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TakePhotoComponent.prototype.ngOnInit = function () {
     };
-    AddSlotComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.model = this.createNewModel();
-        this.session.getAccount().subscribe(function (account) { return _this.model.providerId = account.id; });
-    };
-    AddSlotComponent.prototype.create = function (navigateOut) {
+    TakePhotoComponent.prototype.onNativeInputFileSelect = function ($event) {
         return __awaiter(this, void 0, void 0, function () {
-            var api, e_1;
+            var fileList, file, formData, headers, options, resp, imageName, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        api = this.api.slotApi;
+                        fileList = event.target['files'];
+                        if (!fileList.length) {
+                            return [2 /*return*/];
+                        }
+                        file = fileList[0];
+                        formData = new FormData();
+                        formData.append('image', file, file.name);
+                        headers = new Headers();
+                        options = null;
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, api.add(this.model)];
+                        return [4 /*yield*/, this.http.post('/api/image', formData, options).toPromise()];
                     case 2:
-                        _a.sent();
-                        if (navigateOut) {
-                            this.router.navigateByUrl('provider');
-                        }
-                        this.model = this.createNewModel();
-                        this.notificationService.info("Successfully create a slot.");
+                        resp = _a.sent();
+                        imageName = resp.text();
+                        this.uploaded.emit(imageName);
                         return [3 /*break*/, 4];
                     case 3:
                         e_1 = _a.sent();
-                        this.notificationService.error(e_1);
+                        console.log(e_1);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    AddSlotComponent.prototype.cancel = function () {
-        this.router.navigateByUrl('provider');
-        this.model = this.createNewModel();
+    TakePhotoComponent.prototype.selectFile = function () {
+        this.nativeInputFile.nativeElement.click();
+        console.log('auto popup');
     };
-    AddSlotComponent = __decorate([
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], TakePhotoComponent.prototype, "autoPopup", null);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], TakePhotoComponent.prototype, "accept", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], TakePhotoComponent.prototype, "uploaded", void 0);
+    __decorate([
+        core_1.ViewChild('inputFile'),
+        __metadata("design:type", core_1.ElementRef)
+    ], TakePhotoComponent.prototype, "nativeInputFile", void 0);
+    TakePhotoComponent = __decorate([
         core_1.Component({
-            selector: 'amb-add-slot',
-            templateUrl: './add-slot.component.html',
-            styleUrls: ['./add-slot.component.css']
+            selector: 'amb-take-photo',
+            templateUrl: './take-photo.component.html',
+            styleUrls: ['./take-photo.component.scss']
         }),
-        __metadata("design:paramtypes", [router_1.Router,
-            session_service_1.SessionService,
-            apiFacade_1.ApiFacade,
-            notification_service_1.NotificationService])
-    ], AddSlotComponent);
-    return AddSlotComponent;
+        __metadata("design:paramtypes", [http_1.Http])
+    ], TakePhotoComponent);
+    return TakePhotoComponent;
 }());
-exports.AddSlotComponent = AddSlotComponent;
-//# sourceMappingURL=add-slot.component.js.map
+exports.TakePhotoComponent = TakePhotoComponent;
+//# sourceMappingURL=take-photo.component.js.map

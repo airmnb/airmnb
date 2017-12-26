@@ -3,10 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { ImageService } from '../slot-image.service';
-import { Booking, Transaction } from '../../../types';
+import { Booking } from '../../../types';
 import { MatStepper } from '@angular/material';
 import * as moment from 'moment';
 import { SessionService } from '../session.service';
+import { BookingService } from '../booking.service';
+import { imageFilter } from '../../../server/routes/utils';
 
 @Component({
   selector: 'amb-transaction',
@@ -15,11 +17,11 @@ import { SessionService } from '../session.service';
 })
 export class TransactionComponent implements OnInit {
   isNew: boolean;
-  tran: Transaction;
+  booking: Booking;
   @ViewChild("stepper") stepper: MatStepper;
 
   get isComplete() {
-    return this.tran && (this.tran.finishedAt || this.tran.terminatedAt);
+    return this.booking && (this.booking.finishedAt || this.booking.terminatedAt);
   }
 
   constructor(
@@ -27,13 +29,14 @@ export class TransactionComponent implements OnInit {
     private api: ApiFacade,
     private util: UtilService,
     private image: ImageService,
-    public session: SessionService
+    public session: SessionService,
+    private bookingService: BookingService
   ) { }
 
   ngOnInit() {
     this.activatedRouter.params.subscribe(async p => {
-      const tranId = p.id;
-      this.tran = await this.api.tranApi.getOne(tranId);
+      const bookingId = p.id;
+      this.booking = await this.api.bookingApi.getOne(bookingId);
     });
   }
 
@@ -50,17 +53,9 @@ export class TransactionComponent implements OnInit {
       console.log('The uploaded process returns a null imageName');
       return;
     }
-    this.tran.consumerCheckInImageName = imageName;
-    this.tran.consumerCheckInAt = new Date();
-    // Add a new transaction
-    await this.api.tranApi.add(this.tran);
-    // await this.api.tranApi.update(this.tran);
 
-    // Update the booking to be un-open
-    await this.api.bookingApi.updateFunc(this.tran.bookingId, b => {
-      b.open = false;
-      return b;
-    });
+    await this.bookingService.checkIn(this.booking, imageName);
+
     this.goNext();
   }
 
@@ -69,10 +64,9 @@ export class TransactionComponent implements OnInit {
       console.log('The uploaded process returns a null imageName');
       return;
     }
-    this.tran.providerCheckInImageName = imageName;
-    this.tran.providerCheckInAt = new Date();
-    this.tran.startedAt = new Date();
-    await this.api.tranApi.update(this.tran);
+
+    await this.bookingService.checkInConfirm(this.booking, imageName);
+
     this.goNext();
   }
 
@@ -81,9 +75,8 @@ export class TransactionComponent implements OnInit {
       console.log('The uploaded process returns a null imageName');
       return;
     }
-    this.tran.consumerCheckOutImageName = imageName;
-    this.tran.consumerCheckOutAt = new Date();
-    await this.api.tranApi.update(this.tran);
+    await this.bookingService.checkOut(this.booking, imageName);
+
     this.goNext();
   }
 
@@ -92,15 +85,12 @@ export class TransactionComponent implements OnInit {
       console.log('The uploaded process returns a null imageName');
       return;
     }
-    this.tran.providerCheckOutImageName = imageName;
-    this.tran.providerCheckOutAt = new Date();
-    this.tran.finishedAt = new Date();
-    await this.api.tranApi.update(this.tran);
+    await this.bookingService.checkOutConfirm(this.booking, imageName);
   }
 
   getTransactionTimeString(): string {
-    const end = moment(this.tran.finishedAt);
-    const start = moment(this.tran.startedAt);
+    const end = moment(this.booking.finishedAt);
+    const start = moment(this.booking.startedAt);
     const span = end.diff(start, 'hours', true);
     const h = Math.floor(span);
     const m = Math.ceil((span - h) * 60);

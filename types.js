@@ -1,14 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var TransactionStatus;
-(function (TransactionStatus) {
-    TransactionStatus[TransactionStatus["ReadToLaunch"] = 0] = "ReadToLaunch";
-    TransactionStatus[TransactionStatus["Launched"] = 1] = "Launched";
-    TransactionStatus[TransactionStatus["Started"] = 2] = "Started";
-    TransactionStatus[TransactionStatus["Ending"] = 3] = "Ending";
-    TransactionStatus[TransactionStatus["Finished"] = 4] = "Finished";
-    TransactionStatus[TransactionStatus["Terminated"] = 5] = "Terminated";
-})(TransactionStatus = exports.TransactionStatus || (exports.TransactionStatus = {}));
+var BookingStatus;
+(function (BookingStatus) {
+    BookingStatus[BookingStatus["Created"] = 0] = "Created";
+    BookingStatus[BookingStatus["Cancelled"] = 1] = "Cancelled";
+    BookingStatus[BookingStatus["Ongoing"] = 2] = "Ongoing";
+    BookingStatus[BookingStatus["Finished"] = 3] = "Finished";
+    BookingStatus[BookingStatus["Terminated"] = 4] = "Terminated";
+})(BookingStatus = exports.BookingStatus || (exports.BookingStatus = {}));
 var Gender;
 (function (Gender) {
     Gender[Gender["Girl"] = 0] = "Girl";

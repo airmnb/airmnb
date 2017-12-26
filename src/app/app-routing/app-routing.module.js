@@ -26,6 +26,14 @@ var signup_content_component_1 = require("../signup-content/signup-content.compo
 var profile_content_component_1 = require("../profile-content/profile-content.component");
 var babies_component_1 = require("../babies/babies.component");
 var baby_component_1 = require("../baby/baby.component");
+var sites_component_1 = require("../sites/sites.component");
+var site_component_1 = require("../site/site.component");
+var search_result_component_1 = require("../search-result/search-result.component");
+var transaction_component_1 = require("../transaction/transaction.component");
+var ptran_component_1 = require("../ptran/ptran.component");
+var ctran_component_1 = require("../ctran/ctran.component");
+var ptran_list_component_1 = require("../ptran-list/ptran-list.component");
+var ctran_list_component_1 = require("../ctran-list/ctran-list.component");
 var routes = [
     {
         path: '',
@@ -60,6 +68,18 @@ var routes = [
     //   component: SlotListComponent
     // },
     {
+        path: 'sites',
+        component: sites_component_1.SitesComponent
+    },
+    {
+        path: 'sites/add',
+        component: site_component_1.SiteComponent
+    },
+    {
+        path: 'sites/:id',
+        component: site_component_1.SiteComponent
+    },
+    {
         path: 'slots',
         component: slot_edit_component_1.SlotEditComponent,
     },
@@ -88,7 +108,7 @@ var routes = [
         component: booking_list_component_1.BookingListComponent
     },
     {
-        path: 'bookings/:id',
+        path: 'booking/:id',
         component: booking_view_component_1.BookingViewComponent
     },
     {
@@ -104,12 +124,40 @@ var routes = [
         component: consumer_dashboard_component_1.ConsumerDashboardComponent
     },
     {
+        path: 'search',
+        component: search_result_component_1.SearchResultComponent
+    },
+    {
         path: 'aboutus',
         component: aboutus_component_1.AboutusComponent
     },
     {
-        path: 'transactions',
+        path: 'ptran',
+        component: ptran_list_component_1.PtranListComponent
+    },
+    {
+        path: 'ptran/:tranId',
+        component: ptran_component_1.PtranComponent
+    },
+    {
+        path: 'ctran',
+        component: ctran_list_component_1.CtranListComponent
+    },
+    {
+        path: 'ctran/:tranId',
+        component: ctran_component_1.CtranComponent
+    },
+    {
+        path: 'trans',
         component: transactions_component_1.TransactionsComponent
+    },
+    {
+        path: 'tran/start/:bookingId',
+        component: transaction_component_1.TransactionComponent
+    },
+    {
+        path: 'tran/:id',
+        component: transaction_component_1.TransactionComponent
     },
     {
         path: 'babies',

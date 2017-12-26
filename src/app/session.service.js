@@ -106,43 +106,42 @@ var SessionService = /** @class */ (function () {
     });
     SessionService.prototype.changeRole = function (role) {
         this._role = role;
+        this.saveCookie();
         this.router.navigateByUrl('/');
     };
     SessionService.prototype.assureRole = function (role) {
         // tslint:disable-next-line:triple-equals
-        if (role != this.role) {
+        if (!this.hasLoggedIn || role != this.role) {
             console.log("Expected " + JSON.stringify(role) + ", but you are " + JSON.stringify(this.role));
-            // this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/');
         }
     };
     SessionService.prototype.login = function (account, role) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, cookieValue, json;
+            var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         this._account = account;
+                        this._role = role;
                         _a = this;
                         return [4 /*yield*/, this.api.accountProfileApi.get({ accountId: account.id })];
                     case 1:
                         _a._profile = _b.sent();
                         this.accountSubject.next(account);
-                        cookieValue = {
-                            account: account,
-                            role: role
-                        };
-                        this._role = role;
-                        json = JSON.stringify(cookieValue);
-                        this.cookieService.set(cookieKey, json);
+                        this.saveCookie();
                         return [2 /*return*/];
                 }
             });
         });
     };
     SessionService.prototype.logout = function () {
+        console.log('Session login');
         this._account = null;
+        this._role = null;
+        this._profile = null;
         this.accountSubject.next(null);
-        this.cookieService.delete(cookieKey);
+        this.cookieService.delete(cookieKey, '/');
     };
     SessionService.prototype.getAccount = function () {
         return this.accountSubject.asObservable();
@@ -161,12 +160,19 @@ var SessionService = /** @class */ (function () {
         }
         this.logout();
     };
+    SessionService.prototype.saveCookie = function () {
+        var value = {
+            account: this.account,
+            role: this._role
+        };
+        this.cookieService.set(cookieKey, JSON.stringify(value), null, '/');
+    };
     SessionService.prototype.getProfile = function () {
         var p = this.api.accountProfileApi.get({ accountId: this.account.id });
         return Observable_1.Observable.fromPromise(p);
     };
     SessionService.prototype.setLanguage = function (lang) {
-        this.cookieService.set(langKey, lang);
+        // this.cookieService.set(langKey, lang);
     };
     SessionService.prototype.getLanguage = function () {
         return this.cookieService.get(langKey) || 'en';

@@ -1,72 +1,77 @@
-<h1>
-  Transaction
-</h1>
-<div *ngIf="tran && !isComplete" class="container">
-  <mat-vertical-stepper #stepper [linear]="true">
-    <mat-step>
-      <ng-template matStepLabel>
-        <i class="fa fa-sign-in" aria-hidden="true"></i> Check-in by the baby's Mom
-      </ng-template>
-      <div *ngIf="tran.consumerCheckInImageName">
-        <div class="image-time">{{tran.consumerCheckInAt | date:'medium'}}</div>
-        <img class="z-depth-3 confirm-image" [src]="getImageUrl(tran.consumerCheckInImageName)">
-      </div>
-      <div *ngIf="!tran.consumerCheckInImageName">
-        <p>Take a photo to check-in.</p>
-        <amb-take-photo *ngIf="session.isConsumer" [autoPopup]="true" (uploaded)="consumerCheckIn($event)"></amb-take-photo>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>
-        <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-in by the Air Mom
-      </ng-template>
-      <div *ngIf="tran.providerCheckInImageName">
-        <div class="image-time">{{tran.providerCheckInAt | date:'medium'}}</div>
-        <img class="z-depth-3 confirm-image" [src]="getImageUrl(tran.providerCheckInImageName)">
-      </div>
-      <div *ngIf="!tran.providerCheckInImageName">
-        <p>Waiting for the Air Mom's confirmation for starting transaction.</p>
-        <amb-take-photo *ngIf="session.isProvider"  (uploaded)="providerCheckIn($event)"></amb-take-photo>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>
-        <i class="fa fa-sign-out" aria-hidden="true"></i> Check-out by the baby's Mom
-      </ng-template>
-      <div *ngIf="tran.consumerCheckOutImageName">
-        <div class="image-time">{{tran.consumerCheckOutAt | date:'medium'}}</div>
-        <img class="z-depth-3 confirm-image" [src]="getImageUrl(tran.consumerCheckOutImageName)">
-      </div>
-      <div *ngIf="!tran.consumerCheckOutImageName">
-        <p>Waiting for the Mom's check-out request.</p>
-        <amb-take-photo *ngIf="session.isConsumer" (uploaded)="consumerCheckOut($event)"></amb-take-photo>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>
-        <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-out by the Air Mom
-      </ng-template>
-      <div *ngIf="tran.providerCheckOutImageName">
-        <div class="image-time">{{tran.providerCheckOutAt | date:'medium'}}</div>
-        <img class="z-depth-3 confirm-image" [src]="getImageUrl(tran.providerCheckOutImageName)">
-      </div>
-      <div *ngIf="!tran.providerCheckOutImageName">
-        <p>Waiting for the Air Mom's confirmation for finishing the transaction.</p>
-        <amb-take-photo *ngIf="session.isProvider"  (uploaded)="providerCheckOut($event)"></amb-take-photo>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
-</div>
+<div class="container">
+  <h1>
+    Booking transaction
+  </h1>
+  <amb-loading *ngIf="!booking"></amb-loading>
+  <div *ngIf="booking">
+    <amb-baby-avatar class="left" [baby]="baby"></amb-baby-avatar>
 
-<div class="container" *ngIf="isComplete">
-  <h3>This transaction is done.</h3>
-  <label>Started at</label>
-  <p>{{tran.startedAt | date:'medium'}}</p>
-  <label>Finished at</label>
-  <p>{{tran.finishedAt | date:'medium'}}</p>
-  <label>Total time</label>
-  <p>{{getTransactionTimeString()}}</p>
-  <div>
-    <a matButton class="btn waves-effect waves-light amb-block" routerLink="/">OK</a>
+    <mat-vertical-stepper *ngIf="!isComplete" #stepper [linear]="true">
+      <mat-step>
+        <ng-template matStepLabel>
+          <i class="fa fa-sign-in" aria-hidden="true"></i> Check-in by the baby's Mom
+        </ng-template>
+        <div *ngIf="booking.consumerCheckInImageName">
+          <div class="image-time">{{booking.consumerCheckInAt | date:'medium'}}</div>
+          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.consumerCheckInImageName)">
+        </div>
+        <div *ngIf="!booking.consumerCheckInImageName">
+          <p>Take a photo to check-in.</p>
+          <amb-take-photo *ngIf="session.isConsumer" [autoPopup]="true" (uploaded)="consumerCheckIn($event)"></amb-take-photo>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-in by the Air Mom
+        </ng-template>
+        <div *ngIf="booking.providerCheckInImageName">
+          <div class="image-time">{{booking.providerCheckInAt | date:'medium'}}</div>
+          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.providerCheckInImageName)">
+        </div>
+        <div *ngIf="!booking.providerCheckInImageName">
+          <p>Waiting for the Air Mom's confirmation for starting transaction.</p>
+          <amb-take-photo *ngIf="session.isProvider" (uploaded)="providerCheckIn($event)"></amb-take-photo>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Check-out by the baby's Mom
+        </ng-template>
+        <div *ngIf="booking.consumerCheckOutImageName">
+          <div class="image-time">{{booking.consumerCheckOutAt | date:'medium'}}</div>
+          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.consumerCheckOutImageName)">
+        </div>
+        <div *ngIf="!booking.consumerCheckOutImageName">
+          <p>Waiting for the Mom's check-out request.</p>
+          <amb-take-photo *ngIf="session.isConsumer" (uploaded)="consumerCheckOut($event)"></amb-take-photo>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-out by the Air Mom
+        </ng-template>
+        <div *ngIf="booking.providerCheckOutImageName">
+          <div class="image-time">{{booking.providerCheckOutAt | date:'medium'}}</div>
+          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.providerCheckOutImageName)">
+        </div>
+        <div *ngIf="!booking.providerCheckOutImageName">
+          <p>Waiting for the Air Mom's confirmation for finishing the transaction.</p>
+          <amb-take-photo *ngIf="session.isProvider" (uploaded)="providerCheckOut($event)"></amb-take-photo>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+
+    <div *ngIf="isComplete">
+      <h3>This transaction is done.</h3>
+      <label>Started at</label>
+      <p>{{booking.startedAt | date:'medium'}}</p>
+      <label>Finished at</label>
+      <p>{{booking.finishedAt | date:'medium'}}</p>
+      <label>Total time</label>
+      <p>{{getTransactionTimeString()}}</p>
+      <div>
+        <a matButton class="btn waves-effect waves-light amb-block" routerLink="/">OK</a>
+      </div>
+    </div>
   </div>
 </div>
