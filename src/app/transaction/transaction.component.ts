@@ -32,22 +32,8 @@ export class TransactionComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRouter.params.subscribe(async p => {
-      const bookingId = p.bookingId;
-
-      this.tran = await this.api.tranApi.get({bookingId});
-      if(!this.tran) {
-        // To start the transaction from the booking
-        const booking = await this.api.bookingApi.getOne(bookingId);
-        this.tran = {
-          id: this.util.newGuid(),
-          bookingId: bookingId,
-          babyId: booking.babyId,
-          consumerId: booking.consumerId,
-          providerId: booking.providerId,
-          slotId: booking.slotId,
-          createdAt: new Date()
-        };
-      }
+      const tranId = p.id;
+      this.tran = await this.api.tranApi.getOne(tranId);
     });
   }
 

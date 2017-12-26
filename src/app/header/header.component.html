@@ -29,10 +29,14 @@
     <a matLine routerLink="/bookings">Bookings</a>
     <i class="fa fa-flag right" aria-hidden="true"></i>
   </mat-list-item>
-  <mat-list-item *ngIf="hasLoggedIn">
-    <a matLine routerLink="/transactions">Transactions</a>
+  <mat-list-item *ngIf="isProvider">
+    <a matLine routerLink="/trans">Transactions</a>
     <i class="fa fa-usd right" aria-hidden="true"></i>
   </mat-list-item>
+  <mat-list-item *ngIf="isConsumer">
+      <a matLine routerLink="/trans">Transactions</a>
+      <i class="fa fa-usd right" aria-hidden="true"></i>
+    </mat-list-item>
   <mat-list-item *ngIf="isProvider">
     <a matLine routerLink="/sites">Sites</a>
     <i class="fa fa-map-marker right" aria-hidden="true"></i>

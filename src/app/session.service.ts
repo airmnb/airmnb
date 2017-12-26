@@ -76,7 +76,7 @@ export class SessionService {
     this._role = null;
     this._profile = null;
     this.accountSubject.next(null);
-    this.cookieService.delete(cookieKey);
+    this.cookieService.delete(cookieKey, '/');
   }
 
   getAccount(): Observable<Account> {
@@ -104,7 +104,7 @@ export class SessionService {
       account: this.account,
       role: this._role
     };
-    this.cookieService.set(cookieKey, JSON.stringify(value));
+    this.cookieService.set(cookieKey, JSON.stringify(value), null, '/');
   }
 
   getProfile(): Observable<AccountProfile> {
@@ -113,7 +113,7 @@ export class SessionService {
   }
 
   setLanguage(lang: string) {
-    this.cookieService.set(langKey, lang);
+    // this.cookieService.set(langKey, lang);
   }
 
   getLanguage(): string {

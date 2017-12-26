@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../session.service';
-import { ServiceSlot, Booking, BabyProfile, Gender, Role } from '../../../types';
+import { ServiceSlot, Booking, BabyProfile, Gender, Role, Transaction } from '../../../types';
 import { ApiFacade } from '../apiFacade';
 import { BookingService } from '../booking.service';
 import { SlotService } from '../slot.service';
@@ -28,7 +28,8 @@ export class BookingListComponent implements OnInit {
     private notificationService: NotificationService,
     private babyService: BabyService,
     private util: UtilService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -81,7 +82,8 @@ export class BookingListComponent implements OnInit {
       return {
         slot: slotDic.get(booking.slotId),
         booking,
-        baby: babyDic.get(booking.babyId)
+        baby: babyDic.get(booking.babyId),
+        convertToTran: this.createConvertToTranCallback(booking)
       };
     });
   }
@@ -139,4 +141,55 @@ export class BookingListComponent implements OnInit {
   onPhotoTaken(event) {
     console.log('Photo taken', event);
   }
+
+  async convertToTran(imageName: string) {
+    // console.log('callback', imageName, booking);
+
+    // return async (imageName) => {
+    //   tran.consumerCheckInImageName = imageName;
+    //   tran.consumerCheckInAt = new Date();
+    //   // Add a new transaction
+    //   const tranId = await this.api.tranApi.add(tran);
+    //   // await this.api.tranApi.update(this.tran);
+
+    //   // Update the booking to be un-open
+    //   await this.api.bookingApi.updateFunc(tran.bookingId, b => {
+    //     b.open = false;
+    //     return b;
+    //   });
+
+    //   this.router.navigate(['tran', tranId]);
+    // };
+  }
+
+  private createConvertToTranCallback(booking: Booking) {
+    const tran: Transaction = {
+      id: this.util.newGuid(),
+      bookingId: booking.id,
+      babyId: booking.babyId,
+      consumerId: booking.consumerId,
+      providerId: booking.providerId,
+      slotId: booking.slotId,
+      createdAt: new Date()
+    };
+
+    return async (imageName) => {
+      console.log('Callback', imageName, booking);
+      tran.consumerCheckInImageName = imageName;
+      tran.consumerCheckInAt = new Date();
+      // Add a new transaction
+      const tranId = await this.api.tranApi.add(tran);
+      // await this.api.tranApi.update(this.tran);
+
+      // Update the booking to be un-open
+      await this.api.bookingApi.updateFunc(tran.bookingId, b => {
+        b.open = false;
+        return b;
+      });
+
+      this.router.navigate(['tran', tranId]);
+    };
+  }
+
+
 }

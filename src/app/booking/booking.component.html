@@ -8,6 +8,7 @@
         </ng-template>
         <mat-form-field>
           <mat-select placeholder="Select baby" [(ngModel)]="theBaby" name="baby" required (ngModelChange)="goForward(stepper)">
+            <mat-option routerLink="/babies/add">Add new baby</mat-option>
             <mat-option *ngFor="let baby of babies" [value]="baby">
               {{baby.nickName}}
             </mat-option>
@@ -34,19 +35,20 @@
         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Confirm booking
       </ng-template>
       <div>
+          <button class="btn waves-effect waves-light amb-block" (click)="onSubmit()">Book this event</button>
+        </div>
+      <div>
         <p *ngIf="slot">Price: {{slot.price}}</p>
-        <p *ngIf="baby">For: {{baby.nickName}}</p>
+        <p *ngIf="theBaby">For: {{theBaby.nickName}}</p>
         <p>
-          <strong>You sure?</strong>
+          <strong>Confirm the event content and click to book.</strong>
         </p>
       </div>
 
       <div>
         <amb-slot-display [slot]="slot"></amb-slot-display>
       </div>
-      <div>
-        <button class="btn waves-effect waves-light amb-block" (click)="onSubmit()">Submit</button>
-      </div>
+
     </mat-step>
   </mat-vertical-stepper>
 </div>

@@ -12,7 +12,7 @@
         <img class="z-depth-3 confirm-image" [src]="getImageUrl(tran.consumerCheckInImageName)">
       </div>
       <div *ngIf="!tran.consumerCheckInImageName">
-        <p>Waiting for the Mom's check-in request.</p>
+        <p>Take a photo to check-in.</p>
         <amb-take-photo *ngIf="session.isConsumer" [autoPopup]="true" (uploaded)="consumerCheckIn($event)"></amb-take-photo>
       </div>
     </mat-step>

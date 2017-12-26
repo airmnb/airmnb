@@ -160,13 +160,10 @@ export interface AccountProfile  {
   // For provider
   location?: MapLocation;
   imageNames?: string[];
-  ageFrom?: number;
-  ageTo?: number;
   languages?: string[];
   description?: string;
   // For consumer
   babies?: string[];
-  emergencyContact?: string;
 }
 
 export interface Image {

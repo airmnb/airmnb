@@ -15,51 +15,58 @@ import * as _ from 'underscore';
 })
 export class TransactionsComponent implements OnInit {
 
-  items: Transaction[];
+  ongoingItems: Transaction[];
+  doneItems: Transaction[];
 
   constructor(
     private api: ApiFacade,
     private util: UtilService,
     private notification: NotificationService,
-    private session: SessionService,
+    public session: SessionService,
     private tranService: TransactionService,
     private imageService: ImageService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loadTransactionForConsumer().catch(this.notification.error);
   }
 
   private async loadTransactionForConsumer(): Promise<void> {
-    if(!this.session.hasLoggedIn || this.session.role !== Role.Consumer) {
+    if(!this.session.hasLoggedIn) {
+      console.log('Not logged in');
       return;
     }
-    const consumerId = this.session.account.id;
-    const potentialTrans = await this.tranService.getTransactionsConvertableFromBookings(consumerId);
-    const ongoingTrans = await this.api.tranApi.list({
-      consumerId
-    });
-    this.items = _.union(potentialTrans, ongoingTrans);
+    let q: any;
+    const accountId = this.session.account.id;
+    if(this.session.isProvider) {
+      q = {providerId: accountId};
+    }else if(this.session.isConsumer) {
+      q = {consumerId: accountId};
+    }else {
+      console.log('Invalid code block');
+    }
 
+    const allTrans = await this.api.tranApi.list(q);
     // Add extra properties on items for view
-    this.items.forEach(async x => {
+    allTrans.forEach(async x => {
+      const slot = await this.api.slotApi.getOne(x.slotId);
       x = Object.assign(x, {
         status: this.tranService.getTransactionStatus(x).toString(),
-        nickName: await this.getBabyNickName(x),
+        baby: await this.api.babyProfileApi.getOne(x.babyId),
         cost: await this.getCost(x),
+        title: slot.title,
+        provider: await this.api.accountProfileApi.get({accountId: x.providerId}),
+        consumer: await this.api.accountProfileApi.get({accountId: x.consumerId})
       });
     });
+
+    this.ongoingItems = allTrans.filter(x => !x.finishedAt && !x.terminatedAt);
+    this.doneItems = allTrans.filter(x => x.finishedAt || x.terminatedAt);
   }
 
   getTransactionStatus(tran: Transaction): string {
     const status = this.tranService.getTransactionStatus(tran);
     return status.toString();
-  }
-
-  async getBabyNickName(tran: Transaction): Promise<string> {
-    const babyId = tran.babyId;
-    const baby = await this.api.babyProfileApi.getOne(babyId);
-    return baby.nickName;
   }
 
   getImageUrl(imageName: string): string {

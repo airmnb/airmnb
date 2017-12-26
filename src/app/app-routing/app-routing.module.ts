@@ -27,6 +27,10 @@ import { SitesComponent } from '../sites/sites.component';
 import { SiteComponent } from '../site/site.component';
 import { SearchResultComponent } from '../search-result/search-result.component';
 import { TransactionComponent } from '../transaction/transaction.component';
+import { PtranComponent } from '../ptran/ptran.component';
+import { CtranComponent } from '../ctran/ctran.component';
+import { PtranListComponent } from '../ptran-list/ptran-list.component';
+import { CtranListComponent } from '../ctran-list/ctran-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -87,7 +91,6 @@ const routes: Routes = [
   {
     path: 'slots/add',
     component: SlotComponent
-
   },
   {
     path: 'slots/edit/:id',
@@ -100,10 +103,6 @@ const routes: Routes = [
   {
     path: 'bookings',
     component: BookingListComponent
-  },
-  {
-    path: 'tran/start/:bookingId',
-    component: TransactionComponent
   },
   {
     path: 'booking/:id',
@@ -130,8 +129,32 @@ const routes: Routes = [
     component: AboutusComponent
   },
   {
-    path: 'transactions',
+    path: 'ptran',
+    component: PtranListComponent
+  },
+  {
+    path: 'ptran/:tranId',
+    component: PtranComponent
+  },
+  {
+    path: 'ctran',
+    component: CtranListComponent
+  },
+  {
+    path: 'ctran/:tranId',
+    component: CtranComponent
+  },
+  {
+    path: 'trans',
     component: TransactionsComponent
+  },
+  {
+    path: 'tran/start/:bookingId',
+    component: TransactionComponent
+  },
+  {
+    path: 'tran/:id',
+    component: TransactionComponent
   },
   {
     path: 'babies',

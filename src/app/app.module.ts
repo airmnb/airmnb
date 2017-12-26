@@ -107,6 +107,11 @@ import { SiteComponent } from './site/site.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { TakePhotoComponent } from './take-photo/take-photo.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { PtranComponent } from './ptran/ptran.component';
+import { CtranComponent } from './ctran/ctran.component';
+import { PtranListComponent } from './ptran-list/ptran-list.component';
+import { CtranListComponent } from './ctran-list/ctran-list.component';
+import { BabyAvatarComponent } from './baby-avatar/baby-avatar.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +157,12 @@ import { TransactionComponent } from './transaction/transaction.component';
     SiteComponent,
     SearchResultComponent,
     TakePhotoComponent,
-    TransactionComponent
+    TransactionComponent,
+    PtranComponent,
+    CtranComponent,
+    PtranListComponent,
+    CtranListComponent,
+    BabyAvatarComponent
   ],
   imports: [
     MatMomentDateModule,

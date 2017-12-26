@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,7 +10,6 @@ import { Observable } from 'rxjs/Observable';
 export class TakePhotoComponent implements OnInit {
   private _autoPopup: boolean;
   @Input() set autoPopup(value: boolean) {
-    console.log('auto popup', value);
     if(value) {
       this.selectFile();
     }
@@ -53,5 +52,6 @@ export class TakePhotoComponent implements OnInit {
 
   selectFile() {
       this.nativeInputFile.nativeElement.click();
+      console.log('auto popup');
   }
 }
