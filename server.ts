@@ -4,6 +4,7 @@ require('dotenv').config();
 import * as express from 'express';
 import * as path from 'path';
 import * as http from 'http';
+import * as https from 'https';
 import * as multer from 'multer';
 import * as cors from 'cors';
 import * as fs from 'fs';
@@ -13,6 +14,10 @@ import * as fileUpload from "express-fileupload";
 import { environment } from './src/environments/environment';
 // Get our API routes
 import * as api from './server/routes/api';
+
+const privateKey  = fs.readFileSync('key.pem', 'utf8');
+const certificate = fs.readFileSync('cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
 
 const app = express();
 
@@ -53,9 +58,11 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+httpServer.listen(port, () => console.log(`HTTP running on localhost:${port}`));
+httpsServer.listen(parseInt(port, 10) + 1, () => console.log(`HTTPS running on localhost:${parseInt(port, 10) + 1}`));
