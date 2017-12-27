@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Booking, AccountProfile, BabyProfile, ServiceSlot, Gender } from '../../../types';
 import { ApiFacade } from '../apiFacade';
 import { BookingService } from '../booking.service';
@@ -25,6 +25,7 @@ export class BookingCardComponent implements OnInit {
   @Input() set booking(b: Booking) {
     this.loadModel(b);
   }
+  @Output() cancelChange = new EventEmitter<any>();
 
   get canCancel(): boolean {
     return this.session.isConsumer && this.model && !this.model.booking.cancelledAt && !this.model.booking.startedAt;
@@ -62,6 +63,8 @@ export class BookingCardComponent implements OnInit {
       return false;
     }
     await this.bookingService.cancel(this.model.booking);
+    this.cancelChange.emit();
+    console.log('cancel called');
   }
 
   async checkIn(imageName: string) {

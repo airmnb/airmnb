@@ -76,7 +76,7 @@ export class SessionService {
     this._role = null;
     this._profile = null;
     this.accountSubject.next(null);
-    this.cookieService.delete(cookieKey, '/');
+    this.cookieService.deleteAll('/');
   }
 
   getAccount(): Observable<Account> {

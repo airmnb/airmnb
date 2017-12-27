@@ -1,10 +1,6 @@
 <amb-loading *ngIf="!model"></amb-loading>
 
 <mat-card *ngIf="model" [routerLink]="'/booking/' + model.booking.id">
-  <button *ngIf="bookingService.canCancel(model.booking)" class="btn-floating amb-halfway-top-right waves-effect waves-light red"
-    (click)="cancel();$event.stopPropagation()">
-    <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
-  </button>
   <amb-baby-avatar class="left" [baby]="model.baby"></amb-baby-avatar>
 
   <mat-card-header>

@@ -1,9 +1,40 @@
-<h1>Booking management</h1>
-
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col s12 m6 l4" *ngFor="let item of items">
-      <amb-booking-card [booking]="item"></amb-booking-card>
+      <amb-booking-card [booking]="item" (cancel)="deleteBooking($event)"></amb-booking-card>
     </div>
   </div>
+</div>
+
+{{items | json}} -->
+
+<div class="container">
+  <h1>Booking management</h1>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Active
+      </ng-template>
+        <div class="row mt-2">
+            <div class="col s12 m6 l4" style="position: relative;" *ngFor="let item of activeItems">
+                <button class="btn-floating amb-halfway-top-right waves-effect waves-light red"
+                  (click)="cancel(item)">
+                  <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                </button>
+                <amb-booking-card [booking]="item"></amb-booking-card>
+            </div>
+        </div>
+
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Closed
+      </ng-template>
+      <div class="row mt-2">
+          <div class="col s12 m6 l4" *ngFor="let item of closedItems">
+              <amb-booking-card [booking]="item"></amb-booking-card>
+          </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

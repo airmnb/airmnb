@@ -17,7 +17,8 @@ import { ImageService } from '../slot-image.service';
   styleUrls: ['./booking-list.component.css']
 })
 export class BookingListComponent implements OnInit {
-  items: Booking[];
+  activeItems: Booking[];
+  closedItems: Booking[];
 
   constructor(
     private activatedRouter: ActivatedRoute,
@@ -37,13 +38,13 @@ export class BookingListComponent implements OnInit {
       const slotId = p.slotId;
       let task: Promise<void>;
       if(slotId) {
-        // List for this slot
+        // List all bookings associated with this slot
         task = this.loadForSlot(slotId);
       } else if(this.session.isProvider) {
-        // List all for provider
+        // List all bookings from this provider
         task = this.loadAllForProvider();
       } else if(this.session.isConsumer) {
-        // List all for consumer
+        // List all bookings by this consumer
         task = this.loadAllForConsumer();
       } else {
         alert('Impossible code block');
@@ -53,10 +54,17 @@ export class BookingListComponent implements OnInit {
     });
   }
 
+  cancel(booking: Booking) {
+    if(!confirm('Cancel this booking?')) {
+      return false;
+    }
+    this.bookingService.cancel(booking);
+    this.activeItems = this.activeItems.filter(x => x !== booking);
+  }
+
   get isConsumer(): boolean {
     return this.session.isConsumer;
   }
-
 
   private async getUniqueBookingsBabies(bookings: Booking[]): Promise<BabyProfile[]> {
     const babyIds = _.unique(bookings.map(b => b.babyId));
@@ -64,16 +72,24 @@ export class BookingListComponent implements OnInit {
   }
 
   private async loadForSlot(slotId: string): Promise<void> {
-    this.items = await this.api.bookingApi.list({slotId});
+    const items = await this.api.bookingApi.list({slotId});
+    this.setActiveAndCloseModels(items);
   }
 
   private async loadAllForProvider(): Promise<void> {
     const accountId = this.session.account.id;
-    this.items = await this.bookingService.listBookingsForProvider(accountId);
+    const items = await this.bookingService.listBookingsForProvider(accountId);
+    this.setActiveAndCloseModels(items);
   }
 
   private async loadAllForConsumer(): Promise<void> {
     const accountId = this.session.account.id;
-    this.items = await this.bookingService.listAliveBookingsForConsumer(accountId);
+    const items = await this.bookingService.listAliveBookingsForConsumer(accountId);
+    this.setActiveAndCloseModels(items);
+  }
+
+  private setActiveAndCloseModels(bookings: Booking[]) {
+    this.activeItems = bookings.filter(x => this.bookingService.isActive(x));
+    this.closedItems = bookings.filter(x => this.bookingService.isClosed(x));
   }
 }
