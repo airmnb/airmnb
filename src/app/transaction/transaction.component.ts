@@ -1,24 +1,34 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { ImageService } from '../slot-image.service';
-import { Booking } from '../../../types';
+import { Booking, BookingStatus } from '../../../types';
 import { MatStepper } from '@angular/material';
 import * as moment from 'moment';
 import { SessionService } from '../session.service';
 import { BookingService } from '../booking.service';
 import { imageFilter } from '../../../server/routes/utils';
+import { Subject } from 'rxjs';
+import { Location } from '@angular/common';
+import { setInterval, clearInterval } from 'timers';
 
 @Component({
   selector: 'amb-transaction',
   templateUrl: './transaction.component.html',
   styleUrls: ['./transaction.component.scss']
 })
-export class TransactionComponent implements OnInit {
+export class TransactionComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   isNew: boolean;
   booking: Booking;
-  @ViewChild("stepper") stepper: MatStepper;
+  bookingSubject = new Subject();
+  private _stepper: MatStepper;
+  @ViewChild("stepper") set stepper(stepper: MatStepper){
+    if(!stepper) return;
+    this._stepper = stepper;
+    setTimeout(this.setStepper.bind(this), 0, stepper);
+  }
+  private _pollingTimer: NodeJS.Timer;
 
   get isComplete() {
     return this.booking && (this.booking.finishedAt || this.booking.terminatedAt);
@@ -30,14 +40,51 @@ export class TransactionComponent implements OnInit {
     private util: UtilService,
     private image: ImageService,
     public session: SessionService,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private location: Location
   ) { }
 
   ngOnInit() {
     this.activatedRouter.params.subscribe(async p => {
       const bookingId = p.id;
       this.booking = await this.api.bookingApi.getOne(bookingId);
+      this.bookingSubject.next();
     });
+  }
+
+  ngAfterViewInit() {
+    // this.stepper.selectedIndex = 1;
+    this.pollBooking();
+
+  }
+
+  ngAfterViewChecked(){
+  }
+
+  ngOnDestroy(){
+    if(this._pollingTimer) {
+      clearInterval(this._pollingTimer);
+    }
+  }
+
+  private setStepper(stepper: MatStepper){
+    if(!stepper) return;
+
+    const status = this.bookingService.getStatus(this.booking);
+    let stepperIndex = 0;
+    if(!this.booking.providerCheckOutAt) {
+      stepperIndex = 3;
+    }
+    if(!this.booking.consumerCheckOutAt) {
+      stepperIndex = 2;
+    }
+    if(!this.booking.providerCheckInAt) {
+      stepperIndex = 1;
+    }
+    if(!this.booking.consumerCheckInAt) {
+      stepperIndex = 0;
+    }
+    stepper.selectedIndex = stepperIndex;
   }
 
   getImageUrl(imageName: string): string {
@@ -45,7 +92,7 @@ export class TransactionComponent implements OnInit {
   }
 
   goNext(){
-    this.stepper.next();
+    this._stepper.next();
   }
 
   async consumerCheckIn(imageName: string) {
@@ -86,6 +133,20 @@ export class TransactionComponent implements OnInit {
       return;
     }
     await this.bookingService.checkOutConfirm(this.booking, imageName);
+  }
+
+  pollBooking(closeTimer: boolean = false) {
+    if(this._pollingTimer) return;
+    this._pollingTimer = setInterval(async () => {
+      const latestBooking = await this.api.bookingApi.getOne(this.booking.id);
+      if(!this.util.deepEquals(this.booking, latestBooking)) {
+        console.log('Got new booking');
+        this.booking = latestBooking;
+        if(closeTimer) {
+          clearInterval(this._pollingTimer);
+        }
+      }
+    }, 5000);
   }
 
   getTransactionTimeString(): string {

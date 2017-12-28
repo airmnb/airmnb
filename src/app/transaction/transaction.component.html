@@ -7,7 +7,9 @@
     <amb-baby-avatar class="left" [baby]="baby"></amb-baby-avatar>
 
     <mat-vertical-stepper *ngIf="!isComplete" #stepper [linear]="true">
+        <!-- <mat-vertical-stepper #stepper [linear]="true"> -->
       <mat-step>
+        <!-- Consumer check-in step -->
         <ng-template matStepLabel>
           <i class="fa fa-sign-in" aria-hidden="true"></i> Check-in by the baby's Mom
         </ng-template>
@@ -16,11 +18,12 @@
           <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.consumerCheckInImageName)">
         </div>
         <div *ngIf="!booking.consumerCheckInImageName">
-          <p>Take a photo to check-in.</p>
+          <p>Waiting for the Mom to take a photo to check-in.</p>
           <amb-take-photo *ngIf="session.isConsumer" [autoPopup]="true" (uploaded)="consumerCheckIn($event)"></amb-take-photo>
         </div>
       </mat-step>
       <mat-step>
+        <!-- Provider check-in confirm step -->
         <ng-template matStepLabel>
           <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-in by the Air Mom
         </ng-template>
@@ -34,6 +37,7 @@
         </div>
       </mat-step>
       <mat-step>
+        <!-- Consumer check-out step -->
         <ng-template matStepLabel>
           <i class="fa fa-sign-out" aria-hidden="true"></i> Check-out by the baby's Mom
         </ng-template>
@@ -47,6 +51,7 @@
         </div>
       </mat-step>
       <mat-step>
+        <!-- Provider check-out confirm -->
         <ng-template matStepLabel>
           <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-out by the Air Mom
         </ng-template>

@@ -3,6 +3,7 @@ import * as uuid from 'uuid';
 import * as moment from 'moment';
 import { Gender } from '../../types';
 import {DOCUMENT} from '@angular/platform-browser';
+import * as _ from 'underscore';
 
 @Injectable()
 export class UtilService {
@@ -48,5 +49,9 @@ export class UtilService {
       port = ":" + port;
     }
     return `${document.location.protocol}//${document.location.hostname}${port}/booking/${bookingId}`;
+  }
+
+  deepEquals(x: any, y: any): boolean {
+    return _.isEqual(x, y);
   }
 }
