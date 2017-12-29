@@ -121,13 +121,12 @@ var SignupContentComponent = /** @class */ (function () {
             templateUrl: './signup-content.component.html',
             styleUrls: ['./signup-content.component.css']
         }),
-        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
-            modal_service_1.ModalService,
-            ng_bootstrap_1.NgbActiveModal,
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade, typeof (_a = typeof modal_service_1.ModalService !== "undefined" && modal_service_1.ModalService) === "function" && _a || Object, ng_bootstrap_1.NgbActiveModal,
             session_service_1.SessionService,
             router_1.Router])
     ], SignupContentComponent);
     return SignupContentComponent;
+    var _a;
 }());
 exports.SignupContentComponent = SignupContentComponent;
 //# sourceMappingURL=signup-content.component.js.map

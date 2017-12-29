@@ -6,11 +6,16 @@ require('dotenv').config();
 var express = require("express");
 var path = require("path");
 var http = require("http");
+var https = require("https");
 var cors = require("cors");
+var fs = require("fs");
 var bodyParser = require("body-parser");
 var fileUpload = require("express-fileupload");
 // Get our API routes
 var api = require("./server/routes/api");
+var privateKey = fs.readFileSync('key.pem', 'utf8');
+var certificate = fs.readFileSync('cert.pem', 'utf8');
+var credentials = { key: privateKey, cert: certificate };
 var app = express();
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -44,9 +49,11 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-var server = http.createServer(app);
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, function () { return console.log("API running on localhost:" + port); });
+httpServer.listen(port, function () { return console.log("HTTP running on localhost:" + port); });
+httpsServer.listen(parseInt(port, 10) + 1, function () { return console.log("HTTPS running on localhost:" + (parseInt(port, 10) + 1)); });
 //# sourceMappingURL=server.js.map

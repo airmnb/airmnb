@@ -67,7 +67,6 @@ var BookingListComponent = /** @class */ (function () {
         this.util = util;
         this.imageService = imageService;
         this.router = router;
-        this.items = [];
     }
     BookingListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -75,15 +74,15 @@ var BookingListComponent = /** @class */ (function () {
             var slotId = p.slotId;
             var task;
             if (slotId) {
-                // List for this slot
+                // List all bookings associated with this slot
                 task = _this.loadForSlot(slotId);
             }
             else if (_this.session.isProvider) {
-                // List all for provider
+                // List all bookings from this provider
                 task = _this.loadAllForProvider();
             }
             else if (_this.session.isConsumer) {
-                // List all for consumer
+                // List all bookings by this consumer
                 task = _this.loadAllForConsumer();
             }
             else {
@@ -93,6 +92,13 @@ var BookingListComponent = /** @class */ (function () {
             task.catch(_this.notificationService.error);
         });
     };
+    BookingListComponent.prototype.cancel = function (booking) {
+        if (!confirm('Cancel this booking?')) {
+            return false;
+        }
+        this.bookingService.cancel(booking);
+        this.activeItems = this.activeItems.filter(function (x) { return x !== booking; });
+    };
     Object.defineProperty(BookingListComponent.prototype, "isConsumer", {
         get: function () {
             return this.session.isConsumer;
@@ -100,35 +106,6 @@ var BookingListComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    BookingListComponent.prototype.displayGender = function (gender) {
-        return this.util.displayGender(gender);
-    };
-    BookingListComponent.prototype.getImageUrl = function (slot) {
-        if (slot.imageNames && slot.imageNames.length) {
-            return this.imageService.getImageUrl(slot.imageNames[0]);
-        }
-        else {
-            return "";
-        }
-    };
-    BookingListComponent.prototype.getBabyImageUrl = function (baby) {
-        return baby.imageName ? this.imageService.getImageUrl(baby.imageName) : '';
-    };
-    BookingListComponent.prototype.setModel = function (slots, bookings, babies) {
-        var _this = this;
-        var slotDic = new Map();
-        var babyDic = new Map();
-        slots.forEach(function (s) { return slotDic.set(s.id, s); });
-        babies.forEach(function (b) { return babyDic.set(b.id, b); });
-        this.items = bookings.map(function (booking) {
-            return {
-                slot: slotDic.get(booking.slotId),
-                booking: booking,
-                baby: babyDic.get(booking.babyId),
-                convertToTran: _this.createConvertToTranCallback(booking)
-            };
-        });
-    };
     BookingListComponent.prototype.getUniqueBookingsBabies = function (bookings) {
         return __awaiter(this, void 0, void 0, function () {
             var babyIds;
@@ -144,21 +121,13 @@ var BookingListComponent = /** @class */ (function () {
     };
     BookingListComponent.prototype.loadForSlot = function (slotId) {
         return __awaiter(this, void 0, void 0, function () {
-            var slotTask, bookingsTask, result, slot, bookings, babies;
+            var items;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        slotTask = this.api.slotApi.getOne(slotId);
-                        bookingsTask = this.api.bookingApi.list({ slotId: slotId });
-                        return [4 /*yield*/, Promise.all([slotTask, bookingsTask])];
+                    case 0: return [4 /*yield*/, this.api.bookingApi.list({ slotId: slotId })];
                     case 1:
-                        result = _a.sent();
-                        slot = result[0];
-                        bookings = result[1];
-                        return [4 /*yield*/, this.getUniqueBookingsBabies(bookings)];
-                    case 2:
-                        babies = _a.sent();
-                        this.setModel([slot], bookings, babies);
+                        items = _a.sent();
+                        this.setActiveAndCloseModels(items);
                         return [2 /*return*/];
                 }
             });
@@ -166,22 +135,15 @@ var BookingListComponent = /** @class */ (function () {
     };
     BookingListComponent.prototype.loadAllForProvider = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var accountId, bookings, slotIds, slots, babies;
+            var accountId, items;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         accountId = this.session.account.id;
                         return [4 /*yield*/, this.bookingService.listBookingsForProvider(accountId)];
                     case 1:
-                        bookings = _a.sent();
-                        slotIds = bookings.map(function (b) { return b.slotId; });
-                        return [4 /*yield*/, this.slotService.listSlots(slotIds)];
-                    case 2:
-                        slots = _a.sent();
-                        return [4 /*yield*/, this.getUniqueBookingsBabies(bookings)];
-                    case 3:
-                        babies = _a.sent();
-                        this.setModel(slots, bookings, babies);
+                        items = _a.sent();
+                        this.setActiveAndCloseModels(items);
                         return [2 /*return*/];
                 }
             });
@@ -189,82 +151,24 @@ var BookingListComponent = /** @class */ (function () {
     };
     BookingListComponent.prototype.loadAllForConsumer = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var accountId, bookings, slotIds, slots, babies;
+            var accountId, items;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         accountId = this.session.account.id;
                         return [4 /*yield*/, this.bookingService.listAliveBookingsForConsumer(accountId)];
                     case 1:
-                        bookings = _a.sent();
-                        slotIds = bookings.map(function (b) { return b.slotId; });
-                        return [4 /*yield*/, this.slotService.listSlots(slotIds)];
-                    case 2:
-                        slots = _a.sent();
-                        return [4 /*yield*/, this.getUniqueBookingsBabies(bookings)];
-                    case 3:
-                        babies = _a.sent();
-                        this.setModel(slots, bookings, babies);
+                        items = _a.sent();
+                        this.setActiveAndCloseModels(items);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    BookingListComponent.prototype.cancel = function (booking) {
-        if (!confirm('Delete this one?')) {
-            return false;
-        }
-        this.cancelImpl(booking).catch(this.notificationService.error);
-        return false;
-    };
-    BookingListComponent.prototype.cancelImpl = function (booking) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.bookingApi.delete(booking.id)];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.api.slotApi.updateFunc(booking.slotId, function (s) {
-                                s.bookingCount--;
-                                return s;
-                            })];
-                    case 2:
-                        _a.sent();
-                        this.items = this.items.filter(function (x) { return x.booking !== booking; });
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    BookingListComponent.prototype.onPhotoTaken = function (event) {
-        console.log('Photo taken', event);
-    };
-    BookingListComponent.prototype.convertToTran = function (imageName) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
-    };
-    BookingListComponent.prototype.createConvertToTranCallback = function (booking) {
+    BookingListComponent.prototype.setActiveAndCloseModels = function (bookings) {
         var _this = this;
-        return function (imageName) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log('Callback', imageName, booking);
-                        booking.consumerCheckInImageName = imageName;
-                        booking.consumerCheckInAt = new Date();
-                        // Update the booking to be un-open
-                        return [4 /*yield*/, this.api.bookingApi.update(booking)];
-                    case 1:
-                        // Update the booking to be un-open
-                        _a.sent();
-                        this.router.navigate(['booking', booking.id]);
-                        return [2 /*return*/];
-                }
-            });
-        }); };
+        this.activeItems = bookings.filter(function (x) { return _this.bookingService.isActive(x); });
+        this.closedItems = bookings.filter(function (x) { return _this.bookingService.isClosed(x); });
     };
     BookingListComponent = __decorate([
         core_1.Component({

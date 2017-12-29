@@ -10,16 +10,12 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var home_component_1 = require("../home/home.component");
-var consumer_dashboard_component_1 = require("../consumer-dashboard/consumer-dashboard.component");
 var aboutus_component_1 = require("../aboutus/aboutus.component");
 var add_slot_component_1 = require("../add-slot/add-slot.component");
-var provider_main_component_1 = require("../provider-main/provider-main.component");
 var slot_edit_component_1 = require("../slot-edit/slot-edit.component");
 var slot_component_1 = require("../slot/slot.component");
 var booking_component_1 = require("../booking/booking.component");
-var booking_view_component_1 = require("../booking-view/booking-view.component");
 var booking_list_component_1 = require("../booking-list/booking-list.component");
-var transactions_component_1 = require("../transactions/transactions.component");
 var event_place_component_1 = require("../event-place/event-place.component");
 var login_content_component_1 = require("../login-content/login-content.component");
 var signup_content_component_1 = require("../signup-content/signup-content.component");
@@ -30,10 +26,6 @@ var sites_component_1 = require("../sites/sites.component");
 var site_component_1 = require("../site/site.component");
 var search_result_component_1 = require("../search-result/search-result.component");
 var transaction_component_1 = require("../transaction/transaction.component");
-var ptran_component_1 = require("../ptran/ptran.component");
-var ctran_component_1 = require("../ctran/ctran.component");
-var ptran_list_component_1 = require("../ptran-list/ptran-list.component");
-var ctran_list_component_1 = require("../ctran-list/ctran-list.component");
 var routes = [
     {
         path: '',
@@ -63,10 +55,6 @@ var routes = [
         path: 'place/:id',
         component: event_place_component_1.EventPlaceComponent
     },
-    // {
-    //   path: 'slotlist',
-    //   component: SlotListComponent
-    // },
     {
         path: 'sites',
         component: sites_component_1.SitesComponent
@@ -109,19 +97,11 @@ var routes = [
     },
     {
         path: 'booking/:id',
-        component: booking_view_component_1.BookingViewComponent
-    },
-    {
-        path: 'provider',
-        component: provider_main_component_1.ProviderMainComponent
+        component: transaction_component_1.TransactionComponent
     },
     {
         path: 'provider/addslot',
         component: add_slot_component_1.AddSlotComponent
-    },
-    {
-        path: 'consumer',
-        component: consumer_dashboard_component_1.ConsumerDashboardComponent
     },
     {
         path: 'search',
@@ -132,31 +112,7 @@ var routes = [
         component: aboutus_component_1.AboutusComponent
     },
     {
-        path: 'ptran',
-        component: ptran_list_component_1.PtranListComponent
-    },
-    {
-        path: 'ptran/:tranId',
-        component: ptran_component_1.PtranComponent
-    },
-    {
-        path: 'ctran',
-        component: ctran_list_component_1.CtranListComponent
-    },
-    {
-        path: 'ctran/:tranId',
-        component: ctran_component_1.CtranComponent
-    },
-    {
-        path: 'trans',
-        component: transactions_component_1.TransactionsComponent
-    },
-    {
-        path: 'tran/start/:bookingId',
-        component: transaction_component_1.TransactionComponent
-    },
-    {
-        path: 'tran/:id',
+        path: 'booking/tran/:id',
         component: transaction_component_1.TransactionComponent
     },
     {

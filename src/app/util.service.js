@@ -17,6 +17,7 @@ var uuid = require("uuid");
 var moment = require("moment");
 var types_1 = require("../../types");
 var platform_browser_1 = require("@angular/platform-browser");
+var _ = require("underscore");
 var UtilService = /** @class */ (function () {
     function UtilService(document) {
         this.document = document;
@@ -54,6 +55,9 @@ var UtilService = /** @class */ (function () {
             port = ":" + port;
         }
         return document.location.protocol + "//" + document.location.hostname + port + "/booking/" + bookingId;
+    };
+    UtilService.prototype.deepEquals = function (x, y) {
+        return _.isEqual(x, y);
     };
     UtilService = __decorate([
         core_1.Injectable(),

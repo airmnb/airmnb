@@ -53,15 +53,30 @@ var material_1 = require("@angular/material");
 var moment = require("moment");
 var session_service_1 = require("../session.service");
 var booking_service_1 = require("../booking.service");
+var rxjs_1 = require("rxjs");
+var common_1 = require("@angular/common");
+var timers_1 = require("timers");
 var TransactionComponent = /** @class */ (function () {
-    function TransactionComponent(activatedRouter, api, util, image, session, bookingService) {
+    function TransactionComponent(activatedRouter, api, util, image, session, bookingService, location) {
         this.activatedRouter = activatedRouter;
         this.api = api;
         this.util = util;
         this.image = image;
         this.session = session;
         this.bookingService = bookingService;
+        this.location = location;
+        this.bookingSubject = new rxjs_1.Subject();
     }
+    Object.defineProperty(TransactionComponent.prototype, "stepper", {
+        set: function (stepper) {
+            if (!stepper)
+                return;
+            this._stepper = stepper;
+            setTimeout(this.setStepper.bind(this), 0, stepper);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TransactionComponent.prototype, "isComplete", {
         get: function () {
             return this.booking && (this.booking.finishedAt || this.booking.terminatedAt);
@@ -81,16 +96,47 @@ var TransactionComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.api.bookingApi.getOne(bookingId)];
                     case 1:
                         _a.booking = _b.sent();
+                        this.bookingSubject.next();
                         return [2 /*return*/];
                 }
             });
         }); });
     };
+    TransactionComponent.prototype.ngAfterViewInit = function () {
+        // this.stepper.selectedIndex = 1;
+        this.pollBooking();
+    };
+    TransactionComponent.prototype.ngAfterViewChecked = function () {
+    };
+    TransactionComponent.prototype.ngOnDestroy = function () {
+        if (this._pollingTimer) {
+            timers_1.clearInterval(this._pollingTimer);
+        }
+    };
+    TransactionComponent.prototype.setStepper = function (stepper) {
+        if (!stepper)
+            return;
+        var status = this.bookingService.getStatus(this.booking);
+        var stepperIndex = 0;
+        if (!this.booking.providerCheckOutAt) {
+            stepperIndex = 3;
+        }
+        if (!this.booking.consumerCheckOutAt) {
+            stepperIndex = 2;
+        }
+        if (!this.booking.providerCheckInAt) {
+            stepperIndex = 1;
+        }
+        if (!this.booking.consumerCheckInAt) {
+            stepperIndex = 0;
+        }
+        stepper.selectedIndex = stepperIndex;
+    };
     TransactionComponent.prototype.getImageUrl = function (imageName) {
         return imageName ? this.image.getImageUrl(imageName) : null;
     };
     TransactionComponent.prototype.goNext = function () {
-        this.stepper.next();
+        this._stepper.next();
     };
     TransactionComponent.prototype.consumerCheckIn = function (imageName) {
         return __awaiter(this, void 0, void 0, function () {
@@ -163,6 +209,30 @@ var TransactionComponent = /** @class */ (function () {
             });
         });
     };
+    TransactionComponent.prototype.pollBooking = function (closeTimer) {
+        var _this = this;
+        if (closeTimer === void 0) { closeTimer = false; }
+        if (this._pollingTimer)
+            return;
+        this._pollingTimer = timers_1.setInterval(function () { return __awaiter(_this, void 0, void 0, function () {
+            var latestBooking;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.bookingApi.getOne(this.booking.id)];
+                    case 1:
+                        latestBooking = _a.sent();
+                        if (!this.util.deepEquals(this.booking, latestBooking)) {
+                            console.log('Got new booking');
+                            this.booking = latestBooking;
+                            if (closeTimer) {
+                                timers_1.clearInterval(this._pollingTimer);
+                            }
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); }, 5000);
+    };
     TransactionComponent.prototype.getTransactionTimeString = function () {
         var end = moment(this.booking.finishedAt);
         var start = moment(this.booking.startedAt);
@@ -173,8 +243,9 @@ var TransactionComponent = /** @class */ (function () {
     };
     __decorate([
         core_1.ViewChild("stepper"),
-        __metadata("design:type", material_1.MatStepper)
-    ], TransactionComponent.prototype, "stepper", void 0);
+        __metadata("design:type", material_1.MatStepper),
+        __metadata("design:paramtypes", [material_1.MatStepper])
+    ], TransactionComponent.prototype, "stepper", null);
     TransactionComponent = __decorate([
         core_1.Component({
             selector: 'amb-transaction',
@@ -186,7 +257,8 @@ var TransactionComponent = /** @class */ (function () {
             util_service_1.UtilService,
             slot_image_service_1.ImageService,
             session_service_1.SessionService,
-            booking_service_1.BookingService])
+            booking_service_1.BookingService,
+            common_1.Location])
     ], TransactionComponent);
     return TransactionComponent;
 }());

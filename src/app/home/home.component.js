@@ -224,8 +224,7 @@ var HomeComponent = /** @class */ (function () {
             templateUrl: './home.component.html',
             styleUrls: ['./home.component.css']
         }),
-        __metadata("design:paramtypes", [modal_service_1.ModalService,
-            ng_bootstrap_1.NgbTimepickerConfig,
+        __metadata("design:paramtypes", [typeof (_a = typeof modal_service_1.ModalService !== "undefined" && modal_service_1.ModalService) === "function" && _a || Object, ng_bootstrap_1.NgbTimepickerConfig,
             session_service_1.SessionService,
             router_1.Router,
             map_service_service_1.MapServiceService,
@@ -236,6 +235,7 @@ var HomeComponent = /** @class */ (function () {
             util_service_1.UtilService])
     ], HomeComponent);
     return HomeComponent;
+    var _a;
 }());
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map

@@ -11,8 +11,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ApiService, ApiServiceFactory, LoginService} from "./api.service";
 import { SessionService } from './session.service';
-import { ProviderDashboardComponent } from './provider-dashboard/provider-dashboard.component';
-import { ConsumerDashboardComponent } from './consumer-dashboard/consumer-dashboard.component';
 import { MapServiceService } from './map-service.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -36,7 +34,6 @@ import { ModalService } from './modal.service';
 import { ProviderProfileComponent } from './provider-profile/provider-profile.component';
 import { SlotComponent } from './slot/slot.component';
 import { ProfileContentComponent } from './profile-content/profile-content.component';
-import { ProviderMainComponent } from './provider-main/provider-main.component';
 import { BabyContentComponent } from './baby-content/baby-content.component';
 import { BookingService } from './booking.service';
 import { ApiFacade } from "./apiFacade";
@@ -49,7 +46,6 @@ import { SlotEditComponent } from './slot-edit/slot-edit.component';
 import { BookingComponent } from './booking/booking.component';
 import { FormWizardModule } from 'angular2-wizard';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
-import { BookingViewComponent } from './booking-view/booking-view.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { BabyService } from './baby.service';
 import { TransactionsComponent } from './transactions/transactions.component';
@@ -114,8 +110,6 @@ import { LoadingComponent } from './loading/loading.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    ProviderDashboardComponent,
-    ConsumerDashboardComponent,
     AboutusComponent,
     DateTimePickerComponent,
     AddSlotComponent,
@@ -128,7 +122,6 @@ import { LoadingComponent } from './loading/loading.component';
     ProviderProfileComponent,
     SlotComponent,
     ProfileContentComponent,
-    ProviderMainComponent,
     BabyContentComponent,
     HeaderComponent,
     LoginComponent,
@@ -137,7 +130,6 @@ import { LoadingComponent } from './loading/loading.component';
     SlotEditComponent,
     BookingComponent,
     SlotDisplayComponent,
-    BookingViewComponent,
     BookingListComponent,
     TransactionsComponent,
     MapSearchComponent,
@@ -224,8 +216,6 @@ import { LoadingComponent } from './loading/loading.component';
     NotificationService,
     SlotService,
     ImageService,
-    ModalService,
-    NgbActiveModal,
     BookingService,
     ApiFacade,
     UtilService,
@@ -235,7 +225,6 @@ import { LoadingComponent } from './loading/loading.component';
     SelectOptionService
   ],
   entryComponents: [
-    RegisterModalComponent
   ],
   bootstrap: [AppComponent]
 })

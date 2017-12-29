@@ -64,7 +64,6 @@ var BookingService = /** @class */ (function () {
                         query = {
                             consumerId: accountId,
                             cancelledAt: null,
-                            open: true
                         };
                         return [4 /*yield*/, this.api.bookingApi.list(query)];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -153,6 +152,15 @@ var BookingService = /** @class */ (function () {
             });
         });
     };
+    BookingService.prototype.isClosed = function (booking) {
+        return !!(booking.cancelledAt || booking.terminatedAt || booking.finishedAt);
+    };
+    BookingService.prototype.isActive = function (booking) {
+        return !this.isClosed(booking);
+    };
+    BookingService.prototype.canCancel = function (booking) {
+        return this.isActive(booking) && !booking.startedAt;
+    };
     BookingService.prototype.cancel = function (booking) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -178,12 +186,15 @@ var BookingService = /** @class */ (function () {
             });
         });
     };
+    BookingService.prototype.canCheckIn = function (booking) {
+        return this.isActive(booking) && !booking.consumerCheckInAt;
+    };
     BookingService.prototype.checkIn = function (booking, imageName) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (booking.consumerCheckInAt) {
+                        if (!this.canCheckIn(booking)) {
                             throw new Error("Booking " + booking.id + " has been requested for checked-in.");
                         }
                         return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
@@ -198,12 +209,15 @@ var BookingService = /** @class */ (function () {
             });
         });
     };
+    BookingService.prototype.canCheckInConfirm = function (booking) {
+        return this.isActive(booking) && !booking.providerCheckInAt;
+    };
     BookingService.prototype.checkInConfirm = function (booking, imageName) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (booking.providerCheckInAt) {
+                        if (!this.canCheckInConfirm(booking)) {
                             throw new Error("Booking " + booking.id + " has been confirmed for check-in.");
                         }
                         return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
@@ -240,12 +254,15 @@ var BookingService = /** @class */ (function () {
             });
         });
     };
+    BookingService.prototype.canCheckOut = function (booking) {
+        return this.isActive(booking) && !booking.consumerCheckOutAt;
+    };
     BookingService.prototype.checkOut = function (booking, imageName) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (booking.consumerCheckOutAt) {
+                        if (!this.canCheckOut(booking)) {
                             throw new Error("Booking " + booking.id + " has been requested for checked-out.");
                         }
                         return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {
@@ -260,12 +277,15 @@ var BookingService = /** @class */ (function () {
             });
         });
     };
+    BookingService.prototype.canCheckOutConfirm = function (booking) {
+        return this.isActive(booking) && !booking.providerCheckOutAt;
+    };
     BookingService.prototype.checkOutConfirm = function (booking, imageName) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (booking.providerCheckOutAt) {
+                        if (!this.canCheckOutConfirm(booking)) {
                             throw new Error("Booking " + booking.id + " has been confirmed for checked-out.");
                         }
                         return [4 /*yield*/, this.api.bookingApi.updateFunc(booking.id, function (x) {

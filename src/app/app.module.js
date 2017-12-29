@@ -18,8 +18,6 @@ var app_component_1 = require("./app.component");
 var home_component_1 = require("./home/home.component");
 var api_service_1 = require("./api.service");
 var session_service_1 = require("./session.service");
-var provider_dashboard_component_1 = require("./provider-dashboard/provider-dashboard.component");
-var consumer_dashboard_component_1 = require("./consumer-dashboard/consumer-dashboard.component");
 var map_service_service_1 = require("./map-service.service");
 var aboutus_component_1 = require("./aboutus/aboutus.component");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
@@ -39,11 +37,9 @@ var slot_image_service_1 = require("./slot-image.service");
 var login_content_component_1 = require("./login-content/login-content.component");
 var signup_content_component_1 = require("./signup-content/signup-content.component");
 var register_modal_component_1 = require("./register-modal/register-modal.component");
-var modal_service_1 = require("./modal.service");
 var provider_profile_component_1 = require("./provider-profile/provider-profile.component");
 var slot_component_1 = require("./slot/slot.component");
 var profile_content_component_1 = require("./profile-content/profile-content.component");
-var provider_main_component_1 = require("./provider-main/provider-main.component");
 var baby_content_component_1 = require("./baby-content/baby-content.component");
 var booking_service_1 = require("./booking.service");
 var apiFacade_1 = require("./apiFacade");
@@ -56,7 +52,6 @@ var slot_edit_component_1 = require("./slot-edit/slot-edit.component");
 var booking_component_1 = require("./booking/booking.component");
 var angular2_wizard_1 = require("angular2-wizard");
 var slot_display_component_1 = require("./slot-display/slot-display.component");
-var booking_view_component_1 = require("./booking-view/booking-view.component");
 var booking_list_component_1 = require("./booking-list/booking-list.component");
 var baby_service_1 = require("./baby.service");
 var transactions_component_1 = require("./transactions/transactions.component");
@@ -81,11 +76,9 @@ var site_component_1 = require("./site/site.component");
 var search_result_component_1 = require("./search-result/search-result.component");
 var take_photo_component_1 = require("./take-photo/take-photo.component");
 var transaction_component_1 = require("./transaction/transaction.component");
-var ptran_component_1 = require("./ptran/ptran.component");
-var ctran_component_1 = require("./ctran/ctran.component");
-var ptran_list_component_1 = require("./ptran-list/ptran-list.component");
-var ctran_list_component_1 = require("./ctran-list/ctran-list.component");
 var baby_avatar_component_1 = require("./baby-avatar/baby-avatar.component");
+var booking_card_component_1 = require("./booking-card/booking-card.component");
+var loading_component_1 = require("./loading/loading.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -94,8 +87,6 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 app_component_1.AppComponent,
                 home_component_1.HomeComponent,
-                provider_dashboard_component_1.ProviderDashboardComponent,
-                consumer_dashboard_component_1.ConsumerDashboardComponent,
                 aboutus_component_1.AboutusComponent,
                 date_time_picker_component_1.DateTimePickerComponent,
                 add_slot_component_1.AddSlotComponent,
@@ -108,7 +99,6 @@ var AppModule = /** @class */ (function () {
                 provider_profile_component_1.ProviderProfileComponent,
                 slot_component_1.SlotComponent,
                 profile_content_component_1.ProfileContentComponent,
-                provider_main_component_1.ProviderMainComponent,
                 baby_content_component_1.BabyContentComponent,
                 header_component_1.HeaderComponent,
                 login_component_1.LoginComponent,
@@ -117,7 +107,6 @@ var AppModule = /** @class */ (function () {
                 slot_edit_component_1.SlotEditComponent,
                 booking_component_1.BookingComponent,
                 slot_display_component_1.SlotDisplayComponent,
-                booking_view_component_1.BookingViewComponent,
                 booking_list_component_1.BookingListComponent,
                 transactions_component_1.TransactionsComponent,
                 map_search_component_1.MapSearchComponent,
@@ -135,11 +124,9 @@ var AppModule = /** @class */ (function () {
                 search_result_component_1.SearchResultComponent,
                 take_photo_component_1.TakePhotoComponent,
                 transaction_component_1.TransactionComponent,
-                ptran_component_1.PtranComponent,
-                ctran_component_1.CtranComponent,
-                ptran_list_component_1.PtranListComponent,
-                ctran_list_component_1.CtranListComponent,
-                baby_avatar_component_1.BabyAvatarComponent
+                baby_avatar_component_1.BabyAvatarComponent,
+                booking_card_component_1.BookingCardComponent,
+                loading_component_1.LoadingComponent
             ],
             imports: [
                 material_moment_adapter_1.MatMomentDateModule,
@@ -206,8 +193,6 @@ var AppModule = /** @class */ (function () {
                 notification_service_1.NotificationService,
                 slot_service_1.SlotService,
                 slot_image_service_1.ImageService,
-                modal_service_1.ModalService,
-                ng_bootstrap_1.NgbActiveModal,
                 booking_service_1.BookingService,
                 apiFacade_1.ApiFacade,
                 util_service_1.UtilService,
@@ -216,9 +201,7 @@ var AppModule = /** @class */ (function () {
                 marker_manager_1.MarkerManager,
                 select_option_service_1.SelectOptionService
             ],
-            entryComponents: [
-                register_modal_component_1.RegisterModalComponent
-            ],
+            entryComponents: [],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

@@ -23,65 +23,6 @@ var SearchResultComponent = /** @class */ (function () {
         this.searchService = searchService;
         this.api = api;
         this.imageService = imageService;
-        this.babyProfileSettings = {
-            edit: {
-                confirmSave: true,
-            },
-            add: {
-                confirmCreate: true,
-                addButtonContent: 'Add new baby'
-            },
-            delete: {
-                confirmDelete: true
-            },
-            columns: {
-                nickName: {
-                    title: 'Nick Name',
-                    filter: false
-                },
-                age: {
-                    title: 'Age',
-                    filter: false,
-                    editor: {
-                        type: 'list',
-                        config: {
-                            list: [
-                                { value: 0, title: '< 2' },
-                                { value: 2, title: '2-3' },
-                                { value: 3, title: '3-4' },
-                                { value: 4, title: '4-5' },
-                                { value: 5, title: '5-6' },
-                                { value: 6, title: '> 6' }
-                            ]
-                        }
-                    }
-                },
-                gender: {
-                    title: 'Gender',
-                    filter: false,
-                    editor: {
-                        type: 'list',
-                        config: {
-                            list: [{ value: 0, title: 'Girl' }, { value: 1, title: 'Boy' }]
-                        }
-                    },
-                },
-                hobby: {
-                    title: 'Hobby',
-                    filter: false,
-                    editor: {
-                        type: 'textarea'
-                    }
-                },
-                info: {
-                    title: 'Additional information',
-                    filter: false,
-                    editor: {
-                        type: 'textarea'
-                    }
-                }
-            }
-        };
     }
     Object.defineProperty(SearchResultComponent.prototype, "hasLoggedIn", {
         get: function () {
@@ -92,14 +33,24 @@ var SearchResultComponent = /** @class */ (function () {
     });
     SearchResultComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
+        }
         this.route.queryParams.subscribe(function (params) {
             var queryJson = params['q'];
             var query = JSON.parse(queryJson);
             console.log('Search query', query);
-            _this.searchService.search(query)
-                .subscribe(function (slots) { return _this.slots = slots; });
+            _this.centerLongitude = query.location.location.coordinates[0];
+            _this.centerLatitude = query.location.location.coordinates[1];
+            console.log('centerLongitude', _this.centerLongitude);
+            console.log('centerLatitude', _this.centerLatitude);
+            _this.searchService.search(query).subscribe(function (x) { return _this.slots = x; });
         });
-        this.loadBabyProfiles();
+    };
+    SearchResultComponent.prototype.setPosition = function (position) {
+        var coords = position.coords;
+        this.centerLongitude = this.centerLongitude || coords.longitude;
+        this.centerLatitude = this.centerLatitude || coords.latitude;
     };
     SearchResultComponent.prototype.getImageUrl = function (slot) {
         if (slot.imageNames && slot.imageNames.length) {
@@ -108,17 +59,6 @@ var SearchResultComponent = /** @class */ (function () {
         else {
             return "";
         }
-    };
-    SearchResultComponent.prototype.loadBabyProfiles = function () {
-        var _this = this;
-        if (!this.hasLoggedIn) {
-            return;
-        }
-        this.api.babyProfileApi.list({ consumerId: this.sessionService.account.id })
-            .then(function (x) {
-            _this.babyProfiles = x;
-        })
-            .catch(console.log);
     };
     SearchResultComponent.prototype.book = function (slot) {
         if (!slot) {

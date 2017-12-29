@@ -141,7 +141,7 @@ var SessionService = /** @class */ (function () {
         this._role = null;
         this._profile = null;
         this.accountSubject.next(null);
-        this.cookieService.delete(cookieKey, '/');
+        this.cookieService.deleteAll('/');
     };
     SessionService.prototype.getAccount = function () {
         return this.accountSubject.asObservable();

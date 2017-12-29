@@ -119,14 +119,14 @@ var LoginContentComponent = /** @class */ (function () {
             templateUrl: './login-content.component.html',
             styleUrls: ['./login-content.component.css']
         }),
-        __metadata("design:paramtypes", [modal_service_1.ModalService,
-            ng_bootstrap_1.NgbActiveModal,
+        __metadata("design:paramtypes", [typeof (_a = typeof modal_service_1.ModalService !== "undefined" && modal_service_1.ModalService) === "function" && _a || Object, ng_bootstrap_1.NgbActiveModal,
             api_service_1.LoginService,
             session_service_1.SessionService,
             notification_service_1.NotificationService,
             router_1.Router])
     ], LoginContentComponent);
     return LoginContentComponent;
+    var _a;
 }());
 exports.LoginContentComponent = LoginContentComponent;
 //# sourceMappingURL=login-content.component.js.map
