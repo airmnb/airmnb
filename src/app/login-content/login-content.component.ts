@@ -3,7 +3,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../api.service';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
-import { ModalService } from '../modal.service';
 import { AccountProfile, Role } from '../../../types';
 import { NotificationService } from '../notification.service';
 
@@ -20,7 +19,7 @@ export class LoginContentComponent implements OnInit {
   errorMessage: string;
   private submitted: boolean;
 
-  constructor(public modalService: ModalService,
+  constructor(
     public activeModal: NgbActiveModal,
     private loginService: LoginService,
     private sessionService: SessionService,
@@ -57,7 +56,6 @@ export class LoginContentComponent implements OnInit {
 
   signup(){
     this.activeModal.dismiss();
-    this.modalService.openSignupModal();
     return false;
   }
 }

@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeZhHans from '@angular/common/locales/zh-Hans';
+import localeJa from '@angular/common/locales/ja';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpModule } from '@angular/http';
@@ -206,6 +209,7 @@ import { LoadingComponent } from './loading/loading.component';
     FormWizardModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'en' },
     ApiService,
     ApiServiceFactory,
     LoginService,
@@ -229,3 +233,6 @@ import { LoadingComponent } from './loading/loading.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+registerLocaleData(localeZhHans, 'zh-Hans');
+registerLocaleData(localeJa, 'ja');

@@ -49,11 +49,9 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var api_service_1 = require("../api.service");
 var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
-var modal_service_1 = require("../modal.service");
 var notification_service_1 = require("../notification.service");
 var LoginContentComponent = /** @class */ (function () {
-    function LoginContentComponent(modalService, activeModal, loginService, sessionService, notificationService, router) {
-        this.modalService = modalService;
+    function LoginContentComponent(activeModal, loginService, sessionService, notificationService, router) {
         this.activeModal = activeModal;
         this.loginService = loginService;
         this.sessionService = sessionService;
@@ -106,7 +104,6 @@ var LoginContentComponent = /** @class */ (function () {
     };
     LoginContentComponent.prototype.signup = function () {
         this.activeModal.dismiss();
-        this.modalService.openSignupModal();
         return false;
     };
     __decorate([
@@ -119,14 +116,13 @@ var LoginContentComponent = /** @class */ (function () {
             templateUrl: './login-content.component.html',
             styleUrls: ['./login-content.component.css']
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof modal_service_1.ModalService !== "undefined" && modal_service_1.ModalService) === "function" && _a || Object, ng_bootstrap_1.NgbActiveModal,
+        __metadata("design:paramtypes", [ng_bootstrap_1.NgbActiveModal,
             api_service_1.LoginService,
             session_service_1.SessionService,
             notification_service_1.NotificationService,
             router_1.Router])
     ], LoginContentComponent);
     return LoginContentComponent;
-    var _a;
 }());
 exports.LoginContentComponent = LoginContentComponent;
 //# sourceMappingURL=login-content.component.js.map

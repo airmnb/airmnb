@@ -48,17 +48,15 @@ var core_1 = require("@angular/core");
 var types_1 = require("../../../types");
 var session_service_1 = require("../session.service");
 var notification_service_1 = require("../notification.service");
-var modal_service_1 = require("../modal.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var router_1 = require("@angular/router");
 var SlotComponent = /** @class */ (function () {
-    function SlotComponent(api, session, notificationService, modalService, activeModal, util, router, activatedRoute) {
+    function SlotComponent(api, session, notificationService, activeModal, util, router, activatedRoute) {
         this.api = api;
         this.session = session;
         this.notificationService = notificationService;
-        this.modalService = modalService;
         this.activeModal = activeModal;
         this.util = util;
         this.router = router;
@@ -244,13 +242,13 @@ var SlotComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
             session_service_1.SessionService,
-            notification_service_1.NotificationService, typeof (_a = typeof modal_service_1.ModalService !== "undefined" && modal_service_1.ModalService) === "function" && _a || Object, ng_bootstrap_1.NgbActiveModal,
+            notification_service_1.NotificationService,
+            ng_bootstrap_1.NgbActiveModal,
             util_service_1.UtilService,
             router_1.Router,
             router_1.ActivatedRoute])
     ], SlotComponent);
     return SlotComponent;
-    var _a;
 }());
 exports.SlotComponent = SlotComponent;
 //# sourceMappingURL=slot.component.js.map

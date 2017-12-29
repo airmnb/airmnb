@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var zh_Hans_1 = require("@angular/common/locales/zh-Hans");
+var ja_1 = require("@angular/common/locales/ja");
 var forms_1 = require("@angular/forms");
 var app_routing_module_1 = require("./app-routing/app-routing.module");
 var http_1 = require("@angular/http");
@@ -183,6 +186,7 @@ var AppModule = /** @class */ (function () {
                 angular2_wizard_1.FormWizardModule
             ],
             providers: [
+                { provide: core_1.LOCALE_ID, useValue: 'en' },
                 api_service_1.ApiService,
                 api_service_1.ApiServiceFactory,
                 api_service_1.LoginService,
@@ -208,4 +212,6 @@ var AppModule = /** @class */ (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+common_1.registerLocaleData(zh_Hans_1.default, 'zh-Hans');
+common_1.registerLocaleData(ja_1.default, 'ja');
 //# sourceMappingURL=app.module.js.map

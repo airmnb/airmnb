@@ -15,7 +15,6 @@ import { BookingListComponent } from '../booking-list/booking-list.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { EventPlaceComponent } from '../event-place/event-place.component';
 import { LoginContentComponent } from '../login-content/login-content.component';
-import { SignupContentComponent } from '../signup-content/signup-content.component';
 import { ProfileContentComponent } from '../profile-content/profile-content.component';
 import { BabiesComponent } from '../babies/babies.component';
 import { BabyComponent } from '../baby/baby.component';
@@ -23,6 +22,7 @@ import { SitesComponent } from '../sites/sites.component';
 import { SiteComponent } from '../site/site.component';
 import { SearchResultComponent } from '../search-result/search-result.component';
 import { TransactionComponent } from '../transaction/transaction.component';
+import { SignupContentComponent } from '../signup-content/signup-content.component';
 const routes: Routes = [
   {
     path: '',

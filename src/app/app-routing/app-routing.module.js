@@ -18,7 +18,6 @@ var booking_component_1 = require("../booking/booking.component");
 var booking_list_component_1 = require("../booking-list/booking-list.component");
 var event_place_component_1 = require("../event-place/event-place.component");
 var login_content_component_1 = require("../login-content/login-content.component");
-var signup_content_component_1 = require("../signup-content/signup-content.component");
 var profile_content_component_1 = require("../profile-content/profile-content.component");
 var babies_component_1 = require("../babies/babies.component");
 var baby_component_1 = require("../baby/baby.component");
@@ -37,7 +36,7 @@ var routes = [
     },
     {
         path: 'signup',
-        component: signup_content_component_1.SignupContentComponent
+        component: SignupContentComponent
     },
     {
         path: 'profile',

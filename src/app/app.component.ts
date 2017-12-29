@@ -10,9 +10,6 @@ import {
   Router, NavigationStart
 } from '@angular/router';
 import {
-  ModalService
-} from './modal.service';
-import {
   FormGroup,
   FormBuilder
 } from '@angular/forms';

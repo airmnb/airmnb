@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Account, Role } from '../../../types';
 import * as uuid from 'uuid';
 
@@ -24,8 +23,6 @@ export class SignupContentComponent implements OnInit {
 
   constructor(
     private api: ApiFacade,
-    public modalService: ModalService,
-    public activeModal: NgbActiveModal,
     private sessionService: SessionService,
     private router: Router) {
     }
@@ -51,19 +48,11 @@ export class SignupContentComponent implements OnInit {
       const id = await this.api.accountApi.add(model);
       const account : Account = await this.api.accountApi.getOne(id);
       await this.sessionService.login(account, Role.Consumer);
-      this.modalService.dismissModal();
       this.router.navigateByUrl("/");
       this.errorMessage = null;
-      this.activeModal.dismiss();
     }catch (e){
       this.errorMessage = e.message;
       this.submitted = false;
     }
-  }
-
-  login(){
-    this.activeModal.dismiss();
-    this.modalService.openLoginModal();
-    return false;
   }
 }

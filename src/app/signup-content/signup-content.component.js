@@ -50,12 +50,10 @@ var types_1 = require("../../../types");
 var uuid = require("uuid");
 var router_1 = require("@angular/router");
 var session_service_1 = require("../session.service");
-var modal_service_1 = require("../modal.service");
 var apiFacade_1 = require("../apiFacade");
 var SignupContentComponent = /** @class */ (function () {
-    function SignupContentComponent(api, modalService, activeModal, sessionService, router) {
+    function SignupContentComponent(api, activeModal, sessionService, router) {
         this.api = api;
-        this.modalService = modalService;
         this.activeModal = activeModal;
         this.sessionService = sessionService;
         this.router = router;
@@ -95,7 +93,6 @@ var SignupContentComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.sessionService.login(account, types_1.Role.Consumer)];
                     case 5:
                         _a.sent();
-                        this.modalService.dismissModal();
                         this.router.navigateByUrl("/");
                         this.errorMessage = null;
                         this.activeModal.dismiss();
@@ -112,7 +109,6 @@ var SignupContentComponent = /** @class */ (function () {
     };
     SignupContentComponent.prototype.login = function () {
         this.activeModal.dismiss();
-        this.modalService.openLoginModal();
         return false;
     };
     SignupContentComponent = __decorate([
@@ -121,12 +117,12 @@ var SignupContentComponent = /** @class */ (function () {
             templateUrl: './signup-content.component.html',
             styleUrls: ['./signup-content.component.css']
         }),
-        __metadata("design:paramtypes", [apiFacade_1.ApiFacade, typeof (_a = typeof modal_service_1.ModalService !== "undefined" && modal_service_1.ModalService) === "function" && _a || Object, ng_bootstrap_1.NgbActiveModal,
+        __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
+            ng_bootstrap_1.NgbActiveModal,
             session_service_1.SessionService,
             router_1.Router])
     ], SignupContentComponent);
     return SignupContentComponent;
-    var _a;
 }());
 exports.SignupContentComponent = SignupContentComponent;
 //# sourceMappingURL=signup-content.component.js.map

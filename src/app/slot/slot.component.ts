@@ -4,7 +4,6 @@ import * as uuid from "uuid";
 import { ApiServiceFactory, ApiService } from '../api.service';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
-import { ModalService } from '../modal.service';
 import * as moment from "moment";
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiFacade } from '../apiFacade';
@@ -68,7 +67,6 @@ export class SlotComponent implements OnInit {
     private api: ApiFacade,
     private session: SessionService,
     private notificationService: NotificationService,
-    private modalService: ModalService,
     public activeModal: NgbActiveModal,
     private util: UtilService,
     private router: Router,
