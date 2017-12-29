@@ -106,10 +106,6 @@ import { SiteComponent } from './site/site.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { TakePhotoComponent } from './take-photo/take-photo.component';
 import { TransactionComponent } from './transaction/transaction.component';
-import { PtranComponent } from './ptran/ptran.component';
-import { CtranComponent } from './ctran/ctran.component';
-import { PtranListComponent } from './ptran-list/ptran-list.component';
-import { CtranListComponent } from './ctran-list/ctran-list.component';
 import { BabyAvatarComponent } from './baby-avatar/baby-avatar.component';
 import { BookingCardComponent } from './booking-card/booking-card.component';
 import { LoadingComponent } from './loading/loading.component';
@@ -159,10 +155,6 @@ import { LoadingComponent } from './loading/loading.component';
     SearchResultComponent,
     TakePhotoComponent,
     TransactionComponent,
-    PtranComponent,
-    CtranComponent,
-    PtranListComponent,
-    CtranListComponent,
     BabyAvatarComponent,
     BookingCardComponent,
     LoadingComponent

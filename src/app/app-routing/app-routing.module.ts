@@ -27,10 +27,6 @@ import { SitesComponent } from '../sites/sites.component';
 import { SiteComponent } from '../site/site.component';
 import { SearchResultComponent } from '../search-result/search-result.component';
 import { TransactionComponent } from '../transaction/transaction.component';
-import { PtranComponent } from '../ptran/ptran.component';
-import { CtranComponent } from '../ctran/ctran.component';
-import { PtranListComponent } from '../ptran-list/ptran-list.component';
-import { CtranListComponent } from '../ctran-list/ctran-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -109,18 +105,18 @@ const routes: Routes = [
     // component: BookingViewComponent
     component: TransactionComponent
   },
-  {
-    path: 'provider',
-    component: ProviderMainComponent
-  },
+  // {
+  //   path: 'provider',
+  //   component: ProviderMainComponent
+  // },
   {
     path: 'provider/addslot',
     component: AddSlotComponent
   },
-  {
-    path: 'consumer',
-    component: ConsumerDashboardComponent
-  },
+  // {
+  //   path: 'consumer',
+  //   component: ConsumerDashboardComponent
+  // },
   {
     path: 'search',
     component: SearchResultComponent
@@ -129,30 +125,6 @@ const routes: Routes = [
     path: 'aboutus',
     component: AboutusComponent
   },
-  // {
-  //   path: 'ptran',
-  //   component: PtranListComponent
-  // },
-  // {
-  //   path: 'ptran/:tranId',
-  //   component: PtranComponent
-  // },
-  // {
-  //   path: 'ctran',
-  //   component: CtranListComponent
-  // },
-  // {
-  //   path: 'ctran/:tranId',
-  //   component: CtranComponent
-  // },
-  // {
-  //   path: 'trans',
-  //   component: TransactionsComponent
-  // },
-  // {
-  //   path: 'tran/start/:bookingId',
-  //   component: TransactionComponent
-  // },
   {
     path: 'booking/tran/:id',
     component: TransactionComponent

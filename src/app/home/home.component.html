@@ -72,8 +72,15 @@
     <div class="row">
       <div class="col s6 m4 l3" *ngFor="let slot of slots">
         <mat-card (click)="book(slot)">
-          <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
 
+          <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+          <div class="amb-rating-stars yellow-text accent-3">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+          </div>
           <mat-card-header>
             <!-- <div mat-card-avatar class="example-header-image"></div> -->
             <mat-card-title>{{slot.title}}</mat-card-title>
