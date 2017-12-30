@@ -7,8 +7,24 @@ import { Observable } from 'rxjs/Observable';
 // environment.apiUrl is like http://localhost:3000/api/
 const API_URL_BASE = environment.apiUrl.replace(/\/$/, "");
 
-@Injectable()
-export class ApiService<T> {
+export interface ApiService<T> {
+
+  add(item: T): Promise<string>;
+
+  delete(id: string): Promise<void>;
+  update(item: T, id?: string): Promise<void> ;
+
+  updateFunc(id: string, func: (item: T) => T): Promise<void>;
+
+  merge(id: string, delta: any): Promise<void> ;
+  getOne(id: string): Promise<T>;
+
+  get(query: any): Promise<T> ;
+
+  list(query: any): Promise<T[]>;
+}
+
+class ApiServiceImpl<T> implements ApiService<T> {
   private apiUrl: string;
   constructor(private name: string, private http: Http) {
     this.apiUrl = API_URL_BASE + '/data/' + name;
@@ -23,7 +39,6 @@ export class ApiService<T> {
       throw new Error(body);
     }
   }
-
 
   public async delete(id: string): Promise<void> {
     const resp = await this.http.delete(this.apiUrl + '/' + id).toPromise();
@@ -97,7 +112,7 @@ export class ApiServiceFactory {
   public produce<T>(name: string): ApiService<T> {
     let service: ApiService<T> = this.pool.get(name);
     if (!service){
-      service = new ApiService<T>(name, this.http);
+      service = new ApiServiceImpl<T>(name, this.http);
       this.pool.set(name, service);
     }
     return service;

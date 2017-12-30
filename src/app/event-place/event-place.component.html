@@ -2,7 +2,7 @@
   Event place
 </h3>
 <form #theForm="ngForm" (ngSubmit)="onSubmit()">
-    <fieldset [disabled]="submitted">
+    <fieldset>
       <div class="col s12 m6">
         <mat-form-field>
           <input matInput placeholder="Place name" [(ngModel)]="model.name" name="name">

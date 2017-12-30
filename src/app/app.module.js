@@ -23,7 +23,7 @@ var api_service_1 = require("./api.service");
 var session_service_1 = require("./session.service");
 var map_service_service_1 = require("./map-service.service");
 var aboutus_component_1 = require("./aboutus/aboutus.component");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+// import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 var angular_font_awesome_1 = require("angular-font-awesome");
 var date_time_picker_component_1 = require("./date-time-picker/date-time-picker.component");
 var add_slot_component_1 = require("./add-slot/add-slot.component");
@@ -39,8 +39,6 @@ var angular2_image_upload_1 = require("angular2-image-upload");
 var slot_image_service_1 = require("./slot-image.service");
 var login_content_component_1 = require("./login-content/login-content.component");
 var signup_content_component_1 = require("./signup-content/signup-content.component");
-var register_modal_component_1 = require("./register-modal/register-modal.component");
-var provider_profile_component_1 = require("./provider-profile/provider-profile.component");
 var slot_component_1 = require("./slot/slot.component");
 var profile_content_component_1 = require("./profile-content/profile-content.component");
 var baby_content_component_1 = require("./baby-content/baby-content.component");
@@ -49,7 +47,6 @@ var apiFacade_1 = require("./apiFacade");
 var header_component_1 = require("./header/header.component");
 var login_component_1 = require("./login/login.component");
 var signup_component_1 = require("./signup/signup.component");
-var account_profile_component_1 = require("./account-profile/account-profile.component");
 var util_service_1 = require("./util.service");
 var slot_edit_component_1 = require("./slot-edit/slot-edit.component");
 var booking_component_1 = require("./booking/booking.component");
@@ -57,7 +54,6 @@ var angular2_wizard_1 = require("angular2-wizard");
 var slot_display_component_1 = require("./slot-display/slot-display.component");
 var booking_list_component_1 = require("./booking-list/booking-list.component");
 var baby_service_1 = require("./baby.service");
-var transactions_component_1 = require("./transactions/transactions.component");
 var map_search_component_1 = require("./map-search/map-search.component");
 var marker_manager_1 = require("@agm/core/services/managers/marker-manager");
 var animations_2 = require("@angular/platform-browser/animations");
@@ -98,20 +94,16 @@ var AppModule = /** @class */ (function () {
                 slot_list_component_1.SlotListComponent,
                 login_content_component_1.LoginContentComponent,
                 signup_content_component_1.SignupContentComponent,
-                register_modal_component_1.RegisterModalComponent,
-                provider_profile_component_1.ProviderProfileComponent,
                 slot_component_1.SlotComponent,
                 profile_content_component_1.ProfileContentComponent,
                 baby_content_component_1.BabyContentComponent,
                 header_component_1.HeaderComponent,
                 login_component_1.LoginComponent,
                 signup_component_1.SignupComponent,
-                account_profile_component_1.AccountProfileComponent,
                 slot_edit_component_1.SlotEditComponent,
                 booking_component_1.BookingComponent,
                 slot_display_component_1.SlotDisplayComponent,
                 booking_list_component_1.BookingListComponent,
-                transactions_component_1.TransactionsComponent,
                 map_search_component_1.MapSearchComponent,
                 timepicker_component_1.TimepickerComponent,
                 image_uploader_component_1.ImageUploaderComponent,
@@ -170,9 +162,9 @@ var AppModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
-                ng_bootstrap_1.NgbModule.forRoot(),
-                ng_bootstrap_1.NgbDatepickerModule.forRoot(),
-                ng_bootstrap_1.NgbTimepickerModule.forRoot(),
+                // NgbModule.forRoot(),
+                // NgbDatepickerModule.forRoot(),
+                // NgbTimepickerModule.forRoot(),
                 angular_font_awesome_1.AngularFontAwesomeModule,
                 animations_1.BrowserAnimationsModule,
                 angular_calendar_1.CalendarModule.forRoot(),
@@ -187,13 +179,12 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 { provide: core_1.LOCALE_ID, useValue: 'en' },
-                api_service_1.ApiService,
                 api_service_1.ApiServiceFactory,
                 api_service_1.LoginService,
                 session_service_1.SessionService,
                 map_service_service_1.MapServiceService,
                 ngx_cookie_service_1.CookieService,
-                ng_bootstrap_1.NgbTimepickerConfig,
+                // NgbTimepickerConfig,
                 notification_service_1.NotificationService,
                 slot_service_1.SlotService,
                 slot_image_service_1.ImageService,

@@ -45,16 +45,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var types_1 = require("../../../types");
 var uuid = require("uuid");
 var router_1 = require("@angular/router");
 var session_service_1 = require("../session.service");
 var apiFacade_1 = require("../apiFacade");
 var SignupContentComponent = /** @class */ (function () {
-    function SignupContentComponent(api, activeModal, sessionService, router) {
+    function SignupContentComponent(api, sessionService, router) {
         this.api = api;
-        this.activeModal = activeModal;
         this.sessionService = sessionService;
         this.router = router;
         this.submitted = false;
@@ -95,7 +93,6 @@ var SignupContentComponent = /** @class */ (function () {
                         _a.sent();
                         this.router.navigateByUrl("/");
                         this.errorMessage = null;
-                        this.activeModal.dismiss();
                         return [3 /*break*/, 7];
                     case 6:
                         e_1 = _a.sent();
@@ -107,10 +104,6 @@ var SignupContentComponent = /** @class */ (function () {
             });
         });
     };
-    SignupContentComponent.prototype.login = function () {
-        this.activeModal.dismiss();
-        return false;
-    };
     SignupContentComponent = __decorate([
         core_1.Component({
             selector: 'amb-signup-content',
@@ -118,7 +111,6 @@ var SignupContentComponent = /** @class */ (function () {
             styleUrls: ['./signup-content.component.css']
         }),
         __metadata("design:paramtypes", [apiFacade_1.ApiFacade,
-            ng_bootstrap_1.NgbActiveModal,
             session_service_1.SessionService,
             router_1.Router])
     ], SignupContentComponent);

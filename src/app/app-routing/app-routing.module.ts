@@ -3,16 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { AboutusComponent } from '../aboutus/aboutus.component';
-import { AddSlotComponent } from '../add-slot/add-slot.component';
 import { LoginComponent } from '../login/login.component';
 import { SignupComponent } from '../signup/signup.component';
-import { AccountProfileComponent } from '../account-profile/account-profile.component';
 import { SlotListComponent } from '../slot-list/slot-list.component';
 import { SlotEditComponent } from '../slot-edit/slot-edit.component';
 import { SlotComponent } from '../slot/slot.component';
 import { BookingComponent } from '../booking/booking.component';
 import { BookingListComponent } from '../booking-list/booking-list.component';
-import { TransactionsComponent } from '../transactions/transactions.component';
 import { EventPlaceComponent } from '../event-place/event-place.component';
 import { LoginContentComponent } from '../login-content/login-content.component';
 import { ProfileContentComponent } from '../profile-content/profile-content.component';
@@ -95,10 +92,6 @@ const routes: Routes = [
   {
     path: 'booking/:id',
     component: TransactionComponent
-  },
-  {
-    path: 'provider/addslot',
-    component: AddSlotComponent
   },
   {
     path: 'search',

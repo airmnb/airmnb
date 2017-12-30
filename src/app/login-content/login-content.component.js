@@ -45,14 +45,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var api_service_1 = require("../api.service");
 var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
 var notification_service_1 = require("../notification.service");
 var LoginContentComponent = /** @class */ (function () {
-    function LoginContentComponent(activeModal, loginService, sessionService, notificationService, router) {
-        this.activeModal = activeModal;
+    function LoginContentComponent(loginService, sessionService, notificationService, router) {
         this.loginService = loginService;
         this.sessionService = sessionService;
         this.notificationService = notificationService;
@@ -102,10 +100,6 @@ var LoginContentComponent = /** @class */ (function () {
             this.router.navigate(['/profile']);
         }
     };
-    LoginContentComponent.prototype.signup = function () {
-        this.activeModal.dismiss();
-        return false;
-    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", String)
@@ -116,8 +110,7 @@ var LoginContentComponent = /** @class */ (function () {
             templateUrl: './login-content.component.html',
             styleUrls: ['./login-content.component.css']
         }),
-        __metadata("design:paramtypes", [ng_bootstrap_1.NgbActiveModal,
-            api_service_1.LoginService,
+        __metadata("design:paramtypes", [api_service_1.LoginService,
             session_service_1.SessionService,
             notification_service_1.NotificationService,
             router_1.Router])

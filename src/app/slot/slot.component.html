@@ -35,8 +35,7 @@
       <div class="col s12 l6">
         <!-- <amb-select [options]="siteOptions" [(value)]="model.location"></amb-select> -->
         <mat-form-field>
-          <label>Site address</label>
-          <mat-select [placeholder]="Site" [(ngModel)]="siteId" name="location" required>
+          <mat-select placeholder="Site" [(ngModel)]="siteId" name="location" required>
             <mat-option routerLink="/sites/add">Add new site</mat-option>
             <mat-option *ngFor="let site of sites" [value]="site.id">
               {{site.name + " - " + site.location.address}}

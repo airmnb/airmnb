@@ -84,12 +84,13 @@ export interface ServiceSlot {
   providerId: string;
   title: string;
   text?: string;
-  start: Date;
-  end: Date;
+  date: Date;
+  timeFrom: number;
+  timeTo: number;
 	gender: Gender; // 0 for girl, 1 for boy, 2 for either
 	ageFrom: number;
 	ageTo: number;
-	otherCondition: string;
+	description: string;
   price: number;
   capping: number;
   bookingCount: number;

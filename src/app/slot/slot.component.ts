@@ -5,7 +5,6 @@ import { ApiServiceFactory, ApiService } from '../api.service';
 import { SessionService } from '../session.service';
 import { NotificationService } from '../notification.service';
 import * as moment from "moment";
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -45,15 +44,16 @@ export class SlotComponent implements OnInit {
     capping: 5,
     bookingCount: 0,
     gender: Gender.Either,
-    otherCondition: null,
+    description: null,
     price: 8,
     providerId: this.session.account.id,
     text: null,
     title: null,
     ageFrom: 2,
     ageTo: 6,
-    start: new Date(),
-    end: null,
+    date: new Date(),
+    timeFrom: null,
+    timeTo: null,
     imageNames: null,
     eventPlaceId: null,
     siteId: null,
@@ -67,12 +67,13 @@ export class SlotComponent implements OnInit {
     private api: ApiFacade,
     private session: SessionService,
     private notificationService: NotificationService,
-    public activeModal: NgbActiveModal,
     private util: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
    }
+
+
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(p => {

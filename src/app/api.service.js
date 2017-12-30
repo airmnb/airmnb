@@ -49,13 +49,13 @@ var environment_1 = require("../environments/environment");
 var http_1 = require("@angular/http");
 // environment.apiUrl is like http://localhost:3000/api/
 var API_URL_BASE = environment_1.environment.apiUrl.replace(/\/$/, "");
-var ApiService = /** @class */ (function () {
-    function ApiService(name, http) {
+var ApiServiceImpl = /** @class */ (function () {
+    function ApiServiceImpl(name, http) {
         this.name = name;
         this.http = http;
         this.apiUrl = API_URL_BASE + '/data/' + name;
     }
-    ApiService.prototype.add = function (item) {
+    ApiServiceImpl.prototype.add = function (item) {
         return __awaiter(this, void 0, void 0, function () {
             var resp, body;
             return __generator(this, function (_a) {
@@ -75,7 +75,7 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService.prototype.delete = function (id) {
+    ApiServiceImpl.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var resp;
             return __generator(this, function (_a) {
@@ -94,7 +94,7 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService.prototype.update = function (item, id) {
+    ApiServiceImpl.prototype.update = function (item, id) {
         return __awaiter(this, void 0, void 0, function () {
             var itemId, resp, body;
             return __generator(this, function (_a) {
@@ -119,7 +119,7 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService.prototype.updateFunc = function (id, func) {
+    ApiServiceImpl.prototype.updateFunc = function (id, func) {
         return __awaiter(this, void 0, void 0, function () {
             var item, result;
             return __generator(this, function (_a) {
@@ -136,7 +136,7 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService.prototype.merge = function (id, delta) {
+    ApiServiceImpl.prototype.merge = function (id, delta) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -148,7 +148,7 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService.prototype.getOne = function (id) {
+    ApiServiceImpl.prototype.getOne = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var resp, body;
             return __generator(this, function (_a) {
@@ -168,7 +168,7 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService.prototype.get = function (query) {
+    ApiServiceImpl.prototype.get = function (query) {
         return __awaiter(this, void 0, void 0, function () {
             var resp, body;
             return __generator(this, function (_a) {
@@ -188,7 +188,7 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService.prototype.list = function (query) {
+    ApiServiceImpl.prototype.list = function (query) {
         return __awaiter(this, void 0, void 0, function () {
             var resp, body;
             return __generator(this, function (_a) {
@@ -208,13 +208,8 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
-    ApiService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [String, http_1.Http])
-    ], ApiService);
-    return ApiService;
+    return ApiServiceImpl;
 }());
-exports.ApiService = ApiService;
 var ApiServiceFactory = /** @class */ (function () {
     function ApiServiceFactory(http) {
         this.http = http;
@@ -223,7 +218,7 @@ var ApiServiceFactory = /** @class */ (function () {
     ApiServiceFactory.prototype.produce = function (name) {
         var service = this.pool.get(name);
         if (!service) {
-            service = new ApiService(name, this.http);
+            service = new ApiServiceImpl(name, this.http);
             this.pool.set(name, service);
         }
         return service;

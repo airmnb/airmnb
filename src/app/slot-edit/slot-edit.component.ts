@@ -55,8 +55,8 @@ export class SlotEditComponent implements OnInit {
   }
 
   displayTime(slot: ServiceSlot): string {
-    const start = moment(slot.start);
-    const end = moment(slot.end);
+    const start = moment(slot.timeFrom);
+    const end = moment(slot.timeTo);
     const diff = end.diff(start, 'minutes') / 60;
     return `${diff} hours`;
   }

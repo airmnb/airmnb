@@ -25,6 +25,7 @@ var sites_component_1 = require("../sites/sites.component");
 var site_component_1 = require("../site/site.component");
 var search_result_component_1 = require("../search-result/search-result.component");
 var transaction_component_1 = require("../transaction/transaction.component");
+var signup_content_component_1 = require("../signup-content/signup-content.component");
 var routes = [
     {
         path: '',
@@ -36,7 +37,7 @@ var routes = [
     },
     {
         path: 'signup',
-        component: SignupContentComponent
+        component: signup_content_component_1.SignupContentComponent
     },
     {
         path: 'profile',

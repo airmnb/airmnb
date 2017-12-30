@@ -5,7 +5,6 @@ import { MapServiceService } from '../map-service.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { SearchQuery, SelectOption, ServiceSlot, Gender } from '../../../types';
 import * as moment from "moment";
-import { ModalService } from '../modal.service';
 import { NotificationService } from '../notification.service';
 import { SelectOptionService } from '../select-option.service';
 import { ApiService } from '../api.service';
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit {
     },
   };
   constructor(
-    private modalService: ModalService,
     ngbTimerConfig: NgbTimepickerConfig,
     private session: SessionService,
     private router: Router,
@@ -106,18 +104,6 @@ export class HomeComponent implements OnInit {
       return;
     }
     this.router.navigate(['/bookings/add/', slot.id]);
-  }
-
-  signup() {
-    this.modalService.openSignupModal();
-    return false;
-  }
-
-  login() {
-    if(!this.hasLoggedIn) {
-      this.modalService.openLoginModal();
-    }
-    return false;
   }
 
   get hasLoggedIn(): boolean{

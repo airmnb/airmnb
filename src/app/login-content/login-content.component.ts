@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../api.service';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
@@ -17,10 +16,9 @@ export class LoginContentComponent implements OnInit {
   password: string;
   role: Role;
   errorMessage: string;
-  private submitted: boolean;
+  submitted: boolean;
 
   constructor(
-    public activeModal: NgbActiveModal,
     private loginService: LoginService,
     private sessionService: SessionService,
     private notificationService: NotificationService,
@@ -52,10 +50,5 @@ export class LoginContentComponent implements OnInit {
       this.notificationService.info("Please input your profile to continue the journey.");
       this.router.navigate(['/profile']);
     }
-  }
-
-  signup(){
-    this.activeModal.dismiss();
-    return false;
   }
 }

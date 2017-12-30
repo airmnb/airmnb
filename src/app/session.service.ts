@@ -15,6 +15,7 @@ export class SessionService {
   private _account: Account;
   private _role: Role;
   private _profile: AccountProfile;
+  public locale = "zh-Hans";
   public get role(): Role{
     return this._role;
   }

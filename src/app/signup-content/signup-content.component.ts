@@ -6,7 +6,6 @@ import { ApiService, ApiServiceFactory } from "../api.service";
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
-import { ModalService } from '../modal.service';
 import { ApiFacade } from '../apiFacade';
 
 @Component({

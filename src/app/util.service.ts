@@ -35,9 +35,9 @@ export class UtilService {
     return m.toDate();
   }
 
-  getDate(date: Date, hour: number): Date {
+  getDate(date: Date): Date {
     const m = moment(date);
-    m.hour(hour).minute(0).second(0).millisecond(0);
+    m.hour(0).minute(0).second(0).millisecond(0);
     return m.toDate();
   }
 

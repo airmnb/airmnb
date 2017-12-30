@@ -1,7 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
+// i18n
+import localeEnUs from '@angular/common/locales/en-US-POSIX';
+import localeEnUsExtra from '@angular/common/locales/extra/en-US-POSIX';
 import localeZhHans from '@angular/common/locales/zh-Hans';
+import localeZhHansExtra from '@angular/common/locales/extra/zh-Hans';
+// i18n
 import localeJa from '@angular/common/locales/ja';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -16,10 +21,9 @@ import { ApiService, ApiServiceFactory, LoginService} from "./api.service";
 import { SessionService } from './session.service';
 import { MapServiceService } from './map-service.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
-import { AddSlotComponent } from './add-slot/add-slot.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './notification.service';
 import { NotificationComponent } from './notification/notification.component';
@@ -32,18 +36,13 @@ import { ImageUploadModule } from "angular2-image-upload";
 import { ImageService } from './slot-image.service';
 import { LoginContentComponent } from './login-content/login-content.component';
 import { SignupContentComponent } from './signup-content/signup-content.component';
-import { RegisterModalComponent } from './register-modal/register-modal.component';
-import { ModalService } from './modal.service';
-import { ProviderProfileComponent } from './provider-profile/provider-profile.component';
 import { SlotComponent } from './slot/slot.component';
 import { ProfileContentComponent } from './profile-content/profile-content.component';
-import { BabyContentComponent } from './baby-content/baby-content.component';
 import { BookingService } from './booking.service';
 import { ApiFacade } from "./apiFacade";
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { AccountProfileComponent } from './account-profile/account-profile.component';
 import { UtilService } from './util.service';
 import { SlotEditComponent } from './slot-edit/slot-edit.component';
 import { BookingComponent } from './booking/booking.component';
@@ -51,7 +50,6 @@ import { FormWizardModule } from 'angular2-wizard';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { BabyService } from './baby.service';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { MapSearchComponent } from './map-search/map-search.component';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -115,26 +113,20 @@ import { LoadingComponent } from './loading/loading.component';
     HomeComponent,
     AboutusComponent,
     DateTimePickerComponent,
-    AddSlotComponent,
     NotificationComponent,
     AddressInputComponent,
     SlotListComponent,
     LoginContentComponent,
     SignupContentComponent,
-    RegisterModalComponent,
-    ProviderProfileComponent,
     SlotComponent,
     ProfileContentComponent,
-    BabyContentComponent,
     HeaderComponent,
     LoginComponent,
     SignupComponent,
-    AccountProfileComponent,
     SlotEditComponent,
     BookingComponent,
     SlotDisplayComponent,
     BookingListComponent,
-    TransactionsComponent,
     MapSearchComponent,
     TimepickerComponent,
     ImageUploaderComponent,
@@ -209,8 +201,6 @@ import { LoadingComponent } from './loading/loading.component';
     FormWizardModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'en' },
-    ApiService,
     ApiServiceFactory,
     LoginService,
     SessionService,
@@ -234,5 +224,3 @@ import { LoadingComponent } from './loading/loading.component';
 })
 export class AppModule { }
 
-registerLocaleData(localeZhHans, 'zh-Hans');
-registerLocaleData(localeJa, 'ja');

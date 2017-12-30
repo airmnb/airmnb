@@ -50,15 +50,13 @@ var session_service_1 = require("../session.service");
 var map_service_service_1 = require("../map-service.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var moment = require("moment");
-var modal_service_1 = require("../modal.service");
 var notification_service_1 = require("../notification.service");
 var select_option_service_1 = require("../select-option.service");
 var apiFacade_1 = require("../apiFacade");
 var slot_image_service_1 = require("../slot-image.service");
 var util_service_1 = require("../util.service");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(modalService, ngbTimerConfig, session, router, mapService, notificationService, selectOptionService, api, imageService, util) {
-        this.modalService = modalService;
+    function HomeComponent(ngbTimerConfig, session, router, mapService, notificationService, selectOptionService, api, imageService, util) {
         this.session = session;
         this.router = router;
         this.mapService = mapService;
@@ -152,16 +150,6 @@ var HomeComponent = /** @class */ (function () {
         }
         this.router.navigate(['/bookings/add/', slot.id]);
     };
-    HomeComponent.prototype.signup = function () {
-        this.modalService.openSignupModal();
-        return false;
-    };
-    HomeComponent.prototype.login = function () {
-        if (!this.hasLoggedIn) {
-            this.modalService.openLoginModal();
-        }
-        return false;
-    };
     Object.defineProperty(HomeComponent.prototype, "hasLoggedIn", {
         get: function () {
             return !!this.session.account;
@@ -224,7 +212,7 @@ var HomeComponent = /** @class */ (function () {
             templateUrl: './home.component.html',
             styleUrls: ['./home.component.css']
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof modal_service_1.ModalService !== "undefined" && modal_service_1.ModalService) === "function" && _a || Object, ng_bootstrap_1.NgbTimepickerConfig,
+        __metadata("design:paramtypes", [ng_bootstrap_1.NgbTimepickerConfig,
             session_service_1.SessionService,
             router_1.Router,
             map_service_service_1.MapServiceService,
@@ -235,7 +223,6 @@ var HomeComponent = /** @class */ (function () {
             util_service_1.UtilService])
     ], HomeComponent);
     return HomeComponent;
-    var _a;
 }());
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map
