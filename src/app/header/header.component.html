@@ -6,56 +6,64 @@
 
 <mat-nav-list>
   <mat-list-item *ngIf="isConsumer">
-    <a matLine routerLink="/">Search events</a>
+    <a matLine routerLink="/">{{'Search events' | translate}}</a>
     <i class="fa fa-flag right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="!hasLoggedIn">
-    <a matLine routerLink="/signup">Sign up</a>
+    <a matLine routerLink="/signup">{{'Sign up' | translate}}</a>
     <i class="fa fa-plus right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="!hasLoggedIn">
-    <a matLine routerLink="/login">Log in</a>
+    <a matLine routerLink="/login">{{'Log in' | translate}}</a>
     <i class="fa fa-sign-in right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">
-    <a matLine routerLink="/slots">Events</a>
+    <a matLine routerLink="/slots">{{'Events' | translate}}</a>
     <i class="fa fa-heart right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">
-    <a matLine routerLink="/slots/bookings">Booking Management</a>
+    <a matLine routerLink="/slots/bookings">{{'Booking Management' | translate}}</a>
     <i class="fa fa-paper-plane right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isConsumer">
-    <a matLine routerLink="/bookings">My Bookings</a>
+    <a matLine routerLink="/bookings">{{'My Bookings' | translate}}</a>
     <i class="fa fa-flag right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">
-    <a matLine routerLink="/sites">Sites</a>
+    <a matLine routerLink="/sites">{{'Sites' | translate}}</a>
     <i class="fa fa-map-marker right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="hasLoggedIn">
-    <a matLine routerLink="/profile">Profile</a>
+    <a matLine routerLink="/profile">{{'Profile' | translate}}</a>
     <i class="fa fa-user right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isConsumer">
-    <a matLine routerLink="/babies">Babies</a>
+    <a matLine routerLink="/babies">{{'Babies' | translate}}</a>
     <i class="fa fa-child right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isConsumer">
-    <a matLine (click)="switchToProvider()">Switch to provider</a>
+    <a matLine (click)="switchToProvider()">{{'Switch to provider' | translate}}</a>
     <i class="fa fa-random right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="isProvider">
-    <a matLine (click)="switchToConsumer()">Switch to consumer</a>
+    <a matLine (click)="switchToConsumer()">{{'Switch to consumer' | translate}}</a>
     <i class="fa fa-random right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="hasLoggedIn">
-    <a matLine (click)="logout()">Sign out</a>
+    <a matLine (click)="logout()">{{'Sign out' | translate}}</a>
     <i class="fa fa-sign-out right" aria-hidden="true"></i>
   </mat-list-item>
   <hr>
   <mat-list-item>
-    <a matLine routerLink="/aboutus">About us</a>
+    <a matLine routerLink="/aboutus">{{'About us' | translate}}</a>
     <i class="fa fa-home right" aria-hidden="true"></i>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-select [(ngModel)]="locale" name="locale" (click)="onClickLocale($event)">
+      <mat-option value="en">English</mat-option>
+      <mat-option value="zh">中文（简体）</mat-option>
+      <mat-option value="ja">日本語</mat-option>
+    </mat-select>
+    <i class="fa fa-globe" aria-hidden="true"></i>
   </mat-list-item>
 </mat-nav-list>

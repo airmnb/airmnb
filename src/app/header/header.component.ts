@@ -16,6 +16,14 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) { }
 
+  get locale(): string {
+    return this.session.getLocale();
+  }
+
+  set locale(value: string) {
+    this.session.setLocale(value);
+  }
+
   get hasLoggedIn(): boolean {
     return !!this.accountName;
   }
@@ -56,5 +64,10 @@ export class HeaderComponent implements OnInit {
 
   switchToConsumer() {
     this.session.changeRole(Role.Consumer);
+  }
+
+  onClickLocale($event) {
+    console.log($event);
+    $event.stopPropagation();
   }
 }

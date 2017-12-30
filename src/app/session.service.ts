@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { ApiFacade } from './apiFacade';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 const cookieKey = 'c';
 const langKey = 'lang';
@@ -15,7 +16,8 @@ export class SessionService {
   private _account: Account;
   private _role: Role;
   private _profile: AccountProfile;
-  public locale = "zh-Hans";
+  private _locale: string;
+
   public get role(): Role{
     return this._role;
   }
@@ -23,8 +25,20 @@ export class SessionService {
   constructor(
     private cookieService: CookieService,
     private api: ApiFacade,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
+  }
+
+  getLocale(): string {
+    return this._locale || 'en';
+  }
+
+  setLocale(value: string) {
+    this._locale = value;
+    this.saveCookie();
+    this.translate.use(value);
+    console.log('Locale change to ', value);
   }
 
   get account(): Account {
@@ -90,6 +104,7 @@ export class SessionService {
       const obj = JSON.parse(cookieValue);
       if (obj) {
         const account = obj.account;
+        this.setLocale(obj.locale);
         if (account) {
           this.login(account, obj.role);
           return;
@@ -103,7 +118,8 @@ export class SessionService {
   saveCookie() {
     const value = {
       account: this.account,
-      role: this._role
+      role: this._role,
+      locale: this._locale
     };
     this.cookieService.set(cookieKey, JSON.stringify(value), null, '/');
   }

@@ -1,21 +1,9 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef
-} from '@angular/core';
-import {
-  SessionService
-} from './session.service';
-import {
-  Router, NavigationStart
-} from '@angular/router';
-import {
-  FormGroup,
-  FormBuilder
-} from '@angular/forms';
-import {
-  MediaMatcher
-} from '@angular/cdk/layout';
+import {  Component,  OnInit,  ChangeDetectorRef} from '@angular/core';
+import {  SessionService} from './session.service';
+import {  Router, NavigationStart} from '@angular/router';
+import {  FormGroup,  FormBuilder} from '@angular/forms';
+import {  MediaMatcher} from '@angular/cdk/layout';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'amb-root',
@@ -43,7 +31,9 @@ export class AppComponent implements OnInit {
     private router: Router,
     fb: FormBuilder,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher) {
+    media: MediaMatcher,
+    translate: TranslateService
+  ) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -54,6 +44,8 @@ export class AppComponent implements OnInit {
       'top': 0,
       'bottom': 0,
     });
+
+    translate.setDefaultLang('en');
 
     // this.router.events
     // .filter(event => event instanceof NavigationStart)

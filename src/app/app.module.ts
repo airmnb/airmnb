@@ -106,6 +106,9 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { BabyAvatarComponent } from './baby-avatar/baby-avatar.component';
 import { BookingCardComponent } from './booking-card/booking-card.component';
 import { LoadingComponent } from './loading/loading.component';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -198,7 +201,15 @@ import { LoadingComponent } from './loading/loading.component';
     }),
     ImageUploadModule.forRoot(),
     Ng2SmartTableModule,
-    FormWizardModule
+    FormWizardModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
+    HttpClientModule
   ],
   providers: [
     ApiServiceFactory,
@@ -216,11 +227,16 @@ import { LoadingComponent } from './loading/loading.component';
     BabyService,
     GoogleMapsAPIWrapper,
     MarkerManager,
-    SelectOptionService
+    SelectOptionService,
+    HttpClient
   ],
   entryComponents: [
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "/assets/i18n/", ".json");
+}
 

@@ -3,10 +3,10 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <a routerLink="/" class="white-text" (click)="sidenav.close()">Air Mom & Baby{{isProvider ? " - provider" : ""}}</a>
+    <a routerLink="/" class="white-text" (click)="sidenav.close()">{{'Air Mom & Baby' | translate}}<small>{{isProvider ? " - " : ""}}{{(isProvider ? "provider" : "") | translate}}</small></a>
     <div style="width:100%">
       <small class="right" *ngIf="accountName">{{accountName}}</small>
-      <small class="right" *ngIf="!accountName"><a routerLink="/login" class="white-text"  (click)="sidenav.close()">Log in</a></small>
+      <small class="right" *ngIf="!accountName"><a routerLink="/login" class="white-text"  (click)="sidenav.close()">{{'Log in' | translate}}</a></small>
     </div>
   </mat-toolbar>
 
@@ -16,7 +16,7 @@
     [mode]="mobileQuery.matches ? 'over' : 'push'"
     [fixedInViewport]="mobileQuery.matches"
     [fixedTopGap]="56" [fixedBottomGap]="0">
-            <amb-header style="width:100%;" (click)="sidenav.close()"></amb-header>
+      <amb-header style="width:100%;" (click)="sidenav.close()"></amb-header>
     </mat-sidenav>
 
     <mat-sidenav-content [formGroup]="options" class="amb-sidenav-content">
@@ -32,47 +32,3 @@
   </mat-toolbar> -->
 </ng-container>
 
-
-
-<!-- <main flex>
-  <amb-notification></amb-notification>
-  <router-outlet></router-outlet>
-</main>
-
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large red">
-    <i class="large material-icons">mode_edit</i>
-  </a>
-  <ul>
-    <li>
-      <a class="btn-floating red">
-        <i class="material-icons">insert_chart</i>
-      </a>
-    </li>
-    <li>
-      <a class="btn-floating yellow darken-1">
-        <i class="material-icons">format_quote</i>
-      </a>
-    </li>
-    <li>
-      <a class="btn-floating green">
-        <i class="material-icons">publish</i>
-      </a>
-    </li>
-    <li>
-      <a class="btn-floating blue">
-        <i class="material-icons">attach_file</i>
-      </a>
-    </li>
-  </ul>
-</div>
-
-<footer class="page-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <p class="white-text">Copyright 2017</p>
-      </div>
-    </div>
-  </div>
-</footer> -->

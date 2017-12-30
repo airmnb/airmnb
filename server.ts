@@ -36,6 +36,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 app.use('/image', express.static(path.join(__dirname, 'image')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // app.use((req, res, next) => {
 //   console.log('>>>', req.method, req.url);

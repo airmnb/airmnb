@@ -1,47 +1,47 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="amb-home-content">
   <div class="container">
-    <h5>Search events</h5>
+    <h5>{{'Search events' | translate}}</h5>
     <div class="row">
       <div class="col s12">
         <amb-address-input class="btn-block" [(address)]="model.location" [showsMap]="false"></amb-address-input>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <mat-select placeholder="Distance" [(ngModel)]="model.distance" name="distance">
+          <mat-select placeholder="{{'Distance' | translate}}" [(ngModel)]="model.distance" name="distance">
             <mat-option value="0">--</mat-option>
-            <mat-option value="1">1 km</mat-option>
-            <mat-option value="2">2 km</mat-option>
-            <mat-option value="5">5 km</mat-option>
+            <mat-option value="1">1 {{'km' | translate}}</mat-option>
+            <mat-option value="2">2 {{'km' | translate}}</mat-option>
+            <mat-option value="5">5 {{'km' | translate}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col s4">
-        <amb-select placeholder="Baby age" [(value)]="model.age" [options]="ageOptions"></amb-select>
+        <amb-select placeholder="{{'Baby age' | translate}}" [(value)]="model.age" [options]="ageOptions"></amb-select>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <mat-select placeholder="Baby gender" [(ngModel)]="model.gender" name="gender">
+          <mat-select placeholder="{{'Baby gender' | translate}}" [(ngModel)]="model.gender" name="gender">
             <mat-option value="-1">--</mat-option>
-            <mat-option value="0">Girl</mat-option>
-            <mat-option value="1">Boy</mat-option>
+            <mat-option value="0">{{'Girl' | translate}}</mat-option>
+            <mat-option value="1">{{'Boy' | translate}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="date" placeholder="Choose a date" [(ngModel)]="model.date" name="date">
+          <input matInput type="{ate" placeholder="{{'Choose a date' | translate}}" [(ngModel)]="model.date" name="date">
         </mat-form-field>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="Choose starting time" [(ngModel)]="model.timeFrom"
+          <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="{{'Choose starting time' | translate}}" [(ngModel)]="model.timeFrom"
             name="timeFrom">
         </mat-form-field>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="Choose ending time" [(ngModel)]="model.timeTo"
+          <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="{{'Choose ending time' | translate}}" [(ngModel)]="model.timeTo"
             name="timeTo">
         </mat-form-field>
       </div>
@@ -60,7 +60,7 @@
         <div class="col s12">
           <button class="btn waves-effect waves-light amb-block" (click)="search()">
               <i class="fa fa-search" aria-hidden="true"></i>
-              Search
+              {{'Search' | translate}}
           </button>
         </div>
       </div>
@@ -68,7 +68,7 @@
 
   </div>
   <div class="container" *ngIf="slots">
-    <h5 i18n>Recommended</h5>
+    <h5 i18n>{{'Recommended' | translate}}</h5>
     <div class="row">
       <div class="col s6 m4 l3" *ngFor="let slot of slots">
         <mat-card (click)="book(slot)">

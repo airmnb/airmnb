@@ -1,4 +1,4 @@
-<input placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
+<input placeholder="{{'Search for location' | translate}}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
   #search [(ngModel)]="address.address">
   <agm-map *ngIf="showsMap" [latitude]="address.location.coordinates[1]" [longitude]="address.location.coordinates[0]" [scrollwheel]="false" [zoom]="zoom">
   <agm-marker [latitude]="address.location.coordinates[1]" [longitude]="address.location.coordinates[0]"></agm-marker>

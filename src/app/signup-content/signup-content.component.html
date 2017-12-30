@@ -7,19 +7,19 @@
       <div class="row">
         <div class="col s12 offset-m2 m8 offset-l4 l4">
           <mat-form-field>
-            <input matInput placeholder="Account name" [(ngModel)]="accountName" name="accountName" required>
+            <input matInput placeholder="{{'Account name' | translate}}" [(ngModel)]="accountName" name="accountName" required>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Password" [(ngModel)]="password" name="password" required>
+            <input matInput placeholder="{{'Password' | translate}}" [(ngModel)]="password" name="password" required>
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="email" placeholder="Email" [(ngModel)]="email" name="email" required>
+            <input matInput type="email" placeholder="{{'Email' | translate}}" [(ngModel)]="email" name="email" required>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col s12 offset-m2 m8 offset-l4 l4">
-          <button type="submit" mat-raised-button color="primary" class="amb-block" [disabled]="!theForm.form.valid">Sign up</button>
+          <button type="submit" mat-raised-button color="primary" class="amb-block" [disabled]="!theForm.form.valid">{{'Sign up' | translate}}</button>
         </div>
       </div>
       <div class="row">
@@ -27,7 +27,7 @@
       <hr>
 
           <p class="center">Already have an account?
-            <a routerLink="/login">Login</a>
+            <a routerLink="/login">{{'Log in' | translate}}</a>
           </p>
         </div>
       </div>
