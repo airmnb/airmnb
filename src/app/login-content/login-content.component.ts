@@ -2,8 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../api.service';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
-import { AccountProfile, Role } from '../../../types';
+import { Account, AccountProfile, Role } from '../../../types';
 import { NotificationService } from '../notification.service';
+import { AuthService, SocialUser, GoogleLoginProvider } from 'angular4-social-login';
+import { ApiFacade } from '../apiFacade';
+import { UtilService } from '../util.service';
 
 @Component({
   selector: 'amb-login-content',
@@ -22,20 +25,54 @@ export class LoginContentComponent implements OnInit {
     private loginService: LoginService,
     private sessionService: SessionService,
     private notificationService: NotificationService,
-    private router: Router) { }
+    private router: Router,
+    private api: ApiFacade,
+    private util: UtilService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
+    this.authService.authState.subscribe(async user => {
+      console.log('Google SSO user', user);
+
+      if(!user) return;
+      console.log("Google SSO user isn't null", user);
+      const account = await this.getOrCreateAccountForSso(user);
+      console.log('SSO account', account);
+      await this.login(account.name, account.secret, Role.Consumer);
+    });
+  }
+
+  async getOrCreateAccountForSso(user: SocialUser): Promise<Account> {
+    let account = await this.api.accountApi.get({name: user.name});
+    if(!account) {
+      // Not existing account
+      account = {
+        id: this.util.newGuid(),
+        name: user.name,
+        secret: this.util.newGuid() + "@google", // Random fake password
+        enabled: true,
+        email: user.email
+      };
+      const accountId = await this.api.accountApi.add(account);
+      account.id = accountId;
+    }
+    return account;
   }
 
   async onSubmit() {
     this.submitted = true;
+    await this.login(this.accountName, this.password, this.role);
+  }
+
+  private async login(name: string, password: string, role: Role) {
     try{
       const account = await this.loginService.login({
-        name: this.accountName,
-        password: this.password,
-        role: this.role
+        name,
+        password,
+        role
       });
-      await this.sessionService.login(account, this.role);
+      await this.sessionService.login(account, role);
       this.sessionService.getProfile().subscribe(p => this.routeByProfile(p));
     }catch (e){
       this.notificationService.error(e);
@@ -49,6 +86,14 @@ export class LoginContentComponent implements OnInit {
     }else{
       this.notificationService.info("Please input your profile to continue the journey.");
       this.router.navigate(['/profile']);
+    }
+  }
+
+  loginWithGoogle() {
+    try{
+      this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }catch(e) {
+      console.log('loginWithGoogle', e);
     }
   }
 }

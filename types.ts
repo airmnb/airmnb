@@ -42,6 +42,22 @@ export interface Account {
 	wechat?: string;
 }
 
+export interface AccountProfile  {
+  id: string;
+  accountId: string;
+  firstName: string;
+  lastName: string;
+  dob: Date;
+  gender: Gender;
+  // For provider
+  location?: MapLocation;
+  imageNames?: string[];
+  languages?: string[];
+  description?: string;
+  // For consumer
+  babies?: string[];
+}
+
 export interface HumanBio {
 	surname: string;
 	givenName: string;
@@ -127,22 +143,6 @@ export interface SearchQuery {
   start?: number;
   end?: number;
   gender?: Gender;
-}
-
-export interface AccountProfile  {
-  id: string;
-  accountId: string;
-  firstName: string;
-  lastName: string;
-  dob: Date;
-  gender: Gender;
-  // For provider
-  location?: MapLocation;
-  imageNames?: string[];
-  languages?: string[];
-  description?: string;
-  // For consumer
-  babies?: string[];
 }
 
 export interface Image {
