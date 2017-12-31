@@ -10,7 +10,7 @@ export class MapServiceService {
   public async getAddress(coordinate: {latitude: number, longitude: number}): Promise<MapLocation> {
     // Google map API
     // http://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinate.latitude},${coordinate.longitude}
-    const googleMapApi = 'http://maps.googleapis.com/maps/api/geocode/json';
+    const googleMapApi = 'https://maps.googleapis.com/maps/api/geocode/json';
     const queryString = {
       latlng: coordinate.latitude + ',' + coordinate.longitude
     };
