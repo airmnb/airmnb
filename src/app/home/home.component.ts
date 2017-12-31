@@ -46,6 +46,14 @@ export class HomeComponent implements OnInit {
       minute: 0
     },
   };
+
+  get shouldUseGoogle(): boolean {
+    return this.util.shouldUseGoogleMap;
+  }
+
+  get shouldUseGaode(): boolean {
+    return this.util.shouldUseGaodeMap;
+  }
   constructor(
     ngbTimerConfig: NgbTimepickerConfig,
     private session: SessionService,

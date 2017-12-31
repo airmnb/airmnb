@@ -110,6 +110,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { NgxAmapModule } from 'ngx-amap';
+import { AddressInputGaodeComponent } from './address-input-gaode/address-input-gaode.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +149,8 @@ import { NgxAmapModule } from 'ngx-amap';
     TransactionComponent,
     BabyAvatarComponent,
     BookingCardComponent,
-    LoadingComponent
+    LoadingComponent,
+    AddressInputGaodeComponent
   ],
   imports: [
     MatMomentDateModule,
