@@ -16,7 +16,7 @@ var util_service_1 = require("../util.service");
 var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
 var slot_image_service_1 = require("../slot-image.service");
-var Observable_1 = require("rxjs/Observable");
+var Rx_1 = require("rxjs/Rx");
 var BabiesComponent = /** @class */ (function () {
     function BabiesComponent(api, util, session, router, imageService) {
         this.api = api;
@@ -33,7 +33,7 @@ var BabiesComponent = /** @class */ (function () {
     };
     BabiesComponent.prototype.loadBabies = function (accountId) {
         var p = this.api.babyProfileApi.list({ consumerId: accountId });
-        return Observable_1.Observable.fromPromise(p);
+        return Rx_1.Observable.fromPromise(p);
     };
     BabiesComponent.prototype.edit = function (baby) {
         this.router.navigate(['babies', baby.id]);

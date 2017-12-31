@@ -56,7 +56,7 @@ var MapServiceService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        googleMapApi = 'http://maps.googleapis.com/maps/api/geocode/json';
+                        googleMapApi = 'https://maps.googleapis.com/maps/api/geocode/json';
                         queryString = {
                             latlng: coordinate.latitude + ',' + coordinate.longitude
                         };

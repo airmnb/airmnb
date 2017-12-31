@@ -18,6 +18,16 @@ var HeaderComponent = /** @class */ (function () {
         this.session = session;
         this.router = router;
     }
+    Object.defineProperty(HeaderComponent.prototype, "locale", {
+        get: function () {
+            return this.session.getLocale();
+        },
+        set: function (value) {
+            this.session.setLocale(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(HeaderComponent.prototype, "hasLoggedIn", {
         get: function () {
             return !!this.accountName;
@@ -68,6 +78,10 @@ var HeaderComponent = /** @class */ (function () {
     };
     HeaderComponent.prototype.switchToConsumer = function () {
         this.session.changeRole(types_1.Role.Consumer);
+    };
+    HeaderComponent.prototype.onClickLocale = function ($event) {
+        console.log($event);
+        $event.stopPropagation();
     };
     HeaderComponent = __decorate([
         core_1.Component({

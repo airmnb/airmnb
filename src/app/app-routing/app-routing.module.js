@@ -11,7 +11,6 @@ var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var home_component_1 = require("../home/home.component");
 var aboutus_component_1 = require("../aboutus/aboutus.component");
-var add_slot_component_1 = require("../add-slot/add-slot.component");
 var slot_edit_component_1 = require("../slot-edit/slot-edit.component");
 var slot_component_1 = require("../slot/slot.component");
 var booking_component_1 = require("../booking/booking.component");
@@ -98,10 +97,6 @@ var routes = [
     {
         path: 'booking/:id',
         component: transaction_component_1.TransactionComponent
-    },
-    {
-        path: 'provider/addslot',
-        component: add_slot_component_1.AddSlotComponent
     },
     {
         path: 'search',

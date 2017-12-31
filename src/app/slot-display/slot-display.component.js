@@ -10,12 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var types_1 = require("../../../types");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var slot_image_service_1 = require("../slot-image.service");
+var util_service_1 = require("../util.service");
 var SlotDisplayComponent = /** @class */ (function () {
-    function SlotDisplayComponent(config, imageService) {
+    function SlotDisplayComponent(config, imageService, util) {
         this.imageService = imageService;
+        this.util = util;
         config.interval = 10000;
         config.wrap = false;
         config.keyboard = false;
@@ -23,9 +24,7 @@ var SlotDisplayComponent = /** @class */ (function () {
     SlotDisplayComponent.prototype.ngOnInit = function () {
     };
     SlotDisplayComponent.prototype.displayGender = function (gender) {
-        return gender === types_1.Gender.Boy ? 'Boy' :
-            gender === types_1.Gender.Girl ? 'Girl' :
-                'Both';
+        return this.util.displayGender(gender);
     };
     SlotDisplayComponent.prototype.getImageUrl = function (slot) {
         var imageNames = slot.imageNames;
@@ -46,7 +45,8 @@ var SlotDisplayComponent = /** @class */ (function () {
             providers: [ng_bootstrap_1.NgbCarouselConfig]
         }),
         __metadata("design:paramtypes", [ng_bootstrap_1.NgbCarouselConfig,
-            slot_image_service_1.ImageService])
+            slot_image_service_1.ImageService,
+            util_service_1.UtilService])
     ], SlotDisplayComponent);
     return SlotDisplayComponent;
 }());

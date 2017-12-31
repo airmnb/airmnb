@@ -31,6 +31,7 @@ app.use(function (req, res, next) {
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 app.use('/image', express.static(path.join(__dirname, 'image')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 // app.use((req, res, next) => {
 //   console.log('>>>', req.method, req.url);
 //   next();
@@ -44,16 +45,17 @@ app.get('*', function (req, res) {
 /**
  * Get port from environment and store in Express.
  */
-var port = process.env.PORT || '3000';
+var shouldHttp = !!process.env.HTTP_ONLY || false;
+var port = process.env.PORT || (shouldHttp ? '80' : '443');
 app.set('port', port);
-/**
- * Create HTTP server.
- */
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
-/**
- * Listen on provided port, on all network interfaces.
- */
-httpServer.listen(port, function () { return console.log("HTTP running on localhost:" + port); });
-httpsServer.listen(parseInt(port, 10) + 1, function () { return console.log("HTTPS running on localhost:" + (parseInt(port, 10) + 1)); });
+if (shouldHttp) {
+    // HTTP
+    var httpServer = http.createServer(app);
+    httpServer.listen(port, function () { return console.log("HTTP running on localhost:" + port); });
+}
+else {
+    // HTTPS
+    var httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(port, function () { return console.log("HTTPS running on localhost:" + port); });
+}
 //# sourceMappingURL=server.js.map

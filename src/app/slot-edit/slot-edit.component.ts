@@ -3,7 +3,7 @@ import { ApiFacade } from '../apiFacade';
 import { UtilService } from '../util.service';
 import { SessionService } from '../session.service';
 import { ServiceSlot, Gender, Role } from '../../../types';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ImageService } from '../slot-image.service';

@@ -53,17 +53,16 @@ app.get('*', (req, res) => {
 /**
  * Get port from environment and store in Express.
  */
-const port = process.env.PORT || '3000';
+const shouldHttp = !!process.env.HTTP_ONLY || false;
+const port = process.env.PORT || (shouldHttp ? '80' : '443');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-httpServer.listen(port, () => console.log(`HTTP running on localhost:${port}`));
-httpsServer.listen(parseInt(port, 10) + 1, () => console.log(`HTTPS running on localhost:${parseInt(port, 10) + 1}`));
+if(shouldHttp) {
+  // HTTP
+  const httpServer = http.createServer(app);
+  httpServer.listen(port, () => console.log(`HTTP running on localhost:${port}`));
+}else{
+  // HTTPS
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(port, () => console.log(`HTTPS running on localhost:${port}`));
+}

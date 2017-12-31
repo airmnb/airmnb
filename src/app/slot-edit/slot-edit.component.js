@@ -14,7 +14,7 @@ var apiFacade_1 = require("../apiFacade");
 var util_service_1 = require("../util.service");
 var session_service_1 = require("../session.service");
 var types_1 = require("../../../types");
-var Observable_1 = require("rxjs/Observable");
+var Rx_1 = require("rxjs/Rx");
 var router_1 = require("@angular/router");
 var moment = require("moment");
 var slot_image_service_1 = require("../slot-image.service");
@@ -34,7 +34,7 @@ var SlotEditComponent = /** @class */ (function () {
     };
     SlotEditComponent.prototype.loadSlots = function (accountId) {
         var p = this.api.slotApi.list({ providerId: accountId });
-        return Observable_1.Observable.fromPromise(p);
+        return Rx_1.Observable.fromPromise(p);
     };
     SlotEditComponent.prototype.edit = function (slot) {
         this.router.navigate(['slots/edit', slot.id]);
@@ -54,8 +54,8 @@ var SlotEditComponent = /** @class */ (function () {
         return this.util.displayGender(gender);
     };
     SlotEditComponent.prototype.displayTime = function (slot) {
-        var start = moment(slot.start);
-        var end = moment(slot.end);
+        var start = moment(slot.timeFrom);
+        var end = moment(slot.timeTo);
         var diff = end.diff(start, 'minutes') / 60;
         return diff + " hours";
     };

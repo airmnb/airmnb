@@ -18,7 +18,8 @@
     "mongo": "/Users/mac/github/mongodb3.6.0/bin/mongod",
     "watch:express": "tsc-watch server.ts --onSuccess \"node ./server.js\"",
     "watch:angular": "ng build --watch",
-    "watch": "concurrently \"npm run watch:angular\" \"npm run start:exts\""
+    "watch": "concurrently \"npm run watch:angular\" \"npm run start:exts\"",
+    "prod:start": "tsc && ng build --prod --aot && HTTP_ONLY= PORT=443 node server.js"
   },
   "private": true,
   "dependencies": {
@@ -101,6 +102,6 @@
     "ts-node-dev": "^1.0.0-pre.5",
     "tsc-watch": "^1.0.8",
     "tslint": "~5.7.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.6.2"
   }
 }

@@ -120,6 +120,10 @@ const sso_config = new AuthServiceConfig([
   }
 ]);
 
+export function getSsoConfig() {
+  return sso_config;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -227,7 +231,7 @@ const sso_config = new AuthServiceConfig([
       }
     }),
     HttpClientModule,
-    SocialLoginModule.initialize(sso_config)
+    SocialLoginModule
   ],
   providers: [
     ApiServiceFactory,
@@ -246,7 +250,11 @@ const sso_config = new AuthServiceConfig([
     GoogleMapsAPIWrapper,
     MarkerManager,
     SelectOptionService,
-    HttpClient
+    HttpClient,
+    {
+      provide: AuthServiceConfig,
+      useFactory: getSsoConfig
+    }
   ],
   entryComponents: [
   ],

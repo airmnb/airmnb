@@ -18,9 +18,12 @@ var moment = require("moment");
 var types_1 = require("../../types");
 var platform_browser_1 = require("@angular/platform-browser");
 var _ = require("underscore");
+var core_2 = require("@ngx-translate/core");
+var environment_1 = require("../environments/environment");
 var UtilService = /** @class */ (function () {
-    function UtilService(document) {
+    function UtilService(document, translate) {
         this.document = document;
+        this.translate = translate;
     }
     UtilService.prototype.newGuid = function () {
         return uuid.v4();
@@ -41,9 +44,9 @@ var UtilService = /** @class */ (function () {
         m.hour(0).minute(0).second(0);
         return m.toDate();
     };
-    UtilService.prototype.getDate = function (date, hour) {
+    UtilService.prototype.getDate = function (date) {
         var m = moment(date);
-        m.hour(hour).minute(0).second(0).millisecond(0);
+        m.hour(0).minute(0).second(0).millisecond(0);
         return m.toDate();
     };
     UtilService.prototype.getBookingDeepLinkUrl = function (bookingId) {
@@ -59,10 +62,24 @@ var UtilService = /** @class */ (function () {
     UtilService.prototype.deepEquals = function (x, y) {
         return _.isEqual(x, y);
     };
+    Object.defineProperty(UtilService.prototype, "shouldUseGoogleMap", {
+        get: function () {
+            return environment_1.environment.mapProvider === 'google';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(UtilService.prototype, "shouldUseGaodeMap", {
+        get: function () {
+            return environment_1.environment.mapProvider === 'gaode';
+        },
+        enumerable: true,
+        configurable: true
+    });
     UtilService = __decorate([
         core_1.Injectable(),
         __param(0, core_1.Inject(platform_browser_1.DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
+        __metadata("design:paramtypes", [Object, core_2.TranslateService])
     ], UtilService);
     return UtilService;
 }());

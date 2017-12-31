@@ -14,8 +14,9 @@ var session_service_1 = require("./session.service");
 var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var layout_1 = require("@angular/cdk/layout");
+var core_2 = require("@ngx-translate/core");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(session, router, fb, changeDetectorRef, media) {
+    function AppComponent(session, router, fb, changeDetectorRef, media, translate) {
         this.session = session;
         this.router = router;
         this.title = 'Air Mom & Baby';
@@ -28,6 +29,7 @@ var AppComponent = /** @class */ (function () {
             'top': 0,
             'bottom': 0,
         });
+        translate.setDefaultLang('en');
         // this.router.events
         // .filter(event => event instanceof NavigationStart)
         // .subscribe(x => {
@@ -85,7 +87,8 @@ var AppComponent = /** @class */ (function () {
             router_1.Router,
             forms_1.FormBuilder,
             core_1.ChangeDetectorRef,
-            layout_1.MediaMatcher])
+            layout_1.MediaMatcher,
+            core_2.TranslateService])
     ], AppComponent);
     return AppComponent;
 }());

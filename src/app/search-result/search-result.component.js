@@ -15,18 +15,41 @@ var session_service_1 = require("../session.service");
 var slot_service_1 = require("../slot.service");
 var apiFacade_1 = require("../apiFacade");
 var slot_image_service_1 = require("../slot-image.service");
+var util_service_1 = require("../util.service");
 var SearchResultComponent = /** @class */ (function () {
-    function SearchResultComponent(route, router, sessionService, searchService, api, imageService) {
+    function SearchResultComponent(route, router, sessionService, searchService, api, imageService, util) {
         this.route = route;
         this.router = router;
         this.sessionService = sessionService;
         this.searchService = searchService;
         this.api = api;
         this.imageService = imageService;
+        this.util = util;
     }
     Object.defineProperty(SearchResultComponent.prototype, "hasLoggedIn", {
         get: function () {
             return this.sessionService.hasLoggedIn;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchResultComponent.prototype, "isMapReady", {
+        get: function () {
+            return this.centerLongitude !== undefined && this.centerLatitude !== undefined;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchResultComponent.prototype, "isGoogleMapReady", {
+        get: function () {
+            return this.util.shouldUseGoogleMap && this.isMapReady;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchResultComponent.prototype, "isGaodeMapReady", {
+        get: function () {
+            return this.util.shouldUseGaodeMap && this.isMapReady;
         },
         enumerable: true,
         configurable: true
@@ -66,6 +89,15 @@ var SearchResultComponent = /** @class */ (function () {
         }
         this.router.navigate(['/bookings/add/', slot.id]);
     };
+    SearchResultComponent.prototype.getLabelForAmapMarker = function (index) {
+        return {
+            offset: {
+                x: 0,
+                y: 0
+            },
+            content: (index + 1).toString()
+        };
+    };
     SearchResultComponent = __decorate([
         core_1.Component({
             selector: 'amb-search-result',
@@ -77,7 +109,8 @@ var SearchResultComponent = /** @class */ (function () {
             session_service_1.SessionService,
             slot_service_1.SlotService,
             apiFacade_1.ApiFacade,
-            slot_image_service_1.ImageService])
+            slot_image_service_1.ImageService,
+            util_service_1.UtilService])
     ], SearchResultComponent);
     return SearchResultComponent;
 }());

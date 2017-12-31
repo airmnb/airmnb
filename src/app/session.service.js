@@ -48,16 +48,18 @@ var core_1 = require("@angular/core");
 var types_1 = require("../../types");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var Subject_1 = require("rxjs/Subject");
-var Observable_1 = require("rxjs/Observable");
+var Rx_1 = require("rxjs/Rx");
 var apiFacade_1 = require("./apiFacade");
 var router_1 = require("@angular/router");
+var core_2 = require("@ngx-translate/core");
 var cookieKey = 'c';
 var langKey = 'lang';
 var SessionService = /** @class */ (function () {
-    function SessionService(cookieService, api, router) {
+    function SessionService(cookieService, api, router, translate) {
         this.cookieService = cookieService;
         this.api = api;
         this.router = router;
+        this.translate = translate;
         this.accountSubject = new Subject_1.Subject();
     }
     Object.defineProperty(SessionService.prototype, "role", {
@@ -67,6 +69,15 @@ var SessionService = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    SessionService.prototype.getLocale = function () {
+        return this._locale || 'en';
+    };
+    SessionService.prototype.setLocale = function (value) {
+        this._locale = value;
+        this.saveCookie();
+        this.translate.use(value);
+        console.log('Locale change to ', value);
+    };
     Object.defineProperty(SessionService.prototype, "account", {
         get: function () {
             return this._account;
@@ -152,6 +163,7 @@ var SessionService = /** @class */ (function () {
             var obj = JSON.parse(cookieValue);
             if (obj) {
                 var account = obj.account;
+                this.setLocale(obj.locale);
                 if (account) {
                     this.login(account, obj.role);
                     return;
@@ -163,13 +175,14 @@ var SessionService = /** @class */ (function () {
     SessionService.prototype.saveCookie = function () {
         var value = {
             account: this.account,
-            role: this._role
+            role: this._role,
+            locale: this._locale
         };
         this.cookieService.set(cookieKey, JSON.stringify(value), null, '/');
     };
     SessionService.prototype.getProfile = function () {
         var p = this.api.accountProfileApi.get({ accountId: this.account.id });
-        return Observable_1.Observable.fromPromise(p);
+        return Rx_1.Observable.fromPromise(p);
     };
     SessionService.prototype.setLanguage = function (lang) {
         // this.cookieService.set(langKey, lang);
@@ -181,7 +194,8 @@ var SessionService = /** @class */ (function () {
         core_1.Injectable(),
         __metadata("design:paramtypes", [ngx_cookie_service_1.CookieService,
             apiFacade_1.ApiFacade,
-            router_1.Router])
+            router_1.Router,
+            core_2.TranslateService])
     ], SessionService);
     return SessionService;
 }());

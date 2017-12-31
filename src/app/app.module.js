@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
-var common_1 = require("@angular/common");
-var zh_Hans_1 = require("@angular/common/locales/zh-Hans");
-var ja_1 = require("@angular/common/locales/ja");
 var forms_1 = require("@angular/forms");
 var app_routing_module_1 = require("./app-routing/app-routing.module");
 var http_1 = require("@angular/http");
@@ -23,10 +20,9 @@ var api_service_1 = require("./api.service");
 var session_service_1 = require("./session.service");
 var map_service_service_1 = require("./map-service.service");
 var aboutus_component_1 = require("./aboutus/aboutus.component");
-// import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var angular_font_awesome_1 = require("angular-font-awesome");
 var date_time_picker_component_1 = require("./date-time-picker/date-time-picker.component");
-var add_slot_component_1 = require("./add-slot/add-slot.component");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var notification_service_1 = require("./notification.service");
 var notification_component_1 = require("./notification/notification.component");
@@ -41,7 +37,6 @@ var login_content_component_1 = require("./login-content/login-content.component
 var signup_content_component_1 = require("./signup-content/signup-content.component");
 var slot_component_1 = require("./slot/slot.component");
 var profile_content_component_1 = require("./profile-content/profile-content.component");
-var baby_content_component_1 = require("./baby-content/baby-content.component");
 var booking_service_1 = require("./booking.service");
 var apiFacade_1 = require("./apiFacade");
 var header_component_1 = require("./header/header.component");
@@ -78,6 +73,22 @@ var transaction_component_1 = require("./transaction/transaction.component");
 var baby_avatar_component_1 = require("./baby-avatar/baby-avatar.component");
 var booking_card_component_1 = require("./booking-card/booking-card.component");
 var loading_component_1 = require("./loading/loading.component");
+var http_2 = require("@angular/common/http");
+var core_3 = require("@ngx-translate/core");
+var http_loader_1 = require("@ngx-translate/http-loader");
+var ngx_amap_1 = require("ngx-amap");
+var address_input_gaode_component_1 = require("./address-input-gaode/address-input-gaode.component");
+var angular4_social_login_1 = require("angular4-social-login");
+var sso_config = new angular4_social_login_1.AuthServiceConfig([
+    {
+        id: angular4_social_login_1.GoogleLoginProvider.PROVIDER_ID,
+        provider: new angular4_social_login_1.GoogleLoginProvider(environment_1.environment.googleClientId)
+    }
+]);
+function getSsoConfig() {
+    return sso_config;
+}
+exports.getSsoConfig = getSsoConfig;
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -88,7 +99,6 @@ var AppModule = /** @class */ (function () {
                 home_component_1.HomeComponent,
                 aboutus_component_1.AboutusComponent,
                 date_time_picker_component_1.DateTimePickerComponent,
-                add_slot_component_1.AddSlotComponent,
                 notification_component_1.NotificationComponent,
                 address_input_component_1.AddressInputComponent,
                 slot_list_component_1.SlotListComponent,
@@ -96,7 +106,6 @@ var AppModule = /** @class */ (function () {
                 signup_content_component_1.SignupContentComponent,
                 slot_component_1.SlotComponent,
                 profile_content_component_1.ProfileContentComponent,
-                baby_content_component_1.BabyContentComponent,
                 header_component_1.HeaderComponent,
                 login_component_1.LoginComponent,
                 signup_component_1.SignupComponent,
@@ -121,7 +130,8 @@ var AppModule = /** @class */ (function () {
                 transaction_component_1.TransactionComponent,
                 baby_avatar_component_1.BabyAvatarComponent,
                 booking_card_component_1.BookingCardComponent,
-                loading_component_1.LoadingComponent
+                loading_component_1.LoadingComponent,
+                address_input_gaode_component_1.AddressInputGaodeComponent
             ],
             imports: [
                 material_moment_adapter_1.MatMomentDateModule,
@@ -162,9 +172,9 @@ var AppModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
-                // NgbModule.forRoot(),
-                // NgbDatepickerModule.forRoot(),
-                // NgbTimepickerModule.forRoot(),
+                ng_bootstrap_1.NgbModule.forRoot(),
+                ng_bootstrap_1.NgbDatepickerModule.forRoot(),
+                ng_bootstrap_1.NgbTimepickerModule.forRoot(),
                 angular_font_awesome_1.AngularFontAwesomeModule,
                 animations_1.BrowserAnimationsModule,
                 angular_calendar_1.CalendarModule.forRoot(),
@@ -173,18 +183,30 @@ var AppModule = /** @class */ (function () {
                     apiKey: environment_1.environment.googleApiKey,
                     libraries: ["places"]
                 }),
+                ngx_amap_1.NgxAmapModule.forRoot({
+                    apiKey: environment_1.environment.gaodeApiKey,
+                    urlPath: "https://webapi.amap.com/maps"
+                }),
                 angular2_image_upload_1.ImageUploadModule.forRoot(),
                 ng2_smart_table_1.Ng2SmartTableModule,
-                angular2_wizard_1.FormWizardModule
+                angular2_wizard_1.FormWizardModule,
+                core_3.TranslateModule.forRoot({
+                    loader: {
+                        provide: core_3.TranslateLoader,
+                        useFactory: HttpLoaderFactory,
+                        deps: [http_2.HttpClient]
+                    }
+                }),
+                http_2.HttpClientModule,
+                angular4_social_login_1.SocialLoginModule
             ],
             providers: [
-                { provide: core_1.LOCALE_ID, useValue: 'en' },
                 api_service_1.ApiServiceFactory,
                 api_service_1.LoginService,
                 session_service_1.SessionService,
                 map_service_service_1.MapServiceService,
                 ngx_cookie_service_1.CookieService,
-                // NgbTimepickerConfig,
+                ng_bootstrap_1.NgbTimepickerConfig,
                 notification_service_1.NotificationService,
                 slot_service_1.SlotService,
                 slot_image_service_1.ImageService,
@@ -194,7 +216,12 @@ var AppModule = /** @class */ (function () {
                 baby_service_1.BabyService,
                 core_2.GoogleMapsAPIWrapper,
                 marker_manager_1.MarkerManager,
-                select_option_service_1.SelectOptionService
+                select_option_service_1.SelectOptionService,
+                http_2.HttpClient,
+                {
+                    provide: angular4_social_login_1.AuthServiceConfig,
+                    useFactory: getSsoConfig
+                }
             ],
             entryComponents: [],
             bootstrap: [app_component_1.AppComponent]
@@ -203,6 +230,8 @@ var AppModule = /** @class */ (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-common_1.registerLocaleData(zh_Hans_1.default, 'zh-Hans');
-common_1.registerLocaleData(ja_1.default, 'ja');
+function HttpLoaderFactory(http) {
+    return new http_loader_1.TranslateHttpLoader(http, "/assets/i18n/", ".json");
+}
+exports.HttpLoaderFactory = HttpLoaderFactory;
 //# sourceMappingURL=app.module.js.map

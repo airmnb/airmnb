@@ -97,6 +97,20 @@ var HomeComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(HomeComponent.prototype, "shouldUseGoogle", {
+        get: function () {
+            return this.util.shouldUseGoogleMap;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(HomeComponent.prototype, "shouldUseGaode", {
+        get: function () {
+            return this.util.shouldUseGaodeMap;
+        },
+        enumerable: true,
+        configurable: true
+    });
     HomeComponent.prototype.ngOnInit = function () {
         console.log('isProvider', this.session.isProvider);
         if (this.session.isProvider) {
