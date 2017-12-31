@@ -10,7 +10,8 @@
   </div>
   <div class="row">
     <div class="col s12">
-      <agm-map [longitude]="centerLongitude" [latitude]="centerLatitude" [zoom]="16">
+      <amb-loading *ngIf="!isMapReady"></amb-loading>
+      <agm-map *ngIf="isGoogleMapReady" class="amb-search-map" [longitude]="centerLongitude" [latitude]="centerLatitude" [zoom]="16">
         <agm-marker *ngFor="let slot of slots; let i = index" [longitude]="slot.location.location.coordinates[0]" [latitude]="slot.location.location.coordinates[1]"
           [label]="(i + 1) + ''">
           <agm-info-window>
@@ -21,6 +22,16 @@
           </agm-info-window>
         </agm-marker>
       </agm-map>
+      <ngx-amap *ngIf="isGaodeMapReady" [resizeEnable]="true" class="amb-search-map" [center]="[centerLongitude, centerLatitude]" [zoom]="16">
+        <amap-marker *ngFor="let slot of slots; let i = index" [position]="slot.location.location.coordinates" [label]="{offset: {x:20, y:0}, content: (i+1).toString()}">
+          <amap-info-window [offset]="infoWindowOffset">
+            <strong>{{slot.title}}</strong>
+            <small>{{'Start'|translate}}: {{slot.start | date:'medium'}}</small>
+            <br>
+            <a (click)="book(slot);false;">{{'Click to book' | translate}}</a>
+          </amap-info-window>
+        </amap-marker>
+      </ngx-amap>
     </div>
   </div>
   <div class="row">

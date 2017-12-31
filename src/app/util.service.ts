@@ -5,6 +5,7 @@ import { Gender } from '../../types';
 import {DOCUMENT} from '@angular/platform-browser';
 import * as _ from 'underscore';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class UtilService {
@@ -55,5 +56,13 @@ export class UtilService {
 
   deepEquals(x: any, y: any): boolean {
     return _.isEqual(x, y);
+  }
+
+  get shouldUseGoogleMap(): boolean {
+    return environment.mapProvider === 'google';
+  }
+
+  get shouldUseGaodeMap(): boolean {
+    return environment.mapProvider === 'gaode';
   }
 }

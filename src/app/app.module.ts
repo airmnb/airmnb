@@ -109,6 +109,7 @@ import { LoadingComponent } from './loading/loading.component';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { NgxAmapModule } from 'ngx-amap';
 
 @NgModule({
   declarations: [
@@ -199,6 +200,12 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
       apiKey: environment.googleApiKey,
       libraries: ["places"]
     }),
+    NgxAmapModule.forRoot(
+      {
+        apiKey: environment.gaodeApiKey,
+        urlPath: "https://webapi.amap.com/maps"
+      }
+    ),
     ImageUploadModule.forRoot(),
     Ng2SmartTableModule,
     FormWizardModule,

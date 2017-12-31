@@ -7,5 +7,7 @@ export const environment = {
   production: false,
   port: 3000,
   apiUrl: '/api',
-  googleApiKey: 'AIzaSyAmXvvrwCbeg-GNQxsFVhYOICg0ta8Bjps'
+  googleApiKey: 'AIzaSyAmXvvrwCbeg-GNQxsFVhYOICg0ta8Bjps',
+  gaodeApiKey: '08d2578905c2b676bfcbd288a447eb41',
+  mapProvider: 'gaode' // 'google' or 'gaode'
 };
