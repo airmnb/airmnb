@@ -1,14 +1,14 @@
 <div *ngIf="!isComplete" class="container">
-  <h1>Booking</h1>
+  <h1>{{'Booking'|translate}}</h1>
   <mat-vertical-stepper #stepper [linear]="true">
     <mat-step>
       <form>
         <ng-template matStepLabel>
-          <i class="fa fa-child" aria-hidden="true"></i> Choose baby
+          <i class="fa fa-child" aria-hidden="true"></i> {{'Choose baby'|translate}}
         </ng-template>
         <mat-form-field>
-          <mat-select placeholder="Select baby" [(ngModel)]="theBaby" name="baby" required (ngModelChange)="goForward(stepper)">
-            <mat-option routerLink="/babies/add">Add new baby</mat-option>
+          <mat-select placeholder="{{'Select baby'|translate}}" [(ngModel)]="theBaby" name="baby" required (ngModelChange)="goForward(stepper)">
+            <mat-option routerLink="/babies/add">{{'Add new baby'|translate}}</mat-option>
             <mat-option *ngFor="let baby of babies" [value]="baby">
               {{baby.nickName}}
             </mat-option>
@@ -19,29 +19,29 @@
     <mat-step *ngIf="!isFreeEvent">
       <form>
         <ng-template matStepLabel>
-          <i class="fa fa-credit-card" aria-hidden="true"></i> Payment method
+          <i class="fa fa-credit-card" aria-hidden="true"></i> {{'Payment method'|translate}}
         </ng-template>
-        <p>Fake payment</p>
+        <p>{{'Fake payment'|translate}}</p>
         <mat-form-field>
-          <input matInput placeholder="Card number" required>
+          <input matInput placeholder="{{'Card number'|translate}}" required>
         </mat-form-field>
         <div>
-          <button class="btn waves-effect waves-light amb-block" (click)="goForward(stepper)">OK</button>
+          <button class="btn waves-effect waves-light amb-block" (click)="goForward(stepper)">{{'OK'|translate}}</button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Confirm booking
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i> {{'Confirm booking'|translate}}
       </ng-template>
       <div>
-          <button class="btn waves-effect waves-light amb-block" (click)="onSubmit()">Book this event</button>
+          <button class="btn waves-effect waves-light amb-block" (click)="onSubmit()">{{'Book this event'|translate}}</button>
         </div>
       <div>
-        <p *ngIf="slot">Price: {{slot.price}}</p>
-        <p *ngIf="theBaby">For: {{theBaby.nickName}}</p>
+        <p *ngIf="slot">{{'Price'|translate}}: {{slot.price}}</p>
+        <p *ngIf="theBaby">{{'Nick name'|translate}}: {{theBaby.nickName}}</p>
         <p>
-          <strong>Confirm the event content and click to book.</strong>
+          <strong>{{'Confirm the event content and click to book.'| translate}}</strong>
         </p>
       </div>
 
@@ -54,11 +54,11 @@
 </div>
 
 <div class="container" *ngIf="isComplete">
-  <h1>Thank you for your booking!</h1>
-  <p>You can find your booking
+  <h1>{{'Thank you for your booking!'|translate}}</h1>
+  <p>{{'You can find your booking'|translate}}
       <i class="fa fa-external-link" aria-hidden="true"></i><a href="{{bookingLink}}" target="blank">{{bookingLink}}</a>
   </p>
   <div>
-    <a matButton class="btn waves-effect waves-light amb-block" routerLink="/">OK</a>
+    <a matButton class="btn waves-effect waves-light amb-block" routerLink="/">{{'OK'|translate}}</a>
   </div>
 </div>

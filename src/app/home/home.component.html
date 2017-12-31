@@ -35,13 +35,13 @@
       </div>
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="{{'Choose starting time' | translate}}" [(ngModel)]="model.timeFrom"
+          <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="{{'Starting time' | translate}}" [(ngModel)]="model.timeFrom"
             name="timeFrom">
         </mat-form-field>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="{{'Choose ending time' | translate}}" [(ngModel)]="model.timeTo"
+          <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="{{'Ending time' | translate}}" [(ngModel)]="model.timeTo"
             name="timeTo">
         </mat-form-field>
       </div>
@@ -90,7 +90,7 @@
           </mat-card-header>
           <mat-card-content>
             <p>
-              {{displayGender(slot.gender)}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}} {{slot.otherCondition}}
+              {{displayGender(slot.gender) | translate}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}} {{slot.otherCondition}}
             </p>
             <p>
               {{slot.bookingCount}} / {{slot.capping}}

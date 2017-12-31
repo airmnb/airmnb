@@ -4,12 +4,14 @@ import * as moment from 'moment';
 import { Gender } from '../../types';
 import {DOCUMENT} from '@angular/platform-browser';
 import * as _ from 'underscore';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class UtilService {
 
   constructor(
-    @Inject(DOCUMENT) private document
+    @Inject(DOCUMENT) private document,
+    private translate: TranslateService
   ) { }
 
   newGuid() {

@@ -1,42 +1,42 @@
-<h1>{{isNew ? 'Add event' : 'Edit event'}}</h1>
+<h1>{{(isNew ? 'Add new event' : 'Edit event') | translate}}</h1>
 <form #theForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="container">
     <div class="row">
       <div class="col s12">
         <mat-form-field>
-          <input matInput placeholder="Event title" [(ngModel)]="model.title" name="title" required>
+          <input matInput placeholder="{{'Event title' | translate}}" [(ngModel)]="model.title" name="title" required>
         </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="date" placeholder="Choose a date" [(ngModel)]="model.date" name="date" required>
+          <input matInput type="date" placeholder="{{'Choose a date' | translate}}" [(ngModel)]="model.date" name="date" required>
         </mat-form-field>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="time" step="1800" min="06:00" max="18:00" required placeholder="Starting time" [(ngModel)]="model.timeFrom"
+          <input matInput type="time" step="1800" min="06:00" max="18:00" required placeholder="{{'Starting time' | translate}}" [(ngModel)]="model.timeFrom"
             name="timeFrom">
         </mat-form-field>
       </div>
       <div class="col s4">
         <mat-form-field>
-          <input matInput type="time" step="1800" min="08:00" max="20:00" required placeholder="Ending time" [(ngModel)]="model.timeTo"
+          <input matInput type="time" step="1800" min="08:00" max="20:00" required placeholder="{{'Ending time' | translate}}" [(ngModel)]="model.timeTo"
             name="timeTo">
         </mat-form-field>
       </div>
       <div class="col s4">
-        <amb-agepicker [min]="2" [max]="5" placeholder="Age from" [(value)]="model.ageFrom"></amb-agepicker>
+        <amb-agepicker [min]="2" [max]="5" placeholder="{{'Age from' | translate}}" [(value)]="model.ageFrom"></amb-agepicker>
       </div>
       <div class="col s4">
-        <amb-agepicker [min]="2" [max]="6" placeholder="Age to" [(value)]="model.ageTo"></amb-agepicker>
+        <amb-agepicker [min]="2" [max]="6" placeholder="{{'Age to' | translate}}" [(value)]="model.ageTo"></amb-agepicker>
       </div>
       <div class="col s12 l6">
         <!-- <amb-select [options]="siteOptions" [(value)]="model.location"></amb-select> -->
         <mat-form-field>
-          <mat-select placeholder="Site" [(ngModel)]="siteId" name="location" required>
-            <mat-option routerLink="/sites/add">Add new site</mat-option>
+          <mat-select placeholder="{{'Site' | translate}}" [(ngModel)]="siteId" name="location" required>
+            <mat-option routerLink="/sites/add">{{'Add new site' | translate}}</mat-option>
             <mat-option *ngFor="let site of sites" [value]="site.id">
               {{site.name + " - " + site.location.address}}
             </mat-option>
@@ -45,13 +45,13 @@
       </div>
       <div class="col s12 l6">
         <mat-form-field>
-          <textarea matInput placeholder="Description" [(ngModel)]="model.description" name="description"></textarea>
+          <textarea matInput placeholder="{{'Description' | translate}}" [(ngModel)]="model.description" name="description"></textarea>
         </mat-form-field>
       </div>
 
       <div class="col s12 m4">
         <mat-form-field>
-          <mat-select placeholder="Capping" [(ngModel)]="model.capping" name="capping">
+          <mat-select placeholder="{{'Capping' | translate}}" [(ngModel)]="model.capping" name="capping">
             <mat-option value="-1">--</mat-option>
             <mat-option value="2">2</mat-option>
             <mat-option value="3">3</mat-option>
@@ -62,18 +62,18 @@
       </div>
       <div class="col s12 m4">
         <mat-form-field>
-          <input matInput placeholder="Price" [(ngModel)]="model.price" name="price">
+          <input matInput placeholder="{{'Price' | translate}}" [(ngModel)]="model.price" name="price">
         </mat-form-field>
       </div>
       <div class="col s12">
-        <label>Images</label>
+        <label>{{'Images' | translate}}</label>
         <amb-image-uploader [(imageNames)]="model.imageNames" (uploadFinished)="onUploadFinished($event)"></amb-image-uploader>
       </div>
     </div>
 
     <div class="row">
       <div class="col s12">
-        <button type="submit" class="btn amb-block">{{isNew ? 'Add' : 'Save'}}</button>
+        <button type="submit" class="btn amb-block">{{(isNew ? 'Add' : 'Save') | translate}}</button>
       </div>
     </div>
   </div>

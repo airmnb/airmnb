@@ -9,11 +9,11 @@
 {{items | json}} -->
 
 <div class="container">
-  <h1>Booking management</h1>
+  <h1>{{'Booking management' | translate}}</h1>
   <mat-tab-group>
     <mat-tab>
       <ng-template mat-tab-label>
-        Active
+        {{'BookingManagement.Active' | translate}}
       </ng-template>
         <div class="row mt-2">
             <div class="col s12 m6 l4" style="position: relative;" *ngFor="let item of activeItems">
@@ -28,7 +28,7 @@
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
-        Closed
+        {{'BookingManagement.Closed' | translate}}
       </ng-template>
       <div class="row mt-2">
           <div class="col s12 m6 l4" *ngFor="let item of closedItems">

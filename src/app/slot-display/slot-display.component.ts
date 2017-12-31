@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ServiceSlot, Gender } from '../../../types';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import { ImageService } from '../slot-image.service';
+import { UtilService } from '../util.service';
 
 @Component({
   selector: 'amb-slot-display',
@@ -15,7 +16,8 @@ export class SlotDisplayComponent implements OnInit {
 
   constructor(
     config: NgbCarouselConfig,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private util: UtilService
   ) {
     config.interval = 10000;
     config.wrap = false;
@@ -26,9 +28,7 @@ export class SlotDisplayComponent implements OnInit {
   }
 
   displayGender(gender: Gender): string {
-    return gender === Gender.Boy ? 'Boy' :
-      gender === Gender.Girl ? 'Girl' :
-      'Both';
+    return this.util.displayGender(gender);
   }
 
   getImageUrl(slot: ServiceSlot): string {

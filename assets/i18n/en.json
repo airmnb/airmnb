@@ -1,3 +1,17 @@
 {
-
+  "AboutUs.CompanyConcept": "Air Mom & Baby is an Internet technology company based in Australia. As a C2C matchmaking platform, Parents can quickly search for convenient, safe and reliable temporary child care services near the community in China, the United States, Japan and Australia. At the same time, you can also apply as a Air Mom to share your time and rich childcare experience and provide appropriate care for the people in need. We hope you and Airmnb together, to build a safe and reliable new sharing moms ecology!",
+  "AboutUs.AirMomsDetail": "Have more than one hour's spare time. Ability and experience to care for 0-6 year old baby baby. A caring, careful, responsible adult. You can become a Air Mom",
+  "AboutUs.AirBabiesDetail": "A healthy baby at the age of 2-6.",
+  "AboutUs.TheParentsDetail": "For some reason, you may need to look for a good enough trustworthy person to look after your baby near your home. You can try to contact the reliable Air Moms recommended by Airmnb. Airmnb provides CCTV and a maximum cumulative 1 million security plan",
+  "BookingManagement.Active": "Active",
+  "BookingManagement.Closed": "Closed",
+  "CheckInByConsumerMessage": "Check-in by the baby's Mom",
+  "CheckInByConsumerWaitingMessage": "Waiting for the Mom to take a photo to check-in.",
+  "CheckInConfirmByProviderMessage": "Check-in confirmed by the Air Mom",
+  "CheckInConfirmByProviderWaitingMessage": "Waiting for the Air Mom's confirmation for starting transaction.",
+  "CheckOutByConsumerMessage": "Check-out by the baby's Mom",
+  "CheckOutByConsumerWaitingMessage": "Waiting for the Mom's check-out request.",
+  "CheckOutConfirmByProviderMessage": "Check-out by the Air Mom",
+  "CheckOutConfirmByProviderWaitingMessage": "Waiting for the Air Mom's confirmation for finishing the transaction.",
+  "TransactionDone": "This transaction is done."
 }

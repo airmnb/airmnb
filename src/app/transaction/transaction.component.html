@@ -1,6 +1,6 @@
 <div class="container">
   <h1>
-    Booking transaction
+    {{'Booking transaction' | translate}}
   </h1>
   <amb-loading *ngIf="!booking"></amb-loading>
   <div *ngIf="booking">
@@ -11,68 +11,68 @@
       <mat-step>
         <!-- Consumer check-in step -->
         <ng-template matStepLabel>
-          <i class="fa fa-sign-in" aria-hidden="true"></i> Check-in by the baby's Mom
+          <i class="fa fa-sign-in" aria-hidden="true"></i> {{'CheckInByConsumerMessage' | translate}}
         </ng-template>
         <div *ngIf="booking.consumerCheckInImageName">
           <div class="image-time">{{booking.consumerCheckInAt | date:'medium'}}</div>
           <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.consumerCheckInImageName)">
         </div>
         <div *ngIf="!booking.consumerCheckInImageName">
-          <p>Waiting for the Mom to take a photo to check-in.</p>
+          <p>{{'CheckInByConsumerWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isConsumer" [autoPopup]="true" (uploaded)="consumerCheckIn($event)"></amb-take-photo>
         </div>
       </mat-step>
       <mat-step>
         <!-- Provider check-in confirm step -->
         <ng-template matStepLabel>
-          <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-in by the Air Mom
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> {{'CheckInConfirmByProviderMessage' | translate}}
         </ng-template>
         <div *ngIf="booking.providerCheckInImageName">
           <div class="image-time">{{booking.providerCheckInAt | date:'medium'}}</div>
           <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.providerCheckInImageName)">
         </div>
         <div *ngIf="!booking.providerCheckInImageName">
-          <p>Waiting for the Air Mom's confirmation for starting transaction.</p>
+          <p>{{'CheckInConfirmByProviderWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isProvider" (uploaded)="providerCheckIn($event)"></amb-take-photo>
         </div>
       </mat-step>
       <mat-step>
         <!-- Consumer check-out step -->
         <ng-template matStepLabel>
-          <i class="fa fa-sign-out" aria-hidden="true"></i> Check-out by the baby's Mom
+          <i class="fa fa-sign-out" aria-hidden="true"></i> {{'CheckOutByConsumerMessage' | translate}}
         </ng-template>
         <div *ngIf="booking.consumerCheckOutImageName">
           <div class="image-time">{{booking.consumerCheckOutAt | date:'medium'}}</div>
           <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.consumerCheckOutImageName)">
         </div>
         <div *ngIf="!booking.consumerCheckOutImageName">
-          <p>Waiting for the Mom's check-out request.</p>
+          <p>{{'CheckOutByConsumerWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isConsumer" (uploaded)="consumerCheckOut($event)"></amb-take-photo>
         </div>
       </mat-step>
       <mat-step>
         <!-- Provider check-out confirm -->
         <ng-template matStepLabel>
-          <i class="fa fa-check-square-o" aria-hidden="true"></i> Check-out by the Air Mom
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> {{'CheckOutConfirmByProviderMessage' | translate}}
         </ng-template>
         <div *ngIf="booking.providerCheckOutImageName">
           <div class="image-time">{{booking.providerCheckOutAt | date:'medium'}}</div>
           <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.providerCheckOutImageName)">
         </div>
         <div *ngIf="!booking.providerCheckOutImageName">
-          <p>Waiting for the Air Mom's confirmation for finishing the transaction.</p>
+          <p>{{'CheckOutConfirmByProviderWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isProvider" (uploaded)="providerCheckOut($event)"></amb-take-photo>
         </div>
       </mat-step>
     </mat-vertical-stepper>
 
     <div *ngIf="isComplete">
-      <h3>This transaction is done.</h3>
-      <label>Started at</label>
+      <h3>{{'TransactionDone' | translate}}</h3>
+      <label>{{'Started at' | translate}}</label>
       <p>{{booking.startedAt | date:'medium'}}</p>
-      <label>Finished at</label>
+      <label>{{'Finished at' | translate}}</label>
       <p>{{booking.finishedAt | date:'medium'}}</p>
-      <label>Total time</label>
+      <label>{{'Total time' | translate}}</label>
       <p>{{getTransactionTimeString()}}</p>
       <div>
         <a matButton class="btn waves-effect waves-light amb-block" routerLink="/">OK</a>

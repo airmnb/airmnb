@@ -9,7 +9,7 @@
   </mat-card-header>
   <mat-card-content>
     <p>{{model.slot.ageFrom}} - {{model.slot.ageTo}}</p>
-    <p>{{displayGender(model.slot.gender)}}</p>
+    <p>{{displayGender(model.slot.gender) | translate}}</p>
     <p>
       {{model.slot.otherCondition}}
     </p>
@@ -24,7 +24,7 @@
     <!-- <amb-take-photo (fileSelect)="onPhotoTaken($event)"></amb-take-photo> -->
     <!-- <button class="btn waves-effect waves-light amb-block" (click) [routerLink]="'/tran/start/' + model.booking.id">Start</button> -->
     <div *ngIf="canCheckIn">
-      <p>Take a photo to check-in.</p>
+      <p>{{'Take a photo to check-in' | translate}}</p>
       <amb-take-photo (uploaded)="checkIn($event)"></amb-take-photo>
     </div>
   </mat-card-actions>
