@@ -19,13 +19,12 @@ openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
 ng serve --ssl 1 --ssl-key certificate/key.pem --ssl-cert certificate/cert.pem
 
 ## Launch in prod
-1. Run `npm run build:prod` to build the project (both express and angular)
-2. Set below env vars
-    * `export IS_PROD=true` This will skip the dotenv.
-    * `export AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString}`
-    * `export PORT=443`
-3. Run `sudo AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString} IS_PROD=true PORT=443 npm run start:prod`. sudo is required to run a port below 1024.
-4. Open browser to check `https://localhost`
+1. Run `npm install -g tsc`
+2. Run `npm install`
+3. Run `npm run build:prod` to build the project (both express and angular)
+4. See and use `screen` command https://www.howtogeek.com/howto/ubuntu/keep-your-ssh-session-running-when-you-disconnect/
+5. Run `sudo AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString} IS_PROD=true PORT=443 npm run start:prod`. sudo is required to run a port below 1024.
+6. Open browser to check `https://localhost`
 
 ## TODO:
 
