@@ -46,7 +46,6 @@ import { SignupComponent } from './signup/signup.component';
 import { UtilService } from './util.service';
 import { SlotEditComponent } from './slot-edit/slot-edit.component';
 import { BookingComponent } from './booking/booking.component';
-import { FormWizardModule } from 'angular2-wizard';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { BabyService } from './baby.service';
@@ -222,7 +221,6 @@ export function getSsoConfig() {
     ),
     ImageUploadModule.forRoot(),
     Ng2SmartTableModule,
-    FormWizardModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,

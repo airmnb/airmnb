@@ -45,7 +45,6 @@ var signup_component_1 = require("./signup/signup.component");
 var util_service_1 = require("./util.service");
 var slot_edit_component_1 = require("./slot-edit/slot-edit.component");
 var booking_component_1 = require("./booking/booking.component");
-var angular2_wizard_1 = require("angular2-wizard");
 var slot_display_component_1 = require("./slot-display/slot-display.component");
 var booking_list_component_1 = require("./booking-list/booking-list.component");
 var baby_service_1 = require("./baby.service");
@@ -189,7 +188,6 @@ var AppModule = /** @class */ (function () {
                 }),
                 angular2_image_upload_1.ImageUploadModule.forRoot(),
                 ng2_smart_table_1.Ng2SmartTableModule,
-                angular2_wizard_1.FormWizardModule,
                 core_3.TranslateModule.forRoot({
                     loader: {
                         provide: core_3.TranslateLoader,
