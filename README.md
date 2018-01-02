@@ -12,11 +12,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 5. Run `npm run watch` to launch the express web site on `http://localhost:3000`. It will serve both Rest API and angular site. The angular site base is `http://localhost:3000` (the whole site) and API route is `http://localhost:3000/api`.
 
 ## "ng serve" to support HTTPS
+
+```
 openssl genrsa -out key.pem 1024
 openssl req -newkey rsa:1024 -new -key key.pem -out csr.pem
 openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
 
+```
+```
 ng serve --ssl 1 --ssl-key certificate/key.pem --ssl-cert certificate/cert.pem
+```
 
 ## Launch in prod
 1. Run `npm install -g tsc`
