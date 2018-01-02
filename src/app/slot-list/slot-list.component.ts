@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, DoCheck } from '@angular/core';
 import { ServiceSlot, Gender } from '../../../types';
 import { ImageService } from '../slot-image.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';

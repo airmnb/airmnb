@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
+if (!process.env.IS_PROD) {
+    console.log("Debug >>>> loading dotenv", process.env.IS_PROD);
+    require('dotenv').config();
+}
 // Get dependencies
 // Get dependencies
 var express = require("express");

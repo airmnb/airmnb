@@ -18,13 +18,19 @@ openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
 
 ng serve --ssl 1 --ssl-key certificate/key.pem --ssl-cert certificate/cert.pem
 
+## Launch in prod
+1. Run `npm run build:prod` to build the project (both express and angular)
+2. Set below env vars
+    * `export IS_PROD=true` This will skip the dotenv.
+    * `export AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString}`
+    * `export PORT=443`
+3. Run `sudo AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString} IS_PROD=true PORT=443 npm run start:prod`. sudo is required to run a port below 1024.
+4. Open browser to check `https://localhost`
+
 ## TODO:
 
-* Google SSO
 * Wechat SSO
-* Google Map API
 * NativeScript project for OS X, Android
 * UX polish
-* Transaction workflow + camera feature
 * Server end push (Web Socket)
-* i18n
+
