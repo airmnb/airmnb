@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Http, Response } from '@angular/http';
 import { Account, LoginInfo } from '../../types';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
 // environment.apiUrl is like http://localhost:3000/api/
 const API_URL_BASE = environment.apiUrl.replace(/\/$/, "");

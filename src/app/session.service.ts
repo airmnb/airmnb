@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Account, AccountProfile, Role } from "../../types";
 import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { ApiFacade } from './apiFacade';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';

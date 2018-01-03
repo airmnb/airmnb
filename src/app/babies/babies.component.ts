@@ -5,7 +5,7 @@ import { UtilService } from '../util.service';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
 import { ImageService } from '../slot-image.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'amb-babies',
