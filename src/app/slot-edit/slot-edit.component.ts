@@ -27,12 +27,11 @@ export class SlotEditComponent implements OnInit {
   ngOnInit() {
     this.session.assureRole(Role.Provider);
     const accountId = this.session.account.id;
-    this.loadSlots(accountId).subscribe(x => this.slots = x);
+    this.loadSlots(accountId);
   }
 
-  private loadSlots(accountId: string): Observable<ServiceSlot[]> {
-    const p = this.api.slotApi.list({providerId: accountId});
-    return Observable.fromPromise(p);
+  private async loadSlots(accountId: string) {
+    this.slots = await this.api.slotApi.list({providerId: accountId});
   }
 
   edit(slot: ServiceSlot) {

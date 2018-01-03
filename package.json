@@ -22,7 +22,7 @@
     "start:stage": "npm run build:prod && sudo node server.js",
     "build:prod": "tsc && ng build --prod --aot",
     "start:prod": "node server.js",
-    "sync:prod": "git fetch && git checkout -f -B master origin/master && npm run build:prod"
+    "sync:prod": "git fetch && git checkout -f -B master remotes/origin/master -- && npm run build:prod"
   },
   "private": true,
   "dependencies": {

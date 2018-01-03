@@ -10,7 +10,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 3. Run `npm install -g typescript`
 4. Run `npm install`
 5. Modify `.env` file to configure the `AMB_MONGO_DB_CONNECTION_STRING=$YourMongoDbConnectionString`
-6. Run `npm run watch` to launch the express web site on `http://localhost:3000`. It will serve both Rest API and angular site. The angular site base is `http://localhost:3000` (the whole site) and API route is `http://localhost:3000/api`.
+6. Run `npm run watch` to launch the express web site on `http://localhost` and `https://localhost`. It will serve both Rest API and angular site. The angular site base is `http://localhost` (the whole site) and API route is `http://localhost/api`.
 
 ## Launch in prod (Aliyun and Amazon)
 * `cd` to the source code folder. (`git clone https://github.com/airmnb/airmnb` if it's the first time.)

@@ -16,9 +16,6 @@ var bodyParser = require("body-parser");
 var fileUpload = require("express-fileupload");
 // Get our API routes
 var api = require("./server/routes/api");
-var privateKey = fs.readFileSync('key.pem', 'utf8');
-var certificate = fs.readFileSync('cert.pem', 'utf8');
-var credentials = { key: privateKey, cert: certificate };
 var app = express();
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -48,17 +45,16 @@ app.get('*', function (req, res) {
 /**
  * Get port from environment and store in Express.
  */
-var shouldHttp = !!process.env.HTTP_ONLY || false;
-var port = process.env.PORT || (shouldHttp ? '80' : '443');
-app.set('port', port);
-if (shouldHttp) {
-    // HTTP
-    var httpServer = http.createServer(app);
-    httpServer.listen(port, function () { return console.log("HTTP running on localhost:" + port); });
-}
-else {
-    // HTTPS
-    var httpsServer = https.createServer(credentials, app);
-    httpsServer.listen(port, function () { return console.log("HTTPS running on localhost:" + port); });
-}
+// app.set('port', port);
+var http_port = process.env.HTTP_PORT || "80";
+var https_port = process.env.HTTPS_PORT || "443";
+// HTTP
+var httpServer = http.createServer(app);
+httpServer.listen(http_port, function () { return console.log("HTTP running on localhost:" + http_port); });
+// HTTPS
+var privateKey = fs.readFileSync('key.pem', 'utf8');
+var certificate = fs.readFileSync('cert.pem', 'utf8');
+var credentials = { key: privateKey, cert: certificate };
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(https_port, function () { return console.log("HTTPS running on localhost:" + https_port); });
 //# sourceMappingURL=server.js.map
