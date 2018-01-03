@@ -29,6 +29,8 @@
     "Thumbs.db": "explorerExcludedFiles",
     "*.map": "explorerExcludedFiles",
     "uploads": "explorerExcludedFiles",
-    "image": "explorerExcludedFiles"
+    "image": "explorerExcludedFiles",
+    "!/image/.gitkeep": "explorerExcludedFiles",
+    "image/*": "explorerExcludedFiles"
   }
 }

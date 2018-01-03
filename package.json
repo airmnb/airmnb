@@ -7,9 +7,9 @@
     "ng": "ng",
     "tsc": "tsc",
     "start": "npm run tsc && npm run start:js",
-    "start:express:js": "node server.js",
-    "start:express:ts": "ts-node server.ts --compilerOptions '{\"lib\": [\"es2015\"]}'",
-    "start:exts": "ts-node-dev server.ts",
+    "start:express:js": "sudo node server.js",
+    "start:express:ts": "sudo ts-node server.ts --compilerOptions '{\"lib\": [\"es2015\"]}'",
+    "start:exts": "sudo ts-node-dev server.ts",
     "start:ng": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -19,9 +19,10 @@
     "watch:express": "tsc-watch server.ts --onSuccess \"node ./server.js\"",
     "watch:angular": "ng build --watch",
     "watch": "concurrently \"npm run watch:angular\" \"npm run start:exts\"",
-    "start:stage": "npm run build:prod && sudo HTTP_ONLY= PORT=443 node server.js",
+    "start:stage": "npm run build:prod && sudo node server.js",
     "build:prod": "tsc && ng build --prod --aot",
-    "start:prod": "node server.js"
+    "start:prod": "node server.js",
+    "sync:prod": "git fetch && git checkout -f -B master origin/master && npm run build:prod"
   },
   "private": true,
   "dependencies": {

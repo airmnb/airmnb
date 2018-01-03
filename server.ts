@@ -19,9 +19,7 @@ import { environment } from './src/environments/environment';
 // Get our API routes
 import * as api from './server/routes/api';
 
-const privateKey  = fs.readFileSync('key.pem', 'utf8');
-const certificate = fs.readFileSync('cert.pem', 'utf8');
-const credentials = { key: privateKey, cert: certificate };
+
 
 const app = express();
 
@@ -57,16 +55,18 @@ app.get('*', (req, res) => {
 /**
  * Get port from environment and store in Express.
  */
-const shouldHttp = !!process.env.HTTP_ONLY || false;
-const port = process.env.PORT || (shouldHttp ? '80' : '443');
-app.set('port', port);
+// app.set('port', port);
 
-if(shouldHttp) {
-  // HTTP
-  const httpServer = http.createServer(app);
-  httpServer.listen(port, () => console.log(`HTTP running on localhost:${port}`));
-}else{
-  // HTTPS
-  const httpsServer = https.createServer(credentials, app);
-  httpsServer.listen(port, () => console.log(`HTTPS running on localhost:${port}`));
-}
+const http_port = process.env.HTTP_PORT || "80";
+const https_port = process.env.HTTPS_PORT || "443";
+
+// HTTP
+const httpServer = http.createServer(app);
+httpServer.listen(http_port, () => console.log(`HTTP running on localhost:${http_port}`));
+
+// HTTPS
+const privateKey  = fs.readFileSync('key.pem', 'utf8');
+const certificate = fs.readFileSync('cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(https_port, () => console.log(`HTTPS running on localhost:${https_port}`));
