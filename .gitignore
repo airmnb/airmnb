@@ -42,4 +42,6 @@ testem.log
 Thumbs.db
 *.map
 /uploads
-/image
+
+/image/*
+!/image/.gitkeep
