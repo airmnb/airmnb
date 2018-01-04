@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MapServiceService } from '../map-service.service';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 import { AgmMarker } from '@agm/core/directives/marker';
-import { MapLocation } from '../../../types';
+import { MapLocation, ServiceSlot } from '../../../types';
+import { UtilService } from '../util.service';
 
 @Component({
   selector: 'amb-map-search',
@@ -12,13 +13,26 @@ import { MapLocation } from '../../../types';
 export class MapSearchComponent implements OnInit {
 
   address: string;
-  lat: number;
-  lng: number;
-  markers: {longitude: number, latitude: number}[];
+  centerLatitude: number;
+  centerLongitude: number;
+  @Input() slots: ServiceSlot[];
+
+  get isMapReady(): boolean {
+    return this.centerLongitude !== undefined && this.centerLatitude !== undefined;
+  }
+
+  get isGoogleMapReady(): boolean {
+    return this.util.shouldUseGoogleMap && this.isMapReady;
+  }
+
+  get isGaodeMapReady(): boolean {
+    return this.util.shouldUseGaodeMap && this.isMapReady;
+  }
 
   constructor(
     private mapService: MapServiceService,
-    private markerManager: MarkerManager
+    private markerManager: MarkerManager,
+    private util: UtilService
   ) { }
 
   ngOnInit(){
@@ -34,23 +48,10 @@ export class MapSearchComponent implements OnInit {
       .then(x => {
         this.address = x.address;
         if(x.location) {
-          this.lat = x.location.coordinates[1];
-          this.lng = x.location.coordinates[0];
+          this.centerLatitude = x.location.coordinates[1];
+          this.centerLongitude = x.location.coordinates[0];
         }
-
-        this.addMarkers(x);
       })
       .catch(e => null);
-  }
-
-  private addMarkers(center: MapLocation){
-    this.markers = [];
-    for(let i = 0; i < 10; i++) {
-      this.markers.push({
-        longitude: center.location.coordinates[0] - i * 0.001,
-        latitude: center.location.coordinates[1] - i * 0.001
-      });
-    }
-
   }
 }

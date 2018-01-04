@@ -60,8 +60,9 @@
 
   <!-- Map contianer -->
   <div class="container">
-    <amb-map-search></amb-map-search>
+    <amb-map-search [slots]="slots"></amb-map-search>
   </div>
+
   <!-- recommended container -->
   <div class="container" *ngIf="slots">
     <h5 i18n>{{'Recommended' | translate}}</h5>
