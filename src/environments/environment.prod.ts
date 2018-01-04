@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  port: 80,
+  http_port: 80,
+  https_port: 443,
   apiUrl: '/api',
   googleApiKey: 'AIzaSyAmXvvrwCbeg-GNQxsFVhYOICg0ta8Bjps',
   googleClientId: '13711557288-5j8je109l29crtnrg80mudkh88sikmho.apps.googleusercontent.com',

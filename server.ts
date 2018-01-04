@@ -15,11 +15,13 @@ import * as fs from 'fs';
 import * as Loki from 'lokijs';
 import * as bodyParser from 'body-parser';
 import * as fileUpload from "express-fileupload";
-import { environment } from './src/environments/environment';
+let environment = require('./src/environments/environment');
+if(process.env.IS_PROD) {
+  environment = require('./src/environments/environment.prod');
+}
+
 // Get our API routes
 import * as api from './server/routes/api';
-
-
 
 const app = express();
 
@@ -57,8 +59,8 @@ app.get('*', (req, res) => {
  */
 // app.set('port', port);
 
-const http_port = process.env.HTTP_PORT || "80";
-const https_port = process.env.HTTPS_PORT || "443";
+const http_port = environment.http_port || "80";
+const https_port = environment.https_port || "443";
 
 // HTTP
 const httpServer = http.createServer(app);
