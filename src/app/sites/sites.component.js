@@ -16,7 +16,7 @@ var util_service_1 = require("../util.service");
 var session_service_1 = require("../session.service");
 var router_1 = require("@angular/router");
 var slot_image_service_1 = require("../slot-image.service");
-var Observable_1 = require("rxjs/Observable");
+var Rx_1 = require("rxjs/Rx");
 var SitesComponent = /** @class */ (function () {
     function SitesComponent(api, util, session, router, imageService) {
         this.api = api;
@@ -33,7 +33,7 @@ var SitesComponent = /** @class */ (function () {
     };
     SitesComponent.prototype.loadEventSites = function (providerId) {
         var p = this.api.eventSiteApi.list({ providerId: providerId });
-        return Observable_1.Observable.fromPromise(p);
+        return Rx_1.Observable.fromPromise(p);
     };
     SitesComponent.prototype.edit = function (site) {
         this.router.navigate(['sites', site.id]);
