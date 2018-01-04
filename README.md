@@ -10,7 +10,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 3. Run `npm install -g typescript`
 4. Run `npm install`
 5. Modify `.env` file to configure the `AMB_MONGO_DB_CONNECTION_STRING=$YourMongoDbConnectionString`
-6. Run `npm run watch` to launch the express web site on `http://localhost` and `https://localhost`. It will serve both Rest API and angular site. The angular site base is `http://localhost` (the whole site) and API route is `http://localhost/api`.
+6. Run `npm run watch` to launch the express web site on `http://localhost` (80 port) and `https://localhost` (443 port). It will serve both Rest API and angular site. The angular site base is `http://localhost` (the whole site) and API route is `http://localhost/api`.
 
 ## Launch in prod (Aliyun and Amazon)
 * `cd` to the source code folder. (`git clone https://github.com/airmnb/airmnb` if it's the first time.)
@@ -20,8 +20,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * Run `npm install`
 * Run `npm run build:prod` to build the project (both express and angular)
 * Run `screen`. See https://www.howtogeek.com/howto/ubuntu/keep-your-ssh-session-running-when-you-disconnect/
-* Run `sudo AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString} IS_PROD=true PORT=443 npm run start:prod`. sudo is required to run a port below 1024.
-* Check `curl -k https://localhost`
+* Run `sudo AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString} IS_PROD=true npm run start:prod`. sudo is required to run a port below 1024.
+* Run `ctrl-A ctrl-D` to detach `screen`.
+* Check `curl -k https://localhost` to check if the web site is working properly.
 
 ## TODO:
 * Wechat SSO
