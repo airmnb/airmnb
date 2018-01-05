@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Rx';
 import { ApiFacade } from './apiFacade';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'angular4-social-login';
 
 const cookieKey = 'c';
 const langKey = 'lang';
@@ -26,7 +27,8 @@ export class SessionService {
     private cookieService: CookieService,
     private api: ApiFacade,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService
   ) {
   }
 
@@ -85,11 +87,12 @@ export class SessionService {
     this.saveCookie();
   }
 
-  logout(): void {
+  async logout() {
     console.log('Session login');
     this._account = null;
     this._role = null;
     this._profile = null;
+    await this.authService.signOut();
     this.accountSubject.next(null);
     this.cookieService.deleteAll('/');
   }

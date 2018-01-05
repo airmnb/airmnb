@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Setup development environment
 1. If choose local MongoDB follow below. Otherwise prepare the connection string of the remote MongoDB.
     1. install MongoDB 3.6 on your local.
-    2. Launch `npm run mongodb`, which will execute shell command `/Users/mac/github/mongodb3.6.0/bin/mongod`
+    2. Launch `npm run mongo`, which will execute shell command `/Users/mac/github/mongodb3.6.0/bin/mongod`
 2. Git check out the `master` branch
 3. Run `npm install -g typescript`
 4. Run `npm install`
