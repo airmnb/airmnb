@@ -6,6 +6,7 @@ import { UtilService } from '../util.service';
 import { SearchQuery, ServiceSlot, MapCoord, Gender, SelectOption } from '../../../types';
 import { ImageService } from '../slot-image.service';
 import { SelectOptionService } from '../select-option.service';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'amb-landing-page',
@@ -43,10 +44,16 @@ export class LandingPageComponent implements OnInit {
     private searchService: SlotService,
     private util: UtilService,
     private selectOptionService: SelectOptionService,
-    private image: ImageService
+    private image: ImageService,
+    private session: SessionService
   ) { }
 
   ngOnInit() {
+    if(this.session.isProvider) {
+      this.router.navigate(['slots']);
+      return;
+    }
+
     this.route.queryParams.subscribe(params => {
       const queryJson = params['q'];
       this.isRecommended = !queryJson;
