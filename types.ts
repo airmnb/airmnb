@@ -175,9 +175,8 @@ export interface BabyProfile {
   imageName?: string;
 }
 
-export interface MapLocation {
+export interface MapLocation extends MapCoord {
   address: string;
-  coord: MapCoord;
 }
 
 export interface Booking {

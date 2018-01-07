@@ -1,9 +1,12 @@
+<pre>{{searchModel | json}}</pre>
+<pre>{{mapCenter | json}}</pre>
+
 <!-- Map -->
 <div class="container" *ngIf="!showsAdvancedSearch">
   <div class="row amb-search-map">
     <amb-loading *ngIf="!slots"></amb-loading>
     <div *ngIf="slots">
-      <amb-map-search [slots]="slots" (centerChange)="mapCenterChange($event)"></amb-map-search>
+      <amb-map-search [slots]="slots" [center]="mapCenter" (centerChange)="mapCenterChange($event)"></amb-map-search>
       <div class="button-map-filter">
         <button class="btn amb-block" (click)="showsAdvancedSearch = true">
           <i class="fa fa-sliders" aria-hidden="true"></i>

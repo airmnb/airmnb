@@ -58,10 +58,8 @@ export class AddressInputGoogleComponent implements OnInit {
 
           this.address = {
             address: place.formatted_address,
-            coord: {
-              lng: place.geometry.location.lng(),
-              lat: place.geometry.location.lat()
-            }
+            lng: place.geometry.location.lng(),
+            lat: place.geometry.location.lat()
           };
 
           this.addressChange.emit(this.address);
@@ -86,10 +84,8 @@ export class AddressInputGoogleComponent implements OnInit {
         this.longitude = position.coords.longitude;
         this.address = {
           address: "",
-          coord: {
-            lng: position.coords.longitude,
-            lat: position.coords.latitude
-          }
+          lng: position.coords.longitude,
+          lat: position.coords.latitude
         };
         this.zoom = 12;
       });

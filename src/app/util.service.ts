@@ -27,6 +27,10 @@ export class UtilService {
       'Either';
   }
 
+  isNullOrUndefined(value) {
+    return value === null || value === undefined;
+  }
+
   parseInputDateTime(date: string, time: string): Date {
     const input = `${date} ${time}`; // YYYY-MM-dd HH:mm
     return moment(input).toDate();

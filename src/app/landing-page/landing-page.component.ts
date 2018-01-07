@@ -24,11 +24,9 @@ export class LandingPageComponent implements OnInit {
   private query: SearchQuery;
   public searchModel = {
     location: {
-      address: <string>null,
-      location: {
-        type: "Point",
-        coordinates: <number[]>[]
-      }
+      address: null,
+      lng: null,
+      lat: null
     },
     distance: 1,
     age: -1,
@@ -72,7 +70,7 @@ export class LandingPageComponent implements OnInit {
   private getMapCenter(query: SearchQuery) {
     try {
       this.mapCenter = query.mapCenter;
-      if(this.mapCenter.lng === undefined || this.mapCenter.lat === undefined) {
+      if(this.util.isNullOrUndefined(this.mapCenter.lng) || this.util.isNullOrUndefined(this.mapCenter.lat)) {
         throw new Error('Both longitude and latitude have to be there.');
       }
     } catch(e) {
@@ -99,23 +97,32 @@ export class LandingPageComponent implements OnInit {
       end: this.util.parseInputDateTime(this.searchModel.date, this.searchModel.timeTo),
       gender: this.searchModel.gender >= 0 ? this.searchModel.gender : undefined,
       distance: this.searchModel.distance,
-      mapCenter: {
-        lng: this.searchModel.location.location.coordinates[0],
-        lat: this.searchModel.location.location.coordinates[1]
-      }
+      mapCenter: this.searchModel.location ? {
+        lng: this.searchModel.location.lng,
+        lat: this.searchModel.location.lat
+      } : this.mapCenter
     };
 
     this.query = Object.assign(this.query, delta);
   }
 
-  async search() {
+  private redirectWithQueryString() {
     this.updateQueryWithModel();
-    this.searchService.search(this.query).then(x => this.slots = x);
+    const queryParams = {q: JSON.stringify(this.query)};
+    this.router.navigate(['/'], {queryParams});
+  }
+
+  async search() {
+    // this.updateQueryWithModel();
+    // this.searchService.search(this.query).then(x => this.slots = x);
+    this.redirectWithQueryString();
   }
 
   mapCenterChange(center: MapCoord) {
+    console.log('Map center changed', center);
     this.query.mapCenter = center;
-    this.searchService.search(this.query).then(x => this.slots = x);
+    this.redirectWithQueryString();
+    // this.searchService.search(this.query).then(x => this.slots = x);
   }
 
   displayGender(gender: Gender): string {

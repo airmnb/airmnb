@@ -27,7 +27,8 @@ export class ProfileContentComponent implements OnInit {
     gender: null,
     location: {
       address: null,
-      coord: null
+      lng: null,
+      lat: null
     },
     imageNames: [],
     imageUrls: [],

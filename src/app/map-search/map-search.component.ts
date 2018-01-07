@@ -14,9 +14,12 @@ import { LatLngLiteral } from '@agm/core';
 export class MapSearchComponent implements OnInit {
 
   address: string;
+  @Input() set center(value: MapCoord) {
+    this.latestCenter = value;
+  }
   @Input() slots: ServiceSlot[];
   @Output() centerChange = new EventEmitter<LatLngLiteral>();
-  private latestCenter: MapCoord;
+  latestCenter: MapCoord;
 
   get isMapReady(): boolean {
     return !!this.latestCenter;
@@ -38,9 +41,9 @@ export class MapSearchComponent implements OnInit {
 
   ngOnInit(){
     // Get the current geolocation
-    if (navigator.geolocation){
-       navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
-    }
+    // if (navigator.geolocation){
+    //    navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
+    // }
   }
 
   mapCenterChange(center: LatLngLiteral) {
@@ -56,8 +59,11 @@ export class MapSearchComponent implements OnInit {
     this.mapService.getAddress(coords)
       .then(x => {
         this.address = x.address;
-        if(x.coord) {
-          this.latestCenter = x.coord;
+        if(x.address) {
+          this.latestCenter = {
+            lng: x.lng,
+            lat: x.lat
+          };
         }
       })
       .catch(e => null);

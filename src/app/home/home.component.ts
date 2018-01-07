@@ -30,7 +30,8 @@ export class HomeComponent implements OnInit {
   public model = {
     location: {
       address: <string>null,
-      coord: null
+      lng: null,
+      lat: null
     },
     distance: 1,
     age: -1,
@@ -137,7 +138,10 @@ export class HomeComponent implements OnInit {
       // end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
       gender: this.model.gender >= 0 ? this.model.gender : null,
       distance: this.model.distance,
-      mapCenter: this.model.location.coord
+      mapCenter: {
+        lng: this.model.location.lng,
+        lat: this.model.location.lat
+      }
     };
   }
 
