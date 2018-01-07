@@ -20,9 +20,9 @@ export class MapServiceService {
       const firstAddress = obj.results[0];
       return {
         address: firstAddress.formatted_address,
-        location: {
-          type: "Point",
-          coordinates: [firstAddress.geometry.location.lng, firstAddress.geometry.location.lat]
+        coord: {
+          lng: firstAddress.geometry.location.lng,
+          lat: firstAddress.geometry.location.lat
         }
       };
     }

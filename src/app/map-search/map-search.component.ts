@@ -56,11 +56,8 @@ export class MapSearchComponent implements OnInit {
     this.mapService.getAddress(coords)
       .then(x => {
         this.address = x.address;
-        if(x.location) {
-          this.latestCenter = {
-            lng: x.location.coordinates[0],
-            lat: x.location.coordinates[1]
-          };
+        if(x.coord) {
+          this.latestCenter = x.coord;
         }
       })
       .catch(e => null);

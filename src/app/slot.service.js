@@ -47,7 +47,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("./notification.service");
 var session_service_1 = require("./session.service");
-var Subject_1 = require("rxjs/Subject");
 var apiFacade_1 = require("./apiFacade");
 var SlotService = /** @class */ (function () {
     function SlotService(notificationService, sessionService, api) {
@@ -71,18 +70,18 @@ var SlotService = /** @class */ (function () {
         });
     };
     SlotService.prototype.search = function (query) {
-        var _this = this;
-        console.log('Search query:', query);
-        var consumerId = this.getConsumerId();
-        var subject = new Subject_1.Subject();
-        var q = this.convertToMongoQuery(query);
-        this.api.slotApi.list(q)
-            .then(function (x) { return subject.next(x); })
-            .catch(function (e) {
-            _this.notificationService.error(e);
-            subject.next();
+        return __awaiter(this, void 0, void 0, function () {
+            var q;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        q = this.convertToMongoQuery(query);
+                        console.log('Search slots query:', query, q);
+                        return [4 /*yield*/, this.api.slotApi.list(q)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
         });
-        return subject.asObservable();
     };
     SlotService.prototype.getConsumerId = function () {
         var account = this.sessionService.account;
@@ -100,12 +99,12 @@ var SlotService = /** @class */ (function () {
         }
         if (query.start) {
             q.start = {
-                $lte: new Date(query.start)
+                $lte: query.start
             };
         }
         if (query.end) {
             q.end = {
-                $gte: new Date(query.end)
+                $gte: query.end
             };
         }
         if (query.gender !== undefined) {
@@ -113,10 +112,10 @@ var SlotService = /** @class */ (function () {
                 $eq: query.gender
             };
         }
-        if (query.location && query.location.location && query.location.location.coordinates) {
+        if (query.mapCenter) {
             q.location = {
                 $near: {
-                    $geometry: { type: "Point", coordinates: query.location.location.coordinates },
+                    $geometry: { type: "Point", coordinates: [query.mapCenter.lng, query.mapCenter.lat] },
                     $maxDistance: (query.distance || 1) * 1000
                 }
             };

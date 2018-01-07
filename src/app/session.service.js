@@ -52,14 +52,16 @@ var Rx_1 = require("rxjs/Rx");
 var apiFacade_1 = require("./apiFacade");
 var router_1 = require("@angular/router");
 var core_2 = require("@ngx-translate/core");
+var angular4_social_login_1 = require("angular4-social-login");
 var cookieKey = 'c';
 var langKey = 'lang';
 var SessionService = /** @class */ (function () {
-    function SessionService(cookieService, api, router, translate) {
+    function SessionService(cookieService, api, router, translate, authService) {
         this.cookieService = cookieService;
         this.api = api;
         this.router = router;
         this.translate = translate;
+        this.authService = authService;
         this.accountSubject = new Subject_1.Subject();
     }
     Object.defineProperty(SessionService.prototype, "role", {
@@ -147,12 +149,23 @@ var SessionService = /** @class */ (function () {
         });
     };
     SessionService.prototype.logout = function () {
-        console.log('Session login');
-        this._account = null;
-        this._role = null;
-        this._profile = null;
-        this.accountSubject.next(null);
-        this.cookieService.deleteAll('/');
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('Session login');
+                        this._account = null;
+                        this._role = null;
+                        this._profile = null;
+                        return [4 /*yield*/, this.authService.signOut()];
+                    case 1:
+                        _a.sent();
+                        this.accountSubject.next(null);
+                        this.cookieService.deleteAll('/');
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     SessionService.prototype.getAccount = function () {
         return this.accountSubject.asObservable();
@@ -195,7 +208,8 @@ var SessionService = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_cookie_service_1.CookieService,
             apiFacade_1.ApiFacade,
             router_1.Router,
-            core_2.TranslateService])
+            core_2.TranslateService,
+            angular4_social_login_1.AuthService])
     ], SessionService);
     return SessionService;
 }());

@@ -112,6 +112,7 @@ import { NgxAmapModule } from 'ngx-amap';
 import { AddressInputGaodeComponent } from './address-input-gaode/address-input-gaode.component';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from "angular4-social-login";
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AddressInputGoogleComponent } from './address-input-google/address-input-google.component';
 
 const sso_config = new AuthServiceConfig([
   {
@@ -131,7 +132,7 @@ export function getSsoConfig() {
     AboutusComponent,
     DateTimePickerComponent,
     NotificationComponent,
-    AddressInputComponent,
+    AddressInputGoogleComponent,
     SlotListComponent,
     LoginContentComponent,
     SignupContentComponent,
@@ -163,7 +164,8 @@ export function getSsoConfig() {
     BookingCardComponent,
     LoadingComponent,
     AddressInputGaodeComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    AddressInputComponent
   ],
   imports: [
     MatMomentDateModule,

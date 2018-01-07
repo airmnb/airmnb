@@ -177,10 +177,7 @@ export interface BabyProfile {
 
 export interface MapLocation {
   address: string;
-  location: {
-    type: string,
-    coordinates: number[]
-  };
+  coord: MapCoord;
 }
 
 export interface Booking {

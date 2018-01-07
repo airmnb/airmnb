@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
-var home_component_1 = require("../home/home.component");
 var aboutus_component_1 = require("../aboutus/aboutus.component");
 var slot_edit_component_1 = require("../slot-edit/slot-edit.component");
 var slot_component_1 = require("../slot/slot.component");
@@ -25,10 +24,11 @@ var site_component_1 = require("../site/site.component");
 var search_result_component_1 = require("../search-result/search-result.component");
 var transaction_component_1 = require("../transaction/transaction.component");
 var signup_content_component_1 = require("../signup-content/signup-content.component");
+var landing_page_component_1 = require("../landing-page/landing-page.component");
 var routes = [
     {
         path: '',
-        component: home_component_1.HomeComponent
+        component: landing_page_component_1.LandingPageComponent // HomeComponent
     },
     {
         path: 'login',

@@ -32,9 +32,9 @@ export class AddressInputGaodeComponent implements OnInit {
     if(!event.poi) return;
     this.address = {
       address: event.poi.name + " " + event.poi.address + " " + event.poi.district,
-      location: {
-        type: "Point",
-        coordinates: [event.poi.location.lng, event.poi.location.lat]
+      coord: {
+        lng: event.poi.location.lng,
+        lat: event.poi.location.lat
       }
     };
     this.addressChange.emit(this.address);
@@ -50,9 +50,9 @@ export class AddressInputGaodeComponent implements OnInit {
         }
         this.address = {
           address: "",
-          location: {
-            type: "Point",
-            coordinates: [position.coords.longitude, position.coords.latitude]
+          coord: {
+            lng: position.coords.longitude,
+            lat: position.coords.latitude
           }
         };
       });

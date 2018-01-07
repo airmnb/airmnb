@@ -30,10 +30,7 @@ export class HomeComponent implements OnInit {
   public model = {
     location: {
       address: <string>null,
-      location: {
-        type: "Point",
-        coordinates: <number[]>[]
-      }
+      coord: null
     },
     distance: 1,
     age: -1,
@@ -49,13 +46,6 @@ export class HomeComponent implements OnInit {
     },
   };
 
-  get shouldUseGoogle(): boolean {
-    return this.util.shouldUseGoogleMap;
-  }
-
-  get shouldUseGaode(): boolean {
-    return this.util.shouldUseGaodeMap;
-  }
   constructor(
     ngbTimerConfig: NgbTimepickerConfig,
     private session: SessionService,
@@ -147,10 +137,7 @@ export class HomeComponent implements OnInit {
       // end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
       gender: this.model.gender >= 0 ? this.model.gender : null,
       distance: this.model.distance,
-      mapCenter: {
-        lng: this.model.location.location.coordinates[0],
-        lat: this.model.location.location.coordinates[1]
-      }
+      mapCenter: this.model.location.coord
     };
   }
 

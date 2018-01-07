@@ -20,10 +20,7 @@ export class SiteComponent implements OnInit {
     name: null,
     location: {
       address: null,
-      location: {
-        type: "Point",
-        coordinates: []
-      }
+      coord: null
     },
     info: null,
     imageNames: []

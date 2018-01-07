@@ -14,6 +14,10 @@ var cors = require("cors");
 var fs = require("fs");
 var bodyParser = require("body-parser");
 var fileUpload = require("express-fileupload");
+var environment = require('./src/environments/environment');
+if (process.env.IS_PROD) {
+    environment = require('./src/environments/environment.prod');
+}
 // Get our API routes
 var api = require("./server/routes/api");
 var app = express();
@@ -46,8 +50,8 @@ app.get('*', function (req, res) {
  * Get port from environment and store in Express.
  */
 // app.set('port', port);
-var http_port = process.env.HTTP_PORT || "80";
-var https_port = process.env.HTTPS_PORT || "443";
+var http_port = environment.http_port || "80";
+var https_port = environment.https_port || "443";
 // HTTP
 var httpServer = http.createServer(app);
 httpServer.listen(http_port, function () { return console.log("HTTP running on localhost:" + http_port); });

@@ -10,103 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var core_2 = require("@agm/core");
+var util_service_1 = require("../util.service");
 var AddressInputComponent = /** @class */ (function () {
-    function AddressInputComponent(mapsAPILoader, ngZone) {
-        this.mapsAPILoader = mapsAPILoader;
-        this.ngZone = ngZone;
+    function AddressInputComponent(util) {
+        this.util = util;
         this.addressChange = new core_1.EventEmitter();
     }
+    Object.defineProperty(AddressInputComponent.prototype, "shouldUseGoogle", {
+        get: function () {
+            return this.util.shouldUseGoogleMap;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AddressInputComponent.prototype, "shouldUseGaode", {
+        get: function () {
+            return this.util.shouldUseGaodeMap;
+        },
+        enumerable: true,
+        configurable: true
+    });
     AddressInputComponent.prototype.ngOnInit = function () {
-        // // set google maps defaults
-        // this.zoom = 4;
-        // this.latitude = 39.8282;
-        // this.longitude = -98.5795;
-        var _this = this;
-        // create search FormControl
-        // this.searchControl = new FormControl(this.address);
-        // set current position
-        if (this.useCurrentLocation) {
-            this.setCurrentPosition();
-        }
-        // load Places Autocomplete
-        this.mapsAPILoader.load().then(function () {
-            var autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
-                types: ["address"]
-            });
-            autocomplete.addListener("place_changed", function () {
-                _this.ngZone.run(function () {
-                    // get the place result
-                    var place = autocomplete.getPlace();
-                    // verify result
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-                    _this.address = {
-                        address: place.formatted_address,
-                        location: {
-                            type: "Point",
-                            coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
-                        }
-                    };
-                    _this.addressChange.emit(_this.address);
-                    // // set latitude, longitude and zoom
-                    // this.latitude = place.geometry.location.lat();
-                    // this.longitude = place.geometry.location.lng();
-                    _this.zoom = 12;
-                });
-            });
-        });
-    };
-    AddressInputComponent.prototype.setCurrentPosition = function () {
-        var _this = this;
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                if (_this.address) {
-                    // Already input some thing
-                    return;
-                }
-                _this.latitude = position.coords.latitude;
-                _this.longitude = position.coords.longitude;
-                _this.address = {
-                    address: "",
-                    location: {
-                        type: "Point",
-                        coordinates: [position.coords.longitude, position.coords.latitude]
-                    }
-                };
-                _this.zoom = 12;
-            });
-        }
     };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
     ], AddressInputComponent.prototype, "address", void 0);
     __decorate([
-        core_1.Input(),
-        __metadata("design:type", Boolean)
-    ], AddressInputComponent.prototype, "showsMap", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Boolean)
-    ], AddressInputComponent.prototype, "useCurrentLocation", void 0);
-    __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
     ], AddressInputComponent.prototype, "addressChange", void 0);
-    __decorate([
-        core_1.ViewChild("search"),
-        __metadata("design:type", core_1.ElementRef)
-    ], AddressInputComponent.prototype, "searchElementRef", void 0);
     AddressInputComponent = __decorate([
         core_1.Component({
             selector: 'amb-address-input',
             templateUrl: './address-input.component.html',
             styleUrls: ['./address-input.component.css']
         }),
-        __metadata("design:paramtypes", [core_2.MapsAPILoader,
-            core_1.NgZone])
+        __metadata("design:paramtypes", [util_service_1.UtilService])
     ], AddressInputComponent);
     return AddressInputComponent;
 }());

@@ -65,6 +65,7 @@ var HomeComponent = /** @class */ (function () {
         this.api = api;
         this.imageService = imageService;
         this.util = util;
+        this.mapSearch = true;
         this.submitted = false;
         this.model = {
             location: {
@@ -171,6 +172,9 @@ var HomeComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    HomeComponent.prototype.mapCenterChange = function (latLng) {
+        console.log(latLng);
+    };
     HomeComponent.prototype.search = function () {
         return __awaiter(this, void 0, void 0, function () {
             var queryObj, queryParams;
@@ -189,19 +193,19 @@ var HomeComponent = /** @class */ (function () {
             });
         });
     };
+    HomeComponent.prototype.toggleMap = function () {
+        this.mapSearch = !this.mapSearch;
+    };
     HomeComponent.prototype.composeQuery = function () {
         return {
             age: this.model.age >= 0 ? this.model.age : null,
-            start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
-            end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
+            // start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
+            // end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
             gender: this.model.gender >= 0 ? this.model.gender : null,
             distance: this.model.distance,
-            location: {
-                address: this.model.location.address,
-                location: {
-                    type: "Point",
-                    coordinates: this.model.location.location.coordinates
-                }
+            mapCenter: {
+                lng: this.model.location.location.coordinates[0],
+                lat: this.model.location.location.coordinates[1]
             }
         };
     };

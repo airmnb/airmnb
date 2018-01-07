@@ -12,16 +12,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var map_service_service_1 = require("../map-service.service");
 var marker_manager_1 = require("@agm/core/services/managers/marker-manager");
+var util_service_1 = require("../util.service");
 var MapSearchComponent = /** @class */ (function () {
-    function MapSearchComponent(mapService, markerManager) {
+    function MapSearchComponent(mapService, markerManager, util) {
         this.mapService = mapService;
         this.markerManager = markerManager;
+        this.util = util;
+        this.centerChange = new core_1.EventEmitter();
     }
+    Object.defineProperty(MapSearchComponent.prototype, "isMapReady", {
+        get: function () {
+            return !!this.latestCenter;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MapSearchComponent.prototype, "isGoogleMapReady", {
+        get: function () {
+            return this.util.shouldUseGoogleMap && this.isMapReady;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MapSearchComponent.prototype, "isGaodeMapReady", {
+        get: function () {
+            return this.util.shouldUseGaodeMap && this.isMapReady;
+        },
+        enumerable: true,
+        configurable: true
+    });
     MapSearchComponent.prototype.ngOnInit = function () {
         // Get the current geolocation
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
         }
+    };
+    MapSearchComponent.prototype.mapCenterChange = function (center) {
+        this.latestCenter = center;
+    };
+    MapSearchComponent.prototype.fireIdle = function () {
+        this.centerChange.emit(this.latestCenter);
     };
     MapSearchComponent.prototype.setPosition = function (position) {
         var _this = this;
@@ -29,23 +59,20 @@ var MapSearchComponent = /** @class */ (function () {
         this.mapService.getAddress(coords)
             .then(function (x) {
             _this.address = x.address;
-            if (x.location) {
-                _this.lat = x.location.coordinates[1];
-                _this.lng = x.location.coordinates[0];
+            if (x.coord) {
+                _this.latestCenter = x.coord;
             }
-            _this.addMarkers(x);
         })
             .catch(function (e) { return null; });
     };
-    MapSearchComponent.prototype.addMarkers = function (center) {
-        this.markers = [];
-        for (var i = 0; i < 10; i++) {
-            this.markers.push({
-                longitude: center.location.coordinates[0] - i * 0.001,
-                latitude: center.location.coordinates[1] - i * 0.001
-            });
-        }
-    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Array)
+    ], MapSearchComponent.prototype, "slots", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], MapSearchComponent.prototype, "centerChange", void 0);
     MapSearchComponent = __decorate([
         core_1.Component({
             selector: 'amb-map-search',
@@ -53,7 +80,8 @@ var MapSearchComponent = /** @class */ (function () {
             styleUrls: ['./map-search.component.css']
         }),
         __metadata("design:paramtypes", [map_service_service_1.MapServiceService,
-            marker_manager_1.MarkerManager])
+            marker_manager_1.MarkerManager,
+            util_service_1.UtilService])
     ], MapSearchComponent);
     return MapSearchComponent;
 }());

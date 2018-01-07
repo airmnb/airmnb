@@ -1,5 +1,5 @@
-<input placeholder="{{'Search for location' | translate}}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
-  #search [(ngModel)]="address.address">
-  <agm-map *ngIf="showsMap" [latitude]="address.location.coordinates[1]" [longitude]="address.location.coordinates[0]" [scrollwheel]="false" [zoom]="zoom">
-  <agm-marker [latitude]="address.location.coordinates[1]" [longitude]="address.location.coordinates[0]"></agm-marker>
-</agm-map>
+<!-- Google address input -->
+<amb-address-input-google *ngIf="shouldUseGoogle" class="btn-block" [(address)]="address"></amb-address-input-google>
+
+<!-- Gaode address input -->
+<amb-address-input-gaode *ngIf="shouldUseGaode" class="btn-block" [(address)]="address"></amb-address-input-gaode>

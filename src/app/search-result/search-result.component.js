@@ -63,11 +63,11 @@ var SearchResultComponent = /** @class */ (function () {
             var queryJson = params['q'];
             var query = JSON.parse(queryJson);
             console.log('Search query', query);
-            _this.centerLongitude = query.location.location.coordinates[0];
-            _this.centerLatitude = query.location.location.coordinates[1];
+            _this.centerLongitude = query.mapCenter.lng;
+            _this.centerLatitude = query.mapCenter.lat;
             console.log('centerLongitude', _this.centerLongitude);
             console.log('centerLatitude', _this.centerLatitude);
-            _this.searchService.search(query).subscribe(function (x) { return _this.slots = x; });
+            _this.searchService.search(query).then(function (x) { return _this.slots = x; });
         });
     };
     SearchResultComponent.prototype.setPosition = function (position) {

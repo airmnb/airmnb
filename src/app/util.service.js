@@ -35,6 +35,10 @@ var UtilService = /** @class */ (function () {
             gender == types_1.Gender.Girl ? 'Girl' :
                 'Either';
     };
+    UtilService.prototype.parseInputDateTime = function (date, time) {
+        var input = date + " " + time; // YYYY-MM-dd HH:mm
+        return moment(input).toDate();
+    };
     UtilService.prototype.getHour = function (date) {
         var m = moment(date);
         return m.hour();

@@ -20,8 +20,7 @@
   <h5>{{'Search events' | translate}}</h5>
   <div class="row">
     <div class="col s12">
-      <amb-address-input *ngIf="shouldUseGoogle" class="btn-block" [(address)]="searchModel.location" [showsMap]="false"></amb-address-input>
-      <amb-address-input-gaode *ngIf="shouldUseGaode" class="btn-block" [(address)]="searchModel.location"></amb-address-input-gaode>
+      <amb-address-input [(address)]="searchModel.location"></amb-address-input>
     </div>
     <div class="col s4">
       <mat-form-field>
