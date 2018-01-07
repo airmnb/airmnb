@@ -27,6 +27,11 @@ export class UtilService {
       'Either';
   }
 
+  parseInputDateTime(date: string, time: string): Date {
+    const input = `${date} ${time}`; // YYYY-MM-dd HH:mm
+    return moment(input).toDate();
+  }
+
   getHour(date: Date): number {
     const m = moment(date);
     return m.hour();

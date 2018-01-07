@@ -23,20 +23,10 @@ export class SlotService {
     return await this.api.slotApi.list(query);
   }
 
-  public search(query: SearchQuery): Observable<ServiceSlot[]> {
-    console.log('Search query:', query);
-    const consumerId = this.getConsumerId();
-    const subject = new Subject<ServiceSlot[]>();
+  public async search(query: SearchQuery): Promise<ServiceSlot[]> {
     const q = this.convertToMongoQuery(query);
-    this.api.slotApi.list(q)
-    .then(
-      x => subject.next(x)
-    )
-    .catch(e => {
-      this.notificationService.error(e);
-      subject.next();
-    });
-    return subject.asObservable();
+    console.log('Search slots query:', query, q);
+    return await this.api.slotApi.list(q);
   }
 
   private getConsumerId(): string {
@@ -56,12 +46,12 @@ export class SlotService {
     }
     if(query.start) {
       q.start = {
-        $lte: new Date(query.start)
+        $lte: query.start
       };
     }
     if(query.end) {
       q.end = {
-        $gte: new Date(query.end)
+        $gte: query.end
       };
     }
     if(query.gender !== undefined) {
@@ -69,10 +59,10 @@ export class SlotService {
         $eq: query.gender
       };
     }
-    if(query.location && query.location.location && query.location.location.coordinates) {
+    if(query.mapCenter) {
       q.location = {
         $near: {
-          $geometry: {type: "Point", coordinates: query.location.location.coordinates},
+          $geometry: {type: "Point", coordinates: [query.mapCenter.lng, query.mapCenter.lat]},
           $maxDistance: (query.distance || 1) * 1000
         }
       };

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MapServiceService } from '../map-service.service';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 import { AgmMarker } from '@agm/core/directives/marker';
-import { MapLocation, ServiceSlot } from '../../../types';
+import { MapLocation, ServiceSlot, MapCoord } from '../../../types';
 import { UtilService } from '../util.service';
+import { LatLngLiteral } from '@agm/core';
 
 @Component({
   selector: 'amb-map-search',
@@ -13,12 +14,12 @@ import { UtilService } from '../util.service';
 export class MapSearchComponent implements OnInit {
 
   address: string;
-  centerLatitude: number;
-  centerLongitude: number;
   @Input() slots: ServiceSlot[];
+  @Output() centerChange = new EventEmitter<LatLngLiteral>();
+  private latestCenter: MapCoord;
 
   get isMapReady(): boolean {
-    return this.centerLongitude !== undefined && this.centerLatitude !== undefined;
+    return !!this.latestCenter;
   }
 
   get isGoogleMapReady(): boolean {
@@ -42,14 +43,24 @@ export class MapSearchComponent implements OnInit {
     }
   }
 
+  mapCenterChange(center: LatLngLiteral) {
+    this.latestCenter = center;
+  }
+
+  fireIdle() {
+    this.centerChange.emit(this.latestCenter);
+  }
+
   private setPosition(position){
     const coords = position.coords;
     this.mapService.getAddress(coords)
       .then(x => {
         this.address = x.address;
         if(x.location) {
-          this.centerLatitude = x.location.coordinates[1];
-          this.centerLongitude = x.location.coordinates[0];
+          this.latestCenter = {
+            lng: x.location.coordinates[0],
+            lat: x.location.coordinates[1]
+          };
         }
       })
       .catch(e => null);

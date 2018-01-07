@@ -1,0 +1,117 @@
+<pre>{{this.searchModel | json}}</pre>
+<!-- Map -->
+<div class="container" *ngIf="!showsAdvancedSearch">
+  <div class="row amb-search-map">
+    <amb-loading *ngIf="!slots"></amb-loading>
+    <div *ngIf="slots">
+      <amb-map-search [slots]="slots" (centerChange)="mapCenterChange($event)"></amb-map-search>
+      <div class="button-map-filter">
+        <button class="btn amb-block" (click)="showsAdvancedSearch = true">
+          <i class="fa fa-sliders" aria-hidden="true"></i>
+          {{'Filter' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Advanced search panel -->
+<div class="container" *ngIf="showsAdvancedSearch">
+  <h5>{{'Search events' | translate}}</h5>
+  <div class="row">
+    <div class="col s12">
+      <amb-address-input *ngIf="shouldUseGoogle" class="btn-block" [(address)]="searchModel.location" [showsMap]="false"></amb-address-input>
+      <amb-address-input-gaode *ngIf="shouldUseGaode" class="btn-block" [(address)]="searchModel.location"></amb-address-input-gaode>
+    </div>
+    <div class="col s4">
+      <mat-form-field>
+        <mat-select placeholder="{{'Distance' | translate}}" [(ngModel)]="searchModel.distance" name="distance">
+          <mat-option value="0">--</mat-option>
+          <mat-option value="1">1 {{'km' | translate}}</mat-option>
+          <mat-option value="2">2 {{'km' | translate}}</mat-option>
+          <mat-option value="5">5 {{'km' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col s4">
+      <amb-select placeholder="{{'Baby age' | translate}}" [(value)]="searchModel.age" [options]="ageOptions"></amb-select>
+    </div>
+    <div class="col s4">
+      <mat-form-field>
+        <mat-select placeholder="{{'Baby gender' | translate}}" [(ngModel)]="searchModel.gender" name="gender">
+          <mat-option value="-1">--</mat-option>
+          <mat-option value="0">{{'Girl' | translate}}</mat-option>
+          <mat-option value="1">{{'Boy' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col s4">
+      <mat-form-field>
+        <input matInput type="date" placeholder="{{'Choose a date' | translate}}" [(ngModel)]="searchModel.date" name="date">
+      </mat-form-field>
+    </div>
+    <div class="col s4">
+      <mat-form-field>
+        <input matInput type="time" step="1800" min="06:00" max="18:00" placeholder="{{'Starting time' | translate}}" [(ngModel)]="searchModel.timeFrom"
+          name="timeFrom">
+      </mat-form-field>
+    </div>
+    <div class="col s4">
+      <mat-form-field>
+        <input matInput type="time" step="1800" min="08:00" max="20:00" placeholder="{{'Ending time' | translate}}" [(ngModel)]="searchModel.timeTo"
+          name="timeTo">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="col s12 m6">
+        <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;search()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          {{'Search' | translate}}
+        </button>
+      </div>
+      <div class="col s12 m6">
+          <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            {{'Show map' | translate}}
+          </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recommended or search result-->
+<div class="container">
+  <h5 i18n *ngIf="isRecommended">{{'Recommended' | translate}}</h5>
+  <h5 i18n *ngIf="!isRecommended">{{'Search result' | translate}}</h5>
+  <amb-loading *ngIf="!slots"></amb-loading>
+  <div class="row" *ngIf="slots">
+    <div class="col s6 m4 l3" *ngFor="let slot of slots">
+      <mat-card (click)="book(slot)">
+
+        <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+        <div class="amb-rating-stars yellow-text accent-3">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <mat-card-title>{{slot.title}}</mat-card-title>
+          <mat-card-subtitle>
+            <small>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</small>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{displayGender(slot.gender) | translate}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}} {{slot.otherCondition}}
+          </p>
+          <p>
+            {{slot.bookingCount}} / {{slot.capping}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

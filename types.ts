@@ -137,12 +137,17 @@ export enum Role {
 }
 
 export interface SearchQuery {
-  location?: MapLocation;
+  mapCenter?: MapCoord;
   distance?: number;
   age?: number;
-  start?: number;
-  end?: number;
+  start?: Date;
+  end?: Date;
   gender?: Gender;
+}
+
+export interface MapCoord {
+  lng: number;
+  lat: number;
 }
 
 export interface Image {

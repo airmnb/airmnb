@@ -3,7 +3,8 @@
 </agm-map> -->
 
 <amb-loading *ngIf="!isMapReady"></amb-loading>
-<agm-map *ngIf="isGoogleMapReady" class="amb-search-map" [longitude]="centerLongitude" [latitude]="centerLatitude" [zoom]="16">
+<agm-map *ngIf="isGoogleMapReady" class="amb-search-map" [longitude]="this.latestCenter.lng" [latitude]="this.latestCenter.lat" [zoom]="16"
+(centerChange)="mapCenterChange($event)" (idle)="fireIdle($event)">
   <agm-marker *ngFor="let slot of slots; let i = index" [longitude]="slot.location.location.coordinates[0]" [latitude]="slot.location.location.coordinates[1]"
     [label]="(i + 1) + ''">
     <agm-info-window>
@@ -14,7 +15,7 @@
     </agm-info-window>
   </agm-marker>
 </agm-map>
-<ngx-amap *ngIf="isGaodeMapReady" [resizeEnable]="true" class="amb-search-map" [center]="[centerLongitude, centerLatitude]" [zoom]="16">
+<ngx-amap *ngIf="isGaodeMapReady" [resizeEnable]="true" class="amb-search-map" [center]="[this.latestCenter.lng, this.latestCenter.lat]" [zoom]="16">
     <amap-marker *ngFor="let slot of slots; let i = index" [position]="slot.location.location.coordinates" [label]="{offset: {x:20, y:0}, content: (i+1).toString()}">
       <amap-info-window [offset]="infoWindowOffset">
         <strong>{{slot.title}}</strong>

@@ -20,10 +20,11 @@ import { SiteComponent } from '../site/site.component';
 import { SearchResultComponent } from '../search-result/search-result.component';
 import { TransactionComponent } from '../transaction/transaction.component';
 import { SignupContentComponent } from '../signup-content/signup-content.component';
+import { LandingPageComponent } from '../landing-page/landing-page.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: LandingPageComponent // HomeComponent
   },
   {
     path: 'login',

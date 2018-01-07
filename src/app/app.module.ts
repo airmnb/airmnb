@@ -111,6 +111,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { NgxAmapModule } from 'ngx-amap';
 import { AddressInputGaodeComponent } from './address-input-gaode/address-input-gaode.component';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from "angular4-social-login";
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const sso_config = new AuthServiceConfig([
   {
@@ -161,7 +162,8 @@ export function getSsoConfig() {
     BabyAvatarComponent,
     BookingCardComponent,
     LoadingComponent,
-    AddressInputGaodeComponent
+    AddressInputGaodeComponent,
+    LandingPageComponent
   ],
   imports: [
     MatMomentDateModule,

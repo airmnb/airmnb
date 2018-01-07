@@ -54,12 +54,12 @@ export class SearchResultComponent implements OnInit {
       const queryJson = params['q'];
       const query = <SearchQuery>JSON.parse(queryJson);
       console.log('Search query', query);
-      this.centerLongitude = query.location.location.coordinates[0];
-      this.centerLatitude = query.location.location.coordinates[1];
+      this.centerLongitude = query.mapCenter.lng;
+      this.centerLatitude = query.mapCenter.lat;
       console.log('centerLongitude', this.centerLongitude);
       console.log('centerLatitude', this.centerLatitude);
 
-      this.searchService.search(query).subscribe(x => this.slots = x);
+      this.searchService.search(query).then(x => this.slots = x);
     });
   }
 
@@ -68,6 +68,7 @@ export class SearchResultComponent implements OnInit {
     this.centerLongitude = this.centerLongitude || coords.longitude;
     this.centerLatitude = this.centerLatitude || coords.latitude;
   }
+
 
   getImageUrl(slot: ServiceSlot) : string {
     if(slot.imageNames && slot.imageNames.length) {

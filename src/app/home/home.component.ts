@@ -11,6 +11,7 @@ import { ApiService } from '../api.service';
 import { ApiFacade } from '../apiFacade';
 import { ImageService } from '../slot-image.service';
 import { UtilService } from '../util.service';
+import { LatLngLiteral } from '@agm/core';
 
 @Component({
   selector: 'amb-home',
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
     return this.selectOptionService.ageFromOptions;
   }
 
+  public mapSearch = true;
   public slots: ServiceSlot[];
 
   public submitted = false;
@@ -118,6 +120,10 @@ export class HomeComponent implements OnInit {
     return !!this.session.account;
   }
 
+  mapCenterChange(latLng: LatLngLiteral) {
+    console.log(latLng);
+  }
+
   async search() {
     this.submitted = true;
     try{
@@ -130,19 +136,20 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  toggleMap() {
+    this.mapSearch = !this.mapSearch;
+  }
+
   private composeQuery(): SearchQuery {
     return {
       age: this.model.age >= 0 ? this.model.age : null,
-      start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
-      end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
+      // start: this.getDate(this.model.date, this.model.timeFrom.hour, this.model.timeFrom.minute),
+      // end: this.getDate(this.model.date, this.model.timeTo.hour, this.model.timeTo.minute),
       gender: this.model.gender >= 0 ? this.model.gender : null,
       distance: this.model.distance,
-      location: {
-        address: this.model.location.address,
-        location: {
-          type: "Point",
-          coordinates: this.model.location.location.coordinates
-        }
+      mapCenter: {
+        lng: this.model.location.location.coordinates[0],
+        lat: this.model.location.location.coordinates[1]
       }
     };
   }

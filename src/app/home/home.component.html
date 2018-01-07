@@ -1,7 +1,7 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="amb-home-content">
   <!-- Search container -->
-  <div class="container">
+  <div class="container" *ngIf="!mapSearch">
     <h5>{{'Search events' | translate}}</h5>
     <div class="row">
       <div class="col s12">
@@ -49,7 +49,7 @@
       </div>
       <div class="row">
         <div class="col s12">
-          <button class="btn waves-effect waves-light amb-block" (click)="search()">
+          <button class="btn waves-effect waves-light amb-block" (click)="search();toggleMap()">
             <i class="fa fa-search" aria-hidden="true"></i>
             {{'Search' | translate}}
           </button>
@@ -59,8 +59,14 @@
   </div>
 
   <!-- Map contianer -->
-  <div class="container">
-    <amb-map-search [slots]="slots"></amb-map-search>
+  <div class="container amb-search-map" *ngIf="mapSearch">
+    <amb-map-search [slots]="slots" (centerChange)="mapCenterChange($event)"></amb-map-search>
+    <div class="button-map-filter">
+        <button class="btn amb-block" (click)="toggleMap()">
+          <i class="fa fa-sliders" aria-hidden="true"></i>
+          {{'Filter' | translate}}
+        </button>
+      </div>
   </div>
 
   <!-- recommended container -->
