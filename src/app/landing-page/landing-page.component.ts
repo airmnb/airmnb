@@ -56,7 +56,7 @@ export class LandingPageComponent implements OnInit {
         this.query = <SearchQuery>JSON.parse(queryJson);
       }
       this.getMapCenter(this.query);
-      this.search();
+      this.searchSlots(this.query);
     });
 
     this.searchRecommended();
@@ -90,37 +90,40 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
-  private updateQueryWithModel() {
+  private updateQueryWithModel(center: MapCoord) {
     const delta: SearchQuery = {
       age: this.searchModel.age >= 0 ? this.searchModel.age : undefined,
       start: this.util.parseInputDateTime(this.searchModel.date, this.searchModel.timeFrom),
       end: this.util.parseInputDateTime(this.searchModel.date, this.searchModel.timeTo),
       gender: this.searchModel.gender >= 0 ? this.searchModel.gender : undefined,
       distance: this.searchModel.distance,
-      mapCenter: this.searchModel.location ? {
-        lng: this.searchModel.location.lng,
-        lat: this.searchModel.location.lat
-      } : this.mapCenter
+      mapCenter: center
     };
+
+    console.log('Query string', JSON.stringify(delta));
 
     this.query = Object.assign(this.query, delta);
   }
 
   private redirectWithQueryString() {
-    this.updateQueryWithModel();
     const queryParams = {q: JSON.stringify(this.query)};
     this.router.navigate(['/'], {queryParams});
   }
 
+  private searchSlots(query: SearchQuery) {
+    this.searchService.search(query).then(x => this.slots = x);
+  }
+
   async search() {
-    // this.updateQueryWithModel();
+    this.updateQueryWithModel(this.searchModel.location);
     // this.searchService.search(this.query).then(x => this.slots = x);
     this.redirectWithQueryString();
   }
 
   mapCenterChange(center: MapCoord) {
-    console.log('Map center changed', center);
-    this.query.mapCenter = center;
+    // this.mapCenter = center;
+    console.log('map center', center);
+    this.updateQueryWithModel(center);
     this.redirectWithQueryString();
     // this.searchService.search(this.query).then(x => this.slots = x);
   }
