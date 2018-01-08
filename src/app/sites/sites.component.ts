@@ -6,7 +6,7 @@ import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
 import { ImageService } from '../slot-image.service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/fromPromise';
+import 'rxjs/add/observable/fromPromise';
 
 @Component({
   selector: 'amb-sites',

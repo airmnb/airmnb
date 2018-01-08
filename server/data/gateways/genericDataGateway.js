@@ -199,7 +199,7 @@ var GenericDataGateway = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.getCollection()];
                     case 1:
                         collection = _a.sent();
-                        console.log('Mongo query:', this.collectionName, query);
+                        console.log('Mongo query:', this.collectionName, JSON.stringify(query));
                         return [4 /*yield*/, collection.find(query)
                                 .sort(sort)
                                 .limit(limit)

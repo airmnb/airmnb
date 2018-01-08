@@ -13,11 +13,13 @@ var core_1 = require("@angular/core");
 var map_service_service_1 = require("../map-service.service");
 var marker_manager_1 = require("@agm/core/services/managers/marker-manager");
 var util_service_1 = require("../util.service");
+var router_1 = require("@angular/router");
 var MapSearchComponent = /** @class */ (function () {
-    function MapSearchComponent(mapService, markerManager, util) {
+    function MapSearchComponent(mapService, markerManager, util, router) {
         this.mapService = mapService;
         this.markerManager = markerManager;
         this.util = util;
+        this.router = router;
         this.centerChange = new core_1.EventEmitter();
     }
     Object.defineProperty(MapSearchComponent.prototype, "center", {
@@ -60,6 +62,12 @@ var MapSearchComponent = /** @class */ (function () {
     MapSearchComponent.prototype.fireIdle = function () {
         this.centerChange.emit(this.latestCenter);
     };
+    MapSearchComponent.prototype.book = function (slot) {
+        if (!slot) {
+            return;
+        }
+        this.router.navigate(['/bookings/add/', slot.id]);
+    };
     MapSearchComponent.prototype.setPosition = function (position) {
         var _this = this;
         var coords = position.coords;
@@ -96,7 +104,8 @@ var MapSearchComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [map_service_service_1.MapServiceService,
             marker_manager_1.MarkerManager,
-            util_service_1.UtilService])
+            util_service_1.UtilService,
+            router_1.Router])
     ], MapSearchComponent);
     return MapSearchComponent;
 }());

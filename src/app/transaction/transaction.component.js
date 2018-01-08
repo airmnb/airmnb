@@ -53,7 +53,7 @@ var material_1 = require("@angular/material");
 var moment = require("moment");
 var session_service_1 = require("../session.service");
 var booking_service_1 = require("../booking.service");
-var rxjs_1 = require("rxjs");
+var Subject_1 = require("rxjs/Subject");
 var common_1 = require("@angular/common");
 var timers_1 = require("timers");
 var TransactionComponent = /** @class */ (function () {
@@ -65,7 +65,7 @@ var TransactionComponent = /** @class */ (function () {
         this.session = session;
         this.bookingService = bookingService;
         this.location = location;
-        this.bookingSubject = new rxjs_1.Subject();
+        this.bookingSubject = new Subject_1.Subject();
     }
     Object.defineProperty(TransactionComponent.prototype, "stepper", {
         set: function (stepper) {

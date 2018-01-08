@@ -7,7 +7,7 @@ import { ApiFacade } from './apiFacade';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'angular4-social-login';
-import 'rxjs/add/operator/fromPromise';
+import 'rxjs/add/observable/fromPromise';
 
 const cookieKey = 'c';
 const langKey = 'lang';

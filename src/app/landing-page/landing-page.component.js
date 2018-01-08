@@ -188,6 +188,12 @@ var LandingPageComponent = /** @class */ (function () {
             return "";
         }
     };
+    LandingPageComponent.prototype.book = function (slot) {
+        if (!slot) {
+            return;
+        }
+        this.router.navigate(['/bookings/add/', slot.id]);
+    };
     LandingPageComponent = __decorate([
         core_1.Component({
             selector: 'amb-landing-page',

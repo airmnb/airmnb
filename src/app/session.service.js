@@ -48,11 +48,12 @@ var core_1 = require("@angular/core");
 var types_1 = require("../../types");
 var ngx_cookie_service_1 = require("ngx-cookie-service");
 var Subject_1 = require("rxjs/Subject");
-var Rx_1 = require("rxjs/Rx");
+var Observable_1 = require("rxjs/Observable");
 var apiFacade_1 = require("./apiFacade");
 var router_1 = require("@angular/router");
 var core_2 = require("@ngx-translate/core");
 var angular4_social_login_1 = require("angular4-social-login");
+require("rxjs/add/operator/fromPromise");
 var cookieKey = 'c';
 var langKey = 'lang';
 var SessionService = /** @class */ (function () {
@@ -195,7 +196,7 @@ var SessionService = /** @class */ (function () {
     };
     SessionService.prototype.getProfile = function () {
         var p = this.api.accountProfileApi.get({ accountId: this.account.id });
-        return Rx_1.Observable.fromPromise(p);
+        return Observable_1.Observable.fromPromise(p);
     };
     SessionService.prototype.setLanguage = function (lang) {
         // this.cookieService.set(langKey, lang);
