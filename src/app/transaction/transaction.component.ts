@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { SessionService } from '../session.service';
 import { BookingService } from '../booking.service';
 import { imageFilter } from '../../../server/routes/utils';
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { Location } from '@angular/common';
 import { setInterval, clearInterval } from 'timers';
 

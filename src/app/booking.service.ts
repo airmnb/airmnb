@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ApiService, ApiServiceFactory } from './api.service';
 import { ApiFacade } from './apiFacade';
 import { UtilService } from './util.service';
-import { Observable } from 'rxjs/Rx';
 import { Booking, BookingStatus } from "../../types";
 import { SessionService } from './session.service';
 
