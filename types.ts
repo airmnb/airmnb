@@ -114,6 +114,10 @@ export interface ServiceSlot {
   eventPlaceId: string;
   siteId: string;
   location: MapLocation;
+  locationMongoGeo: {
+    type: "Point",
+    coordinates: Array<number>
+  };
 }
 
 export interface EventPlace {

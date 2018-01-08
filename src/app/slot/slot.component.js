@@ -77,7 +77,8 @@ var SlotComponent = /** @class */ (function () {
             imageNames: null,
             eventPlaceId: null,
             siteId: null,
-            location: null
+            location: null,
+            locationMongoGeo: null
         };
     }
     Object.defineProperty(SlotComponent.prototype, "slot", {
@@ -206,7 +207,12 @@ var SlotComponent = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.slotApi.add(slot)];
+                    case 0:
+                        slot.locationMongoGeo = {
+                            type: "Point",
+                            coordinates: [slot.location.lng, slot.location.lat]
+                        };
+                        return [4 /*yield*/, this.api.slotApi.add(slot)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -218,7 +224,12 @@ var SlotComponent = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.slotApi.update(slot)];
+                    case 0:
+                        slot.locationMongoGeo = {
+                            type: "Point",
+                            coordinates: [slot.location.lng, slot.location.lat]
+                        };
+                        return [4 /*yield*/, this.api.slotApi.update(slot)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];

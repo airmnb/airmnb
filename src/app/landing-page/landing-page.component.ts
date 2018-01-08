@@ -146,4 +146,11 @@ export class LandingPageComponent implements OnInit {
       return "";
     }
   }
+
+  book(slot: ServiceSlot) {
+    if(!slot) {
+      return;
+    }
+    this.router.navigate(['/bookings/add/', slot.id]);
+  }
 }

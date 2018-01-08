@@ -44,10 +44,8 @@ var AddressInputGoogleComponent = /** @class */ (function () {
                     }
                     _this.address = {
                         address: place.formatted_address,
-                        coord: {
-                            lng: place.geometry.location.lng(),
-                            lat: place.geometry.location.lat()
-                        }
+                        lng: place.geometry.location.lng(),
+                        lat: place.geometry.location.lat()
                     };
                     _this.addressChange.emit(_this.address);
                     // // set latitude, longitude and zoom
@@ -70,10 +68,8 @@ var AddressInputGoogleComponent = /** @class */ (function () {
                 _this.longitude = position.coords.longitude;
                 _this.address = {
                     address: "",
-                    coord: {
-                        lng: position.coords.longitude,
-                        lat: position.coords.latitude
-                    }
+                    lng: position.coords.longitude,
+                    lat: position.coords.latitude
                 };
                 _this.zoom = 12;
             });
@@ -103,7 +99,7 @@ var AddressInputGoogleComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'amb-address-input-google',
             templateUrl: './address-input-google.component.html',
-            styleUrls: ['./address-input-google.component.css']
+            styleUrls: ['./address-input-google.component.scss']
         }),
         __metadata("design:paramtypes", [core_2.MapsAPILoader,
             core_1.NgZone])

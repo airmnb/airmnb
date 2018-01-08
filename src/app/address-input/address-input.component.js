@@ -16,6 +16,17 @@ var AddressInputComponent = /** @class */ (function () {
         this.util = util;
         this.addressChange = new core_1.EventEmitter();
     }
+    Object.defineProperty(AddressInputComponent.prototype, "address", {
+        get: function () {
+            return this._address;
+        },
+        set: function (value) {
+            this._address = value;
+            this.addressChange.emit(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(AddressInputComponent.prototype, "shouldUseGoogle", {
         get: function () {
             return this.util.shouldUseGoogleMap;
@@ -34,8 +45,9 @@ var AddressInputComponent = /** @class */ (function () {
     };
     __decorate([
         core_1.Input(),
-        __metadata("design:type", Object)
-    ], AddressInputComponent.prototype, "address", void 0);
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], AddressInputComponent.prototype, "address", null);
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)

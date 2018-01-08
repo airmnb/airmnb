@@ -69,10 +69,8 @@ var ProfileContentComponent = /** @class */ (function () {
             gender: null,
             location: {
                 address: null,
-                location: {
-                    type: "Point",
-                    coordinates: [0, 0]
-                }
+                lng: null,
+                lat: null
             },
             imageNames: [],
             imageUrls: [],

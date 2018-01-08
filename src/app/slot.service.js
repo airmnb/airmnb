@@ -113,14 +113,14 @@ var SlotService = /** @class */ (function () {
             };
         }
         if (query.mapCenter) {
-            q.location = {
+            q.locationMongoGeo = {
                 $near: {
                     $geometry: { type: "Point", coordinates: [query.mapCenter.lng, query.mapCenter.lat] },
                     $maxDistance: (query.distance || 1) * 1000
                 }
             };
         }
-        return {} || q; // Always return all slots for demo.
+        return q;
     };
     SlotService = __decorate([
         core_1.Injectable(),

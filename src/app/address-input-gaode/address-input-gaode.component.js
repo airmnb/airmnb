@@ -30,10 +30,8 @@ var AddressInputGaodeComponent = /** @class */ (function () {
             return;
         this.address = {
             address: event.poi.name + " " + event.poi.address + " " + event.poi.district,
-            coord: {
-                lng: event.poi.location.lng,
-                lat: event.poi.location.lat
-            }
+            lng: event.poi.location.lng,
+            lat: event.poi.location.lat
         };
         this.addressChange.emit(this.address);
         console.log(this.address);
@@ -48,10 +46,8 @@ var AddressInputGaodeComponent = /** @class */ (function () {
                 }
                 _this.address = {
                     address: "",
-                    coord: {
-                        lng: position.coords.longitude,
-                        lat: position.coords.latitude
-                    }
+                    lng: position.coords.longitude,
+                    lat: position.coords.latitude
                 };
             });
         }

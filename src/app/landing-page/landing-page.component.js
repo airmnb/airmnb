@@ -51,8 +51,9 @@ var slot_service_1 = require("../slot.service");
 var util_service_1 = require("../util.service");
 var slot_image_service_1 = require("../slot-image.service");
 var select_option_service_1 = require("../select-option.service");
+var session_service_1 = require("../session.service");
 var LandingPageComponent = /** @class */ (function () {
-    function LandingPageComponent(route, router, api, searchService, util, selectOptionService, image) {
+    function LandingPageComponent(route, router, api, searchService, util, selectOptionService, image, session) {
         this.route = route;
         this.router = router;
         this.api = api;
@@ -60,14 +61,13 @@ var LandingPageComponent = /** @class */ (function () {
         this.util = util;
         this.selectOptionService = selectOptionService;
         this.image = image;
+        this.session = session;
         this.showsAdvancedSearch = false;
         this.searchModel = {
             location: {
                 address: null,
-                location: {
-                    type: "Point",
-                    coordinates: []
-                }
+                lng: null,
+                lat: null
             },
             distance: 1,
             age: -1,
@@ -86,6 +86,10 @@ var LandingPageComponent = /** @class */ (function () {
     });
     LandingPageComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (this.session.isProvider) {
+            this.router.navigate(['slots']);
+            return;
+        }
         this.route.queryParams.subscribe(function (params) {
             var queryJson = params['q'];
             _this.isRecommended = !queryJson;
@@ -94,7 +98,7 @@ var LandingPageComponent = /** @class */ (function () {
                 _this.query = JSON.parse(queryJson);
             }
             _this.getMapCenter(_this.query);
-            _this.search();
+            _this.searchSlots(_this.query);
         });
         this.searchRecommended();
     };
@@ -117,7 +121,7 @@ var LandingPageComponent = /** @class */ (function () {
     LandingPageComponent.prototype.getMapCenter = function (query) {
         try {
             this.mapCenter = query.mapCenter;
-            if (this.mapCenter.lng === undefined || this.mapCenter.lat === undefined) {
+            if (this.util.isNullOrUndefined(this.mapCenter.lng) || this.util.isNullOrUndefined(this.mapCenter.lat)) {
                 throw new Error('Both longitude and latitude have to be there.');
             }
         }
@@ -136,34 +140,42 @@ var LandingPageComponent = /** @class */ (function () {
             lat: coords.latitude
         });
     };
-    LandingPageComponent.prototype.updateQueryWithModel = function () {
+    LandingPageComponent.prototype.updateQueryWithModel = function (center) {
         var delta = {
             age: this.searchModel.age >= 0 ? this.searchModel.age : undefined,
             start: this.util.parseInputDateTime(this.searchModel.date, this.searchModel.timeFrom),
             end: this.util.parseInputDateTime(this.searchModel.date, this.searchModel.timeTo),
             gender: this.searchModel.gender >= 0 ? this.searchModel.gender : undefined,
             distance: this.searchModel.distance,
-            mapCenter: {
-                lng: this.searchModel.location.location.coordinates[0],
-                lat: this.searchModel.location.location.coordinates[1]
-            }
+            mapCenter: center
         };
+        console.log('Query string', JSON.stringify(delta));
         this.query = Object.assign(this.query, delta);
+    };
+    LandingPageComponent.prototype.redirectWithQueryString = function () {
+        var queryParams = { q: JSON.stringify(this.query) };
+        this.router.navigate(['/'], { queryParams: queryParams });
+    };
+    LandingPageComponent.prototype.searchSlots = function (query) {
+        var _this = this;
+        this.searchService.search(query).then(function (x) { return _this.slots = x; });
     };
     LandingPageComponent.prototype.search = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
             return __generator(this, function (_a) {
-                this.updateQueryWithModel();
-                this.searchService.search(this.query).then(function (x) { return _this.slots = x; });
+                this.updateQueryWithModel(this.searchModel.location);
+                // this.searchService.search(this.query).then(x => this.slots = x);
+                this.redirectWithQueryString();
                 return [2 /*return*/];
             });
         });
     };
     LandingPageComponent.prototype.mapCenterChange = function (center) {
-        var _this = this;
-        this.query.mapCenter = center;
-        this.searchService.search(this.query).then(function (x) { return _this.slots = x; });
+        // this.mapCenter = center;
+        console.log('map center', center);
+        this.updateQueryWithModel(center);
+        this.redirectWithQueryString();
+        // this.searchService.search(this.query).then(x => this.slots = x);
     };
     LandingPageComponent.prototype.displayGender = function (gender) {
         return this.util.displayGender(gender);
@@ -188,7 +200,8 @@ var LandingPageComponent = /** @class */ (function () {
             slot_service_1.SlotService,
             util_service_1.UtilService,
             select_option_service_1.SelectOptionService,
-            slot_image_service_1.ImageService])
+            slot_image_service_1.ImageService,
+            session_service_1.SessionService])
     ], LandingPageComponent);
     return LandingPageComponent;
 }());

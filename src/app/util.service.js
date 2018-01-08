@@ -35,6 +35,9 @@ var UtilService = /** @class */ (function () {
             gender == types_1.Gender.Girl ? 'Girl' :
                 'Either';
     };
+    UtilService.prototype.isNullOrUndefined = function (value) {
+        return value === null || value === undefined;
+    };
     UtilService.prototype.parseInputDateTime = function (date, time) {
         var input = date + " " + time; // YYYY-MM-dd HH:mm
         return moment(input).toDate();

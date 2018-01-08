@@ -12,6 +12,9 @@ export interface IDataGateway <T> {
 	query(query: any, limit?: number): Promise < T[] > ;
 }
 
+// Ensure index
+dbPromise.then(db => db.collection("slot").ensureIndex({locationMongoGeo: "2dsphere"}));
+
 export class DataGateway<T extends {id?: string}> implements IDataGateway<T> {
 	constructor(private collectionName: string) { }
 

@@ -68,10 +68,8 @@ var MapServiceService = /** @class */ (function () {
                             firstAddress = obj.results[0];
                             return [2 /*return*/, {
                                     address: firstAddress.formatted_address,
-                                    coord: {
-                                        lng: firstAddress.geometry.location.lng,
-                                        lat: firstAddress.geometry.location.lat
-                                    }
+                                    lng: firstAddress.geometry.location.lng,
+                                    lat: firstAddress.geometry.location.lat
                                 }];
                         }
                         return [2 /*return*/, null];

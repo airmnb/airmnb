@@ -27,6 +27,7 @@ var ngx_cookie_service_1 = require("ngx-cookie-service");
 var notification_service_1 = require("./notification.service");
 var notification_component_1 = require("./notification/notification.component");
 var core_2 = require("@agm/core");
+var address_input_component_1 = require("./address-input/address-input.component");
 var environment_1 = require("../environments/environment");
 var slot_list_component_1 = require("./slot-list/slot-list.component");
 var slot_service_1 = require("./slot.service");
@@ -78,6 +79,7 @@ var ngx_amap_1 = require("ngx-amap");
 var address_input_gaode_component_1 = require("./address-input-gaode/address-input-gaode.component");
 var angular4_social_login_1 = require("angular4-social-login");
 var landing_page_component_1 = require("./landing-page/landing-page.component");
+var address_input_google_component_1 = require("./address-input-google/address-input-google.component");
 var sso_config = new angular4_social_login_1.AuthServiceConfig([
     {
         id: angular4_social_login_1.GoogleLoginProvider.PROVIDER_ID,
@@ -99,7 +101,7 @@ var AppModule = /** @class */ (function () {
                 aboutus_component_1.AboutusComponent,
                 date_time_picker_component_1.DateTimePickerComponent,
                 notification_component_1.NotificationComponent,
-                AddressInputGoogleComponent,
+                address_input_google_component_1.AddressInputGoogleComponent,
                 slot_list_component_1.SlotListComponent,
                 login_content_component_1.LoginContentComponent,
                 signup_content_component_1.SignupContentComponent,
@@ -131,7 +133,8 @@ var AppModule = /** @class */ (function () {
                 booking_card_component_1.BookingCardComponent,
                 loading_component_1.LoadingComponent,
                 address_input_gaode_component_1.AddressInputGaodeComponent,
-                landing_page_component_1.LandingPageComponent
+                landing_page_component_1.LandingPageComponent,
+                address_input_component_1.AddressInputComponent
             ],
             imports: [
                 material_moment_adapter_1.MatMomentDateModule,

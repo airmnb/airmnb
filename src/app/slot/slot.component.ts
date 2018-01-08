@@ -57,7 +57,8 @@ export class SlotComponent implements OnInit {
     imageNames: null,
     eventPlaceId: null,
     siteId: null,
-    location: <MapLocation>null
+    location: <MapLocation>null,
+    locationMongoGeo: null
   };
 
   sites: EventSite[];
@@ -152,10 +153,18 @@ export class SlotComponent implements OnInit {
   }
 
   private async add(slot: ServiceSlot): Promise<void>{
+    slot.locationMongoGeo = {
+      type: "Point",
+      coordinates: [slot.location.lng, slot.location.lat]
+    };
     await this.api.slotApi.add(slot);
   }
 
   private async update(slot: ServiceSlot): Promise<void>{
+    slot.locationMongoGeo = {
+      type: "Point",
+      coordinates: [slot.location.lng, slot.location.lat]
+    };
     await this.api.slotApi.update(slot);
   }
 

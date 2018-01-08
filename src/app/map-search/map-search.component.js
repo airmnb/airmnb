@@ -20,6 +20,13 @@ var MapSearchComponent = /** @class */ (function () {
         this.util = util;
         this.centerChange = new core_1.EventEmitter();
     }
+    Object.defineProperty(MapSearchComponent.prototype, "center", {
+        set: function (value) {
+            this.latestCenter = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MapSearchComponent.prototype, "isMapReady", {
         get: function () {
             return !!this.latestCenter;
@@ -43,9 +50,9 @@ var MapSearchComponent = /** @class */ (function () {
     });
     MapSearchComponent.prototype.ngOnInit = function () {
         // Get the current geolocation
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
-        }
+        // if (navigator.geolocation){
+        //    navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
+        // }
     };
     MapSearchComponent.prototype.mapCenterChange = function (center) {
         this.latestCenter = center;
@@ -59,12 +66,20 @@ var MapSearchComponent = /** @class */ (function () {
         this.mapService.getAddress(coords)
             .then(function (x) {
             _this.address = x.address;
-            if (x.coord) {
-                _this.latestCenter = x.coord;
+            if (x.address) {
+                _this.latestCenter = {
+                    lng: x.lng,
+                    lat: x.lat
+                };
             }
         })
             .catch(function (e) { return null; });
     };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], MapSearchComponent.prototype, "center", null);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Array)

@@ -70,10 +70,8 @@ var HomeComponent = /** @class */ (function () {
         this.model = {
             location: {
                 address: null,
-                location: {
-                    type: "Point",
-                    coordinates: []
-                }
+                lng: null,
+                lat: null
             },
             distance: 1,
             age: -1,
@@ -94,20 +92,6 @@ var HomeComponent = /** @class */ (function () {
     Object.defineProperty(HomeComponent.prototype, "ageOptions", {
         get: function () {
             return this.selectOptionService.ageFromOptions;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HomeComponent.prototype, "shouldUseGoogle", {
-        get: function () {
-            return this.util.shouldUseGoogleMap;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HomeComponent.prototype, "shouldUseGaode", {
-        get: function () {
-            return this.util.shouldUseGaodeMap;
         },
         enumerable: true,
         configurable: true
@@ -204,8 +188,8 @@ var HomeComponent = /** @class */ (function () {
             gender: this.model.gender >= 0 ? this.model.gender : null,
             distance: this.model.distance,
             mapCenter: {
-                lng: this.model.location.location.coordinates[0],
-                lat: this.model.location.location.coordinates[1]
+                lng: this.model.location.lng,
+                lat: this.model.location.lat
             }
         };
     };

@@ -5,6 +5,7 @@ import { AgmMarker } from '@agm/core/directives/marker';
 import { MapLocation, ServiceSlot, MapCoord } from '../../../types';
 import { UtilService } from '../util.service';
 import { LatLngLiteral } from '@agm/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'amb-map-search',
@@ -36,7 +37,8 @@ export class MapSearchComponent implements OnInit {
   constructor(
     private mapService: MapServiceService,
     private markerManager: MarkerManager,
-    private util: UtilService
+    private util: UtilService,
+    private router: Router
   ) { }
 
   ngOnInit(){
@@ -52,6 +54,13 @@ export class MapSearchComponent implements OnInit {
 
   fireIdle() {
     this.centerChange.emit(this.latestCenter);
+  }
+
+  book(slot: ServiceSlot) {
+    if(!slot) {
+      return;
+    }
+    this.router.navigate(['/bookings/add/', slot.id]);
   }
 
   private setPosition(position){

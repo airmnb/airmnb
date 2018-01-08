@@ -65,7 +65,8 @@ var SiteComponent = /** @class */ (function () {
             name: null,
             location: {
                 address: null,
-                coord: null
+                lng: null,
+                lat: null
             },
             info: null,
             imageNames: []
