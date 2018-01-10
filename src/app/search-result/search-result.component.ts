@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ILabel } from 'ngx-amap/types/interface';
 
 import { ServiceSlot, BabyProfile, MapLocation, SearchQuery } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 import { SlotService } from '../core/slot.service';
 import { ImageService } from '../core/slot-image.service';

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 
 import { BabyProfile, Role, Gender } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';

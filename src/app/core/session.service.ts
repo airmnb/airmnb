@@ -9,7 +9,7 @@ import 'rxjs/add/observable/fromPromise';
 import { CookieService } from 'ngx-cookie-service';
 
 import { Account, AccountProfile, Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from './apiFacade';
 
 const cookieKey = 'c';
 const langKey = 'lang';

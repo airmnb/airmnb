@@ -9,7 +9,7 @@ import * as moment from 'moment';
 
 import { imageFilter } from '../../../server/routes/utils';
 import { Booking, BookingStatus } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { UtilService } from '../core/util.service';
 import { ImageService } from '../core/slot-image.service';
 import { SessionService } from '../core/session.service';

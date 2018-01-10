@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as uuid from 'uuid';
 
 import { ProviderImage, ServiceSlot } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from './apiFacade';
 import { ApiServiceFactory, ApiService } from './api.service';
 
 @Injectable()

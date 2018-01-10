@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as uuid from 'uuid';
 
 import { AccountProfile, ServiceSlot, MapLocation, Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { ApiServiceFactory, ApiService } from '../core/api.service';
 import { SessionService } from '../core/session.service';
 import { NotificationService } from '../core/notification.service';

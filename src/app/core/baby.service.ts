@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BabyProfile } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from './apiFacade';
 
 @Injectable()
 export class BabyService {

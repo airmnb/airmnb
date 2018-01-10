@@ -6,7 +6,7 @@ import * as moment from "moment";
 import { LatLngLiteral } from '@agm/core';
 
 import { SearchQuery, SelectOption, ServiceSlot, Gender } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { ApiService } from '../core/api.service';
 import { MapServiceService } from '../core/map-service.service';
 import { NotificationService } from '../core/notification.service';

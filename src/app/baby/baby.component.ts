@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BabyProfile } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';
 import { UtilService } from '../core/util.service';

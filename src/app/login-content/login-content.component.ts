@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService, SocialUser, GoogleLoginProvider } from 'angular4-social-login';
 
 import { Account, AccountProfile, Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { LoginService } from '../core/api.service';
 import { SessionService } from '../core/session.service';
 import { UtilService } from '../core/util.service';

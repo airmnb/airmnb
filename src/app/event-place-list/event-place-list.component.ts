@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { EventPlaceComponent } from '../event-place/event-place.component';
 import { EventPlace } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 
 @Component({
   selector: 'amb-event-place-list',

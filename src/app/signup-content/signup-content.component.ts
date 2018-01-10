@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 import * as uuid from 'uuid';
 
 import { Account, Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 import { ApiService, ApiServiceFactory } from '../core/api.service';
 

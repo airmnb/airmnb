@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 
 import { ServiceSlot, Gender, Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';

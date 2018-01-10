@@ -3,7 +3,7 @@ import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 
 @Component({

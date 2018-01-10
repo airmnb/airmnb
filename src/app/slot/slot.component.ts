@@ -5,7 +5,7 @@ import * as uuid from "uuid";
 import * as moment from "moment";
 
 import { ServiceSlot, Gender, EventSite, SelectOption, MapLocation } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { ApiServiceFactory, ApiService } from '../core/api.service';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';

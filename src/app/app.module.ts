@@ -33,7 +33,6 @@ import { LoginContentComponent } from './login-content/login-content.component';
 import { SignupContentComponent } from './signup-content/signup-content.component';
 import { SlotComponent } from './slot/slot.component';
 import { ProfileContentComponent } from './profile-content/profile-content.component';
-import { ApiFacade } from "./apiFacade";
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -231,7 +230,6 @@ export function getSsoConfig() {
   ],
   providers: [
     NgbTimepickerConfig,
-    ApiFacade,
     GoogleMapsAPIWrapper,
     MarkerManager,
     HttpClient,

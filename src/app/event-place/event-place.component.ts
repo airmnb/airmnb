@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { EventPlace, MapLocation, Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
+import { ApiFacade } from '../core/apiFacade';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';
 import { ImageService } from '../core/slot-image.service';
