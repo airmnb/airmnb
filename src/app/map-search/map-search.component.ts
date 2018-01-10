@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 import { AgmMarker } from '@agm/core/directives/marker';
 import { LatLngLiteral } from '@agm/core';
+import { SessionService } from '../session.service';
 
 import { MapLocation, ServiceSlot, MapCoord } from '../../../types';
 import { MapServiceService } from '../core/map-service.service';
@@ -29,18 +30,19 @@ export class MapSearchComponent implements OnInit {
   }
 
   get isGoogleMapReady(): boolean {
-    return this.util.shouldUseGoogleMap && this.isMapReady;
+    return this.session.shouldUseGoogleMap && this.isMapReady;
   }
 
   get isGaodeMapReady(): boolean {
-    return this.util.shouldUseGaodeMap && this.isMapReady;
+    return this.session.shouldUseGaodeMap && this.isMapReady;
   }
 
   constructor(
     private mapService: MapServiceService,
     private markerManager: MarkerManager,
     private util: UtilService,
-    private router: Router
+    private router: Router,
+    private session: SessionService
   ) { }
 
   ngOnInit(){

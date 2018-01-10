@@ -23,7 +23,7 @@ export class SearchResultComponent implements OnInit {
   centerLatitude: number;
 
   get hasLoggedIn(): boolean {
-    return this.sessionService.hasLoggedIn;
+    return this.session.hasLoggedIn;
   }
 
   get isMapReady(): boolean {
@@ -31,17 +31,17 @@ export class SearchResultComponent implements OnInit {
   }
 
   get isGoogleMapReady(): boolean {
-    return this.util.shouldUseGoogleMap && this.isMapReady;
+    return this.session.shouldUseGoogleMap && this.isMapReady;
   }
 
   get isGaodeMapReady(): boolean {
-    return this.util.shouldUseGaodeMap && this.isMapReady;
+    return this.session.shouldUseGaodeMap && this.isMapReady;
   }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private sessionService: SessionService,
+    private session: SessionService,
     private searchService: SlotService,
     private api: ApiFacade,
     private imageService: ImageService,

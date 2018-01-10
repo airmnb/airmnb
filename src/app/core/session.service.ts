@@ -90,6 +90,11 @@ export class SessionService {
     this.saveCookie();
   }
 
+  refreshProfile() {
+    if(!this.hasLoggedIn) throw new Error('The user has signed out.');
+    this.login(this._account, this._role);
+  }
+
   async logout() {
     console.log('Session login');
     this._account = null;
@@ -141,5 +146,14 @@ export class SessionService {
 
   getLanguage(): string {
     return this.cookieService.get(langKey) || 'en';
+  }
+
+
+  get shouldUseGoogleMap(): boolean {
+    return !this._profile || !this._profile.preferredMap || this._profile.preferredMap === 'google';
+  }
+
+  get shouldUseGaodeMap(): boolean {
+    return this._profile && this._profile.preferredMap === 'gaode';
   }
 }

@@ -27,6 +27,7 @@ export class ProfileContentComponent implements OnInit {
     lastName: null,
     dob: null,
     gender: null,
+    preferredMap: "google",
     location: {
       address: null,
       lng: null,
@@ -77,6 +78,7 @@ export class ProfileContentComponent implements OnInit {
     this.model.gender = p.gender;
     this.model.imageNames = p.imageNames;
     this.model.description = p.description;
+    this.model.preferredMap = p.preferredMap;
     // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
     // this.model.age.a34 = p.ageFrom <= 3 && 4 < p.ageTo;
     // this.model.age.a45 = p.ageFrom <= 4 && 5 < p.ageTo;
@@ -86,7 +88,7 @@ export class ProfileContentComponent implements OnInit {
     // this.model.language.japanese = p.languages.includes('jp');
   }
 
-  onSubmit() {
+  async onSubmit() {
     // const profile: Profile = {
     //   id: uuid.v4(),
     //   accountId: this.sessionService.account.id,
@@ -105,13 +107,17 @@ export class ProfileContentComponent implements OnInit {
       accountId: this.session.account.id,
       gender: this.model.gender,
       imageNames: this.model.imageNames,
-      description: this.model.description
+      description: this.model.description,
+      preferredMap: this.model.preferredMap
     };
-    this.api.accountProfileApi.add(p)
-    .then(x => {
+
+    try{
+      await this.api.accountProfileApi.add(p);
+      await this.session.refreshProfile();
       this.router.navigate(['']);
-    })
-    .catch(e => this.notificationService.error(e));
+    } catch(e) {
+      this.notificationService.error(e);
+    }
   }
 
   public async onUploadFinished(event): Promise<void> {
