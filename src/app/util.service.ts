@@ -66,12 +66,4 @@ export class UtilService {
   deepEquals(x: any, y: any): boolean {
     return _.isEqual(x, y);
   }
-
-  get shouldUseGoogleMap(): boolean {
-    return environment.mapProvider === 'google';
-  }
-
-  get shouldUseGaodeMap(): boolean {
-    return environment.mapProvider === 'gaode';
-  }
 }

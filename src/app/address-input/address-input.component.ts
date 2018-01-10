@@ -4,6 +4,7 @@ import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 import { MapLocation } from '../../../types';
 import { UtilService } from '../util.service';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'amb-address-input',
@@ -22,15 +23,16 @@ export class AddressInputComponent implements OnInit {
   @Output() addressChange = new EventEmitter<MapLocation>();
 
   get shouldUseGoogle(): boolean {
-    return this.util.shouldUseGoogleMap;
+    return this.session.shouldUseGaodeMap;
   }
 
   get shouldUseGaode(): boolean {
-    return this.util.shouldUseGaodeMap;
+    return this.session.shouldUseGaodeMap;
   }
 
   constructor(
-    private util: UtilService
+    private util: UtilService,
+    private session: SessionService
   ) {}
 
   ngOnInit() {
