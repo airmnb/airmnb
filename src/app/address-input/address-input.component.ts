@@ -23,7 +23,7 @@ export class AddressInputComponent implements OnInit {
   @Output() addressChange = new EventEmitter<MapLocation>();
 
   get shouldUseGoogle(): boolean {
-    return this.session.shouldUseGaodeMap;
+    return this.session.shouldUseGoogleMap;
   }
 
   get shouldUseGaode(): boolean {
