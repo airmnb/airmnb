@@ -89,7 +89,6 @@ import { BabiesComponent } from './babies/babies.component';
 import { BabyComponent } from './baby/baby.component';
 import { SitesComponent } from './sites/sites.component';
 import { SiteComponent } from './site/site.component';
-import { SearchResultComponent } from './search-result/search-result.component';
 import { TakePhotoComponent } from './take-photo/take-photo.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { BabyAvatarComponent } from './baby-avatar/baby-avatar.component';
@@ -118,7 +117,6 @@ export function getSsoConfig() {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     AboutusComponent,
     DateTimePickerComponent,
     NotificationComponent,
@@ -147,7 +145,6 @@ export function getSsoConfig() {
     BabyComponent,
     SitesComponent,
     SiteComponent,
-    SearchResultComponent,
     TakePhotoComponent,
     TransactionComponent,
     BabyAvatarComponent,

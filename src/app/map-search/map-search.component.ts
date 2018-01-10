@@ -8,6 +8,7 @@ import { LatLngLiteral } from '@agm/core';
 import { MapLocation, ServiceSlot, MapCoord } from '../../../types';
 import { MapServiceService } from '../core/map-service.service';
 import { UtilService } from '../core/util.service';
+import { SessionService } from '../core/session.service';
 
 @Component({
   selector: 'amb-map-search',
@@ -29,18 +30,19 @@ export class MapSearchComponent implements OnInit {
   }
 
   get isGoogleMapReady(): boolean {
-    return this.util.shouldUseGoogleMap && this.isMapReady;
+    return this.session.shouldUseGoogleMap && this.isMapReady;
   }
 
   get isGaodeMapReady(): boolean {
-    return this.util.shouldUseGaodeMap && this.isMapReady;
+    return this.session.shouldUseGaodeMap && this.isMapReady;
   }
 
   constructor(
     private mapService: MapServiceService,
     private markerManager: MarkerManager,
     private util: UtilService,
-    private router: Router
+    private router: Router,
+    private session: SessionService
   ) { }
 
   ngOnInit(){

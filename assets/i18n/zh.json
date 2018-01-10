@@ -118,5 +118,8 @@
   "Filter": "重新设置搜索",
   "Start": "开始时间",
   "Click to book": "点击预定",
-  "Loading": "加载中"
+  "Loading": "加载中",
+  "Preferred map provider": "地图服务引擎",
+  "Google": "谷歌地图",
+  "Gaode (Only available for China)": "高德地图（仅中国国内可用）"
 }

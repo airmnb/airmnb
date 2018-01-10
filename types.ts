@@ -49,6 +49,7 @@ export interface AccountProfile  {
   lastName: string;
   dob: Date;
   gender: Gender;
+  preferredMap?: string;
   // For provider
   location?: MapLocation;
   imageNames?: string[];
