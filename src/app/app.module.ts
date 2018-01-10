@@ -16,7 +16,6 @@ import { CalendarModule } from 'angular-calendar';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { ApiService, ApiServiceFactory, LoginService} from "./api.service";
 import { SessionService } from './session.service';
 import { MapServiceService } from './map-service.service';
@@ -128,7 +127,6 @@ export function getSsoConfig() {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     AboutusComponent,
     DateTimePickerComponent,
     NotificationComponent,
