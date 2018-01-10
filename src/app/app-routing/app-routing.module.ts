@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../home/home.component';
 import { AboutusComponent } from '../aboutus/aboutus.component';
 import { LoginComponent } from '../login/login.component';
 import { SignupComponent } from '../signup/signup.component';
@@ -17,14 +16,13 @@ import { BabiesComponent } from '../babies/babies.component';
 import { BabyComponent } from '../baby/baby.component';
 import { SitesComponent } from '../sites/sites.component';
 import { SiteComponent } from '../site/site.component';
-import { SearchResultComponent } from '../search-result/search-result.component';
 import { TransactionComponent } from '../transaction/transaction.component';
 import { SignupContentComponent } from '../signup-content/signup-content.component';
 import { LandingPageComponent } from '../landing-page/landing-page.component';
 const routes: Routes = [
   {
     path: '',
-    component: LandingPageComponent // HomeComponent
+    component: LandingPageComponent
   },
   {
     path: 'login',
@@ -93,10 +91,6 @@ const routes: Routes = [
   {
     path: 'booking/:id',
     component: TransactionComponent
-  },
-  {
-    path: 'search',
-    component: SearchResultComponent
   },
   {
     path: 'aboutus',
