@@ -15,7 +15,7 @@ import { CalendarModule } from 'angular-calendar';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 
 import { HomeComponent } from './home/home.component';
