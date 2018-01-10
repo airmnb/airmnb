@@ -3,7 +3,6 @@
 /.ts-node
 
 # compiled output
-/dist
 /tmp
 /out-tsc
 
@@ -43,3 +42,6 @@ Thumbs.db
 
 /image/*
 !/image/.gitkeep
+/server/**/*.js
+/src/**/*.js
+*.js
