@@ -3,7 +3,6 @@
 /.ts-node
 
 # compiled output
-/dist
 /tmp
 /out-tsc
 
@@ -21,10 +20,6 @@
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
 # misc
 /.sass-cache
@@ -47,3 +42,6 @@ Thumbs.db
 
 /image/*
 !/image/.gitkeep
+/server/**/*.js
+/src/**/*.js
+*.js
