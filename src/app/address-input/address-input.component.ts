@@ -6,7 +6,7 @@ import {} from '@types/googlemaps';
 
 import { MapLocation } from '../../../types';
 import { UtilService } from '../core/util.service';
-import { SessionService } from '../session.service';
+import { SessionService } from '../core/session.service';
 
 @Component({
   selector: 'amb-address-input',
