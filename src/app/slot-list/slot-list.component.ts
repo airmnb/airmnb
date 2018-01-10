@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, DoCheck } from '@angular/core';
-import { ServiceSlot, Gender } from '../../../types';
-import { ImageService } from '../slot-image.service';
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
-import { SessionService } from '../session.service';
-import { Router } from '@angular/router';
-import { UtilService } from '../util.service';
+
+import { ServiceSlot, Gender } from '../../../types';
+import { SessionService } from '../core/session.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-slot-list',

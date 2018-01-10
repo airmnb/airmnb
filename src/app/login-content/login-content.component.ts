@@ -1,12 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LoginService } from '../api.service';
-import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
-import { Account, AccountProfile, Role } from '../../../types';
-import { NotificationService } from '../notification.service';
+
 import { AuthService, SocialUser, GoogleLoginProvider } from 'angular4-social-login';
+
+import { Account, AccountProfile, Role } from '../../../types';
 import { ApiFacade } from '../apiFacade';
-import { UtilService } from '../util.service';
+import { LoginService } from '../core/api.service';
+import { SessionService } from '../core/session.service';
+import { UtilService } from '../core/util.service';
+import { NotificationService } from '../core/notification.service';
 
 @Component({
   selector: 'amb-login-content',

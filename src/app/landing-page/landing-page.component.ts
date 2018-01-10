@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiFacade } from '../apiFacade';
-import { SlotService } from '../slot.service';
-import { UtilService } from '../util.service';
+
 import { SearchQuery, ServiceSlot, MapCoord, Gender, SelectOption } from '../../../types';
-import { ImageService } from '../slot-image.service';
-import { SelectOptionService } from '../select-option.service';
-import { SessionService } from '../session.service';
+import { ApiFacade } from '../apiFacade';
+import { SlotService } from '../core/slot.service';
+import { SelectOptionService } from '../core/select-option.service';
+import { SessionService } from '../core/session.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-landing-page',

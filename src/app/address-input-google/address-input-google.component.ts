@@ -1,7 +1,9 @@
 import { Component, ElementRef, NgModule, NgZone, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
+
 import { MapLocation } from '../../../types';
 
 @Component({

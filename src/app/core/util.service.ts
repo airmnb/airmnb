@@ -1,11 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
+import {DOCUMENT} from '@angular/platform-browser';
+
 import * as uuid from 'uuid';
 import * as moment from 'moment';
-import { Gender } from '../../types';
-import {DOCUMENT} from '@angular/platform-browser';
 import * as _ from 'underscore';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../environments/environment';
+
+import { environment } from '../../environments/environment';
+import { Gender } from '../../../types';
 
 @Injectable()
 export class UtilService {

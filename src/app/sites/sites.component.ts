@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { EventSite, Role } from '../../../types';
-import { ApiFacade } from '../apiFacade';
-import { UtilService } from '../util.service';
-import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
-import { ImageService } from '../slot-image.service';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
+
+import { EventSite, Role } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { SessionService } from '../core/session.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-sites',

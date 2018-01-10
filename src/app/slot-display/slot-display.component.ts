@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ServiceSlot, Gender } from '../../../types';
+
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
-import { ImageService } from '../slot-image.service';
-import { UtilService } from '../util.service';
+
+import { ServiceSlot, Gender } from '../../../types';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-slot-display',

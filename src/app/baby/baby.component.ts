@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiFacade } from '../apiFacade';
-import { SessionService } from '../session.service';
-import { UtilService } from '../util.service';
-import { BabyProfile } from '../../../types';
-import { NotificationService } from '../notification.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { BabyProfile } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { NotificationService } from '../core/notification.service';
+import { SessionService } from '../core/session.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-baby',

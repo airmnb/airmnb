@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Booking, AccountProfile, BabyProfile, ServiceSlot, Gender } from '../../../types';
 import { ApiFacade } from '../apiFacade';
-import { BookingService } from '../booking.service';
-import { Router } from '@angular/router';
-import { SessionService } from '../session.service';
-import { UtilService } from '../util.service';
-import { ImageService } from '../slot-image.service';
+import { BookingService } from '../core/booking.service';
+import { SessionService } from '../core/session.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-booking-card',

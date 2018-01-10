@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Account, AccountProfile, Role } from "../../types";
-import { CookieService } from 'ngx-cookie-service';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import { ApiFacade } from './apiFacade';
 import { Router } from '@angular/router';
+
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'angular4-social-login';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
+import { CookieService } from 'ngx-cookie-service';
+
+import { Account, AccountProfile, Role } from '../../../types';
+import { ApiFacade } from '../apiFacade';
 
 const cookieKey = 'c';
 const langKey = 'lang';

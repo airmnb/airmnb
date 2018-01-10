@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceSlot, BabyProfile, MapLocation, SearchQuery } from '../../../types';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SessionService } from '../session.service';
-import { SlotService } from '../slot.service';
-import { ApiFacade } from '../apiFacade';
-import { ImageService } from '../slot-image.service';
+
 import { ILabel } from 'ngx-amap/types/interface';
-import { UtilService } from '../util.service';
+
+import { ServiceSlot, BabyProfile, MapLocation, SearchQuery } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { SessionService } from '../core/session.service';
+import { SlotService } from '../core/slot.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
+
 @Component({
   selector: 'amb-search-result',
   templateUrl: './search-result.component.html',

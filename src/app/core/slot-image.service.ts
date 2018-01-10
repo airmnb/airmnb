@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ApiServiceFactory, ApiService } from './api.service';
-import { ProviderImage, ServiceSlot } from '../../types';
+
 import * as uuid from 'uuid';
-import { ApiFacade } from './apiFacade';
+
+import { ProviderImage, ServiceSlot } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { ApiServiceFactory, ApiService } from './api.service';
 
 @Injectable()
 export class ImageService {

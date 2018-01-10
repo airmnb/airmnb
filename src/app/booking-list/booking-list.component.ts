@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SessionService } from '../session.service';
+
+import * as _ from 'underscore';
+
 import { ServiceSlot, Booking, BabyProfile, Gender, Role } from '../../../types';
 import { ApiFacade } from '../apiFacade';
-import { BookingService } from '../booking.service';
-import { SlotService } from '../slot.service';
-import { NotificationService } from '../notification.service';
-import { BabyService } from '../baby.service';
-import * as _ from 'underscore';
-import { UtilService } from '../util.service';
-import { ImageService } from '../slot-image.service';
+import { BabyService } from '../core/baby.service';
+import { BookingService } from '../core/booking.service';
+import { NotificationService } from '../core/notification.service';
+import { SessionService } from '../core/session.service';
+import { SlotService } from '../core/slot.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-booking-list',

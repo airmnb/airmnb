@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+
+import { Booking, BookingStatus } from '../../../types';
+import { ApiFacade } from '../apiFacade';
 import { ApiService, ApiServiceFactory } from './api.service';
-import { ApiFacade } from './apiFacade';
 import { UtilService } from './util.service';
-import { Booking, BookingStatus } from "../../types";
 import { SessionService } from './session.service';
 
 @Injectable()

@@ -1,17 +1,19 @@
 import { Component, OnInit, ViewChild, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiFacade } from '../apiFacade';
-import { UtilService } from '../util.service';
-import { ImageService } from '../slot-image.service';
-import { Booking, BookingStatus } from '../../../types';
-import { MatStepper } from '@angular/material';
-import * as moment from 'moment';
-import { SessionService } from '../session.service';
-import { BookingService } from '../booking.service';
-import { imageFilter } from '../../../server/routes/utils';
-import { Subject } from 'rxjs/Subject';
 import { Location } from '@angular/common';
+import { MatStepper } from '@angular/material';
+
+import { Subject } from 'rxjs/Subject';
 import { setInterval, clearInterval } from 'timers';
+import * as moment from 'moment';
+
+import { imageFilter } from '../../../server/routes/utils';
+import { Booking, BookingStatus } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { UtilService } from '../core/util.service';
+import { ImageService } from '../core/slot-image.service';
+import { SessionService } from '../core/session.service';
+import { BookingService } from '../core/booking.service';
 
 @Component({
   selector: 'amb-transaction',

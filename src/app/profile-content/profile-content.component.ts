@@ -1,13 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiServiceFactory, ApiService } from '../api.service';
-import { AccountProfile, ServiceSlot, MapLocation, Role } from '../../../types';
-import * as uuid from 'uuid';
-import { SessionService } from '../session.service';
-import { NotificationService } from '../notification.service';
-import { ImageService } from '../slot-image.service';
-import { ApiFacade } from '../apiFacade';
-import { UtilService } from '../util.service';
 import { Router } from '@angular/router';
+
+import * as uuid from 'uuid';
+
+import { AccountProfile, ServiceSlot, MapLocation, Role } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { ApiServiceFactory, ApiService } from '../core/api.service';
+import { SessionService } from '../core/session.service';
+import { NotificationService } from '../core/notification.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-profile-content',

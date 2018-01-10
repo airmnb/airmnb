@@ -1,9 +1,10 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { ApiFacade } from '../apiFacade';
-import { SessionService } from '../session.service';
-import { Router } from '@angular/router';
-import { Role } from '../../../types';
 import { EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Role } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { SessionService } from '../core/session.service';
 
 @Component({
   selector: 'amb-header',

@@ -9,46 +9,38 @@ import localeZhHansExtra from '@angular/common/locales/extra/zh-Hans';
 // i18n
 import localeJa from '@angular/common/locales/ja';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing/app-routing.module';
+import { CoreModule } from './core/core.module';
+
 import { HomeComponent } from './home/home.component';
-import { ApiService, ApiServiceFactory, LoginService} from "./api.service";
-import { SessionService } from './session.service';
-import { MapServiceService } from './map-service.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
-import { CookieService } from 'ngx-cookie-service';
-import { NotificationService } from './notification.service';
 import { NotificationComponent } from './notification/notification.component';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { environment } from '../environments/environment';
 import { SlotListComponent } from './slot-list/slot-list.component';
-import { SlotService } from './slot.service';
 import { ImageUploadModule } from "angular2-image-upload";
-import { ImageService } from './slot-image.service';
 import { LoginContentComponent } from './login-content/login-content.component';
 import { SignupContentComponent } from './signup-content/signup-content.component';
 import { SlotComponent } from './slot/slot.component';
 import { ProfileContentComponent } from './profile-content/profile-content.component';
-import { BookingService } from './booking.service';
 import { ApiFacade } from "./apiFacade";
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { UtilService } from './util.service';
 import { SlotEditComponent } from './slot-edit/slot-edit.component';
 import { BookingComponent } from './booking/booking.component';
 import { SlotDisplayComponent } from './slot-display/slot-display.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
-import { BabyService } from './baby.service';
 import { MapSearchComponent } from './map-search/map-search.component';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -92,7 +84,6 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { EventPlaceComponent } from './event-place/event-place.component';
 import { EventPlaceListComponent } from './event-place-list/event-place-list.component';
 import { SelectComponent } from './select/select.component';
-import { SelectOptionService } from './select-option.service';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { AgepickerComponent } from './agepicker/agepicker.component';
 import { BabiesComponent } from './babies/babies.component';
@@ -168,6 +159,8 @@ export function getSsoConfig() {
     AddressInputComponent
   ],
   imports: [
+    CoreModule,
+
     MatMomentDateModule,
     MatFormFieldModule,
     MatAutocompleteModule,
@@ -201,6 +194,7 @@ export function getSsoConfig() {
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
+
     NoopAnimationsModule,
     BrowserModule,
     FormsModule,
@@ -236,22 +230,10 @@ export function getSsoConfig() {
     SocialLoginModule
   ],
   providers: [
-    ApiServiceFactory,
-    LoginService,
-    SessionService,
-    MapServiceService,
-    CookieService,
     NgbTimepickerConfig,
-    NotificationService,
-    SlotService,
-    ImageService,
-    BookingService,
     ApiFacade,
-    UtilService,
-    BabyService,
     GoogleMapsAPIWrapper,
     MarkerManager,
-    SelectOptionService,
     HttpClient,
     {
       provide: AuthServiceConfig,

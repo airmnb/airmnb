@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Account, Role } from '../../../types';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+
 import * as uuid from 'uuid';
 
-import { ApiService, ApiServiceFactory } from "../api.service";
-import { Http } from '@angular/http';
-import { Router } from '@angular/router';
-import { SessionService } from '../session.service';
+import { Account, Role } from '../../../types';
 import { ApiFacade } from '../apiFacade';
+import { SessionService } from '../core/session.service';
+import { ApiService, ApiServiceFactory } from '../core/api.service';
 
 @Component({
   selector: 'amb-signup-content',

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiFacade } from '../apiFacade';
+
 import { EventPlaceComponent } from '../event-place/event-place.component';
 import { EventPlace } from '../../../types';
+import { ApiFacade } from '../apiFacade';
 
 @Component({
   selector: 'amb-event-place-list',

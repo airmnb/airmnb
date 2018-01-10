@@ -1,13 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ServiceSlot, Gender, EventSite, SelectOption, MapLocation } from '../../../types';
-import * as uuid from "uuid";
-import { ApiServiceFactory, ApiService } from '../api.service';
-import { SessionService } from '../session.service';
-import { NotificationService } from '../notification.service';
-import * as moment from "moment";
-import { ApiFacade } from '../apiFacade';
-import { UtilService } from '../util.service';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import * as uuid from "uuid";
+import * as moment from "moment";
+
+import { ServiceSlot, Gender, EventSite, SelectOption, MapLocation } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { ApiServiceFactory, ApiService } from '../core/api.service';
+import { NotificationService } from '../core/notification.service';
+import { SessionService } from '../core/session.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-slot',

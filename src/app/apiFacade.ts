@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ApiService, ApiServiceFactory } from './api.service';
+import { ApiService, ApiServiceFactory } from './core/api.service';
 import { ServiceSlot, Account, BabyProfile, Booking, Image, AccountProfile, EventPlace, EventSite } from '../../types';
-import { SessionService } from './session.service';
-import { NotificationService } from './notification.service';
-import { ImageService } from './slot-image.service';
-import { SlotService } from './slot.service';
+import { SessionService } from './core/session.service';
+import { NotificationService } from './core/notification.service';
+import { ImageService } from './core/slot-image.service';
+import { SlotService } from './core/slot.service';
 
 @Injectable()
 export class ApiFacade {

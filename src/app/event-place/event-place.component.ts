@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiFacade } from '../apiFacade';
-import { ImageService } from '../slot-image.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { EventPlace, MapLocation, Role } from '../../../types';
-import { NotificationService } from '../notification.service';
-import { UtilService } from '../util.service';
-import { SessionService } from '../session.service';
+import { ApiFacade } from '../apiFacade';
+import { NotificationService } from '../core/notification.service';
+import { SessionService } from '../core/session.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-event-place',

@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MapServiceService } from '../map-service.service';
+import { Router } from '@angular/router';
+
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 import { AgmMarker } from '@agm/core/directives/marker';
-import { MapLocation, ServiceSlot, MapCoord } from '../../../types';
-import { UtilService } from '../util.service';
 import { LatLngLiteral } from '@agm/core';
-import { Router } from '@angular/router';
+
+import { MapLocation, ServiceSlot, MapCoord } from '../../../types';
+import { MapServiceService } from '../core/map-service.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-map-search',

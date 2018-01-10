@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiFacade } from '../apiFacade';
-import { UtilService } from '../util.service';
-import { SessionService } from '../session.service';
-import { ServiceSlot, Gender, Role } from '../../../types';
-import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-import { ImageService } from '../slot-image.service';
+
+import { ServiceSlot, Gender, Role } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { SessionService } from '../core/session.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-slot-edit',

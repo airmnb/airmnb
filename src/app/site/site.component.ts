@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { EventSite } from '../../../types';
-import { SessionService } from '../session.service';
-import { ApiFacade } from '../apiFacade';
-import { UtilService } from '../util.service';
-import { NotificationService } from '../notification.service';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { EventSite } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { NotificationService } from '../core/notification.service';
+import { SessionService } from '../core/session.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-site',

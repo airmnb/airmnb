@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionService } from '../session.service';
-import { MapServiceService } from '../map-service.service';
+
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { SearchQuery, SelectOption, ServiceSlot, Gender } from '../../../types';
 import * as moment from "moment";
-import { NotificationService } from '../notification.service';
-import { SelectOptionService } from '../select-option.service';
-import { ApiService } from '../api.service';
-import { ApiFacade } from '../apiFacade';
-import { ImageService } from '../slot-image.service';
-import { UtilService } from '../util.service';
 import { LatLngLiteral } from '@agm/core';
+
+import { SearchQuery, SelectOption, ServiceSlot, Gender } from '../../../types';
+import { ApiFacade } from '../apiFacade';
+import { ApiService } from '../core/api.service';
+import { MapServiceService } from '../core/map-service.service';
+import { NotificationService } from '../core/notification.service';
+import { SelectOptionService } from '../core/select-option.service';
+import { SessionService } from '../core/session.service';
+import { ImageService } from '../core/slot-image.service';
+import { UtilService } from '../core/util.service';
 
 @Component({
   selector: 'amb-home',

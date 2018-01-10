@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { BabyProfile } from '../../../types';
-import { ImageService } from '../slot-image.service';
+import { ImageService } from '../core/slot-image.service';
 
 @Component({
   selector: 'amb-baby-avatar',
