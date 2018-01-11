@@ -8,7 +8,6 @@ import {BabyComponent}           from './baby/baby.component';
 import {BookingComponent}        from './booking/booking.component';
 import {BookingListComponent}    from './booking-list/booking-list.component';
 import {EventPlaceComponent}     from './event-place/event-place.component';
-import {HomeComponent}           from './home/home.component';
 import {LandingPageComponent}    from './landing-page/landing-page.component';
 import {LoginComponent}          from './login/login.component';
 import {LoginContentComponent}   from './login-content/login-content.component';
@@ -24,7 +23,7 @@ import {SiteComponent}           from './site/site.component';
 import {TransactionComponent}    from './transaction/transaction.component';
 
 const routes: Routes = [
-  {path: '', component: LandingPageComponent /* HomeComponent*/},
+  {path: '', component: LandingPageComponent},
   {path: 'login', component: LoginContentComponent},
   {path: 'signup', component: SignupContentComponent},
   {path: 'profile', component: ProfileContentComponent},
@@ -34,9 +33,9 @@ const routes: Routes = [
   {path: 'sites', component: SitesComponent},
   {path: 'sites/add', component: SiteComponent},
   {path: 'sites/:id', component: SiteComponent},
-  {path: 'slots', component: SlotEditComponent,},
-  {path: 'slots/bookings', /* For provider*/ component: BookingListComponent,},
-  {path: 'slots/bookings/:slotId', /* For provider*/ component: BookingListComponent,},
+  {path: 'slots', component: SlotEditComponent},
+  {path: 'slots/bookings', /* For provider*/ component: BookingListComponent},
+  {path: 'slots/bookings/:slotId', /* For provider*/ component: BookingListComponent},
   {path: 'slots/add', component: SlotComponent},
   {path: 'slots/edit/:id', component: SlotComponent},
   {path: 'bookings/add/:slotId', component: BookingComponent},
