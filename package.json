@@ -23,7 +23,7 @@
     "build:prod": "tsc && ng build --prod --aot",
     "start:prod": "node server.js",
     "checkout:prod": "git fetch && git checkout -f -B master remotes/origin/master --",
-    "sync:prod": "npm run checkout:prod && npm run build:prod"
+    "sync:prod": "npm run checkout:prod && npm install && npm run build:prod"
   },
   "private": true,
   "dependencies": {
