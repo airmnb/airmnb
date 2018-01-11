@@ -4,7 +4,6 @@ import { ServiceSlot, Account, BabyProfile, Booking, Image, AccountProfile, Even
 import { ApiService, ApiServiceFactory } from './api.service';
 // import { NotificationService } from './notification.service';
 // import { SessionService } from './session.service';
-// import { ImageService } from './slot-image.service';
 // import { SlotService } from './slot.service';
 
 @Injectable()

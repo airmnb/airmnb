@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, 
 import { Http, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
+import { Options, ImageResult } from 'ngx-image2dataurl';
 
 @Component({
   selector: 'amb-take-photo',
@@ -20,6 +21,14 @@ export class TakePhotoComponent implements OnInit {
 
   @ViewChild('inputFile') nativeInputFile: ElementRef;
 
+  options: Options = {
+    resize: {
+      maxHeight: 512,
+      maxWidth: 512
+    },
+    allowedExtensions: ['JPG', 'JPEG', 'PNG', 'GIF', 'BMP']
+  };
+
   constructor(
     private http: Http
   ) { }
@@ -27,32 +36,15 @@ export class TakePhotoComponent implements OnInit {
   ngOnInit() {
   }
 
-  async onNativeInputFileSelect($event) {
-    const fileList: FileList = event.target['files'];
-    if (!fileList.length) {
-      return;
-    }
-
-    const file = fileList[0];
-    const formData = new FormData();
-    formData.append('image', file, file.name);
-
-    const headers = new Headers();
-    // It is very important to leave the Content-Type empty
-    // do not use headers.append('Content-Type', 'multipart/form-data');
-    // const options = new RequestOptions({headers: headers});
-    const options = null;
-    try{
-      const resp = await this.http.post('/api/image', formData, options).toPromise();
-      const imageName = resp.text();
-      this.uploaded.emit(imageName);
-    }catch(e){
-      console.log(e);
-    }
-  }
-
   selectFile() {
       this.nativeInputFile.nativeElement.click();
-      console.log('auto popup');
+  }
+
+  selected(imageResult: ImageResult) {
+    if (imageResult.error) alert(imageResult.error);
+    const imageSrcBase64 = imageResult.resized
+      && imageResult.resized.dataURL
+      || imageResult.dataURL;
+    this.uploaded.emit(imageSrcBase64);
   }
 }

@@ -10,7 +10,6 @@ import { BookingService } from '../core/booking.service';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';
 import { SlotService } from '../core/slot.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -31,7 +30,6 @@ export class BookingListComponent implements OnInit {
     private notificationService: NotificationService,
     private babyService: BabyService,
     private util: UtilService,
-    private imageService: ImageService,
     private router: Router
   ) { }
 

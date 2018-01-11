@@ -11,7 +11,6 @@ import { imageFilter } from '../../../server/routes/utils';
 import { Booking, BookingStatus } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { UtilService } from '../core/util.service';
-import { ImageService } from '../core/slot-image.service';
 import { SessionService } from '../core/session.service';
 import { BookingService } from '../core/booking.service';
 
@@ -40,7 +39,6 @@ export class TransactionComponent implements OnInit, AfterViewInit, AfterViewChe
     private activatedRouter: ActivatedRoute,
     private api: ApiFacade,
     private util: UtilService,
-    private image: ImageService,
     public session: SessionService,
     private bookingService: BookingService,
     private location: Location
@@ -89,52 +87,48 @@ export class TransactionComponent implements OnInit, AfterViewInit, AfterViewChe
     stepper.selectedIndex = stepperIndex;
   }
 
-  getImageUrl(imageName: string): string {
-    return imageName ? this.image.getImageUrl(imageName) : null;
-  }
-
   goNext(){
     this._stepper.next();
   }
 
-  async consumerCheckIn(imageName: string) {
-    if(!imageName) {
-      console.log('The uploaded process returns a null imageName');
+  async consumerCheckIn(imageData: string) {
+    if(!imageData) {
+      console.log('The uploaded process returns a null imageData');
       return;
     }
 
-    await this.bookingService.checkIn(this.booking, imageName);
+    await this.bookingService.checkIn(this.booking, imageData);
 
     this.goNext();
   }
 
-  async providerCheckIn(imageName: string) {
-    if(!imageName) {
-      console.log('The uploaded process returns a null imageName');
+  async providerCheckIn(imageData: string) {
+    if(!imageData) {
+      console.log('The uploaded process returns a null imageData');
       return;
     }
 
-    await this.bookingService.checkInConfirm(this.booking, imageName);
+    await this.bookingService.checkInConfirm(this.booking, imageData);
 
     this.goNext();
   }
 
-  async consumerCheckOut(imageName: string) {
-    if(!imageName) {
-      console.log('The uploaded process returns a null imageName');
+  async consumerCheckOut(imageData: string) {
+    if(!imageData) {
+      console.log('The uploaded process returns a null imageData');
       return;
     }
-    await this.bookingService.checkOut(this.booking, imageName);
+    await this.bookingService.checkOut(this.booking, imageData);
 
     this.goNext();
   }
 
-  async providerCheckOut(imageName: string) {
-    if(!imageName) {
-      console.log('The uploaded process returns a null imageName');
+  async providerCheckOut(imageData: string) {
+    if(!imageData) {
+      console.log('The uploaded process returns a null imageData');
       return;
     }
-    await this.bookingService.checkOutConfirm(this.booking, imageName);
+    await this.bookingService.checkOutConfirm(this.booking, imageData);
   }
 
   pollBooking(closeTimer: boolean = false) {

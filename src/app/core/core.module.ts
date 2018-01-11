@@ -12,7 +12,6 @@ import { NotificationService }            from './notification.service';
 import { SelectOptionService }            from './select-option.service';
 import { SessionService }                 from './session.service';
 import { SlotService }                    from './slot.service';
-import { ImageService }                   from './slot-image.service';
 import { UtilService }                    from './util.service';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { UtilService }                    from './util.service';
     MapServiceService,
     NotificationService,
     SlotService,
-    ImageService,
     BookingService,
     UtilService,
     BabyService,

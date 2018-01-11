@@ -9,10 +9,10 @@
           <i class="fa fa-star text-warning" *ngFor="let x of slot.stars"></i>
           </div>
         </div>
-        <img class="card-img-top img-thumbnail" [src]="getImageUrl(slot)" alt="Slot photo">
+        <img class="card-img-top img-thumbnail" *ngIf="slot.images && slot.images.length" [src]="slot.images[0]" alt="Slot photo">
         <ngb-carousel>
-          <ng-template ngbSlide *ngFor="let imageName of slot.imageNames" [id]="imageName">
-            <img [src]="getImageUrl(imageName)" class="img-thumbnail" alt="Slot image">
+          <ng-template ngbSlide *ngFor="let image of slot.images" [id]="imageName">
+            <img [src]="image" class="img-thumbnail" alt="Slot image">
           </ng-template>
         </ngb-carousel>
         <div class="card-block" *ngIf="slot.text">

@@ -56,7 +56,6 @@ import { CalendarModule } from 'angular-calendar';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
-import { ImageUploadModule } from "angular2-image-upload";
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -84,7 +83,6 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
 import { EventPlaceComponent } from './event-place/event-place.component';
 import { EventPlaceListComponent } from './event-place-list/event-place-list.component';
 import { HeaderComponent } from './header/header.component';
-import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoadingComponent } from './loading/loading.component';
 import { LoginComponent } from './login/login.component';
@@ -104,6 +102,8 @@ import { SlotComponent } from './slot/slot.component';
 import { TakePhotoComponent } from './take-photo/take-photo.component';
 import { TimepickerComponent } from './timepicker/timepicker.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { ImageToDataUrlModule } from "ngx-image2dataurl";
+import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
 
 const sso_config = new AuthServiceConfig([
   {
@@ -137,7 +137,6 @@ export function getSsoConfig() {
     BookingListComponent,
     MapSearchComponent,
     TimepickerComponent,
-    ImageUploaderComponent,
     EventPlaceComponent,
     EventPlaceListComponent,
     SelectComponent,
@@ -154,7 +153,8 @@ export function getSsoConfig() {
     LoadingComponent,
     AddressInputGaodeComponent,
     LandingPageComponent,
-    AddressInputComponent
+    AddressInputComponent,
+    ImgUploaderComponent
   ],
   imports: [
     CoreModule,
@@ -215,7 +215,6 @@ export function getSsoConfig() {
         urlPath: "https://webapi.amap.com/maps"
       }
     ),
-    ImageUploadModule.forRoot(),
     Ng2SmartTableModule,
     TranslateModule.forRoot({
       loader: {
@@ -225,7 +224,8 @@ export function getSsoConfig() {
       }
     }),
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    ImageToDataUrlModule
   ],
   providers: [
     NgbTimepickerConfig,

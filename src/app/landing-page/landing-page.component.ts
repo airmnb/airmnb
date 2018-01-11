@@ -6,7 +6,6 @@ import { ApiFacade } from '../core/apiFacade';
 import { SlotService } from '../core/slot.service';
 import { SelectOptionService } from '../core/select-option.service';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -45,7 +44,6 @@ export class LandingPageComponent implements OnInit {
     private searchService: SlotService,
     private util: UtilService,
     private selectOptionService: SelectOptionService,
-    private image: ImageService,
     private session: SessionService
   ) { }
 
@@ -138,14 +136,6 @@ export class LandingPageComponent implements OnInit {
 
   displayGender(gender: Gender): string {
     return this.util.displayGender(gender);
-  }
-
-  getImageUrl(slot: ServiceSlot) : string {
-    if(slot.imageNames && slot.imageNames.length) {
-      return this.image.getImageUrl(slot.imageNames[0]);
-    } else {
-      return "";
-    }
   }
 
   book(slot: ServiceSlot) {

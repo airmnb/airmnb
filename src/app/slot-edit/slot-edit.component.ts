@@ -7,7 +7,6 @@ import * as moment from 'moment';
 import { ServiceSlot, Gender, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -22,8 +21,7 @@ export class SlotEditComponent implements OnInit {
     private api: ApiFacade,
     private util: UtilService,
     private session: SessionService,
-    private router: Router,
-    private imageService: ImageService
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -60,13 +58,5 @@ export class SlotEditComponent implements OnInit {
     const end = moment(slot.timeTo);
     const diff = end.diff(start, 'minutes') / 60;
     return `${diff} hours`;
-  }
-
-  getImageUrl(slot: ServiceSlot) : string {
-    if(slot.imageNames && slot.imageNames.length) {
-      return this.imageService.getImageUrl(slot.imageNames[0]);
-    } else {
-      return "";
-    }
   }
 }

@@ -7,7 +7,6 @@ import 'rxjs/add/observable/fromPromise';
 import { EventSite, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -23,8 +22,7 @@ export class SitesComponent implements OnInit {
     private api: ApiFacade,
     private util: UtilService,
     private session: SessionService,
-    private router: Router,
-    private imageService: ImageService
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -51,13 +49,5 @@ export class SitesComponent implements OnInit {
       this.sites = this.sites.filter(x => x !== site);
     });
     return false;
-  }
-
-  getImageUrl(site: EventSite) : string {
-    if(site.imageNames && site.imageNames.length) {
-      return this.imageService.getImageUrl(site.imageNames[0]);
-    } else {
-      return "";
-    }
   }
 }
