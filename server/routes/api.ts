@@ -2,11 +2,8 @@
 import * as express from 'express';
 import { Account, LoginInfo } from "../../types";
 import { dataGatewayFactory } from "../data/gateway";
-import { loadCollection, imageFilter } from './utils';
 import * as fs from 'fs';
-import * as multer from 'multer';
 import * as path from 'path';
-import * as Loki from 'lokijs';
 import * as uuid from 'uuid';
 export const router = express.Router();
 
@@ -162,93 +159,4 @@ router.post('/login', (req, res) => {
     .catch(e => {
       res.status(500).json(e);
     });
-});
-
-
-
-/**
- * Upload image
- */
-
-router.post('/image', (req, res) => {
-  if (!req.files) {
-    return res.status(400).send('No files were uploaded.');
-  }
-
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  const imageFile = req.files["image"];
-  const ext = path.extname(imageFile.name);
-
-  // Use the mv() method to place the file somewhere on your server
-  const name = uuid.v4() + ext;
-  imageFile.mv(`./image/${name}`, err => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    res.send(name);
-  });
-});
-
-const DB_NAME = 'db.json';
-const COLLECTION_NAME = 'images';
-const UPLOAD_PATH = 'uploads';
-const upload = multer({ dest: `${UPLOAD_PATH}/`, fileFilter: imageFilter });
-const db = new Loki(`${UPLOAD_PATH}/${DB_NAME}`, { persistenceMethod: 'fs' });
-
-// router.post('/image', upload.single('image'), async (req, res) => {
-//   try {
-//       const col = await loadCollection(COLLECTION_NAME, db);
-//       const data = col.insert(req.file);
-
-//       db.saveDatabase();
-//       res.send({
-//         id: data.$loki,
-//         fileName: data.filename,
-//         originalName: data.originalname });
-//   } catch (err) {
-//       res.send(err.message).status(400);
-//   }
-// });
-
-// router.post('/image', upload.array('photo', 10), async (req, res) => {
-//   try {
-//       const col = await loadCollection(COLLECTION_NAME, db);
-//       const data = [].concat(col.insert(req.files));
-
-//       db.saveDatabase();
-//       res.send(data.map(x => ({
-//         id: x.$loki,
-//         fileName: x.filename,
-//         originalName: x.originalname
-//       })));
-//   } catch (err) {
-//       res.sendStatus(400);
-//   }
-// });
-
-router.get('/image', async (req, res) => {
-  try {
-      const col = await loadCollection(COLLECTION_NAME, db);
-      res.send(col.data);
-  } catch (err) {
-      res.sendStatus(400);
-  }
-});
-
-router.get('/image/:id', async (req, res) => {
-  try {
-      const col = await loadCollection(COLLECTION_NAME, db);
-      const result = col.get(req.params.id);
-
-      if (!result) {
-          res.sendStatus(404);
-          return;
-      }
-
-      res.setHeader('Content-Type', result.mimetype);
-      fs.createReadStream(path.join(UPLOAD_PATH, result.filename)).pipe(res);
-  } catch (err) {
-      res.sendStatus(400);
-  }
 });

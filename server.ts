@@ -14,7 +14,6 @@ import * as cors from 'cors';
 import * as fs from 'fs';
 import * as Loki from 'lokijs';
 import * as bodyParser from 'body-parser';
-import * as fileUpload from "express-fileupload";
 let environment = require('./src/environments/environment');
 if(process.env.IS_PROD) {
   environment = require('./src/environments/environment.prod');
@@ -29,7 +28,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-app.use(fileUpload());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
