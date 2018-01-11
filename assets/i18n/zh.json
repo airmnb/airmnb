@@ -91,6 +91,7 @@
   "Total time": "总计时长",
   "Take a photo": "拍照",
   "Take a photo to check-in": "拍照并开始参加活动",
+  "Add event site": "新建活动场地",
   "Event site management": "场地管理",
   "Baby management": "宝宝管理",
   "Add new baby": "添加新宝宝",
@@ -121,5 +122,8 @@
   "Loading": "加载中",
   "Preferred map provider": "地图服务引擎",
   "Google": "谷歌地图",
-  "Gaode (Only available for China)": "高德地图（仅中国国内可用）"
+  "Gaode (Only available for China)": "高德地图（仅中国国内可用）",
+  "Name": "名字",
+  "Photos": "照片",
+  "Choose image": "上传图片",
 }

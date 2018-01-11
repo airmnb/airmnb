@@ -1,36 +1,36 @@
 <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
   {{errorMessage}}
 </div>
-<h1>{{isNew ? "Add event site" : "Edit event site"}}</h1>
+<h1>{{isNew ? "Add event site" : "Edit event site" | translate}}</h1>
 <form #theForm="ngForm" (ngSubmit)="onSubmit()">
   <fieldset>
     <div class="container">
       <div class="row">
         <div class="col s12 l4">
           <mat-form-field>
-            <input matInput placeholder="Name" [(ngModel)]="model.name" name="name" required>
+            <input matInput placeholder="{{'Name' | translate}}" [(ngModel)]="model.name" name="name" required>
           </mat-form-field>
         </div>
         <div class="col s12 l4">
-          <label for="address">Address</label>
+          <label for="address">{{'Address' | translate}}</label>
           <amb-address-input [(address)]="model.location"></amb-address-input>
         </div>
         <div class="col s12 l4">
           <mat-form-field>
-            <textarea matInput placeholder="Additional information" [(ngModel)]="model.info" name="info"></textarea>
+            <textarea matInput placeholder="{{'Additional information' | translate}}" [(ngModel)]="model.info" name="info"></textarea>
           </mat-form-field>
         </div>
         <div class="col s12">
-          <label for="photos">Photos</label>
+          <label for="photos">{{'Photos' | translate}}</label>
           <amb-img-uploader [(images)]="model.images"></amb-img-uploader>
         </div>
       </div>
       <div class="row">
         <div class="col s12 m6">
-          <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save'}}</button>
+          <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{isNew ? 'Add' : 'Save' | translate}}</button>
         </div>
         <div class="col s12 m6">
-          <button class="btn amb-block" routerLink="/sites">Cancel</button>
+          <button class="btn amb-block" routerLink="/sites">{{'Cancel'|translate}}</button>
         </div>
       </div>
     </div>
