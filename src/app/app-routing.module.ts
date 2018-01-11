@@ -40,7 +40,6 @@ const routes: Routes = [
   {path: 'bookings/add/:slotId', component: BookingComponent},
   {path: 'bookings', component: BookingListComponent},
   {path: 'booking/:id', component: TransactionComponent},
-  {path: 'search', component: SearchResultComponent},
   {path: 'aboutus', component: AboutusComponent},
   {path: 'booking/tran/:id', component: TransactionComponent},
   {path: 'babies', component: BabiesComponent},
