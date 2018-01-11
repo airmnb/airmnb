@@ -55,12 +55,4 @@ export class BabiesComponent implements OnInit {
   displayGender(baby: BabyProfile): string {
     return this.util.displayGender(baby.gender);
   }
-
-  getImageUrl(baby: BabyProfile) : string {
-    if(baby.imageName) {
-      return this.imageService.getImageUrl(baby.imageName);
-    } else {
-      return "";
-    }
-  }
 }

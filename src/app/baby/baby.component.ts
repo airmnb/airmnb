@@ -13,8 +13,8 @@ import { UtilService } from '../core/util.service';
   styleUrls: ['./baby.component.scss']
 })
 export class BabyComponent implements OnInit {
+
   isNew: boolean;
-  imageNames: string[] = [];
   model: BabyProfile = {
     id: this.util.newGuid(),
     consumerId: null,
@@ -23,7 +23,7 @@ export class BabyComponent implements OnInit {
     gender: null,
     hobby: null,
     info: null,
-    imageName: null
+    images: []
   };
 
   errorMessage: string;
@@ -50,21 +50,13 @@ export class BabyComponent implements OnInit {
         .then(
           s => {
             this.model = s;
-            if(s.imageName) {
-              this.imageNames = [s.imageName];
-            }
           }
         ).catch(this.notification.error);
       }
     });
   }
 
-  private setImageName() {
-    this.model.imageName = this.imageNames.length ? this.imageNames.pop() : null;
-  }
-
   async onSubmit() {
-    this.setImageName();
     try{
       if(this.isNew) {
         await this.api.babyProfileApi.add(this.model);

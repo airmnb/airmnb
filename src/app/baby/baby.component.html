@@ -35,7 +35,8 @@
           </div>
           <div class="col s12">
             <label for="photos">{{'Images' | translate}}</label>
-            <amb-image-uploader [(imageNames)]="imageNames"></amb-image-uploader>
+            <!-- <amb-image-uploader [(imageNames)]="imageNames"></amb-image-uploader> -->
+            <amb-img-uploader [(images)]="model.images"></amb-img-uploader>
           </div>
         </div>
         <div class="row">

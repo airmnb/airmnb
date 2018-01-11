@@ -178,6 +178,7 @@ export interface BabyProfile {
   hobby?: string;
   info?: string;
   imageName?: string;
+  images: string[]; // base64 images
 }
 
 export interface MapLocation extends MapCoord {

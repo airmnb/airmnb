@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col">
+    <button class="btn waves-effect waves-teal" (click)="choose($event)">{{'Choose image' | translate}}</button>
+    <input #fileInput class="hide" type="file" [imageToDataUrl]="options" (imageSelected)="selected($event)">
+  </div>
+</div>
+<div class="row">
+  <div class="col s6 m4 l3" *ngFor="let image of images; let i = index">
+    <mat-card class="amb-image-preview">
+      <button class="amb-delete-image" mat-fab color="warn" (click)="remove(i)">
+          <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+      </button>
+      <img mat-card-image [src]="image" [alt]="'image'+i">
+    </mat-card>
+  </div>
+</div>

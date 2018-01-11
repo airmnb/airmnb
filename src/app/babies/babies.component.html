@@ -14,7 +14,7 @@
         <div class="card-stacked">
           <div class="card-content">
             <div>
-              <img class="amb-baby-avatar" [src]="getImageUrl(baby)" alt="Baby's photo">
+              <img class="amb-baby-avatar" *ngIf="baby.images && baby.images.length" [src]="baby.images[0]" alt="Baby's photo">
               <p class="card-title activator grey-text text-darken-4 right">{{baby.nickName}}
               <br><small class="right">{{baby.dob | date:'mediumDate' }} {{displayGender(baby) | translate}}</small></p>
             </div>
