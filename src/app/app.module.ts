@@ -84,7 +84,6 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
 import { EventPlaceComponent } from './event-place/event-place.component';
 import { EventPlaceListComponent } from './event-place-list/event-place-list.component';
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoadingComponent } from './loading/loading.component';
