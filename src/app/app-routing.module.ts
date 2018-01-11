@@ -16,7 +16,6 @@ import {SlotEditComponent}       from './slot-edit/slot-edit.component';
 import {SlotListComponent}       from './slot-list/slot-list.component';
 import {SignupComponent}         from './signup/signup.component';
 import {ProfileContentComponent} from './profile-content/profile-content.component';
-import {SearchResultComponent}   from './search-result/search-result.component';
 import {SignupContentComponent}  from './signup-content/signup-content.component';
 import {SitesComponent}          from './sites/sites.component';
 import {SiteComponent}           from './site/site.component';
