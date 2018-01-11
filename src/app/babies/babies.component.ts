@@ -7,7 +7,6 @@ import 'rxjs/add/observable/fromPromise';
 import { BabyProfile, Role, Gender } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -22,8 +21,7 @@ export class BabiesComponent implements OnInit {
     private api: ApiFacade,
     private util: UtilService,
     private session: SessionService,
-    private router: Router,
-    private imageService: ImageService
+    private router: Router
   ) { }
 
   ngOnInit() {

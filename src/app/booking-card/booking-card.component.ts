@@ -5,7 +5,6 @@ import { Booking, AccountProfile, BabyProfile, ServiceSlot, Gender } from '../..
 import { ApiFacade } from '../core/apiFacade';
 import { BookingService } from '../core/booking.service';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -37,8 +36,7 @@ export class BookingCardComponent implements OnInit {
     public bookingService: BookingService,
     private router: Router,
     public session: SessionService,
-    private util: UtilService,
-    private image: ImageService
+    private util: UtilService
   ) { }
 
   ngOnInit() {
@@ -68,8 +66,8 @@ export class BookingCardComponent implements OnInit {
     console.log('cancel called');
   }
 
-  async checkIn(imageName: string) {
-    await this.bookingService.checkIn(this.model.booking, imageName);
+  async checkIn(imageData: string) {
+    await this.bookingService.checkIn(this.model.booking, imageData);
     this.router.navigate(['booking/tran', this.model.booking.id]);
   }
 

@@ -8,7 +8,6 @@ import { ApiFacade } from '../core/apiFacade';
 import { ApiServiceFactory, ApiService } from '../core/api.service';
 import { SessionService } from '../core/session.service';
 import { NotificationService } from '../core/notification.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -49,7 +48,6 @@ export class ProfileContentComponent implements OnInit {
   constructor(private api: ApiFacade,
   private session: SessionService,
   private notificationService: NotificationService,
-  private slotImageService: ImageService,
   private util: UtilService,
   private router: Router
   ) {

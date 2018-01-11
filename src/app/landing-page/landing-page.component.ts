@@ -6,7 +6,6 @@ import { ApiFacade } from '../core/apiFacade';
 import { SlotService } from '../core/slot.service';
 import { SelectOptionService } from '../core/select-option.service';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -45,7 +44,6 @@ export class LandingPageComponent implements OnInit {
     private searchService: SlotService,
     private util: UtilService,
     private selectOptionService: SelectOptionService,
-    private image: ImageService,
     private session: SessionService
   ) { }
 

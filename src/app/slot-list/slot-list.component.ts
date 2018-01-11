@@ -6,7 +6,6 @@ import 'rxjs/add/observable/fromPromise';
 
 import { ServiceSlot, Gender } from '../../../types';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -35,11 +34,9 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   constructor(
-    private slotImageService: ImageService,
     private session: SessionService,
     private router: Router,
-    private util: UtilService,
-    private imageService: ImageService
+    private util: UtilService
   ) { }
 
   ngOnInit() {

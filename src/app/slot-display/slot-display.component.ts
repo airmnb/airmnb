@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 import { ServiceSlot, Gender } from '../../../types';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class SlotDisplayComponent implements OnInit {
 
   constructor(
     config: NgbCarouselConfig,
-    private imageService: ImageService,
     private util: UtilService
   ) {
     config.interval = 10000;
