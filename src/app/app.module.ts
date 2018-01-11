@@ -56,7 +56,6 @@ import { CalendarModule } from 'angular-calendar';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbModule, NgbDatepickerModule,  NgbTimepickerModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
-import { ImageUploadModule } from "angular2-image-upload";
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -216,7 +215,6 @@ export function getSsoConfig() {
         urlPath: "https://webapi.amap.com/maps"
       }
     ),
-    ImageUploadModule.forRoot(),
     Ng2SmartTableModule,
     TranslateModule.forRoot({
       loader: {
