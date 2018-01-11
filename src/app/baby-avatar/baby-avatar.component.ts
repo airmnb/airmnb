@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { BabyProfile } from '../../../types';
-import { ImageService } from '../core/slot-image.service';
 
 @Component({
   selector: 'amb-baby-avatar',
@@ -9,15 +8,14 @@ import { ImageService } from '../core/slot-image.service';
   styleUrls: ['./baby-avatar.component.scss']
 })
 export class BabyAvatarComponent implements OnInit {
-  imageUrl: string;
+  image: string;
   @Input() set baby(baby: BabyProfile) {
-    if(baby && baby.imageName){
-      this.imageUrl = this.image.getImageUrl(baby.imageName);
+    if(baby && baby.images && baby.images.length){
+      this.image = baby.images[0];
     }
   }
 
   constructor(
-    private image: ImageService
   ) { }
 
   ngOnInit() {

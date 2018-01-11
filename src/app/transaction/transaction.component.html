@@ -13,11 +13,11 @@
         <ng-template matStepLabel>
           <i class="fa fa-sign-in" aria-hidden="true"></i> {{'CheckInByConsumerMessage' | translate}}
         </ng-template>
-        <div *ngIf="booking.consumerCheckInImageName">
+        <div *ngIf="booking.consumerCheckInImage">
           <div class="image-time">{{booking.consumerCheckInAt | date:'medium'}}</div>
-          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.consumerCheckInImageName)">
+          <img class="z-depth-3 confirm-image" [src]="booking.consumerCheckInImage">
         </div>
-        <div *ngIf="!booking.consumerCheckInImageName">
+        <div *ngIf="!booking.consumerCheckInImage">
           <p>{{'CheckInByConsumerWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isConsumer" [autoPopup]="true" (uploaded)="consumerCheckIn($event)"></amb-take-photo>
         </div>
@@ -27,11 +27,11 @@
         <ng-template matStepLabel>
           <i class="fa fa-check-square-o" aria-hidden="true"></i> {{'CheckInConfirmByProviderMessage' | translate}}
         </ng-template>
-        <div *ngIf="booking.providerCheckInImageName">
+        <div *ngIf="booking.providerCheckInImage">
           <div class="image-time">{{booking.providerCheckInAt | date:'medium'}}</div>
-          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.providerCheckInImageName)">
+          <img class="z-depth-3 confirm-image" [src]="booking.providerCheckInImage">
         </div>
-        <div *ngIf="!booking.providerCheckInImageName">
+        <div *ngIf="!booking.providerCheckInImage">
           <p>{{'CheckInConfirmByProviderWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isProvider" (uploaded)="providerCheckIn($event)"></amb-take-photo>
         </div>
@@ -41,11 +41,11 @@
         <ng-template matStepLabel>
           <i class="fa fa-sign-out" aria-hidden="true"></i> {{'CheckOutByConsumerMessage' | translate}}
         </ng-template>
-        <div *ngIf="booking.consumerCheckOutImageName">
+        <div *ngIf="booking.consumerCheckOutImage">
           <div class="image-time">{{booking.consumerCheckOutAt | date:'medium'}}</div>
-          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.consumerCheckOutImageName)">
+          <img class="z-depth-3 confirm-image" [src]="booking.consumerCheckOutImage">
         </div>
-        <div *ngIf="!booking.consumerCheckOutImageName">
+        <div *ngIf="!booking.consumerCheckOutImage">
           <p>{{'CheckOutByConsumerWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isConsumer" (uploaded)="consumerCheckOut($event)"></amb-take-photo>
         </div>
@@ -55,11 +55,11 @@
         <ng-template matStepLabel>
           <i class="fa fa-check-square-o" aria-hidden="true"></i> {{'CheckOutConfirmByProviderMessage' | translate}}
         </ng-template>
-        <div *ngIf="booking.providerCheckOutImageName">
+        <div *ngIf="booking.providerCheckOutImage">
           <div class="image-time">{{booking.providerCheckOutAt | date:'medium'}}</div>
-          <img class="z-depth-3 confirm-image" [src]="getImageUrl(booking.providerCheckOutImageName)">
+          <img class="z-depth-3 confirm-image" [src]="booking.providerCheckOutImage">
         </div>
-        <div *ngIf="!booking.providerCheckOutImageName">
+        <div *ngIf="!booking.providerCheckOutImage">
           <p>{{'CheckOutConfirmByProviderWaitingMessage' | translate}}</p>
           <amb-take-photo *ngIf="session.isProvider" (uploaded)="providerCheckOut($event)"></amb-take-photo>
         </div>

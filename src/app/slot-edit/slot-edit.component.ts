@@ -61,12 +61,4 @@ export class SlotEditComponent implements OnInit {
     const diff = end.diff(start, 'minutes') / 60;
     return `${diff} hours`;
   }
-
-  getImageUrl(slot: ServiceSlot) : string {
-    if(slot.imageNames && slot.imageNames.length) {
-      return this.imageService.getImageUrl(slot.imageNames[0]);
-    } else {
-      return "";
-    }
-  }
 }

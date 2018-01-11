@@ -140,14 +140,6 @@ export class LandingPageComponent implements OnInit {
     return this.util.displayGender(gender);
   }
 
-  getImageUrl(slot: ServiceSlot) : string {
-    if(slot.imageNames && slot.imageNames.length) {
-      return this.image.getImageUrl(slot.imageNames[0]);
-    } else {
-      return "";
-    }
-  }
-
   book(slot: ServiceSlot) {
     if(!slot) {
       return;

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     <button class="btn waves-effect waves-teal" (click)="choose($event)">{{'Choose image' | translate}}</button>
-    <input #fileInput class="hide" type="file" [imageToDataUrl]="options" (imageSelected)="selected($event)">
+    <input #fileInput hidden type="file" [imageToDataUrl]="options" (imageSelected)="selected($event)">
   </div>
 </div>
 <div class="row">

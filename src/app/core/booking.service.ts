@@ -104,12 +104,12 @@ export class BookingService {
     return this.isActive(booking) && !booking.consumerCheckInAt;
   }
 
-  async checkIn(booking: Booking, imageName: string) {
+  async checkIn(booking: Booking, imageData: string) {
     if(!this.canCheckIn(booking)) {
       throw new Error(`Booking ${booking.id} has been requested for checked-in.`);
     }
     await this.api.bookingApi.updateFunc(booking.id, x => {
-      x.consumerCheckInImageName = imageName;
+      x.consumerCheckInImage = imageData;
       x.consumerCheckInAt = new Date();
       return x;
     });
@@ -119,12 +119,12 @@ export class BookingService {
     return this.isActive(booking) && !booking.providerCheckInAt;
   }
 
-  async checkInConfirm(booking: Booking, imageName: string) {
+  async checkInConfirm(booking: Booking, imageData: string) {
     if(!this.canCheckInConfirm(booking)) {
       throw new Error(`Booking ${booking.id} has been confirmed for check-in.`);
     }
     await this.api.bookingApi.updateFunc(booking.id, x => {
-      x.providerCheckInImageName = imageName;
+      x.providerCheckInImage = imageData;
       x.providerCheckInAt = new Date();
       x.startedAt = new Date();
       return x;
@@ -147,12 +147,12 @@ export class BookingService {
     return this.isActive(booking) && !booking.consumerCheckOutAt;
   }
 
-  async checkOut(booking: Booking, imageName: string) {
+  async checkOut(booking: Booking, imageData: string) {
     if(!this.canCheckOut(booking)) {
       throw new Error(`Booking ${booking.id} has been requested for checked-out.`);
     }
     await this.api.bookingApi.updateFunc(booking.id, x => {
-      x.consumerCheckOutImageName = imageName;
+      x.consumerCheckOutImage = imageData;
       x.consumerCheckOutAt = new Date();
       return x;
     });
@@ -162,12 +162,12 @@ export class BookingService {
     return this.isActive(booking) && !booking.providerCheckOutAt;
   }
 
-  async checkOutConfirm(booking: Booking, imageName: string) {
+  async checkOutConfirm(booking: Booking, imageData: string) {
     if(!this.canCheckOutConfirm(booking)) {
       throw new Error(`Booking ${booking.id} has been confirmed for checked-out.`);
     }
     await this.api.bookingApi.updateFunc(booking.id, x => {
-      x.providerCheckOutImageName = imageName;
+      x.providerCheckOutImage = imageData;
       x.providerCheckOutAt = new Date();
       x.finishedAt = new Date();
       return x;

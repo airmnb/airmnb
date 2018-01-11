@@ -52,7 +52,7 @@ export interface AccountProfile  {
   preferredMap?: string;
   // For provider
   location?: MapLocation;
-  imageNames?: string[];
+  images?: string[];
   languages?: string[];
   description?: string;
   // For consumer
@@ -111,7 +111,7 @@ export interface ServiceSlot {
   price: number;
   capping: number;
   bookingCount: number;
-  imageNames?: string[];
+  images?: string[];
   eventPlaceId: string;
   siteId: string;
   location: MapLocation;
@@ -127,7 +127,7 @@ export interface EventPlace {
   name: string;
   description?: string;
   location: MapLocation;
-  imageNames?: string[];
+  images?: string[];
 }
 
 export enum Gender {
@@ -166,7 +166,7 @@ export interface EventSite {
   name: string;
   location: MapLocation;
   info?: string;
-  imageNames: string[];
+  images: string[];
 }
 
 export interface BabyProfile {
@@ -177,7 +177,6 @@ export interface BabyProfile {
   gender: Gender;
   hobby?: string;
   info?: string;
-  imageName?: string;
   images: string[]; // base64 images
 }
 
@@ -196,10 +195,10 @@ export interface Booking {
   startedAt?: Date;
   terminatedAt?: Date;
   finishedAt?: Date;
-  providerCheckInImageName?: string;
-  consumerCheckInImageName?: string;
-  providerCheckOutImageName?: string;
-  consumerCheckOutImageName?: string;
+  providerCheckInImage?: string;
+  consumerCheckInImage?: string;
+  providerCheckOutImage?: string;
+  consumerCheckOutImage?: string;
   consumerCheckInAt?: Date;
   providerCheckInAt?: Date;
   consumerCheckOutAt?: Date;

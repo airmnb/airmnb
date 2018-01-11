@@ -86,7 +86,7 @@
     <div class="col s6 m4 l3" *ngFor="let slot of slots">
       <mat-card (click)="book(slot)">
 
-        <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+        <img mat-card-image *ngIf="slot.images && slot.images.length" [src]="slot.images[0]" alt="Photo of this event">
         <div class="amb-rating-stars yellow-text accent-3">
           <i class="fa fa-star" aria-hidden="true"></i>
           <i class="fa fa-star" aria-hidden="true"></i>

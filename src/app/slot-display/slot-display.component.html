@@ -4,7 +4,7 @@
     <mat-card-title>{{slot.title}}</mat-card-title>
     <mat-card-subtitle>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+  <img mat-card-image *ngIf="slot.images && slot.images.length" [src]="slot.images[0]" alt="Photo of this event">
   <mat-card-content>
     <p>
       {{displayGender(slot.gender) | translate}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}}

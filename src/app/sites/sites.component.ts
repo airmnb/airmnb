@@ -52,12 +52,4 @@ export class SitesComponent implements OnInit {
     });
     return false;
   }
-
-  getImageUrl(site: EventSite) : string {
-    if(site.imageNames && site.imageNames.length) {
-      return this.imageService.getImageUrl(site.imageNames[0]);
-    } else {
-      return "";
-    }
-  }
 }

@@ -25,7 +25,7 @@ export class SiteComponent implements OnInit {
       lat: null
     },
     info: null,
-    imageNames: []
+    images: []
   };
 
   errorMessage: string;

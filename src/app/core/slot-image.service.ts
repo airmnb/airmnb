@@ -16,21 +16,13 @@ export class ImageService {
 
   public async getImageNamesForProvider(accountId: string): Promise<string[]> {
     const providerProfile = await this.api.accountProfileApi.get({accountId});
-    return providerProfile ? providerProfile.imageNames || [] : [];
+    return providerProfile ? providerProfile.images || [] : [];
   }
 
   public async saveImageNameForProvider(imageName: string, accountId: string): Promise<void> {
     const providerProfile = await this.api.accountProfileApi.get({accountId});
-    providerProfile.imageNames = providerProfile ? providerProfile.imageNames || [] : [];
-    providerProfile.imageNames.push(imageName);
+    providerProfile.images = providerProfile ? providerProfile.images || [] : [];
+    providerProfile.images.push(imageName);
     await this.api.accountProfileApi.update(providerProfile, providerProfile.id);
-  }
-
-  public getImageUrls(imageNames: string[]): string[] {
-    return (imageNames || []).map(x => this.getImageUrl(x));
-  }
-
-  public getImageUrl(imageName: string): string {
-    return imageName ? '/image/' + imageName : null;
   }
 }

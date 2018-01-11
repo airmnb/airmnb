@@ -32,12 +32,4 @@ export class SlotDisplayComponent implements OnInit {
   displayGender(gender: Gender): string {
     return this.util.displayGender(gender);
   }
-
-  getImageUrl(slot: ServiceSlot): string {
-    const imageNames = slot.imageNames;
-    if (imageNames && imageNames.length) {
-      return this.imageService.getImageUrl(imageNames[0]);
-    }
-    return null;
-  }
 }

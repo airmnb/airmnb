@@ -76,16 +76,4 @@ export class BookingCardComponent implements OnInit {
   displayGender(gender: Gender): string {
     return this.util.displayGender(gender);
   }
-
-  getImageUrl(slot: ServiceSlot) : string {
-    if(slot.imageNames && slot.imageNames.length) {
-      return this.image.getImageUrl(slot.imageNames[0]);
-    } else {
-      return "";
-    }
-  }
-
-  getBabyImageUrl(baby: BabyProfile): string {
-    return baby.imageName ? this.image.getImageUrl(baby.imageName) : '';
-  }
 }

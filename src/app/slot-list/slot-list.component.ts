@@ -57,10 +57,6 @@ export class SlotListComponent implements OnInit, OnChanges, DoCheck {
       'Both';
   }
 
-  getImageUrl(imageName: string): string {
-      return this.imageService.getImageUrl(imageName);
-  }
-
   private getSlotRate(slot: ServiceSlot): number {
     return Math.floor(Math.random() * 3) + 3; // 3,4,5
   }

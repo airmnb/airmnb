@@ -33,8 +33,7 @@ export class ProfileContentComponent implements OnInit {
       lng: null,
       lat: null
     },
-    imageNames: [],
-    imageUrls: [],
+    images: [],
     description: null,
     language: {
       english: null,
@@ -76,7 +75,7 @@ export class ProfileContentComponent implements OnInit {
     this.model.location = Object.assign(this.model.location, p.location);
     this.model.dob = p.dob;
     this.model.gender = p.gender;
-    this.model.imageNames = p.imageNames;
+    this.model.images = p.images;
     this.model.description = p.description;
     this.model.preferredMap = p.preferredMap;
     // this.model.age.a23 = p.ageFrom <= 2 && 3 < p.ageTo;
@@ -106,7 +105,7 @@ export class ProfileContentComponent implements OnInit {
       location: this.model.location,
       accountId: this.session.account.id,
       gender: this.model.gender,
-      imageNames: this.model.imageNames,
+      images: this.model.images,
       description: this.model.description,
       preferredMap: this.model.preferredMap
     };
@@ -119,31 +118,4 @@ export class ProfileContentComponent implements OnInit {
       this.notificationService.error(e);
     }
   }
-
-  public async onUploadFinished(event): Promise<void> {
-    const resp = event.serverResponse;
-    const filename = resp.text();
-    if(resp.status === 200) {
-      this.model.imageNames.push(filename);
-    } else {
-      this.notificationService.error(resp);
-    }
-  }
-
-  private async tieImageToAccount(imageName: string) {
-    const providerId = this.session.account.id;
-    await this.slotImageService.saveImageNameForProvider(imageName, providerId);
-  }
-
-  async getUploadedImages(): Promise<string[]> {
-    const providerId = this.session.account.id;
-    const names = await this.slotImageService.getImageNamesForProvider(providerId);
-    return names.map(x => "/image/" + x);
-  }
-
-  onUploadFinishedForLoader(err) {
-    console.log('image loader', err);
-    console.log('image names', this.model.imageNames);
-  }
-
 }
