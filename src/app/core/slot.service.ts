@@ -25,7 +25,7 @@ export class SlotService {
     return await this.api.slotApi.list(query);
   }
 
-  public async search(query: SearchQuery): Promise<ServiceSlot[]> {
+  public async search(query: SearchQuery, limit: number = 10): Promise<ServiceSlot[]> {
     const q = this.convertToMongoQuery(query);
     console.log('Search slots query:', query, q);
     return await this.api.slotApi.list(q);

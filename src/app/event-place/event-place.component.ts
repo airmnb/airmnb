@@ -5,7 +5,6 @@ import { EventPlace, MapLocation, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';
-import { ImageService } from '../core/slot-image.service';
 import { UtilService } from '../core/util.service';
 
 @Component({
@@ -21,12 +20,11 @@ export class EventPlaceComponent implements OnInit {
     name: null,
     description: null,
     location: <MapLocation> null,
-    imageNames: []
+    images: []
   };
 
   constructor(
     private api: ApiFacade,
-    private imageService: ImageService,
     private activatedRoute: ActivatedRoute,
     private notification: NotificationService,
     private router: Router,

@@ -1,9 +1,9 @@
 <!-- Map -->
-<div class="container" *ngIf="!showsAdvancedSearch">
+<div class="" *ngIf="!showsAdvancedSearch">
   <div class="row amb-search-map">
-    <amb-loading *ngIf="!slots"></amb-loading>
-    <div *ngIf="slots">
-      <amb-map-search [slots]="slots" [center]="mapCenter" (centerChange)="mapCenterChange($event)"></amb-map-search>
+    <amb-loading *ngIf="!searchResultSlots"></amb-loading>
+    <div *ngIf="searchResultSlots">
+      <amb-map-search [slots]="searchResultSlots" [center]="mapCenter" (centerChange)="mapCenterChange($event)"></amb-map-search>
       <div class="button-map-filter">
         <button class="btn amb-block" (click)="showsAdvancedSearch = true">
           <i class="fa fa-sliders" aria-hidden="true"></i>
@@ -15,7 +15,7 @@
 </div>
 
 <!-- Advanced search panel -->
-<div class="container" *ngIf="showsAdvancedSearch">
+<div class="" *ngIf="showsAdvancedSearch">
   <h5>{{'Search events' | translate}}</h5>
   <div class="row">
     <div class="col s12">
@@ -60,7 +60,7 @@
           name="timeTo">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="row amb-col-interval">
       <div class="col s12 m6">
         <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;search()">
           <i class="fa fa-search" aria-hidden="true"></i>
@@ -68,25 +68,63 @@
         </button>
       </div>
       <div class="col s12 m6">
-          <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            {{'Show map' | translate}}
-          </button>
-        </div>
+        <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          {{'Show map' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Recommended or search result-->
-<div class="container">
-  <h5 i18n *ngIf="isRecommended">{{'Recommended' | translate}}</h5>
-  <h5 i18n *ngIf="!isRecommended">{{'Search result' | translate}}</h5>
-  <amb-loading *ngIf="!slots"></amb-loading>
-  <div class="row" *ngIf="slots">
-    <div class="col s6 m4 l3" *ngFor="let slot of slots">
+<!-- Search result-->
+<div class="" *ngIf="hasSearchQuery">
+  <h5>{{'Search result' | translate}} <small *ngIf="searchResultSlots">{{'Found:' | translate}} {{searchResultSlots.length}}</small></h5>
+  <amb-loading *ngIf="!searchResultSlots"></amb-loading>
+  <div class="row" *ngIf="searchResultSlots">
+    <div class="col s6 m4 l3" *ngFor="let slot of searchResultSlots">
       <mat-card (click)="book(slot)">
 
-        <img mat-card-image [src]="getImageUrl(slot)" alt="Photo of this event">
+        <img mat-card-image *ngIf="slot.images && slot.images.length" [src]="slot.images[0]" alt="Photo of this event">
+        <div class="amb-rating-stars yellow-text accent-3">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <mat-card-title>{{slot.title}}</mat-card-title>
+          <mat-card-subtitle>
+            <small>{{slot.start | date:'medium'}} - {{slot.end | date:'shortTime'}}</small>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{displayGender(slot.gender) | translate}} {{slot.ageFrom}} - {{slot.ageTo}} {{slot.price | currency}} {{slot.otherCondition}}
+          </p>
+          <p>
+            {{slot.bookingCount}} / {{slot.capping}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <hr>
+  </div>
+</div>
+
+<!-- Recommended-->
+<div class="">
+  <h5>{{'Recommended' | translate}}</h5>
+  <amb-loading *ngIf="!recommendedSlots"></amb-loading>
+  <div class="row" *ngIf="recommendedSlots">
+    <div class="col s6 m4 l3" *ngFor="let slot of recommendedSlots">
+      <mat-card (click)="book(slot)">
+
+        <img mat-card-image *ngIf="slot.images && slot.images.length" [src]="slot.images[0]" alt="Photo of this event">
         <div class="amb-rating-stars yellow-text accent-3">
           <i class="fa fa-star" aria-hidden="true"></i>
           <i class="fa fa-star" aria-hidden="true"></i>

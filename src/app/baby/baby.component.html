@@ -35,10 +35,10 @@
           </div>
           <div class="col s12">
             <label for="photos">{{'Images' | translate}}</label>
-            <amb-image-uploader [(imageNames)]="imageNames"></amb-image-uploader>
+            <amb-img-uploader [(images)]="model.images"></amb-img-uploader>
           </div>
         </div>
-        <div class="row">
+        <div class="row amb-col-interval">
           <div class="col s12 m6">
             <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{(isNew ? 'Add' : 'Save') | translate}}</button>
           </div>

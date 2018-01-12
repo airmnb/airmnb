@@ -56,7 +56,7 @@ export class SlotComponent implements OnInit {
     date: new Date(),
     timeFrom: null,
     timeTo: null,
-    imageNames: null,
+    images: null,
     eventPlaceId: null,
     siteId: null,
     location: <MapLocation>null,
@@ -168,8 +168,5 @@ export class SlotComponent implements OnInit {
       coordinates: [slot.location.lng, slot.location.lat]
     };
     await this.api.slotApi.update(slot);
-  }
-
-  public onUploadFinished(error) {
   }
 }
