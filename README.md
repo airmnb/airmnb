@@ -20,7 +20,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * `git clone https://github.com/airmnb/airmnb`
 * `cd airmnb`
 * `npm install`
-* `npm run checkout:prod`
+* `npm run sync:prod`
 * `npm run build`. If you have pushed the latest pre-compiled assets in `dist` folder, you don't need this step.
 * `screen`. See https://www.howtogeek.com/howto/ubuntu/keep-your-ssh-session-running-when-you-disconnect/
 * `sudo AMB_MONGO_DB_CONNECTION_STRING=${MongoDBConnectionString} IS_PROD=true npm start`. sudo is required to run a port below 1024.

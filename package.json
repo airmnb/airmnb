@@ -3,15 +3,14 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "prestart": "tsc",
     "ng": "ng",
     "tsc": "tsc",
-    "start": "npm run checkout:prod && npm install && tsc && node server.js",
+    "start": "node server.js",
     "start:express:js": "sudo node server.js",
     "start:express:ts": "sudo ts-node server.ts --compilerOptions '{\"lib\": [\"es2015\"]}'",
     "start:exts": "sudo ts-node-dev server.ts",
     "start:ng": "ng serve",
-    "build": "sudo tsc && ng build --prod --aot",
+    "build": "sudo ng build --prod --aot && npm run tsc",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -21,7 +20,8 @@
     "watch": "concurrently \"npm run watch:angular\" \"node server.js\"",
     "start:stage": "npm run build:prod && sudo node server.js",
     "start:prod": "node server.js",
-    "checkout:prod": "git fetch && git checkout -f -B master remotes/origin/master --"
+    "checkout:prod": "git fetch && git checkout -f -B master remotes/origin/master --",
+    "sync:prod": "npm run checkout:prod && npm install && npm run tsc"
   },
   "private": true,
   "dependencies": {
