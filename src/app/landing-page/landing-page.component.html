@@ -1,5 +1,5 @@
 <!-- Map -->
-<div class="container" *ngIf="!showsAdvancedSearch">
+<div class="" *ngIf="!showsAdvancedSearch">
   <div class="row amb-search-map">
     <amb-loading *ngIf="!searchResultSlots"></amb-loading>
     <div *ngIf="searchResultSlots">
@@ -15,7 +15,7 @@
 </div>
 
 <!-- Advanced search panel -->
-<div class="container" *ngIf="showsAdvancedSearch">
+<div class="" *ngIf="showsAdvancedSearch">
   <h5>{{'Search events' | translate}}</h5>
   <div class="row">
     <div class="col s12">
@@ -78,7 +78,7 @@
 </div>
 
 <!-- Search result-->
-<div class="container" *ngIf="hasSearchQuery">
+<div class="" *ngIf="hasSearchQuery">
   <h5>{{'Search result' | translate}} <small *ngIf="searchResultSlots">{{'Found:' | translate}} {{searchResultSlots.length}}</small></h5>
   <amb-loading *ngIf="!searchResultSlots"></amb-loading>
   <div class="row" *ngIf="searchResultSlots">
@@ -117,7 +117,7 @@
 </div>
 
 <!-- Recommended-->
-<div class="container">
+<div class="">
   <h5>{{'Recommended' | translate}}</h5>
   <amb-loading *ngIf="!recommendedSlots"></amb-loading>
   <div class="row" *ngIf="recommendedSlots">

@@ -7,7 +7,7 @@
 <mat-nav-list>
   <mat-list-item *ngIf="isConsumer">
     <a matLine routerLink="/">{{'Search events' | translate}}</a>
-    <i class="fa fa-flag right" aria-hidden="true"></i>
+    <i class="fa fa-search right" aria-hidden="true"></i>
   </mat-list-item>
   <mat-list-item *ngIf="!hasLoggedIn">
     <a matLine routerLink="/signup">{{'Sign up' | translate}}</a>
