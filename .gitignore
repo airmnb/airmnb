@@ -46,3 +46,4 @@ Thumbs.db
 /src/**/*.js
 *.js
 !/dist/*.js
+/keys/*

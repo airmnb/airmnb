@@ -72,9 +72,15 @@ router.get('/data/:typeName', (req, res) => {
  */
 router.post('/data/:typeName/list', (req, res) => {
   const typeName = req.params.typeName;
+  let limit = 100;
+  try {
+    limit = parseInt(req.query.limit, 10);
+  }catch(e) {
+    // Who cares
+  }
   const query = req.body || {};
   const gateway = dataGatewayFactory.produce(typeName);
-  gateway.query(query)
+  gateway.query(query, limit)
   .then(list => {
     res.json(list);
   })

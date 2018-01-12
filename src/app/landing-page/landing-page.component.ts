@@ -18,10 +18,11 @@ export class LandingPageComponent implements OnInit {
     return this.selectOptionService.ageFromOptions;
   }
 
-  slots: ServiceSlot[];
+  searchResultSlots: ServiceSlot[];
+  recommendedSlots: ServiceSlot[];
   mapCenter: MapCoord;
   showsAdvancedSearch = false;
-  isRecommended: boolean;
+  hasSearchQuery: boolean;
   private query: SearchQuery;
   public searchModel = {
     location: {
@@ -47,35 +48,39 @@ export class LandingPageComponent implements OnInit {
     private session: SessionService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     if(this.session.isProvider) {
       this.router.navigate(['slots']);
       return;
     }
 
-    this.route.queryParams.subscribe(params => {
+    this.getRecommended();
+
+    this.route.queryParams.subscribe(async params => {
       const queryJson = params['q'];
-      this.isRecommended = !queryJson;
-
-      this.query = {};
-      if (queryJson) {
-        this.query = <SearchQuery>JSON.parse(queryJson);
-      }
-      this.getMapCenter(this.query);
-      this.searchSlots(this.query);
+      this.analyzeQuery(queryJson);
+      this.setMapCenter();
+      this.executeQuery();
     });
-
-    this.searchRecommended();
   }
 
-  private async searchRecommended() {
+  private analyzeQuery(queryJson: string) {
+    this.hasSearchQuery = !!queryJson;
+    this.query = this.hasSearchQuery ? <SearchQuery>JSON.parse(queryJson) : {};
+  }
+
+  private async getRecommended() {
     const recommendedQuery = {}; // Fake query.
-    this.slots = await this.searchService.search(recommendedQuery);
+    this.recommendedSlots = await this.searchService.search(recommendedQuery, 10);
   }
 
-  private getMapCenter(query: SearchQuery) {
+  private async executeQuery() {
+    this.searchResultSlots = await this.searchService.search(this.query, 10);
+  }
+
+  private setMapCenter() {
     try {
-      this.mapCenter = query.mapCenter;
+      this.mapCenter = this.query.mapCenter;
       if(this.util.isNullOrUndefined(this.mapCenter.lng) || this.util.isNullOrUndefined(this.mapCenter.lat)) {
         throw new Error('Both longitude and latitude have to be there.');
       }
@@ -114,10 +119,6 @@ export class LandingPageComponent implements OnInit {
   private redirectWithQueryString() {
     const queryParams = {q: JSON.stringify(this.query)};
     this.router.navigate(['/'], {queryParams});
-  }
-
-  private searchSlots(query: SearchQuery) {
-    this.searchService.search(query).then(x => this.slots = x);
   }
 
   async search() {

@@ -21,7 +21,7 @@ export interface ApiService<T> {
 
   get(query: any): Promise<T> ;
 
-  list(query: any): Promise<T[]>;
+  list(query: any, limit?: number): Promise<T[]>;
 }
 
 class ApiServiceImpl<T> implements ApiService<T> {
@@ -93,8 +93,8 @@ class ApiServiceImpl<T> implements ApiService<T> {
     }
   }
 
-  public async list(query: any): Promise<T[]> {
-    const resp = await this.http.post(this.apiUrl + '/list', query).toPromise();
+  public async list(query: any, limit: number = 100): Promise<T[]> {
+    const resp = await this.http.post(`${this.apiUrl}/list?limit=${limit || 100}`, query).toPromise();
     const body = resp.json();
     if (resp.status === 200) {
       return body;
