@@ -60,7 +60,7 @@
           name="timeTo">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="row amb-col-interval">
       <div class="col s12 m6">
         <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;search()">
           <i class="fa fa-search" aria-hidden="true"></i>
@@ -79,7 +79,7 @@
 
 <!-- Search result-->
 <div class="container" *ngIf="hasSearchQuery">
-  <h5>{{'Search result' | translate}}</h5>
+  <h5>{{'Search result' | translate}} <small *ngIf="searchResultSlots">{{'Found:' | translate}} {{searchResultSlots.length}}</small></h5>
   <amb-loading *ngIf="!searchResultSlots"></amb-loading>
   <div class="row" *ngIf="searchResultSlots">
     <div class="col s6 m4 l3" *ngFor="let slot of searchResultSlots">
