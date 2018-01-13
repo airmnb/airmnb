@@ -47,3 +47,4 @@ Thumbs.db
 *.js
 !/dist/*.js
 /keys/*
+/mobile-app/*
