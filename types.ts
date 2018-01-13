@@ -101,9 +101,9 @@ export interface ServiceSlot {
   providerId: string;
   title: string;
   text?: string;
-  date: Date;
-  timeFrom: number;
-  timeTo: number;
+  date: string; // YYYY-MM-DD
+  timeFrom: string; // HH:mm
+  timeTo: string; // HH:mm
 	gender: Gender; // 0 for girl, 1 for boy, 2 for either
 	ageFrom: number;
 	ageTo: number;

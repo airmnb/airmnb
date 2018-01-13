@@ -53,7 +53,7 @@ export class SlotComponent implements OnInit {
     title: null,
     ageFrom: 2,
     ageTo: 6,
-    date: new Date(),
+    date: null,
     timeFrom: null,
     timeTo: null,
     images: null,

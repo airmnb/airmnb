@@ -21,4 +21,8 @@ export class EventCardComponent implements OnInit {
   displayGender(gender: Gender): string {
     return this.util.displayGender(gender);
   }
+
+  displayTime(date: string, time: string): Date {
+    return this.util.parseInputDateTime(date, time);
+  }
 }
