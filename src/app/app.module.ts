@@ -4,41 +4,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {  MatMomentDateModule} from "@angular/material-moment-adapter";
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { LayoutModule } from '@angular/cdk/layout';
 import {
-  MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
-  MatChipsModule,
   MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
   MatInputModule,
   MatListModule,
   MatMenuModule,
   MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
   MatRadioModule,
-  MatRippleModule,
   MatSelectModule,
   MatSidenavModule,
-  MatSliderModule,
   MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
 
@@ -147,39 +132,24 @@ import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
   imports: [
     CoreModule,
 
-    MatMomentDateModule,
     MatFormFieldModule,
-    MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
-    MatChipsModule,
     MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
     MatInputModule,
     MatListModule,
     MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
     MatRadioModule,
-    MatRippleModule,
     MatSelectModule,
     MatSidenavModule,
-    MatSliderModule,
     MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule,
     MatStepperModule,
+
+    LayoutModule,
 
     NoopAnimationsModule,
     BrowserModule,
@@ -187,11 +157,11 @@ import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
     ReactiveFormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    NgbDatepickerModule.forRoot(),
-    NgbTimepickerModule.forRoot(),
+    // NgbDatepickerModule.forRoot(),
+    // NgbTimepickerModule.forRoot(),
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
-    CalendarModule.forRoot(),
+    // CalendarModule.forRoot(),
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
@@ -203,7 +173,7 @@ import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
         urlPath: "https://webapi.amap.com/maps"
       }
     ),
-    Ng2SmartTableModule,
+    // Ng2SmartTableModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -215,7 +185,7 @@ import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
     ImageToDataUrlModule
   ],
   providers: [
-    NgbTimepickerConfig,
+    // NgbTimepickerConfig,
     GoogleMapsAPIWrapper,
     MarkerManager,
     HttpClient
