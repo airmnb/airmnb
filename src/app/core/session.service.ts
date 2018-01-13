@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'angular4-social-login';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
@@ -30,8 +29,7 @@ export class SessionService {
     private cookieService: CookieService,
     private api: ApiFacade,
     private router: Router,
-    private translate: TranslateService,
-    private authService: AuthService
+    private translate: TranslateService
   ) {
   }
 
@@ -100,13 +98,9 @@ export class SessionService {
     this._account = null;
     this._role = null;
     this._profile = null;
-    await this.authService.signOut();
+    // await this.authService.signOut();
     this.accountSubject.next(null);
     this.cookieService.deleteAll('/');
-  }
-
-  getAccount(): Observable<Account> {
-    return this.accountSubject.asObservable();
   }
 
   loadCookie(): void {

@@ -7,7 +7,6 @@ import { registerLocaleData } from '@angular/common';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {  MatMomentDateModule} from "@angular/material-moment-adapter";
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from "angular4-social-login";
 
 import {
   MatAutocompleteModule,
@@ -104,17 +103,6 @@ import { TimepickerComponent } from './timepicker/timepicker.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { ImageToDataUrlModule } from "ngx-image2dataurl";
 import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
-
-const sso_config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider(environment.googleClientId)
-  }
-]);
-
-export function getSsoConfig() {
-  return sso_config;
-}
 
 @NgModule({
   declarations: [
@@ -224,18 +212,13 @@ export function getSsoConfig() {
       }
     }),
     HttpClientModule,
-    SocialLoginModule,
     ImageToDataUrlModule
   ],
   providers: [
     NgbTimepickerConfig,
     GoogleMapsAPIWrapper,
     MarkerManager,
-    HttpClient,
-    {
-      provide: AuthServiceConfig,
-      useFactory: getSsoConfig
-    }
+    HttpClient
   ],
   entryComponents: [
   ],

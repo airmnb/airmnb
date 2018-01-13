@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService, SocialUser, GoogleLoginProvider } from 'angular4-social-login';
-
 import { Account, AccountProfile, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { LoginService } from '../core/api.service';
@@ -30,36 +28,18 @@ export class LoginContentComponent implements OnInit {
     private router: Router,
     private api: ApiFacade,
     private util: UtilService,
-    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.authService.authState.subscribe(async user => {
-      console.log('Google SSO user', user);
+    // this.authService.authState.subscribe(async user => {
+    //   console.log('Google SSO user', user);
 
-      if(!user) return;
-      console.log("Google SSO user isn't null", user);
-      const account = await this.getOrCreateAccountForSso(user);
-      console.log('SSO account', account);
-      await this.login(account.name, account.secret, Role.Consumer);
-    });
-  }
-
-  async getOrCreateAccountForSso(user: SocialUser): Promise<Account> {
-    let account = await this.api.accountApi.get({name: user.name});
-    if(!account) {
-      // Not existing account
-      account = {
-        id: this.util.newGuid(),
-        name: user.name,
-        secret: this.util.newGuid() + "@google", // Random fake password
-        enabled: true,
-        email: user.email
-      };
-      const accountId = await this.api.accountApi.add(account);
-      account.id = accountId;
-    }
-    return account;
+    //   if(!user) return;
+    //   console.log("Google SSO user isn't null", user);
+    //   const account = await this.getOrCreateAccountForSso(user);
+    //   console.log('SSO account', account);
+    //   await this.login(account.name, account.secret, Role.Consumer);
+    // });
   }
 
   async onSubmit() {
@@ -88,14 +68,6 @@ export class LoginContentComponent implements OnInit {
     }else{
       this.notificationService.info("Please input your profile to continue the journey.");
       this.router.navigate(['/profile']);
-    }
-  }
-
-  loginWithGoogle() {
-    try{
-      this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    }catch(e) {
-      console.log('loginWithGoogle', e);
     }
   }
 }
