@@ -101,7 +101,7 @@ import { SlotComponent } from './slot/slot.component';
 import { TakePhotoComponent } from './take-photo/take-photo.component';
 import { TimepickerComponent } from './timepicker/timepicker.component';
 import { TransactionComponent } from './transaction/transaction.component';
-// import { ImageToDataUrlModule } from "ngx-image2dataurl";
+import { ImageToDataUrlModule } from "ngx-image2dataurl";
 import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
 
 @NgModule({
@@ -212,7 +212,7 @@ import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
       }
     }),
     HttpClientModule,
-    // ImageToDataUrlModule
+    ImageToDataUrlModule
   ],
   providers: [
     NgbTimepickerConfig,
