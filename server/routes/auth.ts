@@ -11,12 +11,13 @@ import * as uuid from "uuid";
 export const passportMiddleware = passport;
 export const router = express.Router();
 
+const host = process.env.URL_HOST || "localhost";
 const accountApi = dataGatewayFactory.produce('account');
 
 passport.use(new GoogleStrategy({
   clientID: env.googleClientId,
   clientSecret: env.googleClientSecret,
-  callbackURL: "https://localhost/auth/google/callback"
+  callbackURL: `https://${host}/auth/google/callback`
 },
 async (accessToken, refreshToken, profile, cb) => {
   // console.log('Google SSO profile', JSON.stringify(profile));
