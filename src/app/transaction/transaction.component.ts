@@ -7,7 +7,6 @@ import { Subject } from 'rxjs/Subject';
 import { setInterval, clearInterval } from 'timers';
 import * as moment from 'moment';
 
-import { imageFilter } from '../../../server/routes/utils';
 import { Booking, BookingStatus } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { UtilService } from '../core/util.service';
