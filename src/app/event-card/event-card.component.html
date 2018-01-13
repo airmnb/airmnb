@@ -2,7 +2,7 @@
   <img *ngIf="slot.images && slot.images.length" [src]="slot.images[0]" alt="Photo of event" style="width:100%;">
   <p class="blue-grey-text darken-4 amb-compact-text"><small>{{slot.location.address}}</small></p>
   <p><strong>{{slot.title}}</strong></p>
-  <p class="grey-text amb-compact-text"><small>{{displayTime(slot.date, slot.timeFrom) | date:'medium'}} - {{displayTime(slot.date, slot.timeTo) | date:'shortTime'}}</small></p>
+  <p class="grey-text amb-compact-text"><small>{{displayTime(slot.date, slot.timeFrom) | date:'short'}} - {{displayTime(slot.date, slot.timeTo) | date:'shortTime'}}</small></p>
   <p class="grey-text amb-compact-text"><small>{{slot.price | currency}}
     <strong>{{"Gender:" | translate}}</strong> {{displayGender(slot.gender) | translate}}
     <strong>{{"Age:" | translate}}</strong> {{slot.ageFrom}} - {{slot.ageTo}}</small>
