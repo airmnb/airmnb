@@ -126,5 +126,7 @@
   "Name": "名字",
   "Photos": "照片",
   "Choose image": "上传图片",
-  "Found:": "查找到："
+  "Found:": "查找到：",
+  "Age:": "年龄：",
+  "Gender:": "性别："
 }
