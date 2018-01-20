@@ -89,6 +89,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { ImageToDataUrlModule } from "ngx-image2dataurl";
 import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
 import { EventCardComponent } from './event-card/event-card.component';
+import { EventDetailComponent } from './event-detail/event-detail.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { EventCardComponent } from './event-card/event-card.component';
     LandingPageComponent,
     AddressInputComponent,
     ImgUploaderComponent,
-    EventCardComponent
+    EventCardComponent,
+    EventDetailComponent
   ],
   imports: [
     CoreModule,

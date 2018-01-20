@@ -8,8 +8,11 @@
       </button>
     </div>
   </div>
-
+  <div class="row" *ngIf="!sites">
+    <amb-loading></amb-loading>
+  </div>
   <div class="row" *ngFor="let site of sites">
+
     <div class="col s12">
       <mat-card (click)="edit(site)">
         <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="delete(site);$event.stopPropagation()">
