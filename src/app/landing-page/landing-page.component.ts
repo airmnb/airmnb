@@ -7,6 +7,7 @@ import { SlotService } from '../core/slot.service';
 import { SelectOptionService } from '../core/select-option.service';
 import { SessionService } from '../core/session.service';
 import { UtilService } from '../core/util.service';
+import { EventDetailService } from '../event-detail.service';
 
 @Component({
   selector: 'amb-landing-page',
@@ -45,7 +46,8 @@ export class LandingPageComponent implements OnInit {
     private searchService: SlotService,
     private util: UtilService,
     private selectOptionService: SelectOptionService,
-    private session: SessionService
+    private session: SessionService,
+    private eventDetailService: EventDetailService
   ) { }
 
   async ngOnInit() {
@@ -139,10 +141,17 @@ export class LandingPageComponent implements OnInit {
     return this.util.displayGender(gender);
   }
 
-  book(slot: ServiceSlot) {
+  // book(slot: ServiceSlot) {
+  //   if(!slot) {
+  //     return;
+  //   }
+  //   this.router.navigate(['/bookings/add/', slot.id]);
+  // }
+
+  showDetail(slot: ServiceSlot) {
     if(!slot) {
       return;
     }
-    this.router.navigate(['/bookings/add/', slot.id]);
+    this.eventDetailService.open(slot);
   }
 }

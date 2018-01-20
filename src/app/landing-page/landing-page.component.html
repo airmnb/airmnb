@@ -83,7 +83,7 @@
   <amb-loading *ngIf="!searchResultSlots"></amb-loading>
   <div class="row" *ngIf="searchResultSlots">
     <div class="col s6 m4 l3" *ngFor="let slot of searchResultSlots">
-      <amb-event-card [slot]="slot" (click)="book(slot)"></amb-event-card>
+      <amb-event-card [slot]="slot" (click)="showDetail(slot)"></amb-event-card>
     </div>
   </div>
 </div>
@@ -94,7 +94,7 @@
   <amb-loading *ngIf="!recommendedSlots"></amb-loading>
   <div class="row" *ngIf="recommendedSlots">
     <div class="col s6 m4 l3" *ngFor="let slot of recommendedSlots">
-      <amb-event-card [slot]="slot" (click)="book(slot)"></amb-event-card>
+      <amb-event-card [slot]="slot" (click)="showDetail(slot)"></amb-event-card>
     </div>
   </div>
 </div>

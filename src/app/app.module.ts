@@ -25,6 +25,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatStepperModule,
+  MatDialogModule,
 } from '@angular/material';
 
 // i18n
@@ -90,6 +91,7 @@ import { ImageToDataUrlModule } from "ngx-image2dataurl";
 import { ImgUploaderComponent } from './img-uploader/img-uploader.component';
 import { EventCardComponent } from './event-card/event-card.component';
 import { EventDetailComponent } from './event-detail/event-detail.component';
+import { EventDetailService } from './event-detail.service';
 
 @NgModule({
   declarations: [
@@ -141,6 +143,7 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatDatepickerModule,
     MatInputModule,
     MatListModule,
@@ -192,9 +195,11 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     // NgbTimepickerConfig,
     GoogleMapsAPIWrapper,
     MarkerManager,
-    HttpClient
+    HttpClient,
+    EventDetailService
   ],
   entryComponents: [
+    EventDetailComponent
   ],
   bootstrap: [AppComponent]
 })
