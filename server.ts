@@ -50,8 +50,8 @@ import env from './server/env';
 const app = express();
 
 // Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '5mb'}));
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
