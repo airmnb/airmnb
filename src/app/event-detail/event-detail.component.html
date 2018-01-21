@@ -1,29 +1,26 @@
-
 <mat-dialog-content>
-    <div class="row" (click)="close()">
-        <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
-      </div>
-      <h1 mat-dialog-title>{{slot.title}}</h1>
-
-  <div class="row" *ngIf="slot.images && slot.images.length">
-    <img class="col s12" *ngFor="let image of slot.images" [src]=" slot.images[0]" alt="Photo of event" style="width:100%;">
+  <div class="row" (click)="close()" cdk-focus-region-start>
+    <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
   </div>
-  <div class="row">
 
+  <div class="amb-event-photos" *ngIf="slot.images && slot.images.length">
+    <img *ngFor="let image of slot.images" [src]="image" alt="Photo of event" style="width:100%;">
+  </div>
+
+  <div class="row">
+    <h5>{{slot.title}}</h5>
     <p class="blue-grey-text darken-4">
       {{slot.location.address}}
     </p>
+    <hr>
     <p>
-      <strong>{{slot.title}}</strong>
-    </p>
-    <p class="grey-text">
       {{displayTime(slot.date, slot.timeFrom) | date:'short'}} - {{displayTime(slot.date, slot.timeTo) | date:'shortTime'}}
     </p>
-    <p class="grey-text">
-      {{slot.price | currency}}
+    <p>
       <strong>{{"Gender:" | translate}}</strong> {{displayGender(slot.gender) | translate}}
       <strong>{{"Age:" | translate}}</strong> {{slot.ageFrom}} - {{slot.ageTo}}
     </p>
+    <p>{{slot.price | currency}}</p>
     <p>
       <span class="amber-text accent-4">
         <i class="fa fa-star" aria-hidden="true"></i>
@@ -36,11 +33,11 @@
     </p>
   </div>
   <div class="row">
-      <div class="col s12">
-        <button class="btn waves-effect waves-light amb-block" (click)="book()">
-          <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-          {{'Book' | translate}}
-        </button>
-      </div>
+    <div class="col s12">
+      <button class="btn waves-effect waves-light amb-block" (click)="book()">
+        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+        {{'Book' | translate}}
+      </button>
     </div>
+  </div>
 </mat-dialog-content>
