@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "amb",
       "styles": [
+        "../node_modules/material-design-icons/iconfont/material-icons.css",
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/materialize-css/dist/css/materialize.css",
         "styles.scss"
