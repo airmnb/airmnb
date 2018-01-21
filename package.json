@@ -10,7 +10,7 @@
     "start:express:ts": "sudo ts-node server.ts --compilerOptions '{\"lib\": [\"es2015\"]}'",
     "start:exts": "sudo ts-node-dev server.ts",
     "start:ng": "ng serve",
-    "build": "ng build --prod --aot && npm run tsc",
+    "build": "sudo rm -rf /Users/mac/github/airmnb/dist && ng build --prod --aot && npm run tsc",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
