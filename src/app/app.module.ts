@@ -26,6 +26,7 @@ import {
   MatToolbarModule,
   MatStepperModule,
   MatDialogModule,
+  MatIcon
 } from '@angular/material';
 
 // i18n
@@ -157,6 +158,7 @@ import { EventDetailService } from './event-detail.service';
     MatTabsModule,
     MatToolbarModule,
     MatStepperModule,
+    MatIcon,
 
     LayoutModule,
 
