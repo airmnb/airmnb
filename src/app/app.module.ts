@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {
   MatButtonModule,
   MatButtonToggleModule,
@@ -145,6 +145,8 @@ import { EventDetailService } from './event-detail.service';
     MatCheckboxModule,
     MatDialogModule,
     MatDatepickerModule,
+    MatMomentDateModule,
+    MatNativeDateModule,
     MatInputModule,
     MatListModule,
     MatMenuModule,
