@@ -1,10 +1,12 @@
-<div class="row" (click)="close()">
-  <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
-</div>
-<h1 mat-dialog-title>{{slot.title}}</h1>
+
 <mat-dialog-content>
+    <div class="row" (click)="close()">
+        <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
+      </div>
+      <h1 mat-dialog-title>{{slot.title}}</h1>
+
   <div class="row" *ngIf="slot.images && slot.images.length">
-    <img class="col s12" *ngFor="let image of slot.images" [src]="image" alt="Photo of event" style="width:100%;">
+    <img class="col s12" *ngFor="let image of slot.images" [src]=" slot.images[0]" alt="Photo of event" style="width:100%;">
   </div>
   <div class="row">
 
@@ -33,14 +35,12 @@
       {{slot.bookingCount}} / {{slot.capping}}
     </p>
   </div>
-</mat-dialog-content>
-<mat-dialog-actions>
   <div class="row">
-    <div class="col s12">
-      <button class="btn waves-effect waves-light amb-block" (click)="book()">
-        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-        {{'Book' | translate}}
-      </button>
+      <div class="col s12">
+        <button class="btn waves-effect waves-light amb-block" (click)="book()">
+          <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+          {{'Book' | translate}}
+        </button>
+      </div>
     </div>
-  </div>
-</mat-dialog-actions>
+</mat-dialog-content>
