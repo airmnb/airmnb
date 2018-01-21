@@ -85,8 +85,8 @@ app.use('/api', apiRouter.router);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-  res.status(404);
-  // res.sendFile(path.join(__dirname, 'dist/index.html'));
+  // Hand over unknown requests to Angular
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 
