@@ -9,6 +9,7 @@
   </div>
 
   <div class="row">
+    <amb-loading *ngIf="!babies"></amb-loading>
     <div class="col s12 m6" *ngFor="let baby of babies">
       <div class="card small" (click)="edit(baby)">
         <div class="card-stacked">
