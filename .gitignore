@@ -7,7 +7,7 @@
 /out-tsc
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
 /.idea
@@ -48,3 +48,4 @@ Thumbs.db
 !/dist/*.js
 /keys/*
 /mobile-app/*
+cmd.log
