@@ -7,7 +7,7 @@
       <small>{{isProvider ? " - " : ""}}{{(isProvider ? "provider" : "") | translate}}</small>
     </a>
     <div style="width:100%">
-      <small class="right" *ngIf="accountName">{{accountName}}</small>
+      <small class="right amb-account-name" *ngIf="accountName">{{accountName}}</small>
       <small class="right" *ngIf="!accountName">
         <a routerLink="/login" class="white-text" (click)="sidenav.close()">{{'Log in' | translate}}</a></small>
     </div>
