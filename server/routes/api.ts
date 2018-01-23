@@ -74,7 +74,7 @@ router.get('/data/:typeName', (req, res) => {
  */
 router.post('/data/:typeName/list', (req, res) => {
   const typeName = req.params.typeName;
-  let limit = 100;
+  let limit = 10;
   try {
     limit = parseInt(req.query.limit, 10);
   }catch(e) {
