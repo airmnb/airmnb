@@ -7,8 +7,8 @@
 <div class="row">
   <div class="col s6 m4 l3" *ngFor="let image of images; let i = index">
     <mat-card class="amb-image-preview">
-      <button class="amb-delete-image" mat-fab color="warn" (click)="remove(i)">
-          <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+      <button class="btn-floating amb-halfway-top-right waves-effect waves-light red" (click)="remove(i)">
+          <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
       </button>
       <img mat-card-image [src]="image" [alt]="'image'+i">
     </mat-card>
