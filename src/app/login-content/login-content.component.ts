@@ -20,6 +20,9 @@ export class LoginContentComponent implements OnInit {
   role: Role;
   errorMessage: string;
   submitted: boolean;
+  get isInTheGreatWall(): boolean {
+    return this.util.isInTheGreatWall;
+  }
 
   constructor(
     private loginService: LoginService,
@@ -28,7 +31,8 @@ export class LoginContentComponent implements OnInit {
     private router: Router,
     private api: ApiFacade,
     private util: UtilService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     // this.authService.authState.subscribe(async user => {

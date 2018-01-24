@@ -8,14 +8,20 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../environments/environment';
 import { Gender } from '../../../types';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UtilService {
 
+  private _isInTheGreatWall: boolean;
+
   constructor(
     @Inject(DOCUMENT) private document,
-    private translate: TranslateService
-  ) { }
+    private translate: TranslateService,
+    router: Router
+  ) {
+    this._isInTheGreatWall = /[\.\/]airmnb.com\b/i.test(router.url);
+  }
 
   newGuid() {
     return uuid.v4();
@@ -67,5 +73,9 @@ export class UtilService {
 
   deepEquals(x: any, y: any): boolean {
     return _.isEqual(x, y);
+  }
+
+  get isInTheGreatWall(): boolean {
+    return this._isInTheGreatWall;
   }
 }

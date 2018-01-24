@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { Account, AccountProfile, Role } from '../../../types';
 import { ApiFacade } from './apiFacade';
+import { UtilService } from './util.service';
 
 const cookieKey = 'c';
 const langKey = 'lang';
@@ -29,7 +30,8 @@ export class SessionService {
     private cookieService: CookieService,
     private api: ApiFacade,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private util: UtilService
   ) {
   }
 
@@ -144,10 +146,10 @@ export class SessionService {
 
 
   get shouldUseGoogleMap(): boolean {
-    return !this._profile || !this._profile.preferredMap || this._profile.preferredMap === 'google';
+    return !this.util.isInTheGreatWall; // !this._profile || !this._profile.preferredMap || this._profile.preferredMap === 'google';
   }
 
   get shouldUseGaodeMap(): boolean {
-    return this._profile && this._profile.preferredMap === 'gaode';
+    return this.util.isInTheGreatWall; // || (this._profile && this._profile.preferredMap === 'gaode');
   }
 }

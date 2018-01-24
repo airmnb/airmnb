@@ -41,7 +41,7 @@
       </a>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!isInTheGreatWall">
     <div class="col s12 offset-m2 m8 offset-l4 l4">
       <hr>
 
@@ -50,7 +50,7 @@
       </a>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!isInTheGreatWall">
     <div class="col s12 offset-m2 m8 offset-l4 l4">
       <a mat-raised-button color="primary" class="amb-block" href="/auth/google">
         <i class="fa fa-google" aria-hidden="true"></i> {{'Log in with Google' | translate}}
