@@ -25,15 +25,16 @@ passport.use(new GoogleStrategy({
   callbackURL: `https://${host}/auth/google/callback`
 },
 async (accessToken, refreshToken, profile, cb) => {
-  // console.log('Google SSO profile', JSON.stringify(profile));
+  console.log('Google SSO profile', JSON.stringify(profile));
   const email = profile.emails[0].value;
-  const name = email + '@@google';
-  let account : Account = await accountApi.queryOne({name: name});
+  let account : Account = await accountApi.queryOne({displayName: profile.displayName, provider: 'google'});
   if(!account) {
     account = {
       id: uuid.v4(),
       email: email,
-      name: name,
+      name: email + '@google',
+      displayName: email,
+      provider: 'google',
       secret: null,
       enabled: true
     };
@@ -50,13 +51,14 @@ passport.use(new FacebookStrategy({
 },
 async (accessToken, refreshToken, profile, cb) => {
   console.log('Facebook SSO profile', JSON.stringify(profile));
-  const name = profile.id + '@@facebook';
-  let account : Account = await accountApi.queryOne({name: name});
+  let account : Account = await accountApi.queryOne({displayName: profile.displayName, provider: 'facebook'});
   if(!account) {
     account = {
       id: uuid.v4(),
       email: null,
-      name: name,
+      name: profile.id + '@facebook',
+      displayName: profile.displayName,
+      provider: 'facebook',
       secret: null,
       enabled: true
     };
@@ -79,30 +81,22 @@ passport.deserializeUser((obj, cb) => {
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    const account = req['user'];
-    // console.log('Google SSO request', JSON.stringify(req['user']));
-    // Successful authentication, redirect home.
-    const c = {
-      account,
-      role: 0
-    };
-    res.cookie('c', JSON.stringify(c));
-    res.redirect('/');
-  });
+  (req, res) => handleSsoAccount(req, res, 'google'));
 
 // Facebook SSO
 router.get('/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email'] }));
 router.get('/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
-  (req, res) => {
-    const account = req['user'];
-    // console.log('Google SSO request', JSON.stringify(req['user']));
-    // Successful authentication, redirect home.
-    const c = {
-      account,
-      role: 0
-    };
-    res.cookie('c', JSON.stringify(c));
-    res.redirect('/');
-});
+  (req, res) => handleSsoAccount(req, res, 'facebook'));
+
+function handleSsoAccount(req, res, provider) {
+  const account = req['user'];
+  // console.log('SSO request from', provider, JSON.stringify(req['user']));
+  // Successful authentication, redirect home.
+  const c = {
+    account,
+    role: 0
+  };
+  res.cookie('c', JSON.stringify(c));
+  res.redirect('/');
+}

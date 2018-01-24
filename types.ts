@@ -39,7 +39,9 @@ export interface Account {
 	secret: string;
 	enabled: boolean;
 	email: string;
-	wechat?: string;
+  wechat?: string;
+  provider: string; // google, facebook, wechat, local
+  displayName: string;
 }
 
 export interface AccountProfile  {

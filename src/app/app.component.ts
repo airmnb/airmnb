@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   private _mobileQueryListener: () => void;
 
   get accountName(): string {
-    return this.session.account ? this.session.account.name : null;
+    return this.session.account ? this.session.account.displayName : null;
   }
 
   get isProvider(): boolean {

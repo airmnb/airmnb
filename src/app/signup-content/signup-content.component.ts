@@ -36,6 +36,8 @@ export class SignupContentComponent implements OnInit {
       const model: Account = {
         id: uuid.v4(),
         name: this.accountName,
+        displayName: this.accountName,
+        provider: 'local',
         email: this.email,
         enabled: true,
         secret: this.password
