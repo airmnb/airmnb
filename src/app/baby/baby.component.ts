@@ -6,6 +6,7 @@ import { ApiFacade } from '../core/apiFacade';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';
 import { UtilService } from '../core/util.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'amb-baby',
@@ -34,7 +35,8 @@ export class BabyComponent implements OnInit {
     private util: UtilService,
     private notification: NotificationService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
   }
 
@@ -63,10 +65,17 @@ export class BabyComponent implements OnInit {
       } else {
         await this.api.babyProfileApi.update(this.model);
       }
-      this.router.navigate(['babies']);
+      // this.router.navigate(['babies']);
+      this.location.back();
     }catch(e){
       this.notification.error(e);
     }
+    return false;
+  }
+
+  cancel() {
+    this.location.back();
+    return false;
   }
 
 }

@@ -43,7 +43,7 @@
             <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{(isNew ? 'Add' : 'Save') | translate}}</button>
           </div>
           <div class="col s12 m6">
-            <button class="btn amb-block waves-effect waves-teal" routerLink="/babies">{{'Cancel' | translate}}</button>
+            <button class="btn amb-block waves-effect waves-teal" (click)="cancel()">{{'Cancel' | translate}}</button>
           </div>
         </div>
       </div>
