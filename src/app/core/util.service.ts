@@ -9,6 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../environments/environment';
 import { Gender } from '../../../types';
 import { Router } from '@angular/router';
+import { Location }   from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class UtilService {
@@ -18,9 +20,11 @@ export class UtilService {
   constructor(
     @Inject(DOCUMENT) private document,
     private translate: TranslateService,
-    router: Router
+    private router: Router,
+    private location: Location,
+    route: ActivatedRoute
   ) {
-    this._isInTheGreatWall = /[\.\/]airmnb.com\b/i.test(router.url);
+    this._isInTheGreatWall = /\bairmnb.com\b/i.test(document.location.hostname);
   }
 
   newGuid() {
