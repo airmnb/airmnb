@@ -152,6 +152,10 @@ export class LandingPageComponent implements OnInit {
     if(!slot) {
       return;
     }
+    if(!this.session.hasLoggedIn) {
+      this.router.navigate(['login']);
+      return;
+    }
     this.eventDetailService.open(slot);
   }
 }
