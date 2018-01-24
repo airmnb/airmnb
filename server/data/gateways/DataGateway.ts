@@ -29,7 +29,7 @@ export class DataGateway<T extends {id?: string}> implements IDataGateway<T> {
 		return <T > result;
 	}
 
-	async getAll(id: string, limit: number = 1000): Promise < T[] > {
+	async getAll(id: string, limit: number = 10): Promise < T[] > {
 		return await this.query({id: id});
 	}
 
@@ -67,7 +67,7 @@ export class DataGateway<T extends {id?: string}> implements IDataGateway<T> {
 		return item.id;
 	}
 
-	async query(query: any, limit: number = 1000): Promise < T[] > {
+	async query(query: any, limit: number = 10): Promise < T[] > {
 		const collection = await this.getCollection();
 		const result = await collection.find(query)
 			.sort({
