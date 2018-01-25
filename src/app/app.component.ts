@@ -24,6 +24,10 @@ export class AppComponent implements OnInit {
     return this.session.account ? this.session.account.displayName : null;
   }
 
+  get hasLoggedIn(): boolean {
+    return this.session.hasLoggedIn;
+  }
+
   get isProvider(): boolean {
     return this.session.isProvider;
   }
@@ -65,10 +69,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.session.loadCookie();
-  }
-
-  get hasLoggedIn(): boolean {
-    return !!this.session.account;
   }
 
   goTransactions() {

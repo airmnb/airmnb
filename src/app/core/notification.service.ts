@@ -11,6 +11,7 @@ export class NotificationService {
   constructor() { }
 
   info(info): void {
+    console.log('INFO', info);
     this.infoSubject.next(JSON.stringify(info));
   }
 
@@ -19,6 +20,7 @@ export class NotificationService {
   }
 
   error(error): void {
+    console.log('ERROR', error);
     this.errorSubject.next(error.toString() + error.stack);
   }
 
