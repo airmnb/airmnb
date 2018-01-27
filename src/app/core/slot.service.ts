@@ -71,5 +71,4 @@ export class SlotService {
     }
     return q;
   }
-
 }

@@ -14,5 +14,4 @@ export class BabyService {
     const query = babyIds && babyIds.length ? {id: {$in: babyIds}} : null;
     return await this.api.babyProfileApi.list(query);
   }
-
 }

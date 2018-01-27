@@ -30,9 +30,4 @@ export class ApiFacade {
     this.babyProfileApi = apiFactory.produce('baby_profile');
     this.eventSiteApi = apiFactory.produce('event_site');
   }
-
-  getReviewContent() {
-
-  }
-
 }

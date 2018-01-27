@@ -40,10 +40,10 @@
         </div>
         <div class="row amb-col-interval">
           <div class="col s12 m6">
-            <button type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{(isNew ? 'Add' : 'Save') | translate}}</button>
+            <button mat-raised-button color="primary" type="submit" class="btn amb-block" [disabled]="!theForm.form.valid">{{(isNew ? 'Add' : 'Save') | translate}}</button>
           </div>
           <div class="col s12 m6">
-            <button class="btn amb-block waves-effect waves-teal" (click)="cancel()">{{'Cancel' | translate}}</button>
+            <button mat-button color="primary" class="btn amb-block waves-effect waves-teal" (click)="cancel()">{{'Cancel' | translate}}</button>
           </div>
         </div>
       </div>

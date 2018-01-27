@@ -1,11 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "theme";
-
-.amb-home-content {
-  // background-image: url("./assets/mainbg.png");
-  // background-size: cover;
-}
 
 .amb-block {
   width: 100% !important;
@@ -19,6 +15,14 @@ option[value=""][disabled] {
 }
 option {
   color: black;
+}
+
+button:focus {
+  background-color: transparent !important;
+}
+
+button:hover {
+  background-color: transparent !important;
 }
 
 .transparent-card {

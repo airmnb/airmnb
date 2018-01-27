@@ -5,7 +5,7 @@
     <div *ngIf="searchResultSlots">
       <amb-map-search [slots]="searchResultSlots" [center]="mapCenter" (centerChange)="mapCenterChange($event)"></amb-map-search>
       <div class="button-map-filter">
-        <button class="btn amb-block" (click)="showsAdvancedSearch = true">
+        <button mat-raised-button color="primary" class="btn amb-block" (click)="showsAdvancedSearch = true">
           <i class="fa fa-sliders" aria-hidden="true"></i>
           {{'Filter' | translate}}
         </button>
@@ -62,13 +62,13 @@
     </div>
     <div class="row amb-col-interval">
       <div class="col s12 m6">
-        <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;search()">
+        <button mat-raised-button color="primary" class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;search()">
           <i class="fa fa-search" aria-hidden="true"></i>
           {{'Search' | translate}}
         </button>
       </div>
       <div class="col s12 m6">
-        <button class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;">
+        <button mat-button color="primary" class="btn waves-effect waves-light amb-block" (click)="showsAdvancedSearch = false;">
           <i class="fa fa-search" aria-hidden="true"></i>
           {{'Show map' | translate}}
         </button>

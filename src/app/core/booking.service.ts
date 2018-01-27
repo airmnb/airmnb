@@ -173,8 +173,4 @@ export class BookingService {
       return x;
     });
   }
-
-  getCost(booking: Booking): string {
-    return "XXX";
-  }
 }

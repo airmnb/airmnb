@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <button class="btn waves-effect waves-teal" (click)="choose()">{{'Choose image' | translate}}</button>
+    <button mat-raised-button color="primary" class="btn waves-effect waves-teal" (click)="choose()">{{'Choose image' | translate}}</button>
     <input #fileInput hidden type="file" [imageToDataUrl]="options" (imageSelected)="selected($event)">
   </div>
 </div>
