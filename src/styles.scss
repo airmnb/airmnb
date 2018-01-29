@@ -17,13 +17,20 @@ option {
   color: black;
 }
 
-button:focus {
-  background-color: transparent !important;
+.mat-button.mat-primary {
+  background-color: white;
 }
 
-button:hover {
-  background-color: transparent !important;
+button.mat-primary:focus {
+  background-color: $primary-color;
 }
+// button:focus {
+//   background-color: $primary-color-light !important;
+// }
+
+// button:hover {
+//   background-color: $primary-color-light !important;
+// }
 
 .transparent-card {
   /* background-color: rgba(92, 184, 92, 0.4) !important;  */

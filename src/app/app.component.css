@@ -51,3 +51,7 @@
 .amb-account-name {
   font-size: xx-small;
 }
+
+.amb-toggle-menu:focus {
+  background-color: transparent;
+}
