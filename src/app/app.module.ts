@@ -51,6 +51,8 @@ import { NgxAmapModule } from 'ngx-amap';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+import { NgxCarouselModule, NgxCarousel } from 'ngx-carousel';
+import 'hammerjs';
 
 import { environment } from '../environments/environment';
 import { AboutusComponent } from './aboutus/aboutus.component';
@@ -193,7 +195,8 @@ import { EventDetailService } from './event-detail.service';
       }
     }),
     HttpClientModule,
-    ImageToDataUrlModule
+    ImageToDataUrlModule,
+    NgxCarouselModule
   ],
   providers: [
     // NgbTimepickerConfig,
