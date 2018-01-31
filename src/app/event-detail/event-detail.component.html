@@ -3,7 +3,7 @@
     <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
   </div>
 
-  <ngx-carousel class="amb-event-photos" [inputs]="carouselOne" *ngIf="slot.images && slot.images.length">
+  <ngx-carousel class="amb-event-photos" [inputs]="carouselOne" *ngIf="slot.images.length > 1">
     <ngx-item NgxCarouselItem *ngFor="let image of slot.images" >
       <img [src]="image" alt="Photo of event" style="width:100%;">
     </ngx-item>
@@ -14,6 +14,10 @@
       <i class="fa fa-chevron-right" aria-hidden="true"></i>
     </button>
   </ngx-carousel>
+
+  <div class="amb-event-photos" *ngIf="slot.images.length === 1">
+    <img [src]="slot.images[0]" alt="Photo of event" style="width:100%;">
+  </div>
 
   <div class="row">
     <h5>{{slot.title}}</h5>
