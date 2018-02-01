@@ -49,6 +49,15 @@ import env from './server/env';
 
 const app = express();
 
+// Redirect HTTP to HTTPS
+app.use ((req, res, next) => {
+  if (req.secure) {
+    next();
+  } else {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+});
+
 // Parsers for POST data
 app.use(bodyParser.json({limit: '5mb'}));
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -98,9 +107,9 @@ app.get('*', (req, res) => {
 
 
 // HTTP
-// const http_port = environment.http_port || "80";
-// const httpServer = http.createServer(app);
-// httpServer.listen(http_port, () => console.log(`HTTP running on localhost:${http_port}`));
+const http_port = env.http_port || "80";
+const httpServer = http.createServer(app);
+httpServer.listen(http_port, () => console.log(`HTTP running on port ${http_port}`));
 
 // HTTPS
 const https_port = env.https_port || "443";
@@ -108,4 +117,4 @@ const privateKey  = fs.readFileSync('key.pem', 'utf8');
 const certificate = fs.readFileSync('cert.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(https_port, () => console.log(`HTTPS running on localhost:${https_port}`));
+httpsServer.listen(https_port, () => console.log(`HTTPS running on port ${https_port}`));
