@@ -8,7 +8,7 @@ export const environment = {
   googleClientSecret: 'wASTuBK1N0pHsmnSDG3_MNVs',
   facebookAppId: '202919500264403',
   facebookAppSecret: 'a20ea1b64d72e6291a661a8757060024',
-  wechatAppId: '',
-  wechatAppSecret: '',
+  wechatAppId: 'fakeId',
+  wechatAppSecret: 'fakeSecret',
   gaodeApiKey: '771eef4f59814509ac4ffb78f480d544'
 };
