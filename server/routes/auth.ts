@@ -5,6 +5,8 @@ import * as passport_google from 'passport-google-oauth20';
 const GoogleStrategy = passport_google.Strategy;
 import * as passport_facebook from 'passport-facebook';
 const FacebookStrategy = passport_facebook.Strategy;
+import * as passport_wechat from 'passport-wechat';
+const WechatStrategy = passport_wechat.Strategy;
 import env from '../env';
 import { dataGatewayFactory } from "../data/gateway";
 import { Account } from '../../types';
@@ -19,53 +21,51 @@ const accountApi = dataGatewayFactory.produce('account');
 /**
  * Google SSO settings
  */
-passport.use(new GoogleStrategy({
-  clientID: env.googleClientId,
-  clientSecret: env.googleClientSecret,
-  callbackURL: `https://${host}/auth/google/callback`
-},
-async (accessToken, refreshToken, profile, cb) => {
-  console.log('Google SSO profile', JSON.stringify(profile));
-  const email = profile.emails[0].value;
-  let account : Account = await accountApi.queryOne({displayName: profile.displayName, provider: 'google'});
-  if(!account) {
-    account = {
-      id: uuid.v4(),
-      email: email,
-      name: email + '@google',
-      displayName: email,
-      provider: 'google',
-      secret: null,
-      enabled: true
-    };
-    await accountApi.create(account);
-  }
-  cb(null, account);
+
+function getPassportStrategyCallback(provider: string) {
+  return async (accessToken, refreshToken, profile, cb) => {
+    console.log(`SSO profile by ${provider}`, JSON.stringify(profile));
+    const email = profile.emails[0].value;
+    let account : Account = await accountApi.queryOne({displayName: profile.displayName, provider});
+    if(!account) {
+      account = {
+        id: uuid.v4(),
+        email: email,
+        name: email + '@' + provider,
+        displayName: email,
+        provider,
+        secret: null,
+        enabled: true
+      };
+      await accountApi.create(account);
+    }
+    cb(null, account);
+  };
 }
+
+passport.use(new GoogleStrategy({
+    clientID: env.googleClientId,
+    clientSecret: env.googleClientSecret,
+    callbackURL: `https://${host}/auth/google/callback`
+  },
+  getPassportStrategyCallback('google')
 ));
 
 passport.use(new FacebookStrategy({
-  clientID: env.facebookAppId,
-  clientSecret: env.facebookAppSecret,
-  callbackURL: `https://${host}/auth/facebook/callback`
-},
-async (accessToken, refreshToken, profile, cb) => {
-  console.log('Facebook SSO profile', JSON.stringify(profile));
-  let account : Account = await accountApi.queryOne({displayName: profile.displayName, provider: 'facebook'});
-  if(!account) {
-    account = {
-      id: uuid.v4(),
-      email: null,
-      name: profile.id + '@facebook',
-      displayName: profile.displayName,
-      provider: 'facebook',
-      secret: null,
-      enabled: true
-    };
-    await accountApi.create(account);
-  }
-  cb(null, account);
-}
+    clientID: env.facebookAppId,
+    clientSecret: env.facebookAppSecret,
+    callbackURL: `https://${host}/auth/facebook/callback`
+  },
+  getPassportStrategyCallback('facebook')
+));
+
+passport.use(new WechatStrategy({
+    appID: env.wechatAppId,
+    appSecret: env.wechatAppSecret,
+    callbackURL: `https://${host}/auth/wechat/callback`,
+    client: 'web'
+  },
+  getPassportStrategyCallback('wechat')
 ));
 
 passport.serializeUser((user, cb) => {
@@ -88,6 +88,12 @@ router.get('/facebook', passport.authenticate('facebook', { scope: ['public_prof
 router.get('/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   (req, res) => handleSsoAccount(req, res, 'facebook'));
+
+// Wechat SSO
+router.get('/wechat', passport.authenticate('wechat', { scope: ['snsapi_userinfo'] }));
+router.get('/wechat/callback',
+  passport.authenticate('wechat', { failureRedirect: '/login' }),
+  (req, res) => handleSsoAccount(req, res, 'wechat'));
 
 function handleSsoAccount(req, res, provider) {
   const account = req['user'];
