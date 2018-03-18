@@ -25,6 +25,15 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * Run `ctrl-A ctrl-D` to detach `screen`.
 * Check `curl -k https://localhost` to check if the web site is working properly.
 
+## SSH to prod server
+### Amazon in Sydney (for outside of China)
+* Go to the `keys` folder
+* `ssh -i "airmombaby-proto.pem" ubuntu@ec2-13-210-98-77.ap-southeast-2.compute.amazonaws.com`
+
+### Tencent (within China)
+* `ssh ubuntu@airmnb.com`
+* Input password.
+
 ## TODO:
 * Wechat SSO
 * NativeScript project for OS X, Android
