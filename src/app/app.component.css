@@ -58,7 +58,7 @@
 
 .amb-provider {
   font-size: x-small;
-  position: relative;
-  top: 15px;
-  left: -144px;
+  position: absolute;
+  top: 30px;
+  left: 55px;
 }
