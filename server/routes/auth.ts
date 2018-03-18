@@ -26,13 +26,15 @@ function getPassportStrategyCallback(provider: string) {
   return async (accessToken, refreshToken, profile, cb) => {
     console.log(`SSO profile by ${provider}`, JSON.stringify(profile));
     const email = profile.emails[0].value;
-    let account : Account = await accountApi.queryOne({displayName: profile.displayName, provider});
+    const displayName = profile.displayName || email;
+    const name = email + '@' + provider;
+    let account : Account = await accountApi.queryOne({name});
     if(!account) {
       account = {
         id: uuid.v4(),
         email: email,
         name: email + '@' + provider,
-        displayName: email,
+        displayName,
         provider,
         secret: null,
         enabled: true
