@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { AmapAutocompleteService, AmapAutocompleteWrapper } from 'ngx-amap';
 
-import { MapLocation } from '../../../types';
-
 @Component({
   selector: 'amb-address-input-gaode',
   templateUrl: './address-input-gaode.component.html',

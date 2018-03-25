@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SelectOption } from '../../../types';
 
 @Injectable()
 export class SelectOptionService {

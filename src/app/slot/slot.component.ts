@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as uuid from "uuid";
 import * as moment from "moment";
 
-import { ServiceSlot, Gender, EventSite, SelectOption, MapLocation } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { ApiServiceFactory, ApiService } from '../core/api.service';
 import { NotificationService } from '../core/notification.service';

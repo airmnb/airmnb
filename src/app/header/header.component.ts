@@ -1,8 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 
@@ -33,7 +31,7 @@ export class HeaderComponent implements OnInit {
     return this.hasLoggedIn && this.session.isProvider;
   }
 
-  get role(): Role {
+  get role(): MnbRole {
     return this.session.role;
   }
 
@@ -58,13 +56,13 @@ export class HeaderComponent implements OnInit {
   }
 
   switchToProvider() {
-    this.session.changeRole(Role.Provider);
+    this.session.changeRole(MnbRole.Provider);
     this.router.navigateByUrl('/slots');
 
   }
 
   switchToConsumer() {
-    this.session.changeRole(Role.Consumer);
+    this.session.changeRole(MnbRole.Consumer);
   }
 
   onClickLocale($event) {

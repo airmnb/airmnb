@@ -4,8 +4,6 @@ import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 
-import { MapLocation } from '../../../types';
-
 @Component({
   selector: 'amb-address-input-google',
   templateUrl: './address-input-google.component.html',

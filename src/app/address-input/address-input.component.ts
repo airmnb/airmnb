@@ -4,7 +4,6 @@ import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 
-import { MapLocation } from '../../../types';
 import { UtilService } from '../core/util.service';
 import { SessionService } from '../core/session.service';
 

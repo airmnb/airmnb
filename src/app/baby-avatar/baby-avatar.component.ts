@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { BabyProfile } from '../../../types';
-
 @Component({
   selector: 'amb-baby-avatar',
   templateUrl: './baby-avatar.component.html',

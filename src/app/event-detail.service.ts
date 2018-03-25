@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { ServiceSlot } from '../../types';
 import { EventDetailComponent } from './event-detail/event-detail.component';
 
 @Injectable()

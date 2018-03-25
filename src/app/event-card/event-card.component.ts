@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ServiceSlot, Gender } from '../../../types';
 import { UtilService } from '../core/util.service';
 
 @Component({

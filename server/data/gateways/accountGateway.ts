@@ -1,5 +1,4 @@
 import { DataGatewayBase } from "./DataGateway";
-import {Account} from "../../../types";
 
 class AccountGateway extends DataGatewayBase<Account> {
   constructor(){

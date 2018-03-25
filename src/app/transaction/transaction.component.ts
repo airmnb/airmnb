@@ -2,12 +2,9 @@ import { Component, OnInit, ViewChild, AfterViewInit, AfterViewChecked, OnDestro
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatStepper } from '@angular/material';
-
 import { Subject } from 'rxjs/Subject';
 import { setInterval, clearInterval } from 'timers';
 import * as moment from 'moment';
-
-import { Booking, BookingStatus } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { UtilService } from '../core/util.service';
 import { SessionService } from '../core/session.service';

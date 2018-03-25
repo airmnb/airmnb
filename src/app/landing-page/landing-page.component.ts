@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { SearchQuery, ServiceSlot, MapCoord, Gender, SelectOption } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SlotService } from '../core/slot.service';
 import { SelectOptionService } from '../core/select-option.service';

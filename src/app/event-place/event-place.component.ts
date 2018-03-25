@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { EventPlace, MapLocation, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';
@@ -33,7 +32,7 @@ export class EventPlaceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.session.assureRole(Role.Provider);
+    this.session.assureRole(MnbRole.Provider);
 
     this.activatedRoute.params.subscribe(p => {
       const placeId = p.id;

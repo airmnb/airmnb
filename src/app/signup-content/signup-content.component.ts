@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
-
 import * as uuid from 'uuid';
-
-import { Account, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 import { ApiService, ApiServiceFactory } from '../core/api.service';
@@ -33,7 +30,7 @@ export class SignupContentComponent implements OnInit {
   public async onSubmit() {
     this.submitted = true;
     try{
-      const model: Account = {
+      const model: MnbAccount = {
         id: uuid.v4(),
         name: this.accountName,
         displayName: this.accountName,
@@ -48,8 +45,8 @@ export class SignupContentComponent implements OnInit {
         throw new Error('The account has be registered.');
       }
       const id = await this.api.accountApi.add(model);
-      const account : Account = await this.api.accountApi.getOne(id);
-      await this.sessionService.login(account, Role.Consumer);
+      const account = await this.api.accountApi.getOne(id);
+      await this.sessionService.login(account, MnbRole.Consumer);
       this.router.navigateByUrl("/");
       this.errorMessage = null;
     }catch (e){

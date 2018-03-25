@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-
 import * as uuid from 'uuid';
-
-import { AccountProfile, ServiceSlot, MapLocation, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { ApiServiceFactory, ApiService } from '../core/api.service';
 import { SessionService } from '../core/session.service';
@@ -18,7 +15,7 @@ import { UtilService } from '../core/util.service';
 export class ProfileContentComponent implements OnInit {
 
   public uploadApiUrl = "/api/image/";
-  @Input() profileRole: Role;
+  @Input() profileRole: MnbRole;
 
   model = {
     id: null,

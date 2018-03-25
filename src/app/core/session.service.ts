@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 import { CookieService } from 'ngx-cookie-service';
-
-import { Account, AccountProfile, Role } from '../../../types';
 import { ApiFacade } from './apiFacade';
 import { UtilService } from './util.service';
 
@@ -16,13 +13,13 @@ const langKey = 'lang';
 
 @Injectable()
 export class SessionService {
-  private accountSubject = new Subject<Account>();
-  private _account: Account;
-  private _role: Role;
+  private accountSubject = new Subject<MnbAccount>();
+  private _account: MnbAccount;
+  private _role: MnbRole;
   private _profile: AccountProfile;
   private _locale: string;
 
-  public get role(): Role{
+  public get role(): MnbRole{
     return this._role;
   }
 
@@ -46,7 +43,7 @@ export class SessionService {
     console.log('Locale change to ', value);
   }
 
-  get account(): Account {
+  get account(): MnbAccount {
     return this._account;
   }
 
@@ -60,21 +57,21 @@ export class SessionService {
 
   get isProvider(): boolean {
     // tslint:disable-next-line:triple-equals
-    return this.role == Role.Provider;
+    return this.role == MnbRole.Provider;
   }
 
   get isConsumer(): boolean {
     // tslint:disable-next-line:triple-equals
-    return this.role == Role.Consumer;
+    return this.role == MnbRole.Consumer;
   }
 
-  changeRole(role: Role) {
+  changeRole(role: MnbRole) {
     this._role = role;
     this.saveCookie();
     this.router.navigateByUrl('/');
   }
 
-  assureRole(role: Role) {
+  assureRole(role: MnbRole) {
     // tslint:disable-next-line:triple-equals
     if(!this.hasLoggedIn || role != this.role) {
       console.log(`Expected ${JSON.stringify(role)}, but you are ${JSON.stringify(this.role)}`);
@@ -82,7 +79,7 @@ export class SessionService {
     }
   }
 
-  async login(account: Account, role: Role): Promise<void> {
+  async login(account: MnbAccount, role: MnbRole): Promise<void> {
     this._account = account;
     this._role = role;
     this._profile = await this.api.accountProfileApi.get({accountId: account.id});

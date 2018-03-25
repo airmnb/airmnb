@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-
-import { ServiceSlot, Gender, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 import { UtilService } from '../core/util.service';
@@ -25,7 +23,7 @@ export class SlotEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.session.assureRole(Role.Provider);
+    this.session.assureRole(MnbRole.Provider);
     const accountId = this.session.account.id;
     this.loadSlots(accountId);
   }

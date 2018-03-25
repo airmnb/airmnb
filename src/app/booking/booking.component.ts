@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material';
 
-import { ServiceSlot, BabyProfile, Gender, Booking } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { NotificationService } from '../core/notification.service';
 import { SessionService } from '../core/session.service';

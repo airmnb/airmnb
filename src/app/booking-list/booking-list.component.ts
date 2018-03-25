@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'underscore';
 
-import { ServiceSlot, Booking, BabyProfile, Gender, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { BabyService } from '../core/baby.service';
 import { BookingService } from '../core/booking.service';

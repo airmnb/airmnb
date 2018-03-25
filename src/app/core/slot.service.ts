@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { SearchQuery, ServiceSlot, Gender } from '../../../types';
 import { ApiFacade } from './apiFacade';
 import { ApiService, ApiServiceFactory } from './api.service';
 import { NotificationService } from './notification.service';

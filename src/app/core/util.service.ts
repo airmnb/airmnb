@@ -7,7 +7,6 @@ import * as _ from 'underscore';
 import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../environments/environment';
-import { Gender } from '../../../types';
 import { Router } from '@angular/router';
 import { Location }   from '@angular/common';
 import { ActivatedRoute } from '@angular/router';

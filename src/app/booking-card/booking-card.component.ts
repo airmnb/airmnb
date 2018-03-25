@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Booking, AccountProfile, BabyProfile, ServiceSlot, Gender } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { BookingService } from '../core/booking.service';
 import { SessionService } from '../core/session.service';

@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { MarkerManager } from '@agm/core/services/managers/marker-manager';
 import { AgmMarker } from '@agm/core/directives/marker';
 import { LatLngLiteral } from '@agm/core';
-
-import { MapLocation, ServiceSlot, MapCoord } from '../../../types';
 import { MapServiceService } from '../core/map-service.service';
 import { UtilService } from '../core/util.service';
 import { SessionService } from '../core/session.service';

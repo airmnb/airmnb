@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { Account, AccountProfile, Role } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { LoginService } from '../core/api.service';
 import { SessionService } from '../core/session.service';
@@ -17,7 +15,7 @@ export class LoginContentComponent implements OnInit {
 
   @Input() accountName: string;
   password: string;
-  role: Role;
+  role: MnbRole;
   errorMessage: string;
   submitted: boolean;
   get isInTheGreatWall(): boolean {
@@ -51,7 +49,7 @@ export class LoginContentComponent implements OnInit {
     await this.login(this.accountName, this.password, this.role);
   }
 
-  private async login(name: string, password: string, role: Role) {
+  private async login(name: string, password: string, role: MnbRole) {
     try{
       const account = await this.loginService.login({
         name,

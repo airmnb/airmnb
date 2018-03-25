@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
 import { environment } from '../../environments/environment';
-import { Account, LoginInfo } from '../../../types';
 
 // environment.apiUrl is like http://localhost:3000/api/
 const API_URL_BASE = environment.apiUrl.replace(/\/$/, "");
@@ -126,7 +124,7 @@ export class LoginService {
     this.apiUrl = API_URL_BASE + '/login';
    }
 
-  public async login(info: LoginInfo): Promise<Account> {
+  public async login(info: LoginInfo): Promise<MnbAccount> {
     const resp = await this.http.post(this.apiUrl, info).toPromise();
     if (resp.status === 200){
       const json = resp.text();

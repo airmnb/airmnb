@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
-
-import { ServiceSlot, Gender } from '../../../types';
 import { UtilService } from '../core/util.service';
 
 @Component({

@@ -1,6 +1,5 @@
 'user strict';
 import * as express from 'express';
-import { Account, LoginInfo } from "../../types";
 import { dataGatewayFactory } from "../data/gateway";
 import * as fs from 'fs';
 import * as path from 'path';
@@ -156,7 +155,7 @@ router.post('/login', (req, res) => {
     secret: info.password
   };
   accountGateway.queryOne(query)
-    .then((x: Account) => {
+    .then((x: MnbAccount) => {
       delete x.secret;
       if (x.enabled){
         res.json(x);

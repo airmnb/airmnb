@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
-
-import { ServiceSlot, Gender } from '../../../types';
 import { SessionService } from '../core/session.service';
 import { UtilService } from '../core/util.service';
 

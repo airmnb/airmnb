@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 
-import { BabyProfile, Role, Gender } from '../../../types';
 import { ApiFacade } from '../core/apiFacade';
 import { SessionService } from '../core/session.service';
 import { UtilService } from '../core/util.service';
@@ -25,7 +24,7 @@ export class BabiesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.session.assureRole(Role.Consumer);
+    this.session.assureRole(MnbRole.Consumer);
     const accountId = this.session.account.id;
     this.loadBabies(accountId).subscribe(x => this.babies = x);
   }

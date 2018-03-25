@@ -1,8 +1,6 @@
 import { Component, OnInit,EventEmitter, Input, Output } from '@angular/core';
 import {  } from '@angular/core/src/event_emitter';
 
-import { SelectOption } from '../../../types';
-
 @Component({
   selector: 'amb-select',
   templateUrl: './select.component.html',

@@ -9,7 +9,6 @@ import * as passport_wechat from 'passport-wechat';
 const WechatStrategy = passport_wechat.Strategy;
 import env from '../env';
 import { dataGatewayFactory } from "../data/gateway";
-import { Account } from '../../types';
 import * as uuid from "uuid";
 
 export const passportMiddleware = passport;
@@ -28,7 +27,7 @@ function getPassportStrategyCallback(provider: string) {
     const email = profile.emails[0].value;
     const displayName = profile.displayName || email;
     const name = email + '@' + provider;
-    let account : Account = await accountApi.queryOne({name});
+    let account : MnbAccount = await accountApi.queryOne({name});
     if(!account) {
       account = {
         id: uuid.v4(),

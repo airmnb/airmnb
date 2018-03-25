@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { MapLocation } from '../../../types';
-
 @Injectable()
 export class MapServiceService {
 

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ServiceSlot, Gender } from '../../../types';
 import { MatDialogRef } from '@angular/material';
 import { UtilService } from '../core/util.service';
 import { Router } from '@angular/router';
