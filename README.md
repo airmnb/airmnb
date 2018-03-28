@@ -53,3 +53,5 @@ To start angular only with HTTPS (no api express)
 ```
 ng serve --ssl 1 --ssl-key certificate/key.pem --ssl-cert certificate/cert.pem
 ```
+
+Postgresql ORM https://github.com/typeorm/typeorm
