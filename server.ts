@@ -24,6 +24,10 @@ import * as authRouter from './server/routes/auth';
 
 import env from './server/env';
 
+import {createConnection} from './server/pg/pg';
+
+createConnection().then(c => console.log('pg done')).catch(e => console.log('pg failed', e));
+
 // passport.use(new GoogleStrategy({
 //   clientID: environment.googleClientId,
 //   clientSecret: environment.googleClientSecret,
@@ -44,8 +48,6 @@ import env from './server/env';
 // passport.deserializeUser((obj, cb) => {
 //   cb(null, obj);
 // });
-
-
 
 const app = express();
 
