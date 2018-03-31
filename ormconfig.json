@@ -1,0 +1,24 @@
+{
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "postgres",
+   "password": "sa",
+   "database": "airmnb",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "server/pg/entities/**/*.ts"
+   ],
+   "migrations": [
+      "server/pg/migrations/**/*.ts"
+   ],
+   "subscribers": [
+      "server/pg/subscribers/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "server/pg/entities",
+      "migrationsDir": "server/pg/migrations",
+      "subscribersDir": "server/pg/subscribers"
+   }
+}

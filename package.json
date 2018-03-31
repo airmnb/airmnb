@@ -68,7 +68,10 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
     "passport-wechat": "^2.0.4",
+    "pg": "^7.4.1",
+    "reflect-metadata": "^0.1.12",
     "rxjs": "^5.5.2",
+    "typeorm": "^0.1.19",
     "underscore": "^1.8.3",
     "uuid": "^3.1.0",
     "zone.js": "^0.8.14"
