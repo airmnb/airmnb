@@ -23,10 +23,12 @@ import * as authRouter from './server/routes/auth';
 // const GoogleStrategy = passport_google.Strategy;
 
 import env from './server/env';
+import {config} from './configs/config';
 
 import {createConnection} from './server/pg/pg';
+import { ServerOptions } from 'https';
 
-createConnection().then(c => console.log('pg done')).catch(e => console.log('pg failed', e));
+// createConnection().then(c => console.log('pg done')).catch(e => console.log('pg failed', e));
 
 // passport.use(new GoogleStrategy({
 //   clientID: environment.googleClientId,
@@ -107,7 +109,6 @@ app.get('*', (req, res) => {
  */
 // app.set('port', port);
 
-
 // HTTP
 const http_port = env.http_port || "80";
 const httpServer = http.createServer(app);
@@ -115,8 +116,10 @@ httpServer.listen(http_port, () => console.log(`HTTP running on port ${http_port
 
 // HTTPS
 const https_port = env.https_port || "443";
-const privateKey  = fs.readFileSync('key.pem', 'utf8');
-const certificate = fs.readFileSync('cert.pem', 'utf8');
-const credentials = { key: privateKey, cert: certificate };
+const credentials: ServerOptions = { 
+  key: fs.readFileSync(config.key_file), 
+  cert: fs.readFileSync(config.crt_file),
+  ca: config.ca_files.map(x => fs.readFileSync(x))
+};
 const httpsServer = https.createServer(credentials, app);
 httpsServer.listen(https_port, () => console.log(`HTTPS running on port ${https_port}`));
