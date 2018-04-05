@@ -22,3 +22,5 @@ const siteName = process.env.SITE_NAME;
 console.log('Site name:', siteName);
 
 export const config = getConfig(siteName);
+
+console.log('config', config);
